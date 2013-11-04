@@ -1,0 +1,31 @@
+<div class="container-fluid">
+<!--   <div class="row-fluid">
+    <div class="span12">
+     <button ng-click="chiliSpicy()">Chili</button>
+     <button ng-click="jalapenoSpicy({{user}})">Jalapeño</button>
+     <p>The food is {{spice}} spicy!</p>
+     <p>This is the partial for view 1.</p>
+    </div>
+  </div> -->
+  <div class="row-fluid">
+    <div class="span12">
+      <input type="text" placeholder="email" ng-model="user.email">
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12">
+      <input type="text" placeholder="password" ng-model="user.password">
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12">
+      <!-- <a class="btn btn-danger" href="#/login">Login</a> -->
+       <button class="btn btn-danger" ng-click="validateUser()">Login</button>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span12">
+      <a href="#/forgotpassword">Forgot your password?</a>
+    </div>
+  </div>
+</div>
