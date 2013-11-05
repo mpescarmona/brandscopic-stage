@@ -1,5 +1,39 @@
 
+/*-- COLOR PALETTE --*/
+@bg: #ebeae6;
+@bgLogin: #4f4f4f;
+@buttons: #de4d43;
+@buttons-hover:#cc4137;
+@darkGrey:#363636;
+
+/*-- FONT STYLES --*/
+
+@baseFontFamily:'Lato', sans-serif;
+
+
+/*-- GENERAL STYLES -------------------------*/
 
 body{
-	background-color: #cOcOcO;
+	background-color: @bg;
+	font-family: @baseFontFamily;
+}
+
+.btn:focus{
+	outline:0;
+}
+
+.btn-danger{
+	background-color: @buttons;
+	border: 0;
+	&:hover{
+		background-color: @buttons-hover;
+	}
+}
+
+
+/*-- LOGIN STYLES --*/
+
+.login{
+	background-color: @bgLogin;
+	color: #989898;
 }
