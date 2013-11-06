@@ -36,13 +36,6 @@ body{
 
 /*-- BUTTONS --*/
 
-button.navbar-toggle{
-	border: 0;
-	float: left;
-	margin-left: 10px;
-	margin-right: 0;
-}
-
 .btn:focus{
 	outline:0;
 }
@@ -95,6 +88,19 @@ button.navbar-toggle{
 	&.navbar-default{
 		background-color: @nav;
 		border: 0;
+	}
+}
+
+.navbar-default{
+	.navbar-toggle{
+		border: 0;
+		float: left;
+		margin-left: 10px;
+		margin-right: 0;
+		&:hover, &:focus{
+			background-color: @nav;
+			color: white;
+		}
 	}
 }
 
