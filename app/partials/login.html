@@ -1,15 +1,20 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <input type="text" placeholder="Email" ng-model="user.email">
-      <input type="text" placeholder="Password" ng-model="user.password">
-      <!-- <a class="btn btn-danger" href="#/login">Login</a> -->
-       <button class="btn btn-danger" ng-click="validateUser()">Login</button>
-    </div>
+<div class="row">
+  <div class="col-xs-12">
+    <input class="email" type="text" placeholder="Email" ng-model="user.email">
   </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <a href="#/forgotpassword">Forgot your password?</a>
-    </div>
+  <div class="col-xs-12">
+    <input class="password" type="text" placeholder="Password" ng-model="user.password">
+  </div>
+
+  <!-- <a class="btn btn-danger" href="#/login">Login</a> -->
+  <div class="col-xs-12"> 
+    <button class="btn btn-danger" ng-click="validateUser()">Login</button>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <a href="#/forgotpassword">Forgot your password?</a>
+  </div>
+</div>
+

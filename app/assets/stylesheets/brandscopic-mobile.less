@@ -1,10 +1,15 @@
 
+@import "../bootstrap/less/mixins.less";
+
+
 /*-- COLOR PALETTE --*/
 @bg: #ebeae6;
 @bgLogin: #4f4f4f;
 @buttons: #de4d43;
 @buttons-hover:#cc4137;
 @darkGrey:#363636;
+@lightGrey: #c0c0c0;
+@lightTxt: #7a7a7a;
 
 /*-- FONT STYLES --*/
 
@@ -17,6 +22,8 @@ body{
 	background-color: @bg;
 	font-family: @baseFontFamily;
 }
+
+/*-- BUTTONS --*/
 
 .btn:focus{
 	outline:0;
@@ -33,7 +40,29 @@ body{
 
 /*-- LOGIN STYLES --*/
 
+.brand{
+	text-align: center;
+	img.img-responsive{
+		display: inline-block !important;
+	}
+}
+
 .login{
 	background-color: @bgLogin;
 	color: #989898;
+	input{
+		color: @lightTxt;
+		height: 40px;
+		padding: 0 10px;
+		width: 100%;
+		&.email{
+			.border-top-radius(6px);
+			border:0;
+			border-bottom: 1px solid @lightGrey;
+		}
+		&.password{
+			.border-bottom-radius(6px);
+			border: 0;
+		}
+	}
 }
