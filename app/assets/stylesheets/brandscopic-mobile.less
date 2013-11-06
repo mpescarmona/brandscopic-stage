@@ -7,7 +7,7 @@
 @bgLogin: #4f4f4f;
 @buttons: #de4d43;
 @buttons-hover:#cc4137;
-@darkGrey:#363636;
+@nav:#363636;
 @lightGrey: #c0c0c0;
 @lightTxt: #7a7a7a;
 
@@ -25,6 +25,11 @@ body{
 
 /*-- BUTTONS --*/
 
+button.navbar-toggle{
+	float: left;
+	margin-left: 15px;
+}
+
 .btn:focus{
 	outline:0;
 }
@@ -37,7 +42,6 @@ body{
 	}
 }
 
-
 /*-- LOGIN STYLES --*/
 
 .brand{
@@ -49,7 +53,13 @@ body{
 
 .login{
 	background-color: @bgLogin;
-	color: #989898;
+	a{
+		color: #989898;
+	}
+	.btn{
+		height: 40px;
+		width: 100%;
+	}
 	input{
 		color: @lightTxt;
 		height: 40px;
@@ -63,6 +73,15 @@ body{
 		&.password{
 			.border-bottom-radius(6px);
 			border: 0;
+			margin-bottom: 10px;
 		}
 	}
 }
+.navbar{
+	border-radius: 0;
+	&.navbar-default{
+		background-color: @nav;
+		border: 0;
+	}
+}
+
