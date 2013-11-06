@@ -5,7 +5,7 @@
 angular.module('brandscopicApp.controllers', [])
   .controller('LoginController', ['$scope', function($scope) {
     $scope.validUser = false;
-    $scope.user = {'email': 'email', 'password': 'password'};
+    $scope.user = {'email': '', 'password': ''};
 
     $scope.users = [{'email': 'testuser@brandscopic.com', 'password': 'testuser'},
                     {'email': 'testuser1@brandscopic.com', 'password': 'testuser1'}];
