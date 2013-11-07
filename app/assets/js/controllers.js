@@ -32,6 +32,9 @@ angular.module('brandscopicApp.controllers', [])
   .controller('DashboardController', ['$scope', function($scope) {
 
   }])
+  .controller('EventsController', ['$scope', function($scope) {
+
+  }])
   .controller('PasswordController', ['$scope', function($scope) {
 
   }]);
