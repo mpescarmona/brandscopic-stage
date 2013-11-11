@@ -19,8 +19,13 @@
 /*-- GENERAL STYLES -------------------------*/
 
 body{
-	background-color: @bg;
 	font-family: @baseFontFamily;
+	&.loginPages{
+		background-color: @bgLogin;		
+	}
+	&.pages{
+		background-color: @bg;
+	}
 }
 
 .box-container{
