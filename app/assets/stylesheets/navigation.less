@@ -139,6 +139,7 @@ header {
 	  margin: 15px;		
 	}
 	h4{
+		color: @brand;
 	  margin-bottom: 0;	
 	  padding: 8px 24px 13px;
 	}
@@ -150,10 +151,10 @@ header {
 	li > a {
 	  display: block;
 	  border-top: 1px solid rgba(255, 255, 255, 0.1);
-	  padding: 15px;
-	  font-weight: bold;
+	  padding: 15px 15px 13px;
+	  font-weight: 400;
 	  text-decoration: none;
-	  color: #ccc;
+	  color: @menuTxt;
 	  text-indent: 10px;
 	  &.eventIcon:before{
 	  	content:"\e605";
@@ -177,7 +178,7 @@ header {
 	  	content:"\e601";
 	  }
 	  &:before{
-	  	color: white;
+	  	color: @menuTxt;
 	  	font-size: 16px;
 	  }
 	  &:hover{
