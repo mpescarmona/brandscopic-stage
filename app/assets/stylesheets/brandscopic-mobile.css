@@ -1,0 +1,281 @@
+/*-- STYLES FOR THE NAVIGATION BAR --*/
+.snap-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  z-index: 2;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.snap-drawers {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+}
+.snap-drawer {
+  position: absolute;
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: auto;
+  width: 265px;
+  height: auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transition: width 0.3s ease;
+  -moz-transition: width 0.3s ease;
+  -ms-transition: width 0.3s ease;
+  -o-transition: width 0.3s ease;
+  transition: width 0.3s ease;
+}
+.snap-drawer-left {
+  left: 0;
+  z-index: 1;
+}
+.snapjs-left .snap-drawer-right {
+  display: none;
+}
+.snapjs-expand-left .snap-drawer-left {
+  width: 100%;
+}
+/* Show the "Drag" background in the demo */
+#content {
+  background: #bfc7d8 url(drag.png) center 75% no-repeat;
+}
+/* HEADER styles */
+header {
+  background: #363636;
+  border-bottom: 1px solid #111b32;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: auto;
+  height: 50px;
+}
+header h1 {
+  color: #fff;
+  font-size: 16px;
+  height: 44px;
+  line-height: 22px;
+  left: 44px;
+  margin-top: 15px;
+  position: absolute;
+  right: 44px;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.8);
+  top: 0;
+  width: auto;
+}
+#open-left {
+  background: url(open.png) center center no-repeat;
+  display: block;
+  width: 44px;
+  height: 44px;
+}
+/* Show the red "No Drag" box in the demo */
+#no-drag,
+#do-drag {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 100px;
+  margin-left: -25%;
+  margin-top: -50px;
+  background: red;
+  color: #FFF;
+  text-align: center;
+  line-height: 100px;
+}
+#do-drag {
+  background: green;
+}
+/* CONTENT STYLES */
+.snap-content {
+  background: #BFC7D8;
+  padding-top: 44px;
+}
+.snap-drawers {
+  background: #323949;
+}
+.snap-drawer {
+  background: #4f4f4f;
+  color: #eee;
+}
+.snap-drawer h3 {
+  font-size: 36px;
+  font-weight: normal;
+  margin: 15px;
+}
+.snap-drawer h4 {
+  margin-bottom: 0;
+  padding: 8px 24px 13px;
+}
+.snap-drawer ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.snap-drawer li > a {
+  display: block;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #ccc;
+  text-indent: 10px;
+}
+.snap-drawer li > a:hover {
+  background-color: #3d3d3d;
+}
+/*-- COLOR PALETTE --*/
+/*-- FONT STYLES --*/
+/*-- ICON FONTS --*/
+@font-face {
+  font-family: 'icons';
+  src: url('fonts/icons.eot');
+  src: url('fonts/icons.eot?#iefix') format('embedded-opentype'), url('fonts/icons.ttf') format('truetype'), url('fonts/icons.woff') format('woff'), url('fonts/icons.svg#icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.eventIcon:before,
+.tasksIcon:before {
+  content: "\e605";
+  color: red;
+  font-family: 'icons';
+  font-size: 23px;
+  position: relative;
+  left: -10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.flip {
+  position: relative;
+  -webkit-perspective: 800;
+  perspective: 800px;
+}
+.flip.flipped .card {
+  -webkit-transform: rotatex(-180deg);
+  transform: rotatex(-180deg);
+}
+.flip.flipped[horizontal] .card {
+  -webkit-transform: rotatey(-180deg);
+  transform: rotatey(-180deg);
+}
+.flip .card {
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+.flip .card .face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  z-index: 2;
+}
+.flip .card .front {
+  position: absolute;
+  z-index: 1;
+}
+.flip .card .back {
+  -webkit-transform: rotatex(-180deg);
+  transform: rotatex(-180deg);
+}
+.flip[horizontal] .card .back {
+  -webkit-transform: rotatey(-180deg);
+  transform: rotatey(-180deg);
+}
+/*-- GENERAL STYLES -------------------------*/
+body {
+  font-family: 'Lato', sans-serif;
+}
+body.loginLayout {
+  background-color: #4f4f4f;
+}
+body.appLayout {
+  background-color: #ebeae6;
+}
+.box-container {
+  background-color: white;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  box-sizing: border-box;
+  height: auto;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+}
+/*-- BUTTONS --*/
+.btn:focus {
+  outline: 0;
+}
+.btn-danger {
+  background-color: #de4d43;
+  border: 0;
+}
+.btn-danger:hover {
+  background-color: #cc4137;
+}
+/*-- LOGIN STYLES --*/
+.brand {
+  text-align: center;
+}
+.brand img.img-responsive {
+  display: inline-block !important;
+}
+.login {
+  background-color: #4f4f4f;
+}
+.login a {
+  color: #989898;
+}
+.login .btn {
+  height: 40px;
+  width: 100%;
+}
+.login input {
+  color: #7a7a7a;
+  height: 40px;
+  padding: 0 10px;
+  width: 100%;
+}
+.login input.email {
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  border: 0;
+  border-bottom: 1px solid #c0c0c0;
+}
+.login input.password {
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border: 0;
+  margin-bottom: 10px;
+}
+.page {
+  color: white;
+  font-weight: bold;
+  margin: 15px auto;
+  text-align: center;
+  width: 77%;
+}
