@@ -59,10 +59,6 @@
   width: 100%;
 }
 
-/* Show the "Drag" background in the demo */
-#content {
-	background: #BFC7D8 url(drag.png) center 75% no-repeat;
-}
 
 /* HEADER styles */
 
@@ -92,10 +88,16 @@ header {
 }
 
 #open-left {
-  background: url(open.png) center center no-repeat;
   display: block;
   width: 44px;
   height: 44px;
+  &:before{
+  	color: white;
+		content:"\e600";
+		font-size: 18px;
+		left: 15px !important;
+		top: 13px;
+  }
 }
 
 /* Show the red "No Drag" box in the demo */
@@ -120,7 +122,7 @@ header {
 /* CONTENT STYLES */
 
 .snap-content {
-  background: #BFC7D8;
+  background: @bg;
   padding-top: 44px;
 }
 
