@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('brandscopicApp.controllers', [])
-  .controller('LoginController', ['$scope', function($scope) {
+  .controller('LoginController', ['$scope', '$location', function($scope, $location) {
     $scope.validUser = false;
     $scope.user = {'email': '', 'password': ''};
 
@@ -16,9 +16,15 @@ angular.module('brandscopicApp.controllers', [])
           sameEmail = u.email.toLowerCase() == $scope.user.email.toLowerCase();
           samePasswd = u.password == $scope.user.password;
           console.log(sameEmail)
-          if (sameEmail && samePasswd) console.log('pepe'); return 
+          if (sameEmail && samePasswd) {
+           $scope.validUser = true;
+            console.log($scope.validUser);
+            $location.path('/dashboard');
+            return
+          }
         }   
     };
+
   }])
   .controller('NavigationController', ['$scope', function($scope) {
     $scope.navigationItems = [{'label': 'EVENTS', 'link': '#'},
