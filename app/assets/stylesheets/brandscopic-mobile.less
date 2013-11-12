@@ -1,29 +1,17 @@
 
 @import "../bootstrap/less/mixins.less";
-
-
-/*-- COLOR PALETTE --*/
-@bg: #ebeae6;
-@bgLogin: #4f4f4f;
-@buttons: #de4d43;
-@buttons-hover:#cc4137;
-@nav:#363636;
-@lightGrey: #c0c0c0;
-@lightTxt: #7a7a7a;
-
-/*-- FONT STYLES --*/
-
-@baseFontFamily:'Lato', sans-serif;
-
+@import "navigation.less";
+@import "variables.less";
+@import "flip.less";
 
 /*-- GENERAL STYLES -------------------------*/
 
 body{
 	font-family: @baseFontFamily;
-	&.loginPages{
-		background-color: @bgLogin;		
+	&.loginLayout{
+		background-color: @menu;		
 	}
-	&.pages{
+	&.appLayout{
 		background-color: @bg;
 	}
 }
@@ -63,7 +51,7 @@ body{
 }
 
 .login{
-	background-color: @bgLogin;
+	background-color: @menu;
 	a{
 		color: #989898;
 	}
@@ -85,26 +73,6 @@ body{
 			.border-bottom-radius(6px);
 			border: 0;
 			margin-bottom: 10px;
-		}
-	}
-}
-.navbar{
-	border-radius: 0;
-	&.navbar-default{
-		background-color: @nav;
-		border: 0;
-	}
-}
-
-.navbar-default{
-	.navbar-toggle{
-		border: 0;
-		float: left;
-		margin-left: 10px;
-		margin-right: 0;
-		&:hover, &:focus{
-			background-color: @nav;
-			color: white;
 		}
 	}
 }
