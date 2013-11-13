@@ -1,5 +1,6 @@
 <flip horizontal>
     <flip-front>
+    <div class="container">
       <div class="row">
         <div class="brand">
             <img src="assets/images/brand.svg" alt="Brandscopic Brand" title="Brandscopic Brand" class="img-responsive">
@@ -12,27 +13,32 @@
           <button class="btn btn-danger" ng-click="validateUser()">Login</button>
         </div>
       </div>
-              <div class="col-xs-12 forgot">
+        <div class="col-xs-12 forgot">
           <button flip-toggle class="noButton">Forgot your password?</button>
         </div>
+      </div>
     </flip-front>
 
     <flip-back>
-    <div class="topnav" style="background-color:red; height: 55px;">RESET PASSWORD</div>
-      <div class="row">
-        <div class="col-xs-12">
+      <div class="topLogin">
+        <div class="container">
           <button flip-toggle class="noButton"><</button>
-        </div>
-        <div class="col-xs-12">
-          <p>Enter your email and we'll send you<br>instructions to help you reset your password.</p>
-        </div>
-        <div class="col-xs-12">
-          <input type="text" placeholder="Email" ng-model="user.email" class="email rounded">
+          RESET PASSWORD
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <button class="btn btn-danger" href="#/login">Send</button>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <p>Enter your email and we'll send you<br>instructions to help you reset your password.</p>
+          </div>
+          <div class="col-xs-12">
+            <input type="text" placeholder="Email" ng-model="user.email" class="email rounded">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button class="btn btn-danger" href="#/login">Send</button>
+          </div>
         </div>
       </div>
     </flip-back>
