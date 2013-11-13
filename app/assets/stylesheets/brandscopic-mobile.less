@@ -45,10 +45,14 @@ button{
 	&.noButton{
 		background-color: transparent;
 		border: 0;
-		&.backIcon:before{
-			color: red;
-			font-size: 19px;
-			left: 0;
+		&.backIcon{
+			float: left;
+			&:before{
+				bottom: 6px;
+				color: white;
+				font-size: 19px;
+				left: 0;
+			}
 		}
 		&:hover{
 			text-decoration: underline;
@@ -103,8 +107,12 @@ body.login{
 	}
 	.topLogin{
 		background-color: @header;
+		box-sizing:border-box;
 		color: white;
 		height: 55px;
+		margin-bottom: 50px;
+		padding-top: 18px;
+		text-align: center;
 	}
 }
 
