@@ -19,7 +19,7 @@ angular.module('brandscopicApp.controllers', [])
           if (sameEmail && samePasswd) {
            $scope.validUser = true;
             console.log($scope.validUser);
-            $location.path('/dashboard');
+            $location.path('/navigation');
             return
           }
         }   
