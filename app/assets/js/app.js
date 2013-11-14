@@ -12,11 +12,9 @@ angular.module('brandscopicApp', [
   'brandscopicApp.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/navigationbar', {templateUrl: 'partials/navigationbar.html', controller: 'NavigationController'});
   $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginController'});
-  $routeProvider.when('/forgotpassword', {templateUrl: 'partials/forgotpassword.html', controller: 'LoginController'});
+  $routeProvider.when('/navigation', {templateUrl: 'partials/navigation.html', controller: 'NavigationController'});
   $routeProvider.when('/dashboard', {templateUrl: 'partials/dashboard.html', controller: 'DashboardController'});
   $routeProvider.when('/events', {templateUrl: 'events.html', controller: 'EventsController'});
-  $routeProvider.when('/password', {templateUrl: 'partials/password.html', controller: 'PasswordController'});
   $routeProvider.otherwise({redirectTo: '/login'});
 }]);
