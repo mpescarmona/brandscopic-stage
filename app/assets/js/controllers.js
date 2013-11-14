@@ -27,13 +27,14 @@ angular.module('brandscopicApp.controllers', [])
 
   }])
   .controller('NavigationController', ['$scope', function($scope) {
-    $scope.navigationItems = [{'label': 'EVENTS', 'link': '#'},
-                              {'label': 'TASKS',  'link': '#'},
-                              {'label': 'VENUES', 'link': '#'},
-                              {'label': 'NOTIFICATIONS', 'link': '#'},
-                              {'label': 'DASHBOARD', 'link': 'dashboard'},
-                              {'label': 'EDIT PROFILE', 'link': '#'},
-                              {'label': 'LOGOUT', 'link': 'login'}];
+    $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#'},
+                              {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#'},
+                              {'class': 'venuesIcon', 'label': 'VENUES', 'link': '#'},
+                              {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#'},
+                              {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#/dashboard'}];
+
+    $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#'},
+                          {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': 'login'}];
   }])
   .controller('DashboardController', ['$scope', function($scope) {
 
