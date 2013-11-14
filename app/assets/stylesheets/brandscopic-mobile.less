@@ -10,6 +10,10 @@
 	outline:0;
 }
 
+.hidden{
+	display:none;
+}
+
 body{
 	font-family: @baseFontFamily;
 	&.loginLayout{
@@ -64,6 +68,32 @@ button{
 	}
 }
 
+.error{
+	color: @buttons;
+}
+
+input{
+	color: @lightTxt;
+	height: 40px;
+	padding: 0 10px;
+	width: 100%;
+	&.email{
+		.border-top-radius(6px);
+		border:0;
+		border-bottom: 1px solid @lightGrey;
+		&.rounded{
+			.border-top-radius(6px);
+			.border-bottom-radius(6px) !important;
+			margin-bottom: 10px;
+		}
+	}
+	&.password{
+		.border-bottom-radius(6px);
+		border: 0;
+		margin-bottom: 10px;
+	}
+}
+
 /*-- LOGIN STYLES --*/
 
 .brand{
@@ -75,7 +105,7 @@ button{
 	}
 }
 
-body.login{
+.loginLayout{
 	background-color: @menu;
 	color: white;
 	font-weight: 300;
@@ -90,27 +120,6 @@ body.login{
 		text-align: center;
 		button{
 			color: @brand;
-		}
-	}
-	input{
-		color: @lightTxt;
-		height: 40px;
-		padding: 0 10px;
-		width: 100%;
-		&.email{
-			.border-top-radius(6px);
-			border:0;
-			border-bottom: 1px solid @lightGrey;
-			&.rounded{
-				.border-top-radius(6px);
-				.border-bottom-radius(6px) !important;
-				margin-bottom: 10px;
-			}
-		}
-		&.password{
-			.border-bottom-radius(6px);
-			border: 0;
-			margin-bottom: 10px;
 		}
 	}
 	.topLogin{
