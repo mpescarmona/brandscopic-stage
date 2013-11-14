@@ -34,7 +34,7 @@ angular.module('brandscopicApp.controllers', [])
                               {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#/dashboard'}];
 
     $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#'},
-                          {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': 'login'}];
+                          {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#/login'}];
   }])
   .controller('DashboardController', ['$scope', function($scope) {
 
