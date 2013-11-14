@@ -14,6 +14,10 @@
 	display:none;
 }
 
+h5{
+	margin-top:0;
+}
+
 body{
 	font-family: @baseFontFamily;
 	&.loginLayout{
@@ -29,6 +33,7 @@ body{
 	.border-bottom-radius(6px);
 	.border-top-radius(6px);
 	box-sizing: border-box;
+	color: @txt;
 	height: auto;
 	margin-bottom: 10px;
 	padding: 10px;
@@ -134,11 +139,20 @@ input{
 		background-color: @header;
 		box-sizing:border-box;
 		color: white;
+		font-weight: 400;
+		font-size: 16px;
 		height: 55px;
-		margin-bottom: 50px;
-		padding-top: 18px;
+		margin-bottom: 40px;
+		padding-top: 17px;
 		text-align: center;
 	}
+}
+
+.progress{
+	background-color: menuTxt;
+	border-radius: 0;
+	box-shadow: none;
+	margin-bottom: 0;
 }
 
 
