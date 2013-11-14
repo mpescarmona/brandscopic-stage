@@ -85,38 +85,13 @@
 	  top: 0;
 	  width: auto; 	
   }
-}
-
-#open-left {
-  display: block;
-  width: 44px;
-  height: 44px;
-  &:before{
+  :before{
   	color: white;
-		content:"\e608";
-		font-size: 18px;
-		left: 15px !important;
-		top: 13px;
   }
-}
-
-/* Show the red "No Drag" box in the demo */
-#no-drag,
-#do-drag {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 50%;
-	height: 100px;
-	margin-left: -25%;
-	margin-top: -50px;
-	background: red;
-	color: #FFF;
-	text-align: center;
-	line-height: 100px;
-}
-#do-drag{
-	background: green;
+  .menuIcon{
+  	font-size: 19px;
+  	margin: 5px 0 0 6px;
+  }
 }
 
 /* CONTENT STYLES */
@@ -124,10 +99,6 @@
 .snap-content {
   background: @bg;
   padding-top: 44px;
-}
-
-.snap-drawers {
-  background: @menu;
 }
 
 .snap-drawer {
@@ -159,6 +130,8 @@
 	  &:before{
 	  	color: @menuTxt;
 	  	font-size: 16px;
+	  	left: -10px;
+  		bottom: 2px;
 	  }
 	  &:hover{
 	  	background-color: @menuHover;
