@@ -39,6 +39,15 @@ body{
 	margin-bottom: 10px;
 	padding: 10px 12px;
 	width:100%;
+	&.dashboard{
+		h5{
+			float: left;
+			width:90%;
+		}
+		.nextIcon:before{
+			bottom: 8px;
+		}
+	}
 }
 
 /*-- BUTTONS --*/
@@ -112,12 +121,6 @@ input{
 		font-weight: 300;
 		margin: 40px 0 40px 0;
 	}
-	.backIcon:before{
-		color: white;
-		font-size: 19px;
-		right: 5px;
-		top: 5px;
-	}
 }
 
 .brand{
@@ -151,6 +154,12 @@ input{
 		padding-top: 17px;
 		text-align: center;
 	}
+}
+
+.txtAdjust{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 /*-- PROGRESS STYLES --*/

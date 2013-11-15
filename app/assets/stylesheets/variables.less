@@ -31,7 +31,7 @@
 	font-style: normal;
 }
 
-.menuIcon:before, .backIcon:before, .eventIcon:before, .tasksIcon:before, .venuesIcon:before, .notificationIcon:before, .dashboardIcon:before, .profileIcon:before, .logoutIcon:before{
+.nextIcon:before, .menuIcon:before, .backIcon:before, .eventIcon:before, .tasksIcon:before, .venuesIcon:before, .notificationIcon:before, .dashboardIcon:before, .profileIcon:before, .logoutIcon:before{
   font-family: 'icons';
   position: relative;
   display: inline-block;
@@ -39,23 +39,14 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.eventIcon:before{
-	content:"\e605";
-}
-.tasksIcon:before{
-	content:"\e604";
-}
-.venuesIcon:before{
-	content:"\e603";
-}
-.notificationIcon:before{
-	content:"\e607";
+.backIcon:before{
+	content:"\e60e";
 }
 .dashboardIcon:before{
 	content:"\e602";
 }
-.profileIcon:before{
-	content:"\e606";
+.eventIcon:before{
+	content:"\e605";
 }
 .logoutIcon:before{
 	content:"\e601";
@@ -63,6 +54,19 @@
 .menuIcon:before{
 	content:"\e608";
 }
-.backIcon:before{
-	content:"\e60e";
+.nextIcon:before{
+	color: @lightGrey;
+	content:"\e60d";
+}
+.notificationIcon:before{
+	content:"\e607";
+}
+.profileIcon:before{
+	content:"\e606";
+}
+.tasksIcon:before{
+	content:"\e604";
+}
+.venuesIcon:before{
+	content:"\e603";
 }
