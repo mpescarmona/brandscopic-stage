@@ -2,6 +2,7 @@
 /*-- STYLES FOR THE NAVIGATION BAR --*/
 
 .snap-content {
+  background: @bg;
   position: absolute;
   top: 0;
   right: 0;
@@ -65,13 +66,10 @@
 .navHeader {
   background: @header;
 	box-sizing: border-box;
-	margin-bottom: 50px;
-	padding: 15px;
+	margin-bottom: 30px;
+	padding: 6px 10px;
 	width: auto;
-	right: 0;
-	left: 0;
-	top: 0;
-	position: absolute;
+	position: relative;
 	height: 50px;
   h1{
 	  color: white;
@@ -92,16 +90,10 @@
   }
   .menuIcon{
   	font-size: 19px;
-  	margin: 5px 0 0 6px;
   }
 }
 
 /* CONTENT STYLES */
-
-.snap-content {
-  background: @bg;
-  padding-top: 44px;
-}
 
 .snap-drawer {
 	background: @menu;

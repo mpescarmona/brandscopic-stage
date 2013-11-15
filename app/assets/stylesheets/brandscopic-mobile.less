@@ -65,15 +65,7 @@ button{
 	&.noButton{
 		background-color: transparent;
 		border: 0;
-		&.backIcon{
-			float: left;
-			&:before{
-				bottom: 6px;
-				color: white;
-				font-size: 19px;
-				right: 15px;
-			}
-		}
+		padding: 0;
 		&:hover{
 			text-decoration: underline;
 		}
@@ -116,7 +108,13 @@ input{
 .back{
 	p{
 		color:white;
-		margin: 90px 0 30px;
+		margin: 20px 0 40px 0;
+	}
+	.backIcon:before{
+		color: white;
+		font-size: 19px;
+		right: 5px;
+		top: 5px;
 	}
 }
 
