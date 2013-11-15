@@ -36,7 +36,7 @@ body{
 	color: @txt;
 	height: auto;
 	margin-bottom: 10px;
-	padding: 10px;
+	padding: 10px 12px;
 	width:100%;
 }
 
@@ -108,7 +108,7 @@ input{
 .back{
 	p{
 		color:white;
-		margin: 20px 0 40px 0;
+		margin: 40px 0 40px 0;
 	}
 	.backIcon:before{
 		color: white;
@@ -170,5 +170,20 @@ input{
 	background-color: @blue;
 }
 
+.chart-bar{
+	position: relative;
+	display: inline-block;
+	width: 90%;
+	max-width: 90%;
+	.today-line-indicator{
+		position: absolute;
+		width: 4px;
+		background-color: #347a99;
+		height: 30px;
+		top: -5px;
+		border: 1px solid #347a99;
+		border-radius: 2px;
+	}
+}
 
 
