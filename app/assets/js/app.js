@@ -3,7 +3,7 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('brandscopicApp', [
-  'ngRoute',
+  'ui.router',
   'snap',
   'angular-flip',
   'brandscopicApp.filters',
@@ -11,10 +11,26 @@ angular.module('brandscopicApp', [
   'brandscopicApp.directives',
   'brandscopicApp.controllers'
 ]).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginController'});
-  $routeProvider.when('/navigation', {templateUrl: 'partials/navigation.html', controller: 'NavigationController'});
-  $routeProvider.when('/dashboard', {templateUrl: 'partials/dashboard.html', controller: 'DashboardController'});
-  $routeProvider.when('/events', {templateUrl: 'events.html', controller: 'EventsController'});
-  $routeProvider.otherwise({redirectTo: '/login'});
-}]);
+config(function($stateProvider, $urlRouterProvider) {
+  //
+  // For any unmatched url, redirect to /login
+  $urlRouterProvider.otherwise("/login");
+  //
+  // Now set up the states
+  $stateProvider
+    .state('login', {
+      url: "/login",
+      templateUrl: "partials/login.html",
+      controller: "LoginController"
+    })
+    .state('home', {
+      url: "/home",
+      templateUrl: "partials/home.html",
+      controller: "HomeController"
+    })
+    .state('home.dashboard', {
+      url: "/dashboard",
+      templateUrl: "partials/dashboard.html",
+      controller: 'DashboardController'
+    })
+    });
