@@ -3,8 +3,7 @@
     <h4>Brandscopic</h4>
     <ul>
       <li ng-repeat="item in navigationItems">
-        <a href="{{item.link}}" class="{{item.class}}" ng-click="closeMenu()">{{item.label}}</a>
-        <!-- <a href="" class="{{item.class}}" ng-click="closeMenu()">{{item.label}}</a> -->
+        <a href="{{item.link}}" class="{{item.class}}">{{item.label}}</a>
       </li>
     </ul>
     <ul class="navbar-fixed-bottom">
@@ -23,15 +22,3 @@
     <!-- Partials -->
     <div ui-view></div>
 </snap-content>
-
-<!-- <snap-content>
-  <div class="navHeader">
-		<button snap-toggle class="noButton menuIcon"></button>
-    <h1>Dashboard</h1>
-  </div>
--->    
-    <!-- Partials -->
-<!--
-    <h3>Hola que tal??<br> Here goes the Dashboard Partial</h3>
-    <div ui-view></div>
-</snap-content> -->

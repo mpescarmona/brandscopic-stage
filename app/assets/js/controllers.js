@@ -26,7 +26,7 @@ angular.module('brandscopicApp.controllers', [])
     };
 
   }])
-  .controller('HomeController', ['$scope', function($scope) {
+  .controller('HomeController', ['$scope', 'snapRemote',  function($scope, snapRemote ) {
     $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#'},
                               {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#'},
                               {'class': 'venuesIcon', 'label': 'VENUES', 'link': '#'},
@@ -35,27 +35,13 @@ angular.module('brandscopicApp.controllers', [])
 
     $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#'},
                           {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#/login'}];
-
-    $scope.closeMenu = function() {
-      snapRemote.getSnapper().then(function(snapper) {
-        snapper.close();
-        // snapper.on('open', function() {
-        //   log('Drawer opened!');
-        // });
-        
-        // snapper.on('close', function() {
-        //   log('Drawer closed!');
-        // });
-      });
-    };
-    
   }])
-  .controller('DashboardController', ['$scope', function($scope) {
-
+  .controller('DashboardController', ['$scope', 'snapRemote', function($scope, snapRemote) {
+    snapRemote.close()
   }])
-  .controller('EventsController', ['$scope', function($scope) {
-
+  .controller('EventsController', ['$scope', function($scope, snapRemote) {
+    snapRemote.close()
   }])
   .controller('PasswordController', ['$scope', function($scope) {
-
   }]);
+  
