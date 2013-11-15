@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('brandscopicApp.controllers', [])
-  .controller('LoginController', ['$scope', '$location', function($scope, $location) {
+  .controller('LoginController', ['$scope', '$state', function($scope, $state) {
     $scope.validUser = false;
     $scope.user = {'email': '', 'password': ''};
 
@@ -19,29 +19,29 @@ angular.module('brandscopicApp.controllers', [])
           if (sameEmail && samePasswd) {
            $scope.validUser = true;
             console.log($scope.validUser);
-            $location.path('/navigation');
+            $state.go('home');
             return
           }
         }   
     };
 
   }])
-  .controller('NavigationController', ['$scope', function($scope) {
+  .controller('HomeController', ['$scope', 'snapRemote',  function($scope, snapRemote ) {
     $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#'},
                               {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#'},
                               {'class': 'venuesIcon', 'label': 'VENUES', 'link': '#'},
                               {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#'},
-                              {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#/dashboard'}];
+                              {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#home/dashboard'}];
 
     $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#'},
                           {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#/login'}];
   }])
-  .controller('DashboardController', ['$scope', function($scope) {
-
+  .controller('DashboardController', ['$scope', 'snapRemote', function($scope, snapRemote) {
+    snapRemote.close()
   }])
-  .controller('EventsController', ['$scope', function($scope) {
-
+  .controller('EventsController', ['$scope', function($scope, snapRemote) {
+    snapRemote.close()
   }])
   .controller('PasswordController', ['$scope', function($scope) {
-
   }]);
+  

@@ -1,0 +1,24 @@
+<snap-drawer>
+  <div>
+    <h4>Brandscopic</h4>
+    <ul>
+      <li ng-repeat="item in navigationItems">
+        <a href="{{item.link}}" class="{{item.class}}">{{item.label}}</a>
+      </li>
+    </ul>
+    <ul class="navbar-fixed-bottom">
+      <li ng-repeat="action in actionItems">
+        <a href="{{action.link}}" class="{{action.class}}">{{action.label}}</a>
+      </li>
+    </ul>
+  </div>
+</snap-drawer>
+<snap-content>
+  <div class="navHeader">
+    <button snap-toggle class="noButton menuIcon"></button>
+    <h1>Home</h1>
+  </div>
+    
+    <!-- Partials -->
+    <div ui-view></div>
+</snap-content>
