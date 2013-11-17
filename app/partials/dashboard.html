@@ -1,7 +1,7 @@
 
 <!-- Dashboard Container -->
-<div checkUser class="container" ng-repeat="item in dashboardItems">
-	<div class="box-container dashboard">
+<!-- <div class="container" ng-repeat="item in dashboardItems"> -->
+	<div class="box-container dashboard" ng-repeat="item in dashboardItems">
     <h5 class="txtAdjust">{{item.name}}</h5>
     <div class="chart-bar">
 	    <div class="today-line-indicator" style="left: {{item.today}}"></div>
@@ -11,6 +11,7 @@
 	    </div>
 	  </div>
 	 	<!-- <button class="noButton nextIcon pull-right"></button> -->
-        <a href="#/home/dashboard/{{item.id}}/details" class="noButton nextIcon pull-right"></a>
+        <a href="#/home/dashboard/{{item.id}}" class="noButton nextIcon pull-right"></a>
 	</div>
-</div>
+<!-- </div> -->
+<!-- <div ui-view></div> -->

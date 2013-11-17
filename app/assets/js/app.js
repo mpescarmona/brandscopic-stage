@@ -33,4 +33,9 @@ config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/dashboard.html",
       controller: 'DashboardController'
     })
-    });
+    .state('home.dashboard.details', {
+      url: "/:dashboardId",
+      templateUrl: "partials/dashboard_details.html",
+      controller: 'DashboardController'
+    })
+});
