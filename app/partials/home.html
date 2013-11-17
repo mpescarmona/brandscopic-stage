@@ -8,7 +8,7 @@
     </ul>
     <ul>
       <li ng-repeat="action in actionItems">
-        <a href="{{action.link}}" class="{{action.class}}">{{action.label}}</a>
+        <a href="{{action.link}}" ng-click="{{action.click}}" class="{{action.class}}">{{action.label}}</a>
       </li>
     </ul>
   </div>
