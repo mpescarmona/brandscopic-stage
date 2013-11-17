@@ -9,7 +9,9 @@ angular.module('brandscopicApp.controllers', [])
     $scope.users = [{'email': 'testuser@brandscopic.com', 'password': 'testuser'},
                     {'email': 'testuser1@brandscopic.com', 'password': 'testuser1'}];
 
+    $scope.wrongUser = null;
     $scope.validateUser = function() {
+      $scope.wrongUser = true;
       UserService.currentUser.isLogged = false;
       UserService.currentUser.email = "";
         for (var i = 0, u, sameEmail, samePasswd; u = $scope.users[i++];) {
@@ -17,9 +19,9 @@ angular.module('brandscopicApp.controllers', [])
           samePasswd = u.password == $scope.user.password;
           console.log(sameEmail)
           if (sameEmail && samePasswd) {
+            $scope.wrongUser = false;
             UserService.currentUser.isLogged = true;
             UserService.currentUser.email = u.email.toLowerCase();
-            console.log(UserService);
             $state.go('home');
             return;
           }
