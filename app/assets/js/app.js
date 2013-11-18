@@ -34,8 +34,13 @@ config(function($stateProvider, $urlRouterProvider) {
       controller: 'DashboardController'
     })
     .state('home.dashboard.details', {
-      url: "/:dashboardId",
+      url: "/dashboard/:dashboardId",
       templateUrl: "partials/dashboard_details.html",
       controller: 'DashboardController'
+    })
+    .state('home.events', {
+      url: "/events",
+      templateUrl: "partials/events.html",
+      controller: 'EventsController'
     })
 });
