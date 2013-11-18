@@ -41,7 +41,7 @@ angular.module('brandscopicApp.controllers', [])
       return;
     };
 
-    $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#'},
+    $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#home/events'},
                               {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#'},
                               {'class': 'venuesIcon', 'label': 'VENUES', 'link': '#'},
                               {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#'},
@@ -70,6 +70,10 @@ angular.module('brandscopicApp.controllers', [])
       return;
     }
     snapRemote.close()
+
+    $scope.eventsItems = [{'id': 1, 'name': 'Event One', 'today': '30%', 'progress': '40%'},
+                             {'id': 2, 'name': 'Event Two', 'today': '65%', 'progress': '10%'},
+                             {'id': 3, 'name': 'Event three', 'today': '75%', 'progress': '60%'}];
   }])
   .controller('PasswordController', ['$scope', function($scope) {
   }]);
