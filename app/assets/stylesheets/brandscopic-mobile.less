@@ -61,7 +61,13 @@ body{
 			box-sizing: border-box;
 			height: 70px;
 			list-style: none;
-			padding: 19px 5px;
+			padding: 2px 0;
+			.row{
+				box-sizing:border-bottom;
+				height: 100%;
+				margin: 0;
+				padding: 16px 0;
+			}
 			h5{
 				margin-bottom: 4px;
 			}
@@ -70,6 +76,13 @@ body{
 			}
 		}
 	}
+}
+
+.late {
+	border-left: 4px solid @late;
+}
+.submitted {
+	border-left: 4px solid @submitted;
 }
 
 .statusBar{
