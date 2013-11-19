@@ -56,13 +56,16 @@ body{
 		padding: 0;
 		li{
 			border-bottom: 1px solid @borders;
-			border-box: box-sizing;
+			box-sizing: border-box;
 			height: 70px;
 			list-style: none;
-			padding: 10px;
-				&:last-child{
-					border-bottom: none;
-				}
+			padding: 18px 5px;
+			h5{
+				margin-bottom: 0;
+			}
+			&:last-child{
+				border-bottom: none;
+			}
 		}
 	}
 }
@@ -89,6 +92,13 @@ body{
 			border: 0;
 		}
 	}
+}
+
+.dayBar{
+	color: @lightGrey;
+	text-align: center;
+	height: 20px;
+	text-transform: uppercase;
 }
 
 /*-- BUTTONS --*/
