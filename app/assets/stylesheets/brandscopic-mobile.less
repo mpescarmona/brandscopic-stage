@@ -70,8 +70,25 @@ body{
 .statusBar{
 	background-color: white;
 	color: @txt;
-	height: 70px;
-	margin-bottom: 15px;
+	height: 65px;
+	margin-bottom: 10px;
+	.col-xs-3{
+		border-right: 1px solid @borders;
+		font-size: 11px;
+		padding: 0;
+		text-align: center;
+		.number{
+			font-size: 32px;
+			padding-top: 6px;
+			line-height: 36px;
+		}
+		p{
+			font-size: 10px;
+		}
+		&:last-child{
+			border: 0;
+		}
+	}
 }
 
 /*-- BUTTONS --*/
