@@ -88,7 +88,13 @@
   	color: white;
   }
   button.noButton{
-  	margin-left: 15px;
+  	&.menuIcon, .backIcon{
+  		margin-left: 15px;
+  	}
+  	&.addIcon, .magnifierIcon{
+  		font-size: 21px;
+  		margin-right: 15px;
+  	}
   }
   .menuIcon:before, .backIcon:before{
   	font-size: 19px;

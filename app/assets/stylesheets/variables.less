@@ -19,6 +19,9 @@
 
 @baseFontFamily:'Lato', sans-serif;
 
+p.medium{
+	font-size: 12px;
+}
 p.small{
 	font-size: 11px;
 }
@@ -36,7 +39,7 @@ p.small{
 	font-style: normal;
 }
 
-.nextIcon:before, .menuIcon:before, .backIcon:before, .eventIcon:before, .tasksIcon:before, .venuesIcon:before, .notificationIcon:before, .dashboardIcon:before, .profileIcon:before, .logoutIcon:before{
+.addIcon, .nextIcon:before, .magnifierIcon, .menuIcon:before, .backIcon:before, .eventIcon:before, .tasksIcon:before, .venuesIcon:before, .notificationIcon:before, .dashboardIcon:before, .profileIcon:before, .logoutIcon:before{
   font-family: 'icons';
   position: relative;
   display: inline-block;
@@ -44,6 +47,9 @@ p.small{
   -webkit-font-smoothing: antialiased;
 }
 
+.addIcon:before{
+	content:"\e60a"
+}
 .backIcon:before{
 	content:"\e60e";
 }
@@ -55,6 +61,9 @@ p.small{
 }
 .logoutIcon:before{
 	content:"\e601";
+}
+.magnifierIcon:before{
+	content:"\e60b";
 }
 .menuIcon:before{
 	content:"\e608";
