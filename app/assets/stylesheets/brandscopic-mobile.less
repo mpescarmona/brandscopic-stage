@@ -37,7 +37,7 @@ body{
 	box-sizing: border-box;
 	color: @txt;
 	height: auto;
-	margin-bottom: 10px;
+	margin-top: 10px;
 	padding: 10px 12px;
 	width:100%;
 	&.dashboard{
@@ -49,6 +49,29 @@ body{
 			bottom: 8px;
 		}
 	}
+	&.np{
+		padding: 0;
+	}
+	ul{
+		padding: 0;
+		li{
+			border-bottom: 1px solid @borders;
+			border-box: box-sizing;
+			height: 70px;
+			list-style: none;
+			padding: 10px;
+				&:last-child{
+					border-bottom: none;
+				}
+		}
+	}
+}
+
+.statusBar{
+	background-color: white;
+	color: @txt;
+	height: 70px;
+	margin-bottom: 15px;
 }
 
 /*-- BUTTONS --*/

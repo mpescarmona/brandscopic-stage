@@ -1,8 +1,40 @@
 
+<div class="statusBar">
+	<div class="container">
+		<div class="col-xs-3"> 
+			<p>LATE</p>
+		</div>
+		<div class="col-xs-3"> 
+			<p>REJECTED</p>
+		</div>
+		<div class="col-xs-3"> 
+			<p>DUE</p>
+		</div>
+		<div class="col-xs-3"> 
+			<p>SUBMITTED</p>
+		</div>
+	</div>
+</div>
 <!-- Events Container -->
 <div class="container" ng-repeat="event in eventsItems">
-	<div class="box-container">
-    <h5 class="txtAdjust">{{event.name}}</h5>
-    <p>Jameson CE FY13</p>
-	<p>Bar None, San Francisco, CA</p>
+	<div class="box-container np">
+		<ul>
+			<li>
+				<div class="pull-left">
+					<p class="small">8:00 AM<br> 9:00 AM</p>
+				</div>
+				<div class="pull-right">
+			    <h5>Jameson CE FY13</h5>
+					<p>Bar None, San Francisco, CA</p>
+				</div>
+			</li>
+			<li>
+		    <h5>Jameson CE FY13</h5>
+				<p>Bar None, San Francisco, CA</p>
+			</li>
+			<li>
+		    <h5>Jameson CE FY13</h5>
+				<p>Bar None, San Francisco, CA</p>
+			</li>
+		</ul>
 </div>
