@@ -1,16 +1,8 @@
 
 <!-- Events Container -->
 <div class="container" ng-repeat="event in eventsItems">
-	<div class="box-container dashboard">
+	<div class="box-container">
     <h5 class="txtAdjust">{{event.name}}</h5>
-    <div class="chart-bar">
-	    <div class="today-line-indicator" style="left: {{event.today}}"></div>
-	    <div class="progress">
-			  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{event.progress}}">
-			  </div>
-	    </div>
-	  </div>
-	 	<!-- <button class="noButton nextIcon pull-right"></button> -->
-        <a href="#/home/events/{{event.id}}" class="noButton nextIcon pull-right"></a>
-	</div>
+    <p>Jameson CE FY13</p>
+	<p>Bar None, San Francisco, CA</p>
 </div>
