@@ -1,1 +1,1 @@
-web: node scripts/web-server.js 5000
+web: node scripts/web-server.js $PORT
