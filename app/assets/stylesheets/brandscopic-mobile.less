@@ -43,8 +43,13 @@ body{
 	padding: 10px 12px;
 	width:100%;
 	&.dashboard{
-		.col-xs-12{
-			margin-bottom: 15px;
+		&.details{
+			.col-xs-12{
+				margin-bottom: 15px;
+				&:last-child{
+					margin-bottom: 0;
+				}
+			}
 		}
 		h5{
 			float: left;
