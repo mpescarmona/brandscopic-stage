@@ -6,8 +6,16 @@
 
 /*-- GENERAL STYLES -------------------------*/
 
+.separated{
+	margin-top: 10px;
+}
+
 :focus{
 	outline:0;
+}
+
+:hover{
+	text-decoration: none;
 }
 
 .hidden{
@@ -39,10 +47,19 @@ body{
 	box-sizing: border-box;
 	color: @brand;
 	height: auto;
-	margin-top: 10px;
+	margin-bottom: 5px;
+	margin-top: 5px;
 	padding: 10px 12px;
 	width:100%;
 	&.dashboard{
+		&.details{
+			.col-xs-12{
+				margin-bottom: 15px;
+				&:last-child{
+					margin-bottom: 0;
+				}
+			}
+		}
 		h5{
 			float: left;
 			width:90%;
@@ -54,6 +71,9 @@ body{
 	&.np{
 		padding: 0;
 	}
+	&.submitted{
+		background-color: @submitted;
+	}
 	ul{
 		padding: 0;
 		li{
@@ -61,7 +81,13 @@ body{
 			box-sizing: border-box;
 			height: 70px;
 			list-style: none;
-			padding: 19px 5px;
+			padding: 2px 0;
+			.row{
+				box-sizing:border-bottom;
+				height: 100%;
+				margin: 0;
+				padding: 16px 0;
+			}
 			h5{
 				margin-bottom: 4px;
 			}
@@ -70,6 +96,23 @@ body{
 			}
 		}
 	}
+}
+
+.date-data{
+	&:before{
+		
+	}
+}
+
+.place-data{
+
+}
+
+.late {
+	border-left: 4px solid @late;
+}
+.submitted {
+	border-left: 4px solid @submitted;
 }
 
 .statusBar{
@@ -96,10 +139,11 @@ body{
 	}
 }
 
-.dayBar{
+.dividersBar{
 	color: @lightGrey;
 	font-size: 12px;
 	font-weight: 600;
+	margin-bottom: 8px;
 	text-align: center;
 	text-transform: uppercase;
 }
