@@ -34,10 +34,10 @@ body{
 	&.loginLayout{
 		background-color: @menu;	
 		color: white;
-		.container{
+		/*.container{
 			padding-left: 30px;
 			padding-right: 30px;
-		}	
+		}	*/
 	}
 	&.appLayout{
 		background-color: @bg;
@@ -55,8 +55,8 @@ body{
 	box-sizing: border-box;
 	color: @brand;
 	height: auto;
-	margin-bottom: 5px;
-	margin-top: 5px;
+	margin-bottom: 2px;
+	margin-top: 2px;
 	padding: 10px 12px;
 	width:100%;
 	&.dashboard{
@@ -83,18 +83,19 @@ body{
 		background-color: @submitted;
 	}
 	ul{
+		margin-bottom: 0;
 		padding: 0;
 		li{
 			border-bottom: 1px solid @borders;
 			box-sizing: border-box;
-			height: 70px;
+			height: 60px;
 			list-style: none;
 			padding: 2px 0;
 			.row{
 				box-sizing:border-bottom;
 				height: 100%;
 				margin: 0;
-				padding: 16px 0;
+				padding: 9px 0;
 			}
 			h5{
 				margin-bottom: 4px;
@@ -127,7 +128,7 @@ body{
 	background-color: white;
 	color: @txt;
 	height: 60px;
-	margin-bottom: 5px;
+	margin-bottom: 3px;
 	.col-xs-3{
 		border-right: 1px solid @borders;
 		font-size: 11px;
@@ -146,11 +147,14 @@ body{
 			border: 0;
 		}
 	}
+	.row{
+		margin: 0 !important;
+	}
 }
 
 .dividersBar{
 	color: @lightGrey;
-	font-size: 11px;
+	font-size: 10px;
 	font-weight: 400;
 	text-align: center;
 	text-transform: uppercase;
