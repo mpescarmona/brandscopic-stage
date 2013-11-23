@@ -43,4 +43,9 @@ config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/events.html",
       controller: 'EventsController'
     })
+    .state('home.events.details', {
+      url: "/:eventId",
+      templateUrl: "partials/events_details.html",
+      controller: 'EventsController'
+    })
 });
