@@ -16,9 +16,9 @@
 <snap-content>
   <div class="navHeader">
     <button snap-toggle class="noButton menuIcon"></button>
-    <h1>Home</h1>
-    <button class="noButton magnifierIcon pull-right"></button>
-    <button class="noButton addIcon pull-right"></button>
+    <h1>{{UserInterface.title}}</h1>
+    <button class="noButton magnifierIcon pull-right" ng-show="UserInterface.hasMagnifierIcon"></button>
+    <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon"></button>
   </div>
     
     <!-- Partials -->

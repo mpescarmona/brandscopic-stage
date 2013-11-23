@@ -13,5 +13,11 @@ angular.module('brandscopicApp.services', [])
 	};
 })
 
+.service('UserInterface', function() {
+  this.hasMagnifierIcon = false;
+  this.hasAddIcon = false;
+  this.Title = "";
+})
+
 .value('version', '0.1')
 .value('loginPage', '/login');

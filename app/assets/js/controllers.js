@@ -28,11 +28,15 @@ angular.module('brandscopicApp.controllers', [])
         }   
     };
   }])
-  .controller('HomeController', ['$scope', '$state', 'snapRemote', 'UserService',  function($scope, $state, snapRemote, UserService) {
+  .controller('HomeController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
+
+    // Options for User Interface in home partial
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = "HOME";
 
     $scope.logout = function() {
       UserService.currentUser.isLogged = false;
@@ -50,12 +54,17 @@ angular.module('brandscopicApp.controllers', [])
     $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#', 'click': ''},
                           {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#', 'click': 'logout()'}];
   }])
-  .controller('DashboardController', ['$scope', '$state', 'snapRemote', 'UserService',  function($scope, $state, snapRemote, UserService) {
+  .controller('DashboardController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
     snapRemote.close();
+
+    // Options for User Interface in home partial
+    UserInterface.title = "DASHBOARD";
+    UserInterface.hasMagnifierIcon = false;
+    UserInterface.hasAddIcon = false;
 
     $scope.dashboardItems = [{'id': 1, 'name': 'Gin BAs FY14', 'today': '30%', 'progress': '40%'},
                              {'id': 2, 'name': 'Jameson Locals FY14', 'today': '65%', 'progress': '10%'},
@@ -64,17 +73,20 @@ angular.module('brandscopicApp.controllers', [])
                              {'id': 5, 'name': 'Mama Walker\'s FY14', 'today': '65%', 'progress': '30%'},
                              {'id': 6, 'name': 'Royal Salute FY14', 'today': '25%', 'progress': '30%'}];
   }])
-  .controller('EventsController', ['$scope', '$state', 'snapRemote', 'UserService',  function($scope, $state, snapRemote, UserService) {
+  .controller('EventsController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
     snapRemote.close()
 
+    // Options for User Interface in home partial
+    UserInterface.title = "EVENTS";
+    UserInterface.hasMagnifierIcon = true;
+    UserInterface.hasAddIcon = true;
+
     $scope.eventsItems = [{'id': 1, 'name': 'Event One', 'today': '30%', 'progress': '40%'},
-                             {'id': 2, 'name': 'Event Two', 'today': '65%', 'progress': '10%'},
-                             {'id': 3, 'name': 'Event three', 'today': '75%', 'progress': '60%'}];
-  }])
-  .controller('PasswordController', ['$scope', function($scope) {
+                          {'id': 2, 'name': 'Event Two', 'today': '65%', 'progress': '10%'},
+                          {'id': 3, 'name': 'Event three', 'today': '75%', 'progress': '60%'}];
   }]);
   
