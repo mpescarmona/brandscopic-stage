@@ -3,6 +3,10 @@
 /* Controllers */
 
 angular.module('brandscopicApp.controllers', [])
+  .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
+    $scope.UserService = UserService;
+  }])
+
   .controller('LoginController', ['$scope', '$state', 'UserService', function($scope, $state, UserService) {
     $scope.user = {'email': '', 'password': ''};
 
@@ -28,6 +32,7 @@ angular.module('brandscopicApp.controllers', [])
         }   
     };
   }])
+
   .controller('HomeController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
     if( !UserService.isLogged() ) {
       $state.go('login');
@@ -54,6 +59,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#', 'click': ''},
                           {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#', 'click': 'logout()'}];
   }])
+
   .controller('DashboardController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
     if( !UserService.isLogged() ) {
       $state.go('login');
@@ -73,6 +79,7 @@ angular.module('brandscopicApp.controllers', [])
                              {'id': 5, 'name': 'Mama Walker\'s FY14', 'today': '65%', 'progress': '30%'},
                              {'id': 6, 'name': 'Royal Salute FY14', 'today': '25%', 'progress': '30%'}];
   }])
+
   .controller('EventsController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
     if( !UserService.isLogged() ) {
       $state.go('login');
