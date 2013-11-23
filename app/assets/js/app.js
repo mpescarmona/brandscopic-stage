@@ -6,6 +6,7 @@ angular.module('brandscopicApp', [
   'ui.router',
   'snap',
   'angular-flip',
+  'ngResource',
   'brandscopicApp.filters',
   'brandscopicApp.services',
   'brandscopicApp.directives',

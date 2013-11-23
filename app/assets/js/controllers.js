@@ -7,29 +7,39 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserService = UserService;
   }])
 
-  .controller('LoginController', ['$scope', '$state', 'UserService', function($scope, $state, UserService) {
+  .controller('LoginController', ['$scope', '$state', 'UserService', 'SessionRestClient', function($scope, $state, UserService, SessionRestClient) {
     $scope.user = {'email': '', 'password': ''};
 
-    $scope.users = [{'email': 'testuser@brandscopic.com', 'password': 'testuser'},
-                    {'email': 'testuser1@brandscopic.com', 'password': 'testuser1'}];
-
     $scope.wrongUser = null;
-    $scope.validateUser = function() {
-      $scope.wrongUser = true;
-      UserService.currentUser.isLogged = false;
-      UserService.currentUser.email = "";
-        for (var i = 0, u, sameEmail, samePasswd; u = $scope.users[i++];) {
-          sameEmail = u.email.toLowerCase() == $scope.user.email.toLowerCase();
-          samePasswd = u.password == $scope.user.password;
-          console.log(sameEmail)
-          if (sameEmail && samePasswd) {
+    $scope.validateApiUser = function() {
+      var session = new SessionRestClient.login($scope.user.email, $scope.user.password);
+
+      var promise = session.login().$promise;
+      promise.then(function(response) {
+       console.log("success: ", response);
+       if (response.status == 200) {
+        if (response.data.success == true) {
             $scope.wrongUser = false;
+            UserService.currentUser.auth_token = response.data.data.auth_token;
             UserService.currentUser.isLogged = true;
-            UserService.currentUser.email = u.email.toLowerCase();
+            UserService.currentUser.email = $scope.user.email;
             $state.go('home');
             return;
-          }
-        }   
+        }
+       } else {
+          $scope.wrongUser = true;
+          UserService.currentUser.auth_token = "";
+          UserService.currentUser.isLogged = false;
+          UserService.currentUser.email = "";
+       }
+      });
+      promise.catch(function(response) {
+        console.log("error: ", response); 
+        $scope.wrongUser = true;
+        UserService.currentUser.auth_token = "";
+        UserService.currentUser.isLogged = false;
+        UserService.currentUser.email = "";
+      });
     };
   }])
 
