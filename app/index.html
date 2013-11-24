@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="brandscopicApp">
+<html lang="en" ng-app="brandscopicApp" window-resize-thingy>
   <head>
     <meta charset="utf-8">
     <title>Brandscopic Mobile App</title>
@@ -17,7 +17,7 @@
   </head>
   <body ng-controller="MainController" ng-class="{loginLayout: !UserService.isLogged(), appLayout: UserService.isLogged()}">
 
-      <div ui-view></div>
+      <div ui-view window-resize-thingy></div>
 
       <!-- Le Javascript -->
       <script src="assets/bootstrap/docs-assets/js/less.js" type="text/javascript"></script>
