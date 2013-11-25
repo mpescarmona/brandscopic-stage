@@ -20,7 +20,13 @@
 
 h5{
 	color: @txt;
+	font-size: 16px;
 	margin-top:0;
+}
+
+label{
+	clear: both;
+	display: block;
 }
 
 body{
@@ -79,6 +85,12 @@ body{
 	}
 	&.submitted{
 		background-color: @submitted;
+		color: white;
+		margin-bottom: 8px;
+		a{
+			color: white;
+			text-decoration: underline;
+		}
 	}
 	ul{
 		margin-bottom: 0;
@@ -102,7 +114,7 @@ body{
 		&.events{
 			.eventHour{
 				color: @txt;
-				margin: 10px 0 0 0;
+				padding: 10px 0 0 10px;
 				p{
 					margin: 3px 0;
 					&:last-child:before{
@@ -119,7 +131,6 @@ body{
 				}
 			}
 			.col-xs-9{
-				padding: 0;
 				.eventPlace{
 					color: @brand;
 					padding: 10px 0 0 0;
@@ -158,6 +169,16 @@ body{
 }
 .submitted {
 	border-left: 4px solid @submitted;
+}
+
+.searchBar{
+	background-color: @lightGrey;
+	box-sizing: border-box;
+	height: 45px;
+	padding: 8px;
+	input{
+		height: 28px;
+	}
 }
 
 .statusBar{
@@ -239,20 +260,22 @@ button{
 }
 
 input{
+	border: 1px solid @lightGrey;
+	.border-top-radius(6px);
+	.border-bottom-radius(6px);
 	color: @lightTxt;
 	height: 40px;
+	margin-bottom: 10px;
 	padding: 0 10px;
 	width: 100%;
 	-webkit-appearance: none;
 	&.email{
-		.border-top-radius(6px);
-		.border-bottom-radius(0px);
 		border:0;
-		border-bottom: 1px solid @lightGrey;
-		&.rounded{
+		&.not-rounded{
+			border-bottom: 1px solid @lightGrey;
 			.border-top-radius(6px);
-			.border-bottom-radius(6px) !important;
-			margin-bottom: 10px;
+			.border-bottom-radius(0px) !important;
+			margin-bottom: 0;
 		}
 	}
 	&.password{
