@@ -49,6 +49,10 @@ p.small{
 	padding-right: 0;
 }
 
+h1, h2, h3, h4, h5, h6{
+	font-family: @baseFontFamily;
+}
+
 /*-- ICON FONTS --*/
 
 @font-face {
@@ -147,8 +151,10 @@ p.small{
 }
 
 .date-data, .place-data{
+	line-height: 18px;
 	margin-left: 28px;
 	&:before{
+		color: @lightGrey;
 		font-size: 17px;
 		position: relative;
 		speak: none;
