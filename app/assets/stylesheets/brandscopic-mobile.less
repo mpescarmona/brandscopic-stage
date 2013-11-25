@@ -39,6 +39,9 @@ body{
 		.container{
 			padding-left: 30px;
 			padding-right: 30px;
+			.row{
+				margin: 0;
+			}
 		}
 	}
 	&.appLayout{
@@ -77,6 +80,9 @@ body{
 		}
 		.nextIcon:before{
 			bottom: 8px;
+		}
+		.row{
+			margin: 0;
 		}
 	}
 
@@ -229,6 +235,25 @@ body{
 
 .btn:focus{
 	outline:0;
+}
+
+.btn-default{
+	background-color: @lightGrey;
+	border: 0;
+	color: white;
+	&.btn-sm{
+		margin-right: 5px;
+		height: 33px;
+		width: 90px;
+		&.edit:before, &.deactivate:before{
+			font-size: 23px;
+			line-height: 10px;
+		}
+	}
+	&:hover{
+		background-color: @lightGrey;
+		color: white;
+	}
 }
 
 .btn-danger{
