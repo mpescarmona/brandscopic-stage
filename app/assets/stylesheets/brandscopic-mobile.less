@@ -30,7 +30,7 @@ h5{
 body{
 	font-family: @baseFontFamily;
 	font-size: 13px;
-	font-weight: 300;
+	font-weight: 400;
 	&.loginLayout{
 		background-color: @menu;	
 		color: white;
@@ -59,9 +59,16 @@ body{
 	margin-top: 2px;
 	padding: 10px 12px;
 	width:100%;
+
+	/*-- Links on the box container --*/
 	a{
 		color:@brand;
+		&.blue{
+			color: @blue;
+		}
 	}
+
+	/*-- Dashboard --*/
 	&.dashboard{
 		&.details{
 			.col-xs-12{
@@ -151,14 +158,21 @@ body{
 	}
 }
 
+.google-map{
+	height: 142px;
+	margin-bottom: 5px;
+}
+
 .date-data{
 	&:before{
-
+		content:"\e60b";
 	}
 }
 
 .place-data{
-
+	&:before{
+		content:"\e610";
+	}
 }
 
 .late {
