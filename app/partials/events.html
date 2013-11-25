@@ -1,21 +1,27 @@
 
 <div class="statusBar">
 	<div class="container">
-		<div class="col-xs-3"> 
-			<div class="number">7</div>
-			<p>LATE</p>
-		</div>
-		<div class="col-xs-3"> 
-			<div class="number">1</div>
-			<p>REJECTED</p>
-		</div>
-		<div class="col-xs-3"> 
-			<div class="number">5</div>
-			<p>DUE</p>
-		</div>
-		<div class="col-xs-3"> 
-			<div class="number">12</div>
-			<p>SUBMITTED</p>
+		<div class="row">
+			<div class="col-xs-3"> 
+				<a href="#">
+					<div class="number">7</div>
+					<p>LATE</p>
+				</a>
+			</div>
+			<div class="col-xs-3"> 
+				<div class="number">1</div>
+				<p>REJECTED</p>
+			</div>
+			<div class="col-xs-3"> 
+				<div class="number">5</div>
+				<p>DUE</p>
+			</div>
+			<div class="col-xs-3"> 
+				<a href="#">
+					<div class="number">12</div>
+					<p>SUBMITTED</p>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -23,40 +29,60 @@
 <div class="container" ng-repeat="event in eventsItems">
 	<div class="dividersBar">TODAY</div>
 	<div class="box-container np">
-		<ul>
+		<ul class="events">
 			<li>
-				<div class="row late">
-					<div class="col-xs-3">
-						<p class="small">8:00 AM<br> 9:00 AM</p>
+				<a href="#/home/events/{{event.id}}">
+					<div class="row late">
+						<div class="col-xs-3 eventHour">
+							<p class="small">8:00 AM</p>
+							<p class="small">9:00 AM</p>
+						</div>
+						<div class="col-xs-9">
+							<div class="col-xs-5 eventPlace">
+						    <h5 class="txtAdjust">Jameson CE FY13</h5>
+								<p class="medium txtAdjust">Bar None, San Francisco, CA</p>
+							</div>
+						</div>
 					</div>
-					<div class="col-xs-9">
-				    <h5>Jameson CE FY13</h5>
-						<p class="medium">Bar None, San Francisco, CA</p>
-					</div>
-				</div>
+				</a>
 			</li>
 			<li>
-				<div class="row submitted">
-					<div class="col-xs-3">
-						<p class="small">8:00 AM<br> 9:00 AM</p>
+				<a href="#/home/events/{{event.id}}">
+					<div class="row late">
+						<div class="col-xs-3 eventHour">
+							<p class="small">8:00 AM</p>
+							<p class="small">9:00 AM</p>
+						</div>
+						<div class="col-xs-9">
+							<div class="col-xs-5 eventPlace">
+						    <h5 class="txtAdjust">Jameson CE FY13</h5>
+								<p class="medium txtAdjust">Bar None, San Francisco, CA</p>
+							</div>
+							<div class="col-xs-5 editpanel">
+								<a href="#" class="edit pull-left"></a>
+								<a href="#" class="deactivate pull-right"></a>
+							</div>
+						</div>
 					</div>
-					<div class="col-xs-9">
-				    <h5>Jameson CE FY13</h5>
-						<p class="medium">Bar None, San Francisco, CA</p>
-					</div>
-				</div>
+				</a>
 			</li>
 			<li>
-				<div class="row submitted">
-					<div class="col-xs-3">
-						<p class="small">8:00 AM<br> 9:00 AM</p>
+				<a href="#/home/events/{{event.id}}">
+					<div class="row late">
+						<div class="col-xs-3 eventHour">
+							<p class="small">8:00 AM</p>
+							<p class="small">9:00 AM</p>
+						</div>
+						<div class="col-xs-9">
+							<div class="col-xs-5 eventPlace">
+						    <h5 class="txtAdjust">Jameson CE FY13</h5>
+								<p class="medium txtAdjust">Bar None, San Francisco, CA</p>
+							</div>
+						</div>
 					</div>
-					<div class="col-xs-9">
-				    <h5>Jameson CE FY13</h5>
-						<p class="medium">Bar None, San Francisco, CA</p>
-					</div>
-				</div>
+				</a>
 			</li>
 		</ul>
 	</div>
 </div>
+<div class="separated" ui-view></div>

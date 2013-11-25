@@ -11,6 +11,7 @@
 @menuTxt: #ececec;
 @menuHover: #3d3d3d;
 @header:#363636;
+@listHover: #dfdfdf;
 @lightGrey: #c0c0c0;
 @lightTxt: #7a7a7a;
 @txt: #666666;
@@ -24,11 +25,26 @@
 
 @baseFontFamily:'Lato', sans-serif;
 
+a{
+	color: @txt;
+	&:hover{
+		color: @txt;
+		text-decoration: none;
+	}
+	&.blue{
+		color: @blue;
+	}
+}
+
 p.medium{
 	font-size: 12px;
 }
 p.small{
 	font-size: 11px;
+}
+
+h5{
+	font-size: 16px;
 }
 
 /*-- ICON FONTS --*/
@@ -44,7 +60,23 @@ p.small{
 	font-style: normal;
 }
 
-.addIcon:before, .dateData:before, .nextIcon:before, .magnifierIcon:before, .menuIcon:before, .backIcon:before, .eventIcon:before, .tasksIcon:before, .venuesIcon:before, .notificationIcon:before, .dashboardIcon:before, .profileIcon:before, .logoutIcon:before, .saveicon:before{
+.addIcon:before, 
+.backIcon:before,
+.dashboardIcon:before,
+.date-data:before, 
+.deactivate:before,
+.edit:before, 
+.eventIcon:before,
+.logoutIcon:before,
+.magnifierIcon:before,
+.menuIcon:before,
+.nextIcon:before, 
+.notificationIcon:before,
+.place-data:before,
+.profileIcon:before,
+.saveicon:before,
+.tasksIcon:before, 
+.venuesIcon:before{
   font-family: 'icons';
   position: relative;
   display: inline-block;
@@ -60,6 +92,12 @@ p.small{
 }
 .dashboardIcon:before{
 	content:"\e602";
+}
+.deactivate:before{
+	content:"\e612";
+}
+.edit:before{
+	content:"\e60c";
 }
 .eventIcon:before{
 	content:"\e605";
@@ -93,6 +131,26 @@ p.small{
 	content:"\e603";
 }
 
-.dateData:before{
+
+.date-data:before{
 	content:"\e60b";
+}
+.place-data{
+	margin-top: 20px;
+	&:before{
+		content:"\e610";
+	}
+}
+
+.date-data, .place-data{
+	margin-left: 28px;
+	&:before{
+		font-size: 17px;
+		position: absolute;
+		speak: none;
+		left: 18px;
+		text-align: center;
+		vertical-align: middle;
+		-webkit-font-smoothing: antialiased;
+	}
 }

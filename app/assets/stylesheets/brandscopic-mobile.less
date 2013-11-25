@@ -14,10 +14,6 @@
 	outline:0;
 }
 
-:hover{
-	text-decoration: none;
-}
-
 .hidden{
 	display:none;
 }
@@ -30,13 +26,21 @@ h5{
 body{
 	font-family: @baseFontFamily;
 	font-size: 13px;
-	font-weight: 300;
+	font-weight: 400;
 	&.loginLayout{
 		background-color: @menu;	
-		color: white;	
+		color: white;
+		.container{
+			padding-left: 30px;
+			padding-right: 30px;
+		}
 	}
 	&.appLayout{
 		background-color: @bg;
+		.container{
+			padding-left: 5px;
+			padding-right: 5px;
+		}
 	}
 }
 
@@ -47,10 +51,11 @@ body{
 	box-sizing: border-box;
 	color: @brand;
 	height: auto;
-	margin-bottom: 5px;
-	margin-top: 5px;
+	margin-bottom: 2px;
+	margin-top: 2px;
 	padding: 10px 12px;
 	width:100%;
+
 	&.dashboard{
 		&.details{
 			.col-xs-12{
@@ -68,6 +73,7 @@ body{
 			bottom: 8px;
 		}
 	}
+
 	&.np{
 		padding: 0;
 	}
@@ -75,18 +81,16 @@ body{
 		background-color: @submitted;
 	}
 	ul{
+		margin-bottom: 0;
 		padding: 0;
 		li{
 			border-bottom: 1px solid @borders;
 			box-sizing: border-box;
-			height: 70px;
+			height: 60px;
 			list-style: none;
-			padding: 2px 0;
 			.row{
-				box-sizing:border-bottom;
 				height: 100%;
-				margin: 0;
-				padding: 16px 0;
+				margin:0;
 			}
 			h5{
 				margin-bottom: 4px;
@@ -95,17 +99,58 @@ body{
 				border-bottom: none;
 			}
 		}
+		&.events{
+			.eventHour{
+				color: @txt;
+				margin: 10px 0 0 0;
+				p{
+					margin: 3px 0;
+					&:last-child:before{
+						content:"\2014";
+						display: inline-block;
+						font-size: 12px;
+						bottom: 6px;
+						left: 19px;
+						margin: 0 0 5px 10px;
+						position: absolute;
+						width: 100%;
+						color: @lightGrey;
+					}
+				}
+			}
+			.col-xs-9{
+				padding: 0;
+				.eventPlace{
+					color: @brand;
+					padding: 10px 0 0 0;
+				}
+			}
+			.editpanel{
+				background-color: @lightGrey;
+				box-sizing: border-box;
+				float: right;
+				height: 60px;
+				padding:13px 5px;
+				position: relative;
+				a{
+					color:white;
+					text-align: center;
+					width: 50%;
+					&:before{
+						font-size: 25px;
+					}
+					&:hover{
+						text-decoration: none;
+					}
+				}
+			}
+		}
 	}
 }
 
-.date-data{
-	&:before{
-		
-	}
-}
-
-.place-data{
-
+.google-map{
+	height: 142px;
+	margin-bottom: 5px;
 }
 
 .late {
@@ -118,32 +163,36 @@ body{
 .statusBar{
 	background-color: white;
 	color: @txt;
-	height: 65px;
-	margin-bottom: 10px;
+	font-weight: 300;
+	height: 60px;
+	margin-bottom: 3px;
 	.col-xs-3{
 		border-right: 1px solid @borders;
 		font-size: 11px;
 		padding: 0;
+		margin: 0;
 		text-align: center;
 		.number{
 			font-size: 32px;
-			padding-top: 6px;
-			line-height: 36px;
+			line-height: 42px;
 		}
 		p{
 			font-size: 10px;
+			margin-bottom: 4px;
 		}
 		&:last-child{
 			border: 0;
 		}
 	}
+	.row{
+		margin: 0 !important;
+	}
 }
 
 .dividersBar{
 	color: @lightGrey;
-	font-size: 12px;
-	font-weight: 600;
-	margin-bottom: 8px;
+	font-size: 10px;
+	font-weight: 400;
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -194,8 +243,10 @@ input{
 	height: 40px;
 	padding: 0 10px;
 	width: 100%;
+	-webkit-appearance: none;
 	&.email{
 		.border-top-radius(6px);
+		.border-bottom-radius(0px);
 		border:0;
 		border-bottom: 1px solid @lightGrey;
 		&.rounded{
@@ -206,6 +257,7 @@ input{
 	}
 	&.password{
 		.border-bottom-radius(6px);
+		.border-top-radius(0px);
 		border: 0;
 		margin-bottom: 10px;
 	}
@@ -227,6 +279,7 @@ input{
 	text-align: center;
 	img.img-responsive{
 		display: inline-block !important;
+		max-width: 75% !important;
 	}
 }
 

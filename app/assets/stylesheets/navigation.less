@@ -36,7 +36,7 @@
   right: auto;
   bottom: 0;
   left: auto;
-  width: 265px;
+  width: 266px;
   height: auto;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -67,14 +67,13 @@
   background: @header;
 	width: auto;
 	position: relative;
-	height: 50px;
+	height: 44px;
   h1{
 	  color: white;
 	  font-size: 16px;
-	  height: 44px;
-	  line-height: 22px;
+	  font-weight: 400;
+	  line-height: 5px;
 	  left: 44px;
-	  margin-top: 15px;
 	  position: absolute;
 	  right: 44px;
 	  text-align: center;
@@ -86,20 +85,27 @@
   	color: white;
   }
   button.noButton{
-  	height: 50px;
+  	height: 44px;
   	width: 50px;
-  	&.addIcon, &.magnifierIcon{
-  		font-size: 21px;
-  	}
   	&.addIcon{
   		width: 30px;
   	}
   }
-  .menuIcon:before, .backIcon:before{
-  	font-size: 19px;
+  .addIcon:before{
+  	top: 2px;
+  	font-size: 27px;
+  }
+
+  .menuIcon:before{
+  	bottom: 1px;
+  	font-size: 26px;
+  }
+  .magnifierIcon:before{
+  	top: 2px;
+  	font-size: 24px;
   }
   .backIcon:before{
-  	right: 10px;
+  	font-size: 22px;
   }
 }
 
@@ -113,10 +119,12 @@
 	  font-weight: normal;
 	  margin: 15px;		
 	}
-	h4{
+	h5{
 		color: @brand;
+		font-size: 16px;
+		font-weight: 400;
 	  margin-bottom: 0;	
-	  padding: 8px 24px 13px;
+	  padding: 13px 14px;
 	}
 	ul{
 	  padding: 0;
@@ -133,11 +141,10 @@
 	li > a {
 	  display: block;
 	  border-top: 1px solid rgba(255, 255, 255, 0.1);
-	  padding: 10px 15px 8px;
+	  padding: 7px 15px 5px;
 	  font-weight: 400;
 	  text-decoration: none;
 	  color: @menuTxt;
-	  text-indent: 5px;
 	  &:before{
 			color: #ececec;
 			font-size: 16px;

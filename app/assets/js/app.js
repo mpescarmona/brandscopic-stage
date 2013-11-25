@@ -6,6 +6,7 @@ angular.module('brandscopicApp', [
   'ui.router',
   'snap',
   'angular-flip',
+  'ngResource',
   'brandscopicApp.filters',
   'brandscopicApp.services',
   'brandscopicApp.directives',
@@ -41,6 +42,11 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events', {
       url: "/events",
       templateUrl: "partials/events.html",
+      controller: 'EventsController'
+    })
+    .state('home.events.details', {
+      url: "/:eventId",
+      templateUrl: "partials/events_details.html",
       controller: 'EventsController'
     })
 });

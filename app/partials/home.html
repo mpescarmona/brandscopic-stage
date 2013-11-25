@@ -1,6 +1,6 @@
 <snap-drawer>
   <div>
-    <h4>Brandscopic</h4>
+    <h5>Brandscopic</h5>
     <ul>
       <li ng-repeat="item in navigationItems">
         <a href="{{item.link}}" class="{{item.class}}">{{item.label}}</a>
@@ -16,9 +16,9 @@
 <snap-content>
   <div class="navHeader">
     <button snap-toggle class="noButton menuIcon"></button>
-    <h1>Home</h1>
-    <button class="noButton magnifierIcon pull-right"></button>
-    <button class="noButton addIcon pull-right"></button>
+    <h1>{{UserInterface.title}}</h1>
+    <button class="noButton magnifierIcon pull-right" ng-show="UserInterface.hasMagnifierIcon"></button>
+    <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon"></button>
   </div>
     
     <!-- Partials -->

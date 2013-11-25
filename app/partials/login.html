@@ -13,7 +13,7 @@
           <input class="password" ng-class="{error: wrongUser}" type="password" placeholder="Password" ng-model="user.password">
         </div>
         <div class="col-xs-12"> 
-          <button class="btn btn-danger" ng-click="validateUser()">Login</button>
+          <button class="btn btn-danger" ng-click="validateApiUser()">Login</button>
         </div>
       </div>
       <div class="col-xs-12 forgot">
@@ -25,10 +25,8 @@
   <flip-back>
     <!-- START RESET PASSWORD -->
     <div class="navHeader">
-      <div class="container">
-        <button flip-toggle class="noButton backIcon"></button>
-        <h1>Reset Password</h1>
-      </div>
+      <button flip-toggle class="noButton backIcon"></button>
+      <h1>Reset Password</h1>
     </div>
     <div class="container">
       <div class="row">
