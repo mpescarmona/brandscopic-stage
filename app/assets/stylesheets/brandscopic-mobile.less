@@ -36,6 +36,9 @@ body{
 	&.loginLayout{
 		background-color: @menu;	
 		color: white;
+		.btn{
+			width: 100%;
+		}
 		.container{
 			padding-left: 30px;
 			padding-right: 30px;
@@ -150,25 +153,34 @@ body{
 					padding: 10px 0 0 0;
 				}
 			}
-			.editpanel{
-				background-color: @lightGrey;
-				box-sizing: border-box;
-				float: right;
-				height: 60px;
-				padding:13px 5px;
-				position: relative;
-				a{
-					color:white;
-					text-align: center;
-					width: 50%;
-					&:before{
-						font-size: 25px;
-					}
-					&:hover{
-						text-decoration: none;
-					}
-				}
-			}
+		}
+	}
+}
+
+.dividersBar{
+	color: @lightGrey;
+	font-size: 10px;
+	font-weight: 400;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.editpanel{
+	background-color: @lightGrey;
+	box-sizing: border-box;
+	float: right;
+	height: 60px;
+	padding:13px 5px;
+	position: relative;
+	a{
+		color:white;
+		text-align: center;
+		width: 50%;
+		&:before{
+			font-size: 25px;
+		}
+		&:hover{
+			text-decoration: none;
 		}
 	}
 }
@@ -224,21 +236,12 @@ body{
 	}
 }
 
-.dividersBar{
-	color: @lightGrey;
-	font-size: 10px;
-	font-weight: 400;
-	text-align: center;
-	text-transform: uppercase;
-}
-
 /*-- BUTTONS --*/
 
 .btn{
 	.border-bottom-radius(6px);
 	.border-top-radius(6px);
 	height: 40px;
-	width: 100%;
 }
 
 .btn:focus{
@@ -269,6 +272,12 @@ body{
 	border: 0;
 	&:hover{
 		background-color: @buttons-hover;
+	}
+}
+
+.btn-group{
+	.btn{
+		width: 100px;
 	}
 }
 
