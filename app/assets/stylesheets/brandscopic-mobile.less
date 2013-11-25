@@ -107,6 +107,34 @@ body{
 				border-bottom: none;
 			}
 		}
+		&.events{
+			.col-xs-3{
+				p{
+					margin: 3px 0;
+					&:last-child:before{
+						content:"\2014";
+						display: inline-block;
+						font-size: 12px;
+						bottom: 6px;
+						left: 19px;
+						margin: 0 0 5px 10px;
+						position: absolute;
+						width: 100%;
+						color: @lightGrey;
+					}
+				}
+			}
+			.col-xs-9{
+				margin-right: 0;
+			}
+			.editpanel{
+				background-color: red;
+				float: right;
+				height: 60px;
+				position: relative;
+				width:150px;
+			}
+		}
 	}
 }
 
