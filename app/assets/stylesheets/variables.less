@@ -25,6 +25,17 @@
 
 @baseFontFamily:'Lato', sans-serif;
 
+a{
+	color: @txt;
+	&:hover{
+		color: @txt;
+		text-decoration: none;
+	}
+	&.blue{
+		color: @blue;
+	}
+}
+
 p.medium{
 	font-size: 12px;
 }
@@ -120,6 +131,26 @@ h5{
 	content:"\e603";
 }
 
-.dateData:before{
+
+.date-data:before{
 	content:"\e60b";
+}
+.place-data{
+	margin-top: 20px;
+	&:before{
+		content:"\e610";
+	}
+}
+
+.date-data, .place-data{
+	margin-left: 28px;
+	&:before{
+		font-size: 17px;
+		position: absolute;
+		speak: none;
+		left: 18px;
+		text-align: center;
+		vertical-align: middle;
+		-webkit-font-smoothing: antialiased;
+	}
 }

@@ -14,10 +14,6 @@
 	outline:0;
 }
 
-:hover{
-	text-decoration: none;
-}
-
 .hidden{
 	display:none;
 }
@@ -60,15 +56,6 @@ body{
 	padding: 10px 12px;
 	width:100%;
 
-	/*-- Links on the box container --*/
-	a{
-		color:@brand;
-		&.blue{
-			color: @blue;
-		}
-	}
-
-	/*-- Dashboard --*/
 	&.dashboard{
 		&.details{
 			.col-xs-12{
@@ -86,6 +73,7 @@ body{
 			bottom: 8px;
 		}
 	}
+
 	&.np{
 		padding: 0;
 	}
@@ -113,6 +101,7 @@ body{
 		}
 		&.events{
 			.eventHour{
+				color: @txt;
 				margin: 10px 0 0 0;
 				p{
 					margin: 3px 0;
@@ -132,6 +121,7 @@ body{
 			.col-xs-9{
 				padding: 0;
 				.eventPlace{
+					color: @brand;
 					padding: 10px 0 0 0;
 				}
 			}
@@ -163,18 +153,6 @@ body{
 	margin-bottom: 5px;
 }
 
-.date-data{
-	&:before{
-		content:"\e60b";
-	}
-}
-
-.place-data{
-	&:before{
-		content:"\e610";
-	}
-}
-
 .late {
 	border-left: 4px solid @late;
 }
@@ -185,6 +163,7 @@ body{
 .statusBar{
 	background-color: white;
 	color: @txt;
+	font-weight: 300;
 	height: 60px;
 	margin-bottom: 3px;
 	.col-xs-3{
