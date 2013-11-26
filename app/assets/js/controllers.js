@@ -51,7 +51,7 @@ angular.module('brandscopicApp.controllers', [])
 
     // Options for User Interface in home partial
     $scope.UserInterface = UserInterface;
-    $scope.UserInterface.title = "HOME";
+    $scope.UserInterface.title = "Home";
 
     $scope.logout = function() {
       UserService.currentUser.isLogged = false;
@@ -78,7 +78,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close();
 
     // Options for User Interface in home partial
-    UserInterface.title = "DASHBOARD";
+    UserInterface.title = "Dashboard";
     UserInterface.hasMagnifierIcon = false;
     UserInterface.hasAddIcon = false;
 
@@ -98,7 +98,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close()
 
     // Options for User Interface in home partial
-    UserInterface.title = "EVENTS";
+    UserInterface.title = "Events";
     UserInterface.hasMagnifierIcon = true;
     UserInterface.hasAddIcon = true;
 

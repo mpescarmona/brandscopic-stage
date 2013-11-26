@@ -4,20 +4,20 @@
 <!-- Event Details Container - ABOUT VIEW-->
 <div class="google-map">
 	<iframe width="100%" height="142" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com.ar/maps?t=m&amp;ie=UTF8&amp;ll=-32.926448,-68.813779&amp;spn=0.265698,0.523224&amp;z=11&amp;output=embed"></iframe>
-	<!-- STYLE FOR THE ABOUT VIEW - MAP FULLSCREEN 
-		<div class="box-container">
-			<h1>Fox and Hound Pub & Grill 505</h1>
-			<p>University Drive, College Station</p>
-			<a href="#">Get directions</a>
-		</div>
-	-->
 </div>
 <div class="container">
-	<!-- ALERT FOR CONTAINER STATUS - SUBMITTED 
-		<div class="box-container submitted">
-			<p>Your post event report has been submitted for approval. Please review and either <a href="#">approve</a> or <a href="#">reject</a>.
-		</div>
-	-->
+	<!-- ALERT FOR CONTAINER STATUS - SUBMITTED -->
+	<div class="box-container submitted">
+		<p>Your post event report has been submitted for approval. Please review and either <a href="#">approve</a> or <a href="#">reject</a>.</p>
+	</div>
+	<!-- ALERT FOR CONTAINER STATUS - LATE -->
+	<div class="box-container late">
+		<p>Your event report is late. Please <a href="#">submit post event data</a>, <a href="#">upload photos</a>, <a href="#">enter expenses</a>, and <a href="#">enter comments</a> now. Once complete please <a href="#">submit</a> your post event form.</p>
+	</div>
+	<!-- ALERT FOR CONTAINER STATUS - SCHEDULED -->
+	<div class="box-container scheduled">
+		<p>Your event is scheduled for today. Please <a href="#">enter post event data</a>, <a href="#">upload photos</a>, <a href="#">conduct surveys</a>, <a href="#">enter expenses</a>, and  <a href="#">gather comments</a> from your audience during or shortly after the event. Once complete please <a href="#">submit</a> your post event form.</p>
+	</div>
 	<div class="box-container">
 		<h5>Jameson Locals FY14</h5>
 		<div class="date-data">
@@ -29,5 +29,106 @@
 			423 East 17th Avenue<br>
 			Denver, CO, 80203
 		</div>
+		<button type="button" class="btn-default btn-sm edit"></button>
+		<button type="button" class="btn-default btn-sm deactivate"></button>
+	</div>
+</div>
+
+<!-- Event Details Container - EVENT VIEW - ABOUT MAP-->
+
+<div class="google-map fullscreen">
+	<div class="container">
+		<div class="box-container">
+			<h5>Fox and Hound Pub & Grill</h5>
+			<p>505 University Drive, College Station, TX, United States</p>
+			<a href="#" class="blue">Get directions</a>
+		</div>
+	</div>
+	<iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com.ar/maps?t=m&amp;ie=UTF8&amp;ll=-32.926448,-68.813779&amp;spn=0.265698,0.523224&amp;z=11&amp;output=embed"></iframe> 
+</div>
+
+<!-- Event Details Container - ADD EVENT VIEW-->
+
+<div class="container">
+	<div class="box-container events">
+		<div class="row">
+			<div class="col-xs-12">
+				<label>Campaign name</label>
+				<input type="text">
+			</div>
+			
+			<div class="col-xs-12">
+				<label for="start">Start</label>
+				<div class="col-xs-12">
+					<div class="col-xs-7">
+						<input type="text">
+					</div>
+					<div class="col-xs-1">at</div>
+					<div class="col-xs-4">
+						<input type="text">
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-xs-12">
+				<label for="end">End</label>
+				<div class="col-xs-7">
+					<input type="text">
+				</div>
+				<div class="col-xs-1">at</div>
+				<div class="col-xs-4">
+					<input type="text">
+				</div>
+			</div>
+
+			<div class="col-xs-12">
+				<label>Place</label>
+				<input type="text">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Event Details Container - EVENT VIEW - PEOPLE-->
+
+<div class="container">
+	<div class="centerTxt m10">
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default active">Event team</button>
+		  <button type="button" class="btn btn-default">Contacts</button>
+		</div>
+	</div>
+
+	<div class="box-container np">
+		<ul>
+			<li>
+				<div class="row">
+					<div class="col-xs-7">
+						<h5 class="txtAdjust">Chris Jaskot</h5>
+						<p class="txtAdjust">Field Manager</p>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="row">
+					<div class="col-xs-6">
+						<h5 class="txtAdjust">George Tan</h5>
+						<p class="txtAdjust">Field Manager</p>
+					</div>
+					<div class="col-xs-5 editpanel">
+						<a href="#" class="edit pull-left"></a>
+						<a href="#" class="deactivate pull-right"></a>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="row">
+					<div class="col-xs-6">
+						<h5 class="txtAdjust">Gan Francisco MBN Team</h5>
+						<p class="txtAdjust">Top performers for San Francisco area</p>
+					</div>
+				</div>
+			</li>
+		</ul>
 	</div>
 </div>

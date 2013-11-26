@@ -20,7 +20,13 @@
 
 h5{
 	color: @txt;
+	font-size: 16px;
 	margin-top:0;
+}
+
+label{
+	clear: both;
+	display: block;
 }
 
 body{
@@ -30,9 +36,15 @@ body{
 	&.loginLayout{
 		background-color: @menu;	
 		color: white;
+		.btn{
+			width: 100%;
+		}
 		.container{
 			padding-left: 30px;
 			padding-right: 30px;
+			.row{
+				margin: 0;
+			}
 		}
 	}
 	&.appLayout{
@@ -49,7 +61,7 @@ body{
 	.border-bottom-radius(6px);
 	.border-top-radius(6px);
 	box-sizing: border-box;
-	color: @brand;
+	color: @txt;
 	height: auto;
 	margin-bottom: 2px;
 	margin-top: 2px;
@@ -57,6 +69,8 @@ body{
 	width:100%;
 
 	&.dashboard{
+		margin-bottom: 4px;
+		margin-top: 5px;
 		&.details{
 			.col-xs-12{
 				margin-bottom: 15px;
@@ -65,20 +79,39 @@ body{
 				}
 			}
 		}
-		h5{
+		p{
 			float: left;
+			margin-bottom: 5px;
 			width:90%;
 		}
 		.nextIcon:before{
 			bottom: 8px;
+			left:5px;
+		}
+		.row{
+			margin: 0;
 		}
 	}
 
 	&.np{
 		padding: 0;
 	}
+	&.late{
+		background-color: @buttons;
+	}
+	&.scheduled{
+		background-color: @brand;
+	}
 	&.submitted{
 		background-color: @submitted;
+	}
+	&.late, &.scheduled, &.submitted{
+		color: white;
+		margin-bottom: 8px;
+		a{
+			color: white;
+			text-decoration: underline;
+		}
 	}
 	ul{
 		margin-bottom: 0;
@@ -99,58 +132,83 @@ body{
 				border-bottom: none;
 			}
 		}
-		&.events{
-			.eventHour{
-				color: @txt;
-				margin: 10px 0 0 0;
-				p{
-					margin: 3px 0;
-					&:last-child:before{
-						content:"\2014";
-						display: inline-block;
-						font-size: 12px;
-						bottom: 6px;
-						left: 19px;
-						margin: 0 0 5px 10px;
-						position: absolute;
-						width: 100%;
-						color: @lightGrey;
-					}
-				}
-			}
-			.col-xs-9{
-				padding: 0;
-				.eventPlace{
-					color: @brand;
-					padding: 10px 0 0 0;
-				}
-			}
-			.editpanel{
-				background-color: @lightGrey;
-				box-sizing: border-box;
-				float: right;
-				height: 60px;
-				padding:13px 5px;
-				position: relative;
-				a{
-					color:white;
-					text-align: center;
-					width: 50%;
-					&:before{
-						font-size: 25px;
-					}
-					&:hover{
-						text-decoration: none;
-					}
-				}
+	}
+}
+
+.dividersBar{
+	color: @lightGrey;
+	font-size: 10px;
+	font-weight: 400;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.editpanel{
+	background-color: @lightGrey;
+	box-sizing: border-box;
+	float: right;
+	height: 60px;
+	padding:13px 5px;
+	position: relative;
+	a{
+		color:white;
+		text-align: center;
+		width: 50%;
+		&:before{
+			font-size: 25px;
+		}
+		&:hover{
+			text-decoration: none;
+		}
+	}
+}
+
+.events{
+	.eventHour{
+		color: @txt;
+		padding: 10px 0 0 10px;
+		p{
+			margin: 3px 0;
+			&:last-child:before{
+				content:"\2014";
+				display: inline-block;
+				font-size: 12px;
+				bottom: 6px;
+				left: 15px;
+				margin: 0 0 5px 10px;
+				position: absolute;
+				width: 100%;
+				color: @lightGrey;
 			}
 		}
+	}
+	.col-xs-1{
+		margin-top: 10px;
+		text-align: center;
+	}
+	.col-xs-9{
+		.eventPlace{
+			color: @brand;
+			padding: 10px 0 0 0;
+		}
+	}
+	.row{
+		margin: 0;
 	}
 }
 
 .google-map{
 	height: 142px;
 	margin-bottom: 5px;
+	width: 100%;
+	&.fullscreen{
+		height: 100%;
+		.box-container{
+			margin-top: 10px;
+			position: absolute;
+			width: 97%;
+		}
+	}
 }
 
 .late {
@@ -158,6 +216,16 @@ body{
 }
 .submitted {
 	border-left: 4px solid @submitted;
+}
+
+.searchBar{
+	background-color: @lightGrey;
+	box-sizing: border-box;
+	height: 45px;
+	padding: 8px;
+	input{
+		height: 28px;
+	}
 }
 
 .statusBar{
@@ -189,25 +257,35 @@ body{
 	}
 }
 
-.dividersBar{
-	color: @lightGrey;
-	font-size: 10px;
-	font-weight: 400;
-	text-align: center;
-	text-transform: uppercase;
-}
-
 /*-- BUTTONS --*/
 
 .btn{
 	.border-bottom-radius(6px);
 	.border-top-radius(6px);
 	height: 40px;
-	width: 100%;
 }
 
 .btn:focus{
 	outline:0;
+}
+
+.btn-default{
+	background-color: @lightGrey;
+	border: 0;
+	color: white;
+	&.btn-sm{
+		margin-right: 5px;
+		height: 33px;
+		width: 90px;
+		&.edit:before, &.deactivate:before{
+			font-size: 23px;
+			line-height: 10px;
+		}
+	}
+	&:hover{
+		background-color: @lightGrey;
+		color: white;
+	}
 }
 
 .btn-danger{
@@ -215,6 +293,25 @@ body{
 	border: 0;
 	&:hover{
 		background-color: @buttons-hover;
+	}
+}
+
+.btn-group{
+	.btn{
+		height: auto;
+		padding: 5px 0;
+		width: 100px;
+		&.btn-default{
+			&.active{
+				background-color: @lightTxt;
+				box-shadow: none;
+				color: @menuTxt;
+				-webkit-box-shadow: none;
+			}
+			&:hover{
+				background-color: @lightTxt;
+			}
+		}
 	}
 }
 
@@ -239,20 +336,22 @@ button{
 }
 
 input{
+	border: 1px solid @lightGrey;
+	.border-top-radius(6px);
+	.border-bottom-radius(6px);
 	color: @lightTxt;
 	height: 40px;
+	margin-bottom: 10px;
 	padding: 0 10px;
 	width: 100%;
 	-webkit-appearance: none;
 	&.email{
-		.border-top-radius(6px);
-		.border-bottom-radius(0px);
 		border:0;
-		border-bottom: 1px solid @lightGrey;
-		&.rounded{
+		&.not-rounded{
+			border-bottom: 1px solid @lightGrey;
 			.border-top-radius(6px);
-			.border-bottom-radius(6px) !important;
-			margin-bottom: 10px;
+			.border-bottom-radius(0px) !important;
+			margin-bottom: 0;
 		}
 	}
 	&.password{
@@ -311,6 +410,12 @@ input{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+/*-- MARGIN --*/
+
+.m10{
+	margin: 10px 0;
 }
 
 /*-- PROGRESS STYLES --*/

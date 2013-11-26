@@ -33,6 +33,7 @@ a{
 	}
 	&.blue{
 		color: @blue;
+		font-weight: 400;
 	}
 }
 
@@ -43,8 +44,13 @@ p.small{
 	font-size: 11px;
 }
 
-h5{
-	font-size: 16px;
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-family: @baseFontFamily;
 }
 
 /*-- ICON FONTS --*/
@@ -114,6 +120,7 @@ h5{
 .nextIcon:before{
 	color: @lightGrey;
 	content:"\e60d";
+	font-size: 16px;
 }
 .notificationIcon:before{
 	content:"\e607";
@@ -134,23 +141,27 @@ h5{
 
 .date-data:before{
 	content:"\e60b";
+	margin-left: -28px;
 }
 .place-data{
-	margin-top: 20px;
+	margin: 20px 0;
 	&:before{
 		content:"\e610";
+		margin-left: -25px;
 	}
 }
 
 .date-data, .place-data{
+	line-height: 18px;
 	margin-left: 28px;
 	&:before{
+		color: @lightGrey;
 		font-size: 17px;
-		position: absolute;
+		position: relative;
 		speak: none;
-		left: 18px;
 		text-align: center;
 		vertical-align: middle;
 		-webkit-font-smoothing: antialiased;
+		margin-right: 10px;
 	}
 }

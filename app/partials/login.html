@@ -9,7 +9,7 @@
         <p class="centerTxt" ng-show="wrongUser">
           <span class="error">Whoops!</span> Email/Password are not found.</p>
         <div class="col-xs-12">
-          <input class="email" ng-class="{error: wrongUser}" type="text" placeholder="Email" ng-model="user.email">
+          <input class="email not-rounded" ng-class="{error: wrongUser}" type="text" placeholder="Email" ng-model="user.email">
           <input class="password" ng-class="{error: wrongUser}" type="password" placeholder="Password" ng-model="user.password">
         </div>
         <div class="col-xs-12"> 
@@ -34,7 +34,7 @@
           <p>Enter your email and we'll send you<br>instructions to help you reset your password.</p>
         </div>
         <div class="col-xs-12">
-          <input type="text" placeholder="Email" ng-model="user.email" class="email rounded">
+          <input type="text" placeholder="Email" ng-model="user.email" class="email">
         </div>
       </div>
       <div class="row">
