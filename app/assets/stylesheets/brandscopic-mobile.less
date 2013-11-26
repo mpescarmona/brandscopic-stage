@@ -92,6 +92,10 @@ body{
 	&.np{
 		padding: 0;
 	}
+	&.floating{
+		margin-top: 10px;
+		position: absolute;
+	}
 	&.late{
 		background-color: @buttons;
 	}
@@ -128,32 +132,6 @@ body{
 				border-bottom: none;
 			}
 		}
-		&.events{
-			.eventHour{
-				color: @txt;
-				padding: 10px 0 0 10px;
-				p{
-					margin: 3px 0;
-					&:last-child:before{
-						content:"\2014";
-						display: inline-block;
-						font-size: 12px;
-						bottom: 6px;
-						left: 19px;
-						margin: 0 0 5px 10px;
-						position: absolute;
-						width: 100%;
-						color: @lightGrey;
-					}
-				}
-			}
-			.col-xs-9{
-				.eventPlace{
-					color: @brand;
-					padding: 10px 0 0 0;
-				}
-			}
-		}
 	}
 }
 
@@ -185,9 +163,46 @@ body{
 	}
 }
 
+		.events{
+			.eventHour{
+				color: @txt;
+				padding: 10px 0 0 10px;
+				p{
+					margin: 3px 0;
+					&:last-child:before{
+						content:"\2014";
+						display: inline-block;
+						font-size: 12px;
+						bottom: 6px;
+						left: 19px;
+						margin: 0 0 5px 10px;
+						position: absolute;
+						width: 100%;
+						color: @lightGrey;
+					}
+				}
+			}
+			.col-xs-1{
+				margin-top: 10px;
+				text-align: center;
+			}
+			.col-xs-9{
+				.eventPlace{
+					color: @brand;
+					padding: 10px 0 0 0;
+				}
+			}
+			.row{
+				margin: 0;
+			}
+		}
+
 .google-map{
 	height: 142px;
 	margin-bottom: 5px;
+	&.fullscreen{
+		height: 100%;
+	}
 }
 
 .late {
@@ -277,7 +292,20 @@ body{
 
 .btn-group{
 	.btn{
+		height: auto;
+		padding: 5px 0;
 		width: 100px;
+		&.btn-default{
+			&.active{
+				background-color: @lightTxt;
+				box-shadow: none;
+				color: @menuTxt;
+				-webkit-box-shadow: none;
+			}
+			&:hover{
+				background-color: @lightTxt;
+			}
+		}
 	}
 }
 
@@ -376,6 +404,12 @@ input{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+/*-- MARGIN --*/
+
+.m10{
+	margin: 10px 0;
 }
 
 /*-- PROGRESS STYLES --*/
