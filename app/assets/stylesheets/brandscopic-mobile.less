@@ -92,10 +92,6 @@ body{
 	&.np{
 		padding: 0;
 	}
-	&.floating{
-		margin-top: 10px;
-		position: absolute;
-	}
 	&.late{
 		background-color: @buttons;
 	}
@@ -163,45 +159,51 @@ body{
 	}
 }
 
-		.events{
-			.eventHour{
-				color: @txt;
-				padding: 10px 0 0 10px;
-				p{
-					margin: 3px 0;
-					&:last-child:before{
-						content:"\2014";
-						display: inline-block;
-						font-size: 12px;
-						bottom: 6px;
-						left: 19px;
-						margin: 0 0 5px 10px;
-						position: absolute;
-						width: 100%;
-						color: @lightGrey;
-					}
-				}
-			}
-			.col-xs-1{
-				margin-top: 10px;
-				text-align: center;
-			}
-			.col-xs-9{
-				.eventPlace{
-					color: @brand;
-					padding: 10px 0 0 0;
-				}
-			}
-			.row{
-				margin: 0;
+.events{
+	.eventHour{
+		color: @txt;
+		padding: 10px 0 0 10px;
+		p{
+			margin: 3px 0;
+			&:last-child:before{
+				content:"\2014";
+				display: inline-block;
+				font-size: 12px;
+				bottom: 6px;
+				left: 19px;
+				margin: 0 0 5px 10px;
+				position: absolute;
+				width: 100%;
+				color: @lightGrey;
 			}
 		}
+	}
+	.col-xs-1{
+		margin-top: 10px;
+		text-align: center;
+	}
+	.col-xs-9{
+		.eventPlace{
+			color: @brand;
+			padding: 10px 0 0 0;
+		}
+	}
+	.row{
+		margin: 0;
+	}
+}
 
 .google-map{
 	height: 142px;
 	margin-bottom: 5px;
+	width: 100%;
 	&.fullscreen{
 		height: 100%;
+		.box-container{
+			margin-top: 10px;
+			position: absolute;
+			width: 97%;
+		}
 	}
 }
 
