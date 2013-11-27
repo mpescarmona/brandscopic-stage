@@ -23,7 +23,7 @@ angular.module('brandscopicApp.controllers', [])
             UserService.currentUser.auth_token = response.data.data.auth_token;
             UserService.currentUser.isLogged = true;
             UserService.currentUser.email = $scope.user.email;
-            $state.go('home');
+            $state.go('home.dashboard');
             return;
         }
        } else {
@@ -52,6 +52,9 @@ angular.module('brandscopicApp.controllers', [])
     // Options for User Interface in home partial
     $scope.UserInterface = UserInterface;
     $scope.UserInterface.title = "Home";
+    // $scope.UserInterface.hasMagnifierIcon = false;
+    // $scope.UserInterface.hasAddIcon = false;
+    // $scope.UserInterface.searching = false;
 
     $scope.logout = function() {
       UserService.currentUser.isLogged = false;
@@ -81,6 +84,7 @@ angular.module('brandscopicApp.controllers', [])
     UserInterface.title = "Dashboard";
     UserInterface.hasMagnifierIcon = false;
     UserInterface.hasAddIcon = false;
+    UserInterface.searching = false;
 
     $scope.dashboardItems = [{'id': 1, 'name': 'Gin BAs FY14', 'today': '30%', 'progress': '40%'},
                              {'id': 2, 'name': 'Jameson Locals FY14', 'today': '65%', 'progress': '10%'},
@@ -98,9 +102,11 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close()
 
     // Options for User Interface in home partial
-    UserInterface.title = "Events";
-    UserInterface.hasMagnifierIcon = true;
-    UserInterface.hasAddIcon = true;
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = "Events";
+    $scope.UserInterface.hasMagnifierIcon = true;
+    $scope.UserInterface.hasAddIcon = true;
+    $scope.UserInterface.searching = false;
 
     $scope.eventsItems = [{'id': 1, 'name': 'Event One', 'today': '30%', 'progress': '40%'},
                           {'id': 2, 'name': 'Event Two', 'today': '65%', 'progress': '10%'},
