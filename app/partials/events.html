@@ -4,7 +4,7 @@
 	</div>
 </div>
 
-<div class="statusBar">
+<div class="statusBar" ng-show="!UserInterface.searching">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-3"> 
@@ -31,7 +31,7 @@
 	</div>
 </div>
 <!-- Events Container -->
-<div class="container" ng-repeat="event in eventsItems">
+<div class="container" ng-repeat="event in eventsItems" ng-show="!UserInterface.searching">
 	<div class="dividersBar">TODAY</div>
 	<div class="box-container np">
 		<ul class="events">
@@ -90,4 +90,3 @@
 		</ul>
 	</div>
 </div>
-<div class="separated" ui-view></div>
