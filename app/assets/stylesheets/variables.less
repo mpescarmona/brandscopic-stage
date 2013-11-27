@@ -82,6 +82,8 @@ h1, h2, h3, h4, h5, h6{
 .profileIcon:before,
 .saveicon:before,
 .tasksIcon:before, 
+.team:before,
+.teaMember:before,
 .venuesIcon:before{
   font-family: 'icons';
   position: relative;
@@ -133,6 +135,21 @@ h1, h2, h3, h4, h5, h6{
 }
 .tasksIcon:before{
 	content:"\e604";
+}
+.team:before{
+	content:"\e611";
+}
+.teaMember:before{
+	content:"\e606";
+}
+.teaMember:before, .team:before{
+	color:@txt;
+    display: block;
+    font-size: 15px;
+    width: 20px; 
+    height: 20px;  
+    position: absolute;
+    left: -23px;
 }
 .venuesIcon:before{
 	content:"\e603";

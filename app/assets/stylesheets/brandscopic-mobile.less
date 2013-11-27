@@ -133,6 +133,23 @@ body{
 				border-bottom: none;
 			}
 		}
+		&.events{
+			li{
+				padding: 3px 0 3px 3px;
+				.editpanel{
+					margin-top: -3px;
+				}
+			}
+		}
+		&.eventsPeople{
+			.col-xs-5{
+				&.team, &.teaMember{
+					float: left;
+			    position: relative;
+			    margin: 11px 0 0 30px;
+			  }
+			}
+		}
 	}
 }
 
@@ -167,7 +184,7 @@ body{
 .events{
 	.eventHour{
 		color: @txt;
-		padding: 10px 0 0 10px;
+		padding: 8px 0 0 10px;
 		p{
 			margin: 3px 0;
 			&:last-child:before{
@@ -195,7 +212,7 @@ body{
 	.col-xs-9{
 		.eventPlace{
 			color: @brand;
-			padding: 10px 0 0 0;
+			padding: 8px 0 0 0;
 		}
 	}
 	.row{
