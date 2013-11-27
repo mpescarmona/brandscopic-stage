@@ -243,6 +243,9 @@ body{
 	font-weight: 300;
 	height: 60px;
 	margin-bottom: 3px;
+	.container{
+		padding: 0;
+	}
 	.col-xs-3{
 		border-right: 1px solid @borders;
 		font-size: 11px;
@@ -259,6 +262,9 @@ body{
 		}
 		&:last-child{
 			border: 0;
+		}
+		&.active{
+			background-color: @listHover;
 		}
 	}
 	.row{
