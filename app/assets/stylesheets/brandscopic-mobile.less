@@ -182,6 +182,11 @@ body{
 			}
 		}
 	}
+	.eventDate{
+		input{
+			text-transform: uppercase;
+		}
+	}
 	.col-xs-1{
 		margin-top: 10px;
 		text-align: center;
@@ -208,6 +213,9 @@ body{
 			position: absolute;
 			width: 97%;
 		}
+	}
+	iframe{
+		width: 100%;
 	}
 }
 
@@ -359,6 +367,10 @@ input{
 		.border-top-radius(0px);
 		border: 0;
 		margin-bottom: 10px;
+	}
+	&.event_start_date, &.event_end_date{
+		background: url('../images/calendar.svg') no-repeat left !important;
+		text-align: right;
 	}
 }
 
