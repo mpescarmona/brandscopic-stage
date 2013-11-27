@@ -7,6 +7,7 @@ angular.module('brandscopicApp', [
   'snap',
   'angular-flip',
   'ngResource',
+  'ngTouch',
   'brandscopicApp.filters',
   'brandscopicApp.services',
   'brandscopicApp.directives',
@@ -31,22 +32,30 @@ config(function($stateProvider, $urlRouterProvider) {
     })
     .state('home.dashboard', {
       url: "/dashboard",
-      templateUrl: "partials/dashboard.html",
-      controller: 'DashboardController'
+      views:{'details@home':{ templateUrl: "partials/dashboard.html",
+                              controller: 'DashboardController'
+                            }
+            }
     })
     .state('home.dashboard.details', {
       url: "/:dashboardId",
-      templateUrl: "partials/dashboard_details.html",
-      controller: 'DashboardController'
+      views:{'details@home':{ templateUrl:"partials/dashboard_details.html",
+                              controller: 'DashboardController'
+                            }
+            }
     })
     .state('home.events', {
       url: "/events",
-      templateUrl: "partials/events.html",
-      controller: 'EventsController'
+      views:{'details@home':{ templateUrl: "partials/events.html",
+                              controller: 'EventsController'
+                            }
+            }
     })
     .state('home.events.details', {
       url: "/:eventId",
-      templateUrl: "partials/events_details.html",
-      controller: 'EventsController'
+      views:{'details@home':{ templateUrl: "partials/events_details.html",
+                              controller: 'EventsController'
+                            }
+            }
     })
 });

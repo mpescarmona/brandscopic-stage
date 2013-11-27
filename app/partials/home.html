@@ -14,13 +14,20 @@
   </div>
 </snap-drawer>
 <snap-content>
-  <div class="navHeader">
+  <div class="navHeader" ng-show="!UserInterface.searching">
     <button snap-toggle class="noButton menuIcon"></button>
     <h1>{{UserInterface.title}}</h1>
-    <button class="noButton magnifierIcon pull-right" ng-show="UserInterface.hasMagnifierIcon"></button>
+    <button class="noButton magnifierIcon pull-right" 
+            ng-show="UserInterface.hasMagnifierIcon" 
+            ng-swipe-left="UserInterface.searching=true">
+    </button>
     <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon"></button>
+  </div>
+  <div class="navHeader" ng-show="UserIterface.searching" ng-swipe-left="UserInterface.searching=false">
+    <button snap-toggle class="noButton backIcon"></button>
+    <input class="search" type="text">
   </div>
     
     <!-- Partials -->
-    <div ui-view></div>
+    <div ui-view="details"></div>
 </snap-content>

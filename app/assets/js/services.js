@@ -15,9 +15,10 @@ angular.module('brandscopicApp.services', ['ngResource'])
 })
 
 .service('UserInterface', function() {
+  this.Title = "";
   this.hasMagnifierIcon = false;
   this.hasAddIcon = false;
-  this.Title = "";
+  this.searching = false;
 })
 
 .service('SessionRestClient', ['$resource', function($resource) {
@@ -55,6 +56,43 @@ angular.module('brandscopicApp.services', ['ngResource'])
                         });
 	};
 }])
+
+.service('CompaniesRestClient', ['$resource', function($resource) {
+
+  var baseUrl = "http://stage.brandscopic.com";
+  var basePort = "";
+
+  this.getCompanies = function(authToken) {
+    return $resource( baseUrl + '/api/v1/companies',
+                        {},
+                        // should do a POST call to /api/v1/sessions with email and password
+                        {get:{ method: 'GET',
+                                headers: {'Accept': 'application/json'},
+                                params: {auth_token: authToken},
+                                interceptor: {
+                                                response: function (data) {
+                                                    console.log('response in interceptor', data);
+                                                    return data;
+                                                },
+                                                responseError: function (data) {
+                                                    console.log('error in interceptor', data);
+                                                    return data;
+                                                }
+                                              },
+                                transformResponse: function(data, header) {
+                                  console.log('transformResponse->data: ' + data);
+                                  console.log('transformResponse->header: ' + header);
+                                  var wrapped = angular.fromJson(data);
+                                  angular.forEach(wrapped.items, function(item, idx) {
+                                     wrapped.items[idx] = new Post(item); //<-- replace each item with an instance of the resource object
+                                  });
+                                  return wrapped;
+                                }
+                              }
+                        });
+  };
+}])
+
 
 .value('version', '0.1')
 .value('loginPage', '/login');
