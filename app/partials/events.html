@@ -8,11 +8,11 @@
 
 -->
 
-<div class="subnav">
+<!-- <div class="subnav">
 	<div class="container">
 		<ul>
 			<li class="active">ABOUT</li>
-			<li>PEOPLE</li>
+			<li><a href="#/home/events/details/people/{{event.id}}">PEOPLE</a></li>
 			<li>TASKS</li>
 			<li>DATA</li>
 			<li>PHOTOS</li>
@@ -21,7 +21,7 @@
 			<li>SURVEYS</li>
 		</ul>
 	</div>
-</div>
+</div> -->
 
 <div class="statusBar" ng-show="!UserInterface.searching">
 	<div class="container">
@@ -54,11 +54,12 @@
 	</div>
 </div>
 <!-- Events Container -->
-<div class="container" ng-repeat="event in eventsItems" ng-show="!UserInterface.searching">
-	<div class="dividersBar">TODAY</div>
+<div class="container" ng-repeat="event in eventsItems.results" ng-show="!UserInterface.searching">
+	<!-- <div class="dividersBar">TODAY</div> -->
+	<div class="dividersBar">{{event.start_date}}</div>
 	<div class="box-container np">
 		<ul class="events">
-			<li>
+<!-- 			<li>
 				<a href="#/home/events/{{event.id}}">
 					<div class="row late">
 						<div class="col-xs-3 eventHour">
@@ -73,20 +74,20 @@
 						</div>
 					</div>
 				</a>
-			</li>
+			</li> -->
 			<li>
 				<a href="#/home/events/{{event.id}}">
 					<div class="row late">
 						<div class="col-xs-3 eventHour">
-							<p class="small">8:00 AM</p>
-							<p class="small">9:00 AM</p>
+							<p class="small">{{event.start_time}}</p>
+							<p class="small">{{event.end_time}}</p>
 						</div>
 						<div class="col-xs-9">
 							<div class="col-xs-5 eventPlace">
-						    <h5 class="txtAdjust">Jameson CE FY13</h5>
-								<p class="medium txtAdjust">Bar None, San Francisco, CA</p>
+						    <h5 class="txtAdjust">{{event.campaign.name}}</h5>
+								<p class="medium txtAdjust">{{event.place.name}}, {{event.place.city}}, {{event.place.state}}</p>
 							</div>
-							<div class="col-xs-5 editpanel">
+							<div class="col-xs-5 editpanel" ng-show="1==2">
 								<a href="#" class="edit pull-left"></a>
 								<a href="#" class="deactivate pull-right"></a>
 							</div>
@@ -94,7 +95,7 @@
 					</div>
 				</a>
 			</li>
-			<li>
+<!-- 			<li>
 				<a href="#/home/events/{{event.id}}">
 					<div class="row late">
 						<div class="col-xs-3 eventHour">
@@ -109,7 +110,7 @@
 						</div>
 					</div>
 				</a>
-			</li>
+			</li> -->
 		</ul>
 	</div>
 </div>
