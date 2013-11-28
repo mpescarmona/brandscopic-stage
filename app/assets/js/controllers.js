@@ -240,7 +240,7 @@ angular.module('brandscopicApp.controllers', [])
 
   }])
 
-  .controller('EventsDetailsController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
+  .controller('EventsDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, $stateParams, snapRemote, UserService, UserInterface) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -254,6 +254,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.hasAddIcon = true;
     $scope.UserInterface.searching = false;
 
+    $scope.eventId = $stateParams.eventId;
     // $scope.eventsItems = [{'id': 1, 'name': 'Event One', 'today': '30%', 'progress': '40%'},
     //                       {'id': 2, 'name': 'Event Two', 'today': '65%', 'progress': '10%'},
     //                       {'id': 3, 'name': 'Event three', 'today': '75%', 'progress': '60%'}];
