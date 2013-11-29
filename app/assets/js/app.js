@@ -65,4 +65,32 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.events.details.people.contacts', {
+      url: "/contacts",
+      views:{'details@home':{ templateUrl: "partials/events_details_people_contacts.html",
+                              controller: 'EventsDetailsController'
+                            }
+            }
+    })
+    .state('home.events.details.people.contacts.edit', {
+      url: "/edit",
+      views:{'details@home':{ templateUrl: "partials/events_details_people_contacts_edit.html",
+                              controller: 'EventsDetailsController'
+                            }
+            }
+    })
+    .state('home.events.details.people.team', {
+      url: "/team",
+      views:{'details@home':{ templateUrl: "partials/events_details_people_team.html",
+                              controller: 'EventsDetailsController'
+                            }
+            }
+    })
+    .state('home.events.details.data', {
+      url: "/data",
+      views:{'details@home':{ templateUrl: "partials/events_details_data.html",
+                              controller: 'EventsDetailsController'
+                            }
+            }
+    })
 });
