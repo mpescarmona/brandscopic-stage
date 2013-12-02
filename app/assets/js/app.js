@@ -61,28 +61,35 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.details.people', {
       url: "/people",
       views:{'details@home':{ templateUrl: "partials/events_details_people.html",
-                              controller: 'EventsDetailsController'
+                              controller: 'EventsPeopleController'
                             }
             }
     })
     .state('home.events.details.people.contacts', {
       url: "/contacts",
       views:{'details@home':{ templateUrl: "partials/events_details_people_contacts.html",
-                              controller: 'EventsDetailsController'
+                              controller: 'EventsPeopleController'
                             }
             }
     })
     .state('home.events.details.people.contacts.edit', {
-      url: "/edit",
+      url: "/:contactId/edit",
       views:{'details@home':{ templateUrl: "partials/events_details_people_contacts_edit.html",
-                              controller: 'EventsDetailsController'
+                              controller: 'EventsPeopleController'
                             }
             }
     })
     .state('home.events.details.people.team', {
       url: "/team",
       views:{'details@home':{ templateUrl: "partials/events_details_people_team.html",
-                              controller: 'EventsDetailsController'
+                              controller: 'EventsPeopleController'
+                            }
+            }
+    })
+    .state('home.events.details.people.team.edit', {
+      url: "/:teamId/edit",
+      views:{'details@home':{ templateUrl: "partials/events_details_people_team_edit.html",
+                              controller: 'EventsPeopleController'
                             }
             }
     })
