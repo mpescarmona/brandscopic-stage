@@ -11,8 +11,8 @@
 <div class="statusBar" ng-show="!UserInterface.searching">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-3" ng-repeat="status in statusCount" ng-class="{active: status.selected}"> 
-				<a href="#">
+			<div class="col-xs-3" ng-repeat="status in statusCount" ng-class="{active: event_status==status.id}"> 
+				<a ng-click="filterStatus('{{status.id}}')">
 					<div class="number">{{status.count}}</div>
 					<p>{{status.label}}</p>
 				</a>
@@ -21,14 +21,14 @@
 	</div>
 </div>
 <!-- Events Container -->
-<div class="container" ng-repeat="event in eventsItems.results" ng-show="!UserInterface.searching">
+<div class="container" ng-repeat="event in eventsItems.results | filter:event_status" ng-show="!UserInterface.searching">
 	<!-- <div class="dividersBar">TODAY</div> -->
 	<div class="dividersBar">{{event.start_date}}</div>
 	<div class="box-container np">
 		<ul class="events">
 			<li>
 				<a href="#/home/events/{{event.id}}">
-					<div class="row late">
+					<div class="row" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected', approved: event_status=='Approved'}">
 						<div class="col-xs-3 eventHour">
 							<p class="small">{{event.start_time}}</p>
 							<p class="small">{{event.end_time}}</p>

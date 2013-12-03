@@ -110,7 +110,11 @@ angular.module('brandscopicApp.controllers', [])
 
     $scope.eventsItems = EventsRestClient.getEvents();
     $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
+    $scope.event_status = false;
 
+    $scope.filterStatus = function(status) {
+      $scope.event_status = ($scope.event_status == status) ? false : (($scope.event_status == false) ? status : $scope.event_status);
+    };
   }])
 
   .controller('EventsDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
