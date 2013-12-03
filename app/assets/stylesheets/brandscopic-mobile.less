@@ -297,16 +297,18 @@ body{
 	ul{
 		padding: 0;
 		li{
-			box-sizing:border-box;
-			color:@listHover;
 			display: inline-block;
 			height: 37px;
-			list-style: none;
-			padding: 9px 12px;
-			&:hover, &.active{
-				color:white;
-				border-bottom: 3px solid @blue;
+			a{
+				color:@listHover;
+				display: block;
+				list-style: none;
+				padding: 9px 12px;
 			}
+							&:hover, &.active{
+					color:white;
+					border-bottom: 3px solid @blue;
+				}
 		}
 	}
 }
