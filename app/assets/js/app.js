@@ -58,44 +58,58 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.events.details.about', {
+      url: "/about",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_about.html",
+                              controller: 'EventsAboutController'
+                            }
+            }
+    })
+    .state('home.events.details.about.map', {
+      url: "/map",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_about_map.html",
+                              controller: 'EventsAboutController'
+                            }
+            }
+    })
     .state('home.events.details.people', {
       url: "/people",
-      views:{'details@home':{ templateUrl: "partials/events_details_people.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people.html",
                               controller: 'EventsPeopleController'
                             }
             }
     })
     .state('home.events.details.people.contacts', {
       url: "/contacts",
-      views:{'details@home':{ templateUrl: "partials/events_details_people_contacts.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts.html",
                               controller: 'EventsPeopleController'
                             }
             }
     })
     .state('home.events.details.people.contacts.edit', {
       url: "/:contactId/edit",
-      views:{'details@home':{ templateUrl: "partials/events_details_people_contacts_edit.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_edit.html",
                               controller: 'EventsPeopleController'
                             }
             }
     })
     .state('home.events.details.people.team', {
       url: "/team",
-      views:{'details@home':{ templateUrl: "partials/events_details_people_team.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team.html",
                               controller: 'EventsPeopleController'
                             }
             }
     })
     .state('home.events.details.people.team.edit', {
       url: "/:teamId/edit",
-      views:{'details@home':{ templateUrl: "partials/events_details_people_team_edit.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team_edit.html",
                               controller: 'EventsPeopleController'
                             }
             }
     })
     .state('home.events.details.data', {
       url: "/data",
-      views:{'details@home':{ templateUrl: "partials/events_details_data.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_data.html",
                               controller: 'EventsDetailsController'
                             }
             }
