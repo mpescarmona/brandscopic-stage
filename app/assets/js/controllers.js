@@ -16,7 +16,6 @@ angular.module('brandscopicApp.controllers', [])
 
       var promise = session.login().$promise;
       promise.then(function(response) {
-       console.log("success: ", response);
        if (response.status == 200) {
         if (response.data.success == true) {
             $scope.wrongUser = false;
@@ -34,7 +33,6 @@ angular.module('brandscopicApp.controllers', [])
        }
       });
       promise.catch(function(response) {
-        console.log("error: ", response); 
         $scope.wrongUser = true;
         UserService.currentUser.auth_token = "";
         UserService.currentUser.isLogged = false;
@@ -117,6 +115,23 @@ angular.module('brandscopicApp.controllers', [])
     };
   }])
 
+  .controller('EventsAboutController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    // Options for User Interface in home partial
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
+    $scope.UserInterface.hasMagnifierIcon = true;
+    $scope.UserInterface.hasAddIcon = true;
+    $scope.UserInterface.searching = false;
+
+    $scope.eventId = $stateParams.eventId;
+  }])
+
   .controller('EventsDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
@@ -134,7 +149,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.eventId = $stateParams.eventId;
   }])
 
-    .controller('EventsPeopleController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsPeopleController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
