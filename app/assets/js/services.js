@@ -19,6 +19,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.hasMagnifierIcon = false;
   this.hasAddIcon = false;
   this.searching = false;
+  this.eventSubNav = "";
 })
 
 .service('SessionRestClient', ['$resource', function($resource) {

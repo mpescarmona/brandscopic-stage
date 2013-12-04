@@ -128,6 +128,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.hasMagnifierIcon = true;
     $scope.UserInterface.hasAddIcon = true;
     $scope.UserInterface.searching = false;
+    $scope.UserInterface.eventSubNav = "about";
 
     $scope.eventId = $stateParams.eventId;
   }])
@@ -162,10 +163,11 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.hasMagnifierIcon = true;
     $scope.UserInterface.hasAddIcon = true;
     $scope.UserInterface.searching = false;
+    $scope.UserInterface.eventSubNav = "people";
 
     $scope.eventId = $stateParams.eventId;
 
-    $scope.showPeople = 'team';
+    $scope.showPeople = "team";
 
     $scope.showPeopleType = function(type) {
       $scope.showPeople = type;
