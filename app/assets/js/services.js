@@ -1571,14 +1571,14 @@ angular.module('brandscopicApp.services', ['ngResource'])
                     "label": "Active",
                     "id": "Active",
                     "name": "status",
-                    "count": 6864,
+                    "count": 6865,
                     "selected": false
                 },
                 {
                     "label": "Inactive",
                     "id": "Inactive",
                     "name": "status",
-                    "count": 470,
+                    "count": 469,
                     "selected": false
                 }
             ]
@@ -1590,21 +1590,21 @@ angular.module('brandscopicApp.services', ['ngResource'])
                     "label": "Late",
                     "id": "Late",
                     "name": "event_status",
-                    "count": 1749,
+                    "count": 1987,
                     "selected": false
                 },
                 {
                     "label": "Due",
                     "id": "Due",
                     "name": "event_status",
-                    "count": 70,
+                    "count": 0,
                     "selected": false
                 },
                 {
                     "label": "Submitted",
                     "id": "Submitted",
                     "name": "event_status",
-                    "count": 1779,
+                    "count": 1778,
                     "selected": false
                 },
                 {
@@ -1618,7 +1618,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
                     "label": "Approved",
                     "id": "Approved",
                     "name": "event_status",
-                    "count": 2818,
+                    "count": 2819,
                     "selected": false
                 }
             ]
@@ -1632,8 +1632,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "05/24/2014",
             "end_time": " 9:00 PM",
             "status": "Active",
-            "event_status": "Late",
-            // "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2624,
                 "name": "Kelly's Pub Too",
@@ -1660,8 +1659,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "05/03/2014",
             "end_time": " 7:30 PM",
             "status": "Active",
-            "event_status": "Late",
-            // "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2587,
                 "name": "8 Seconds Saloon",
@@ -1688,8 +1686,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "04/17/2014",
             "end_time": " 8:00 PM",
             "status": "Active",
-            "event_status": "Due",
-            // "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2548,
                 "name": "Tini",
@@ -1716,8 +1713,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "04/05/2014",
             "end_time": " 7:30 PM",
             "status": "Active",
-            "event_status": "Submitted",
-            // "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2587,
                 "name": "8 Seconds Saloon",
@@ -1744,8 +1740,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "03/17/2014",
             "end_time": " 8:00 PM",
             "status": "Active",
-            "event_status": "Submitted",
-            // "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2624,
                 "name": "Kelly's Pub Too",
@@ -1772,7 +1767,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "03/15/2014",
             "end_time": " 9:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2629,
                 "name": "Longacre Bar & Grill",
@@ -1799,7 +1794,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "03/15/2014",
             "end_time": " 7:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2606,
                 "name": "Big Daddy's Bar & Grill",
@@ -1826,7 +1821,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "03/14/2014",
             "end_time": "10:30 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2607,
                 "name": "Tiki Bob's",
@@ -1853,7 +1848,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "03/08/2014",
             "end_time": " 7:30 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2587,
                 "name": "8 Seconds Saloon",
@@ -1880,7 +1875,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "03/01/2014",
             "end_time": "10:30 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 115,
                 "name": "Mystic Celt",
@@ -1907,7 +1902,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/28/2014",
             "end_time": " 9:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 117,
                 "name": "High Dive",
@@ -1934,7 +1929,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/27/2014",
             "end_time": " 9:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2624,
                 "name": "Kelly's Pub Too",
@@ -1961,7 +1956,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/22/2014",
             "end_time": "10:30 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 115,
                 "name": "Mystic Celt",
@@ -1988,7 +1983,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/22/2014",
             "end_time": " 7:30 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2587,
                 "name": "8 Seconds Saloon",
@@ -2015,7 +2010,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/20/2014",
             "end_time": " 7:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 117,
                 "name": "High Dive",
@@ -2042,7 +2037,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/15/2014",
             "end_time": "10:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 113,
                 "name": "Red Ivy",
@@ -2069,7 +2064,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/13/2014",
             "end_time": " 8:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2548,
                 "name": "Tini",
@@ -2096,7 +2091,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/08/2014",
             "end_time": "10:30 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 115,
                 "name": "Mystic Celt",
@@ -2123,7 +2118,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/08/2014",
             "end_time": " 9:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2624,
                 "name": "Kelly's Pub Too",
@@ -2150,7 +2145,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/07/2014",
             "end_time": " 9:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 117,
                 "name": "High Dive",
@@ -2177,7 +2172,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "02/01/2014",
             "end_time": "10:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 113,
                 "name": "Red Ivy",
@@ -2204,7 +2199,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "01/31/2014",
             "end_time": "10:30 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2549,
                 "name": "Subterra Lounge",
@@ -2231,7 +2226,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "01/25/2014",
             "end_time": "11:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 1651,
                 "name": "Jimmy's Pizza Cafe",
@@ -2258,7 +2253,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "01/25/2014",
             "end_time": "10:30 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 115,
                 "name": "Mystic Celt",
@@ -2285,7 +2280,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "01/25/2014",
             "end_time": " 7:30 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2587,
                 "name": "8 Seconds Saloon",
@@ -2312,7 +2307,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "01/24/2014",
             "end_time": " 9:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2564,
                 "name": "Joe's Grille",
@@ -2339,7 +2334,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "01/23/2014",
             "end_time": " 7:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 117,
                 "name": "High Dive",
@@ -2366,7 +2361,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "01/18/2014",
             "end_time": " 7:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 1824,
                 "name": "That Place Bar & Grill",
@@ -2393,7 +2388,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "01/17/2014",
             "end_time": " 6:00 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 2595,
                 "name": "Real Time Sports",
@@ -2420,7 +2415,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "01/11/2014",
             "end_time": "11:30 PM",
             "status": "Active",
-            "event_status": "Unsent",
+            "event_status": "Scheduled",
             "place": {
                 "id": 1651,
                 "name": "Jimmy's Pizza Cafe",
@@ -2441,7 +2436,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             }
         }
     ]
-  };
+};
 
   this.getEvents = function() {
     return eventList;
