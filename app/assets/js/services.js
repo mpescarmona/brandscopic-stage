@@ -3,6 +3,12 @@
 /* Services */
 
 angular.module('brandscopicApp.services', ['ngResource'])
+
+.service('ApiParams', function() {
+    this.baseUrl = "http://stage.brandscopic.com/api/v1";
+    this.basePort = "";
+})
+
 .service('UserService', function() {
 	this.currentUser = {
 		isLogged: false,
@@ -22,15 +28,12 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.eventSubNav = "";
 })
 
-.service('SessionRestClient', ['$resource', function($resource) {
-
-  var baseUrl = "http://stage.brandscopic.com";
-  var basePort = "";
+.service('SessionRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
 
   this.login = function(email, password) {
-    return $resource( baseUrl + '/api/v1/sessions',
+    return $resource( ApiParams.baseUrl + '/sessions',
                         {},
-                        // should do a POST call to /api/v1/sessions with email and password
+                        // should do a POST call to /sessions with email and password
                         {login:{ method: 'POST',
                                 headers: {'Accept': 'application/json'},
                                 params: {email: email, password: password},
@@ -56,15 +59,12 @@ angular.module('brandscopicApp.services', ['ngResource'])
 	};
 }])
 
-.service('CompaniesRestClient', ['$resource', function($resource) {
-
-  var baseUrl = "http://stage.brandscopic.com";
-  var basePort = "";
+.service('CompaniesRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
 
   this.getCompanies = function(authToken) {
-    return $resource( baseUrl + '/api/v1/companies',
+    return $resource( ApiParams.baseUrl + '/companies',
                         {},
-                        // should do a POST call to /api/v1/sessions with email and password
+                        // should do a GET call to /companies
                         {get:{ method: 'GET',
                                 headers: {'Accept': 'application/json'},
                                 params: {auth_token: authToken},
@@ -90,7 +90,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
   };
 }])
 
-.service('EventsRestClient', ['$resource', function($resource) {
+.service('EventsRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
   var eventList = {
 
     "page": 1,
@@ -2439,8 +2439,35 @@ angular.module('brandscopicApp.services', ['ngResource'])
     ]
 };
 
-  this.getEvents = function() {
+  this.getEventsMocked = function() {
     return eventList;
+  };
+  this.getEvents = function(authToken, companyId) {
+    return $resource( ApiParams.baseUrl + '/sessions',
+                        {},
+                        // should do a POST call to /sessions with email and password
+                        {login:{ method: 'GET',
+                                headers: {'Accept': 'application/json'},
+                                params: {auth_token: authToken, company_id: companyId},
+                                interceptor: {
+                                                response: function (data) {
+                                                    console.log('response in interceptor', data);
+                                                    return data;
+                                                },
+                                                responseError: function (data) {
+                                                    console.log('error in interceptor', data);
+                                                    return data;
+                                                }
+                                              },
+                                transformResponse: function(data, header) {
+                                  var wrapped = angular.fromJson(data);
+                                  angular.forEach(wrapped.items, function(item, idx) {
+                                     wrapped.items[idx] = new Post(item); //<-- replace each item with an instance of the resource object
+                                  });
+                                  return wrapped;
+                                }
+                              }
+                        });
   };
 
   this.getEventName = function(eventId) {

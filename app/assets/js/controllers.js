@@ -106,9 +106,40 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.hasAddIcon = true;
     $scope.UserInterface.searching = false;
 
-    $scope.eventsItems = EventsRestClient.getEvents();
+    $scope.eventsItems = EventsRestClient.getEventsMocked();
     $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
     $scope.event_status = false;
+
+/*
+    var eventList = new EventsRestClient.getEvents(UserService.currentUser.auth_token, 2);
+    var promise = eventList.getEvents().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data.success == true) {
+          // $scope.wrongUser = false;
+          // UserService.currentUser.auth_token = response.data.data.auth_token;
+          // UserService.currentUser.isLogged = true;
+          // UserService.currentUser.email = $scope.user.email;
+          // $state.go('home.dashboard');
+          $scope.eventsItems = response.data.data;
+          return;
+      }
+     } else {
+        // $scope.wrongUser = true;
+        // UserService.currentUser.auth_token = "";
+        // UserService.currentUser.isLogged = false;
+        // UserService.currentUser.email = "";
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      // $scope.wrongUser = true;
+      // UserService.currentUser.auth_token = "";
+      // UserService.currentUser.isLogged = false;
+      // UserService.currentUser.email = "";
+      $scope.eventsItems = {};
+    });
+*/
 
     $scope.filterStatus = function(status) {
       $scope.event_status = ($scope.event_status == status) ? false : (($scope.event_status == false) ? status : $scope.event_status);
