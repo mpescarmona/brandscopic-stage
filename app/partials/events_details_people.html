@@ -1,0 +1,97 @@
+<!-- Event Details Container - EVENT VIEW - PEOPLE-->
+
+<div class="container">
+	<div class="centerTxt m10">
+		<div class="btn-group">
+		  <a class="btn btn-default" ng-class="{active: showPeople=='team'}" ng-click="showPeopleType('team')">Event team</a>
+		  <a class="btn btn-default" ng-class="{active: showPeople=='contacts'}" ng-click="showPeopleType('contacts')">Contacts</a>
+		</div>
+	</div>
+
+	<div class="box-container np" ng-show="showPeople=='team'">
+		<ul class="eventsPeople">
+			<li>
+				<a href="#/home/events/{{eventId}}/people/team/1/edit">
+					<div class="row">
+						<div class="col-xs-5 teaMember">
+							<h5 class="txtAdjust">Chris Jaskot</h5>
+							<p class="small txtAdjust">Field Manager</p>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#/home/events/{{eventId}}/people/team/2/edit">
+					<div class="row">
+						<div class="col-xs-5 teaMember">
+							<h5 class="txtAdjust">George Tan</h5>
+							<p class="small txtAdjust">Field Manager</p>
+						</div>
+						<div class="col-xs-5 editpanel">
+							<a href="#" class="edit pull-left"></a>
+							<a href="#" class="deactivate pull-right"></a>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#/home/events/{{eventId}}/people/team/3/edit">
+					<div class="row">
+						<div class="col-xs-5 team">
+							<h5 class="txtAdjust">Gan Francisco MBN Team</h5>
+							<p class="small txtAdjust">Top performers for San Francisco area</p>
+						</div>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="box-container np" ng-show="showPeople=='contacts'">
+		<ul class="eventsPeople">
+			<li>
+				<a href="#/home/events/{{eventId}}/people/contacts/1/edit">
+					<div class="row">
+						<div class="col-xs-5 teaMember">
+							<h5 class="txtAdjust">John Smith</h5>
+							<p class="small txtAdjust">Bar Manager</p>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#/home/events/{{eventId}}/people/contacts/2/edit">
+					<div class="row">
+						<div class="col-xs-5 teaMember">
+							<h5 class="txtAdjust">Susan Jones</h5>
+							<p class="small txtAdjust">Bar Manager</p>
+						</div>
+	<!-- 					<div class="col-xs-5 editpanel">
+							<a href="#" class="edit pull-left"></a>
+							<a href="#" class="deactivate pull-right"></a>
+						</div> -->
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#/home/events/{{eventId}}/people/contacts/3/edit">
+					<div class="row">
+						<div class="col-xs-5 teaMember">
+							<h5 class="txtAdjust">Frank Miles</h5>
+							<p class="small txtAdjust">Venue Owner</p>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#/home/events/{{eventId}}/people/contacts/4/edit">
+					<div class="row">
+						<div class="col-xs-5 teaMember">
+							<h5 class="txtAdjust">Samantha Stephens</h5>
+							<p class="small txtAdjust">Restaurant Manager</p>
+						</div>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

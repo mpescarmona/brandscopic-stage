@@ -1,88 +1,54 @@
+<!-- SEARCH BAR
+
 <div class="searchBar">
 	<div class="container">
 		<input type="text" placeholder="Search">
 	</div>
 </div>
 
-<div class="statusBar">
+-->
+
+<div class="statusBar" ng-show="!UserInterface.searching">
 	<div class="container">
+<!--     <div ng-init="checked=true">
+      <label>
+        <input type="checkbox" ng-model="checked" style="float:left; margin-right:10px;"> Is Visible...
+      </label>
+      <div class="check-element animate-show-hide" ng-show="checked" style="clear:both;">
+        Visible...
+      </div>
+    </div> -->
 		<div class="row">
-			<div class="col-xs-3"> 
-				<a href="#">
-					<div class="number">7</div>
-					<p>LATE</p>
-				</a>
-			</div>
-			<div class="col-xs-3"> 
-				<div class="number">1</div>
-				<p>REJECTED</p>
-			</div>
-			<div class="col-xs-3"> 
-				<div class="number">5</div>
-				<p>DUE</p>
-			</div>
-			<div class="col-xs-3"> 
-				<a href="#">
-					<div class="number">12</div>
-					<p>SUBMITTED</p>
+			<div class="col-xs-3" ng-repeat="status in statusCount" ng-class="{active: event_status==status.id}"> 
+				<a ng-click="filterStatus('{{status.id}}')">
+					<div class="number">{{status.count}}</div>
+					<p>{{status.label}}</p>
 				</a>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- Events Container -->
-<div class="container" ng-repeat="event in eventsItems">
-	<div class="dividersBar">TODAY</div>
+<div class="container" ng-repeat="event in eventsItems.results | filter:event_status" ng-show="!UserInterface.searching">
+	<!-- <div class="dividersBar">TODAY</div> -->
+	<div class="dividersBar">{{event.start_date}}</div>
 	<div class="box-container np">
 		<ul class="events">
 			<li>
-				<a href="#/home/events/{{event.id}}">
-					<div class="row late">
+				<a href="#/home/events/{{event.id}}/about">
+					<div class="row" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected', approved: event_status=='Approved'}">
 						<div class="col-xs-3 eventHour">
-							<p class="small">8:00 AM</p>
-							<p class="small">9:00 AM</p>
+							<p class="small">{{event.start_time}}</p>
+							<p class="small">{{event.end_time}}</p>
 						</div>
 						<div class="col-xs-9">
-							<div class="col-xs-5 eventPlace">
-						    <h5 class="txtAdjust">Jameson CE FY13</h5>
-								<p class="medium txtAdjust">Bar None, San Francisco, CA</p>
-							</div>
-						</div>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="#/home/events/{{event.id}}">
-					<div class="row late">
-						<div class="col-xs-3 eventHour">
-							<p class="small">8:00 AM</p>
-							<p class="small">9:00 AM</p>
-						</div>
-						<div class="col-xs-9">
-							<div class="col-xs-5 eventPlace">
-						    <h5 class="txtAdjust">Jameson CE FY13</h5>
-								<p class="medium txtAdjust">Bar None, San Francisco, CA</p>
-							</div>
-							<div class="col-xs-5 editpanel">
+						    <h5 class="txtAdjust">{{event.campaign.name}}</h5>
+								<p class="medium txtAdjust">{{event.place.name}}, {{event.place.city}}, {{event.place.state}}</p>
+							<!--
+							<div class="col-xs-5 editpanel" ng-show="1==2">
 								<a href="#" class="edit pull-left"></a>
 								<a href="#" class="deactivate pull-right"></a>
-							</div>
-						</div>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="#/home/events/{{event.id}}">
-					<div class="row late">
-						<div class="col-xs-3 eventHour">
-							<p class="small">8:00 AM</p>
-							<p class="small">9:00 AM</p>
-						</div>
-						<div class="col-xs-9">
-							<div class="col-xs-5 eventPlace">
-						    <h5 class="txtAdjust">Jameson CE FY13</h5>
-								<p class="medium txtAdjust">Bar None, San Francisco, CA</p>
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</a>
@@ -90,4 +56,3 @@
 		</ul>
 	</div>
 </div>
-<div class="separated" ui-view></div>

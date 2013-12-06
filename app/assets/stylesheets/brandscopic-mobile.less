@@ -20,13 +20,15 @@
 
 h5{
 	color: @txt;
-	font-size: 16px;
-	margin-top:0;
+	font-size: 15px;
+	font-weight: 600;
+	margin:0 0 3px 0;
 }
 
 label{
 	clear: both;
 	display: block;
+	font-weight: normal;
 }
 
 body{
@@ -124,12 +126,30 @@ body{
 			.row{
 				height: 100%;
 				margin:0;
+				padding: 9px 0;
 			}
 			h5{
 				margin-bottom: 4px;
 			}
 			&:last-child{
 				border-bottom: none;
+			}
+		}
+		&.events{ 
+			li{
+				padding: 3px 0 3px 3px;
+				.editpanel{
+					margin-top: -3px;
+				}
+			}
+		}
+		&.eventsPeople{
+			.col-xs-5{
+				&.team, &.teaMember{
+					float: left;
+				    position: relative;
+				    margin: 11px 0 0 30px;
+			  	}
 			}
 		}
 	}
@@ -166,7 +186,7 @@ body{
 .events{
 	.eventHour{
 		color: @txt;
-		padding: 10px 0 0 10px;
+		padding: 0 0 0 10px;
 		p{
 			margin: 3px 0;
 			&:last-child:before{
@@ -182,6 +202,11 @@ body{
 			}
 		}
 	}
+	.eventDate{
+		input{
+			text-transform: uppercase;
+		}
+	}
 	.col-xs-1{
 		margin-top: 10px;
 		text-align: center;
@@ -189,7 +214,7 @@ body{
 	.col-xs-9{
 		.eventPlace{
 			color: @brand;
-			padding: 10px 0 0 0;
+			padding: 8px 0 0 0;
 		}
 	}
 	.row{
@@ -208,6 +233,9 @@ body{
 			position: absolute;
 			width: 97%;
 		}
+	}
+	iframe{
+		width: 100%;
 	}
 }
 
@@ -234,6 +262,9 @@ body{
 	font-weight: 300;
 	height: 60px;
 	margin-bottom: 3px;
+	.container{
+		padding: 0 !important;
+	}
 	.col-xs-3{
 		border-right: 1px solid @borders;
 		font-size: 11px;
@@ -247,13 +278,40 @@ body{
 		p{
 			font-size: 10px;
 			margin-bottom: 4px;
+			text-transform: uppercase;
 		}
 		&:last-child{
 			border: 0;
 		}
+		&.active{
+			background-color: @listHover;
+		}
 	}
 	.row{
 		margin: 0 !important;
+	}
+}
+
+.subnav{
+	background-color: @txt;
+	height: 37px;
+	overflow: hidden;
+	ul{
+		padding: 0;
+		li{
+			display: inline-block;
+			height: 37px;
+			a{
+				color:@listHover;
+				display: block;
+				list-style: none;
+				padding: 9px 12px;
+			}
+							&:hover, &.active{
+					color:white;
+					border-bottom: 3px solid @blue;
+				}
+		}
 	}
 }
 
@@ -360,6 +418,10 @@ input{
 		border: 0;
 		margin-bottom: 10px;
 	}
+	&.event_start_date, &.event_end_date{
+		background: url('../images/calendar.svg') no-repeat left !important;
+		text-align: right;
+	}
 }
 
 /*-- LOGIN STYLES --*/
@@ -416,6 +478,10 @@ input{
 
 .m10{
 	margin: 10px 0;
+}
+
+.mt20{
+	margin-top: 20px;
 }
 
 /*-- PROGRESS STYLES --*/
