@@ -1632,7 +1632,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "start_time": " 8:00 PM",
             "end_date": "05/24/2014",
             "end_time": " 9:00 PM",
-            "status": "Active",
+            "status": "Late",
             "event_status": "Scheduled",
             "place": {
                 "id": 2624,
