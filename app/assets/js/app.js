@@ -7,6 +7,7 @@ angular.module('brandscopicApp', [
   'snap',
   'angular-flip',
   'ngResource',
+  'ngAnimate',
   'ngTouch',
   'brandscopicApp.filters',
   'brandscopicApp.services',

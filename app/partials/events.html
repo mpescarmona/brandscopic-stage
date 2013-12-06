@@ -10,6 +10,14 @@
 
 <div class="statusBar" ng-show="!UserInterface.searching">
 	<div class="container">
+<!--     <div ng-init="checked=true">
+      <label>
+        <input type="checkbox" ng-model="checked" style="float:left; margin-right:10px;"> Is Visible...
+      </label>
+      <div class="check-element animate-show-hide" ng-show="checked" style="clear:both;">
+        Visible...
+      </div>
+    </div> -->
 		<div class="row">
 			<div class="col-xs-3" ng-repeat="status in statusCount" ng-class="{active: event_status==status.id}"> 
 				<a ng-click="filterStatus('{{status.id}}')">
