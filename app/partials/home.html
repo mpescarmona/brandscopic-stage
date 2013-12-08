@@ -17,8 +17,8 @@
 <snap-content>
   <!-- Default header -->
   <div class="navHeader" ng-show="!UserInterface.searching">
-    <button snap-toggle class="noButton menuIcon"></button>
-    <h1>{{UserInterface.title}}</h1>
+    <button snap-toggle class="noButton menuIcon pull-left"></button>
+    <h1 class="txtAdjust">{{UserInterface.title}}</h1>
     <button class="noButton magnifierIcon pull-right" 
             ng-show="UserInterface.hasMagnifierIcon" 
             ng-swipe-left="UserInterface.searching=true">
