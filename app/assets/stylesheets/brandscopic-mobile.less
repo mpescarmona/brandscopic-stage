@@ -72,7 +72,7 @@ body{
 	height: auto;
 	margin-bottom: 2px;
 	margin-top: 2px;
-	padding: 10px 12px;
+	padding: 7px 12px;
 	width:100%;
 
 	&.dashboard{
@@ -84,15 +84,28 @@ body{
 				&:last-child{
 					margin-bottom: 0;
 				}
+				.chart-bar{
+					position: relative;
+					display: inline-block;
+					height: 33px;
+					width: 100%;
+				}
+				p{
+					width:50%;
+					&.pull-right{
+						color: @lightGrey;
+						width:auto;
+					}
+				}
 			}
 		}
 		p{
 			float: left;
 			margin-bottom: 5px;
-			width:90%;
+			width:91%;
 		}
 		.nextIcon:before{
-			bottom: 8px;
+			bottom: 6px;
 			left:5px;
 		}
 		.row{
@@ -510,23 +523,22 @@ input{
 .chart-bar{
 	position: relative;
 	display: inline-block;
-	height: 30px;
-	width: 93%;
-	max-width: 93%;
+	height: 33px;
+	width: 91%;
 	.today-line-indicator{
 		position: absolute;
 		width: 4px;
 		background-color: #347a99;
-		height: 30px;
-		top: -5px;
+		height: 25px;
+		top: -2px;
 		border: 1px solid #347a99;
 		border-radius: 2px;
 		&:after{
 			color: @lightGrey;
 			content:"Today";
 			display: inline-block;
-			font-size: 9px;
-			top: 30px;
+			font-size: 10px;
+			top: 23px;
 			right: 12px;
 			position: absolute;
 			width: 100%;
