@@ -156,14 +156,6 @@ body{
 				border-bottom: none;
 			}
 		}
-		&.events{ 
-			li{
-				padding: 3px 0 3px 3px;
-				.editpanel{
-					margin-top: -3px;
-				}
-			}
-		}
 		&.eventsPeople{
 			.col-xs-5{
 				&.team, &.teaMember{
@@ -207,6 +199,7 @@ body{
 .events{
 	.eventHour{
 		color: @txt;
+		margin: 0 10px 0 5px;
 		p{
 			margin: 3px 0;
 			&:last-child:before{
@@ -225,6 +218,12 @@ body{
 	.eventDate{
 		input{
 			text-transform: uppercase;
+		}
+	}
+	li{
+		padding: 3px 0 3px 3px;
+		.editpanel{
+			margin-top: -3px;
 		}
 	}
 	.row{
@@ -269,7 +268,6 @@ body{
 .statusBar{
 	background-color: white;
 	color: @txt;
-	font-weight: 300;
 	height: 60px;
 	margin-bottom: 3px;
 	.container{
@@ -283,12 +281,15 @@ body{
 		text-align: center;
 		.number{
 			font-size: 32px;
+			font-weight: 300;
 			line-height: 42px;
 		}
 		p{
 			font-size: 10px;
+			font-weight: 400;
 			margin-bottom: 4px;
 			text-transform: uppercase;
+			letter-spacing: -0.2px;
 		}
 		&:last-child{
 			border: 0;
