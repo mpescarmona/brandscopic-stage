@@ -62,6 +62,7 @@ body{
 	.border-top-radius(6px);
 	box-sizing: border-box;
 	color: @txt;
+	font-size: 14px;
 	height: auto;
 	margin-bottom: 2px;
 	margin-top: 2px;
@@ -121,6 +122,7 @@ body{
 	&.late, &.scheduled, &.submitted{
 		color: white;
 		margin-bottom: 8px;
+		padding-bottom: 1px;
 		a{
 			color: white;
 			text-decoration: underline;
@@ -147,13 +149,11 @@ body{
 			}
 		}
 		&.eventsPeople{
-			.col-xs-5{
-				&.team, &.teaMember{
-					float: left;
-				    position: relative;
-				    margin: 11px 0 0 30px;
-			  	}
-			}
+			.team, .teaMember{
+				float: left;
+			   position: relative;
+			   margin: 4px 0 0 50px;
+		  }
 		}
 	}
 }
@@ -212,7 +212,7 @@ body{
 	}
 	&.eventDetails{
 		div:first-of-type{
-			margin: 13px 28px 28px 28px;
+			margin: 18px 28px 30px 28px;
 		}
 	}
 	li{
@@ -340,13 +340,17 @@ body{
 	background-color: @lightGrey;
 	border: 0;
 	color: white;
+	&:focus, &:active{
+		background-color: @lightGrey;	
+		color: white;	
+	}
 	&.btn-sm{
 		margin-right: 5px;
 		height: 33px;
 		width: 90px;
 		&.edit:before, &.deactivate:before{
 			font-size: 23px;
-			line-height: 10px;
+			bottom: 6px;
 		}
 	}
 	&:hover{
