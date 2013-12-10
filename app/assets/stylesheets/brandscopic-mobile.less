@@ -187,6 +187,11 @@ body{
 }
 
 .events{
+	&.editEvent{
+		ul li div{
+			padding: 20px 10px !important;
+		}
+	}
 	.eventHour{
 		color: @txt;
 		margin: 0 10px 0 5px;
@@ -218,6 +223,11 @@ body{
 	&.contactDetails{
 		div:first-of-type{
 			margin-top: 35px;
+		}
+		.place-data{
+			&:before{
+				margin-left: -22px;
+			}
 		}
 	}
 	li{
