@@ -93,10 +93,12 @@ h5{
 .eventIcon:before,
 .logoutIcon:before,
 .magnifierIcon:before,
+.mail-data:before,
 .menuIcon:before,
 .nextIcon:before, 
 .notificationIcon:before,
 .place-data:before,
+.phone-data:before,
 .profileIcon:before,
 .saveicon:before,
 .tasksIcon:before, 
@@ -176,20 +178,23 @@ h5{
 .date-data{
 	&:before{
 		content:"\e60b";
+		font-size: 17px;
 		margin-left: -28px;
 	}
 }
 
 .mail-data{
 	&:before{
-		content:"\e610";
+		content:"\e617";
+		font-size: 19px;
 		margin-left: -25px;
 	}
 }
 
 .phone-data{
 	&:before{
-		content:"\e610";
+		content:"\e616";
+		font-size: 17px;
 		margin-left: -25px;
 	}
 }
@@ -197,21 +202,21 @@ h5{
 .place-data{
 	&:before{
 		content:"\e610";
-		margin-left: -25px;
+		font-size: 17px;
+		margin-left: -22px;
 	}
 }
 
-.date-data, .place-data{
+.date-data, .place-data, .phone-data, .mail-data{
 	line-height: 18px;
 	margin: 15px 28px;
 	&:before{
 		color: @lightGrey;
-		font-size: 17px;
 		position: relative;
 		speak: none;
 		text-align: center;
 		vertical-align: middle;
 		-webkit-font-smoothing: antialiased;
-		margin-right: 10px;
+		margin-right: 6px;
 	}
 }
