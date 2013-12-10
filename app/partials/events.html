@@ -36,10 +36,11 @@
 		<ul class="events">
 			<li>
 				<a href="#/home/events/{{event.id}}/about">
-					<div class="row" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected', approved: event_status=='Approved'}">
-						<div class="col-xs-3 eventHour">
-							<p class="small">{{event.start_time}}</p>
-							<p class="small">{{event.end_time}}</p>
+					<div class="row" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}"> 
+						<!--approved: event_status=='Approved'-->
+						<div class="col-xs-2 eventHour">
+							<p class="xs">{{event.start_time}}</p>
+							<p class="xs">{{event.end_time}}</p>
 						</div>
 						<div class="col-xs-9">
 						    <h5 class="txtAdjust">{{event.campaign.name}}</h5>
