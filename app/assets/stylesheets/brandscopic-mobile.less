@@ -142,7 +142,7 @@ body{
 			.row{
 				height: 100%;
 				margin:0;
-				padding: 9px;
+				padding: 8px 9px;
 			}
 			&:last-child{
 				border-bottom: none;
@@ -193,7 +193,13 @@ body{
 				padding: 17px 5px;
 				&:first-of-type{
 					font-size: 10px;
-					padding-top: 19px;
+					font-weight: 600;
+					line-height: 20px;
+				}
+				&:last-of-type{
+					h5{
+						color: @brand;
+					}
 				}
 			}
 		}
@@ -207,7 +213,7 @@ body{
 				content:"\2014";
 				display: inline-block;
 				font-size: 12px;
-				bottom: 6px;
+				bottom: 7px;
 				left: 5px;
 				margin: 0 0 5px 10px;
 				position: absolute;
