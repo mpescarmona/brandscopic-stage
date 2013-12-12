@@ -134,10 +134,13 @@ body{
 		li{
 			border-bottom: 1px solid @borders;
 			box-sizing: border-box;
-			height: 60px;
 			list-style: none;
 			a{
 				color:@brand;
+				&.blue{
+					color: @blue;
+					font-weight: 400;
+				}
 			}
 			.row{
 				height: 100%;
@@ -154,6 +157,9 @@ body{
 			   position: relative;
 			   margin: 4px 0 0 50px;
 		  }
+		}
+		&.list{
+			height: 60px;
 		}
 	}
 }
