@@ -135,6 +135,7 @@ body{
 			border-bottom: 1px solid @borders;
 			box-sizing: border-box;
 			list-style: none;
+			overflow: hidden;
 			a{
 				color:@brand;
 				&.blue{
@@ -154,8 +155,14 @@ body{
 		&.eventsPeople{
 			.team, .teaMember{
 				float: left;
-			   position: relative;
-			   margin: 4px 0 0 50px;
+			  position: relative;
+			  margin: 4px 0 6px 50px;
+			  h5{
+			   	line-height: 22px;
+			  }
+			  p{
+			  	margin: 0;
+			  }
 		  }
 		}
 		&.list{
@@ -325,13 +332,6 @@ body{
 			text-transform: uppercase;
 			letter-spacing: -0.2px;
 		}
-		&:last-of-type{
-			border: 0;
-			display: none;
-		}
-		&:nth-last-child(2){
-			border-right: 0;
-		}
 		&.active{
 			background-color: @listHover;
 		}
@@ -356,10 +356,10 @@ body{
 				list-style: none;
 				padding: 9px 12px;
 			}
-							&:hover, &.active{
-					color:white;
-					border-bottom: 3px solid @blue;
-				}
+			&:hover, &.active{
+				color:white;
+				border-bottom: 3px solid @blue;
+			}
 		}
 	}
 }
@@ -391,6 +391,10 @@ body{
 		&.edit:before, &.deactivate:before{
 			font-size: 23px;
 			bottom: 6px;
+		}
+		&.add{
+			background-color: white;
+			border: 1px solid red;
 		}
 	}
 	&:hover{
