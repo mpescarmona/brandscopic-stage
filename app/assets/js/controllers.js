@@ -107,7 +107,18 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.searching = false;
 
     $scope.eventsItems = EventsRestClient.getEventsMocked();
-    $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
+    // $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
+    var statusList = EventsRestClient.getFacetByName("Event Status");
+    var filteredList =  [];
+
+    // temporary harcoding to hide Event Status 'Approved'
+    for (var i = 0, item; item = statusList[i++];) {
+      if (item.label != 'Approved') {
+        filteredList.push(item);
+      }
+    };
+    $scope.statusCount = filteredList;
+
     $scope.event_status = false;
 
 /*
@@ -151,6 +162,47 @@ angular.module('brandscopicApp.controllers', [])
       $state.go('login');
       return;
     }
+
+    $scope.center = {
+        latitude:  -32.926448,  // initial map center latitude
+        longitude: -68.813779   // initial map center longitude
+    };
+    $scope.markers = [];         // an array of markers,
+    $scope.zoom = 8;             // the zoom level
+
+
+//     angular.element(document).ready(function () {
+//         console.log('Hello World');
+// window.MAP_STYLES = [
+//     {
+//       stylers: [
+//         { hue: "#00ffe6" },
+//         { saturation: -100 },
+//         { gamma: 0.8 }
+//       ]
+//     },{
+//       featureType: "road",
+//       elementType: "geometry",
+//       stylers: [
+//         { lightness: 100 },
+//         { visibility: "simplified" }
+//       ]
+//     },{
+//       featureType: "road",
+//       elementType: "labels",
+//       stylers: [
+//         { visibility: "off" }
+//       ]
+//     },{
+//       featureType: "road.arterial",
+//       elementType: "geometry",
+//       stylers: [
+//         { color: "#BABABA" }
+//       ]
+//     }
+//   ]
+//     });
+
     snapRemote.close()
 
     // Options for User Interface in home partial
@@ -203,5 +255,22 @@ angular.module('brandscopicApp.controllers', [])
     $scope.showPeopleType = function(type) {
       $scope.showPeople = type;
     };
+  }])
+
+  .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    // Options for User Interface in home partial
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
+    $scope.UserInterface.hasMagnifierIcon = true;
+    $scope.UserInterface.hasAddIcon = true;
+    $scope.UserInterface.searching = false;
+
+    $scope.eventId = $stateParams.eventId;
   }]);
     

@@ -6,6 +6,7 @@ angular.module('brandscopicApp', [
   'ui.router',
   'snap',
   'angular-flip',
+  'google-maps',
   'ngResource',
   'ngAnimate',
   'ngTouch',
@@ -112,6 +113,13 @@ config(function($stateProvider, $urlRouterProvider) {
       url: "/data",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_data.html",
                               controller: 'EventsDetailsController'
+                            }
+            }
+    })
+    .state('home.events.details.comments', {
+      url: "/comments",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_comments.html",
+                              controller: 'EventsCommentsController'
                             }
             }
     })
