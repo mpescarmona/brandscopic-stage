@@ -1,0 +1,42 @@
+
+<div class="statusBar" ng-show="!UserInterface.searching">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3" ng-repeat="status in statusCount" ng-class="{active: event_status==status.id}"> 
+				<a ng-click="filterStatus('{{status.id}}')">
+					<div class="number">{{status.count}}</div>
+					<p>{{status.label}}</p>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Events Container -->
+<div class="container" ng-repeat="event in eventsItems.results | filter:event_status" ng-show="!UserInterface.searching">
+	<!-- <div class="dividersBar">TODAY</div> -->
+	<div class="dividersBar">{{event.start_date}}</div>
+	<div class="box-container np">
+		<ul class="events list">
+			<li>
+				<a href="#/home/events/{{event.id}}/about">
+					<div class="row" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}"> 
+						<!--approved: event_status=='Approved'-->
+						<div class="col-xs-2 eventHour">
+							<p class="xs">{{event.start_time}}</p>
+							<p class="xs">{{event.end_time}}</p>
+						</div>
+						<div class="col-xs-9">
+						    <h5 class="txtAdjust">{{event.campaign.name}}</h5>
+								<p class="medium txtAdjust">{{event.place.name}}, {{event.place.city}}, {{event.place.state}}</p>
+							<!--
+							<div class="col-xs-5 editpanel" ng-show="1==2">
+								<a href="#" class="edit pull-left"></a>
+								<a href="#" class="deactivate pull-right"></a>
+							</div>-->
+						</div>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -306,6 +306,8 @@ body{
 	}
 }
 
+/* -- STATUS BAR -- */
+
 .statusBar{
 	background-color: white;
 	color: @txt;
@@ -335,11 +337,16 @@ body{
 		&.active{
 			background-color: @listHover;
 		}
+		&:last-of-type{
+			border-right: 0;
+		}
 	}
 	.row{
 		margin: 0 !important;
 	}
 }
+
+/* -- EVENTS SUBNAV -- */
 
 .subnav{
 	background-color: @txt;
@@ -386,15 +393,19 @@ body{
 	}
 	&.btn-sm{
 		margin-right: 5px;
-		height: 33px;
-		width: 90px;
 		&.edit:before, &.deactivate:before{
 			font-size: 23px;
 			bottom: 6px;
+			height: 33px;
+			width: 90px;
 		}
 		&.add{
 			background-color: white;
-			border: 1px solid red;
+			border: 1px solid @listHover;
+			color: @lightGrey;
+			font-size: 14px;
+			padding: 5px 16px;
+			width: auto;
 		}
 	}
 	&:hover{
