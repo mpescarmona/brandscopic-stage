@@ -143,4 +143,11 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })                    
+    .state('home.events.details.surveys', {
+      url: "/surveys",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys.html",
+                              controller: 'EventsSurveysController'
+                            }
+            }
+    })                    
 });

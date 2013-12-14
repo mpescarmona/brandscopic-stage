@@ -364,5 +364,23 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.eventSubNav = "expenses";
 
     $scope.eventId = $stateParams.eventId;
+  }])
+
+  .controller('EventsSurveysController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    // Options for User Interface in home partial
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
+    $scope.UserInterface.hasMagnifierIcon = false;
+    $scope.UserInterface.hasAddIcon = true;
+    $scope.UserInterface.searching = false;
+    $scope.UserInterface.eventSubNav = "surveys";
+
+    $scope.eventId = $stateParams.eventId;
   }]);
-    
+        
