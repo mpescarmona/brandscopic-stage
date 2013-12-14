@@ -272,5 +272,58 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.searching = false;
 
     $scope.eventId = $stateParams.eventId;
+  }])
+
+  .controller('EventsTasksController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    // Options for User Interface in home partial
+    $scope.UserInterface = UserInterface;
+    // $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
+    $scope.UserInterface.title = 'Tasks';
+    $scope.UserInterface.hasMagnifierIcon = true;
+    $scope.UserInterface.hasAddIcon = false;
+    $scope.UserInterface.searching = false;
+
+    $scope.eventId = $stateParams.eventId;
+
+    $scope.eventTaskItems = [{'id': 1, 'assigned': 'Chris Jaskot', 'Task': 'Pickup t-shirts from storage unit', 'date': '2013-12-13', 'task_status': 'Late'},
+                             {'id': 2, 'assigned': 'George Tan', 'Task': 'Confirm time and location of event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
+                             {'id': 3, 'assigned': '', 'Task': 'Hire models for event', 'date': '2013-12-13', 'task_status': 'Unassigned'},
+                             {'id': 4, 'assigned': 'George Tan', 'Task': 'Identify drink recipes for promotion', 'date': '2013-12-13', 'task_status': 'Late'},
+                             {'id': 5, 'assigned': 'Chris Jaskot', 'Task': 'Order ballons for the event', 'date': '2013-12-13', 'task_status': 'Late'},
+                             {'id': 6, 'assigned': 'Chris Jaskot', 'Task': 'Order ballons for the event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
+                             {'id': 7, 'assigned': '', 'Task': 'Identify catering provider', 'date': '2013-12-13', 'task_status': 'Unassigned'},
+                             {'id': 8, 'assigned': 'Chris Jaskot', 'Task': 'Select event presenter', 'date': '2013-12-13', 'task_status': 'Incomplete'}];
+
+    $scope.eventTaskFilters = [{'label': 'Late',
+                                'id': 'Late',
+                                'name': 'task_status',
+                                'count': 3,
+                                'selected': false
+                                },
+                                {
+                                'label': 'Unassigned',
+                                'id': 'Unassigned',
+                                'name': 'task_status',
+                                'count': 2,
+                                'selected': false
+                                },
+                                {
+                                'label': 'Incomplete',
+                                'id': 'Incomplete',
+                                'name': 'task_status',
+                                'count': 3,
+                                'selected': false
+                                }];
+
+    $scope.task_status = false;
+    $scope.filterTask = function(status) {
+      $scope.task_status = ($scope.task_status == status) ? false : (($scope.task_status == false) ? status : $scope.task_status);
+    };
   }]);
     

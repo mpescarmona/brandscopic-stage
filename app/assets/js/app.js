@@ -6,7 +6,6 @@ angular.module('brandscopicApp', [
   'ui.router',
   'snap',
   'angular-flip',
-  'google-maps',
   'ngResource',
   'ngAnimate',
   'ngTouch',
@@ -123,4 +122,11 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.events.details.tasks', {
+      url: "/tasks",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks.html",
+                              controller: 'EventsTasksController'
+                            }
+            }
+    })    
 });
