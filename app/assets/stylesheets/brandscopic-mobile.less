@@ -166,7 +166,14 @@ body{
 		&.list{
 			height: 60px;
 			.row{
-				margin: 12px 0 12px 12px;
+				margin: 3px 0 3px 2px;
+				height: 54px;
+				div{
+					margin-top: 8px;
+					&:first-of-type{
+						margin-left: 15px;
+					}
+				}
 			}
 		}
 	}
@@ -203,6 +210,8 @@ body{
 	}
 }
 
+/* -- EVENTS SECTION -- */
+
 .events{
 	&.editEvent{
 		li{
@@ -223,7 +232,7 @@ body{
 	}
 	.eventHour{
 		color: @txt;
-		margin: 0 10px 0 5px;
+		margin-right: 10px;
 		p{
 			&:first-child{
 				margin: 2px 0;
@@ -244,11 +253,11 @@ body{
 			}
 		}
 	}
-	.eventDate{
+	/*.eventDate{
 		input{
 			text-transform: uppercase;
 		}
-	}
+	}*/
 	&.eventDetails{
 		div:first-of-type{
 			margin: 18px 28px 30px 28px;
