@@ -258,6 +258,24 @@ angular.module('brandscopicApp.controllers', [])
     };
   }])
 
+  .controller('EventsDataController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    // Options for User Interface in home partial
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
+    $scope.UserInterface.hasMagnifierIcon = false;
+    $scope.UserInterface.hasAddIcon = false;
+    $scope.UserInterface.searching = false;
+    $scope.UserInterface.eventSubNav = "data";
+
+    $scope.eventId = $stateParams.eventId;
+  }])
+
   .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
@@ -271,6 +289,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.hasMagnifierIcon = true;
     $scope.UserInterface.hasAddIcon = true;
     $scope.UserInterface.searching = false;
+    $scope.UserInterface.eventSubNav = "comments";
 
     $scope.eventId = $stateParams.eventId;
   }])
@@ -289,6 +308,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.hasMagnifierIcon = true;
     $scope.UserInterface.hasAddIcon = false;
     $scope.UserInterface.searching = false;
+    $scope.UserInterface.eventSubNav = "tasks";
 
     $scope.eventId = $stateParams.eventId;
 
@@ -326,5 +346,59 @@ angular.module('brandscopicApp.controllers', [])
     $scope.filterTask = function(status) {
       $scope.task_status = ($scope.task_status == status) ? false : (($scope.task_status == false) ? status : $scope.task_status);
     };
+  }])
+
+  .controller('EventsPhotosController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    // Options for User Interface in home partial
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
+    $scope.UserInterface.hasMagnifierIcon = false;
+    $scope.UserInterface.hasAddIcon = true;
+    $scope.UserInterface.searching = false;
+    $scope.UserInterface.eventSubNav = "photos";
+
+    $scope.eventId = $stateParams.eventId;
+  }])
+
+  .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    // Options for User Interface in home partial
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
+    $scope.UserInterface.hasMagnifierIcon = false;
+    $scope.UserInterface.hasAddIcon = true;
+    $scope.UserInterface.searching = false;
+    $scope.UserInterface.eventSubNav = "expenses";
+
+    $scope.eventId = $stateParams.eventId;
+  }])
+
+  .controller('EventsSurveysController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    // Options for User Interface in home partial
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
+    $scope.UserInterface.hasMagnifierIcon = false;
+    $scope.UserInterface.hasAddIcon = true;
+    $scope.UserInterface.searching = false;
+    $scope.UserInterface.eventSubNav = "surveys";
+
+    $scope.eventId = $stateParams.eventId;
   }]);
-    
+        
