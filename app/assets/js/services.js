@@ -1660,7 +1660,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "05/03/2014",
             "end_time": " 7:30 PM",
             "status": "Active",
-            "event_status": "Scheduled",
+            "event_status": "Late",
             "place": {
                 "id": 2587,
                 "name": "8 Seconds Saloon",
@@ -1687,7 +1687,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
             "end_date": "04/17/2014",
             "end_time": " 8:00 PM",
             "status": "Active",
-            "event_status": "Scheduled",
+            "event_status": "Submitted",
             "place": {
                 "id": 2548,
                 "name": "Tini",

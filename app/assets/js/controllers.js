@@ -163,12 +163,12 @@ angular.module('brandscopicApp.controllers', [])
       return;
     }
 
-    $scope.center = {
-        latitude:  -32.926448,  // initial map center latitude
-        longitude: -68.813779   // initial map center longitude
-    };
-    $scope.markers = [];         // an array of markers,
-    $scope.zoom = 8;             // the zoom level
+    // $scope.center = {
+    //     latitude:  -32.926448,  // initial map center latitude
+    //     longitude: -68.813779   // initial map center longitude
+    // };
+    // $scope.markers = [];         // an array of markers,
+    // $scope.zoom = 8;             // the zoom level
 
 
 //     angular.element(document).ready(function () {
@@ -212,6 +212,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.hasAddIcon = true;
     $scope.UserInterface.searching = false;
     $scope.UserInterface.eventSubNav = "about";
+    $scope.eventAbout = EventsRestClient.getEventById($stateParams.eventId);
 
     $scope.eventId = $stateParams.eventId;
   }])
