@@ -145,8 +145,7 @@ body{
 			}
 			.row{
 				height: 100%;
-				margin:0;
-				padding: 8px 9px;
+				margin: 13px;
 			}
 			&:last-child{
 				border-bottom: none;
@@ -156,7 +155,7 @@ body{
 			.team, .teaMember{
 				float: left;
 			  position: relative;
-			  margin: 4px 0 6px 50px;
+			  margin-left: 50px;
 			  h5{
 			   	line-height: 22px;
 			  }
@@ -224,7 +223,9 @@ body{
 		color: @txt;
 		margin: 0 10px 0 5px;
 		p{
-			margin: 4px 0;
+			&:last-child{
+				margin: 4px 0;
+			}
 			&:last-child:before{
 				content:"\2014";
 				display: inline-block;
@@ -259,7 +260,6 @@ body{
 		}
 	}
 	li{
-		padding: 3px 0 3px 3px;
 		.editpanel{
 			margin-top: -3px;
 		}
