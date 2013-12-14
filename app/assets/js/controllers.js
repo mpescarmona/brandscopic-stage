@@ -47,6 +47,11 @@ angular.module('brandscopicApp.controllers', [])
       return;
     }
 
+    // Disable right snap. Works with 'snap-options' option of tag snap-content.
+    $scope.snapOptions = {
+      disable: 'right'
+    };
+
     // Options for User Interface in home partial
     $scope.UserInterface = UserInterface;
     $scope.UserInterface.title = "Home";
