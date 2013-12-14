@@ -258,6 +258,24 @@ angular.module('brandscopicApp.controllers', [])
     };
   }])
 
+  .controller('EventsDataController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    // Options for User Interface in home partial
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
+    $scope.UserInterface.hasMagnifierIcon = false;
+    $scope.UserInterface.hasAddIcon = false;
+    $scope.UserInterface.searching = false;
+    $scope.UserInterface.eventSubNav = "data";
+
+    $scope.eventId = $stateParams.eventId;
+  }])
+
   .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');

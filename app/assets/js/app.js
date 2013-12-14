@@ -111,7 +111,7 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.details.data', {
       url: "/data",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_data.html",
-                              controller: 'EventsDetailsController'
+                              controller: 'EventsDataController'
                             }
             }
     })
