@@ -17,9 +17,9 @@
 	<div class="dividersBar">{{event.start_date}}</div>
 	<div class="box-container np">
 		<ul class="events list">
-			<li>
+			<li ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}">
 				<a href="#/home/events/{{event.id}}/about">
-					<div class="row" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}"> 
+					<div class="row"> 
 						<!--approved: event_status=='Approved'-->
 						<div class="col-xs-2 eventHour">
 							<p class="xs">{{event.start_time}}</p>
