@@ -129,4 +129,11 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })    
+    .state('home.events.details.photos', {
+      url: "/photos",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_photos.html",
+                              controller: 'EventsPhotosController'
+                            }
+            }
+    })        
 });
