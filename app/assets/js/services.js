@@ -65,7 +65,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
     return $resource( ApiParams.baseUrl + '/companies',
                         {},
                         // should do a GET call to /companies
-                        {get:{ method: 'GET',
+                        {getCompanies:{ method: 'GET',
                                 headers: {'Accept': 'application/json'},
                                 params: {auth_token: authToken},
                                 interceptor: {
@@ -81,7 +81,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
                                 transformResponse: function(data, header) {
                                   var wrapped = angular.fromJson(data);
                                   angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Post(item); //<-- replace each item with an instance of the resource object
+                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
                                   });
                                   return wrapped;
                                 }
@@ -2443,10 +2443,10 @@ angular.module('brandscopicApp.services', ['ngResource'])
     return eventList;
   };
   this.getEvents = function(authToken, companyId) {
-    return $resource( ApiParams.baseUrl + '/sessions',
+    return $resource( ApiParams.baseUrl + '/events',
                         {},
                         // should do a POST call to /sessions with email and password
-                        {login:{ method: 'GET',
+                        {getEvents:{ method: 'GET',
                                 headers: {'Accept': 'application/json'},
                                 params: {auth_token: authToken, company_id: companyId},
                                 interceptor: {
@@ -2462,7 +2462,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
                                 transformResponse: function(data, header) {
                                   var wrapped = angular.fromJson(data);
                                   angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Post(item); //<-- replace each item with an instance of the resource object
+                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
                                   });
                                   return wrapped;
                                 }

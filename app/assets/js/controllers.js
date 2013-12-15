@@ -47,6 +47,11 @@ angular.module('brandscopicApp.controllers', [])
       return;
     }
 
+    // Disable right snap. Works with 'snap-options' option of tag snap-content.
+    $scope.snapOptions = {
+      disable: 'right'
+    };
+
     // Options for User Interface in home partial
     $scope.UserInterface = UserInterface;
     $scope.UserInterface.title = "Home";
@@ -106,7 +111,23 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.hasAddIcon = true;
     $scope.UserInterface.searching = false;
 
-    $scope.eventsItems = EventsRestClient.getEventsMocked();
+    // $scope.eventsItems = EventsRestClient.getEventsMocked();
+    // var eventList = $scope.eventsItems;
+    // var eventGroups = [];
+    // for (var i = 0, item, found; item = eventList[i++];) {
+    //   found = false;
+    //   for(var j = 0, group; group = eventGroups[j];) {
+    //     if (item.start_date == group) {
+    //       found = true;
+    //       break;
+    //     }
+    //   }
+    //   if (!found) {
+    //     eventGroups.push(item.start_date);
+    //   }
+    // };
+    // $scope.eventsGroups = eventGroups;
+
     // $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
     var statusList = EventsRestClient.getFacetByName("Event Status");
     var filteredList =  [];
@@ -121,36 +142,23 @@ angular.module('brandscopicApp.controllers', [])
 
     $scope.event_status = false;
 
-/*
-    var eventList = new EventsRestClient.getEvents(UserService.currentUser.auth_token, 2);
+
+    var eventList = new EventsRestClient.getEvents(UserService.currentUser.auth_token, 1);
     var promise = eventList.getEvents().$promise;
     promise.then(function(response) {
      if (response.status == 200) {
-      if (response.data.success == true) {
-          // $scope.wrongUser = false;
-          // UserService.currentUser.auth_token = response.data.data.auth_token;
-          // UserService.currentUser.isLogged = true;
-          // UserService.currentUser.email = $scope.user.email;
-          // $state.go('home.dashboard');
-          $scope.eventsItems = response.data.data;
+      if (response.data != null) {
+          $scope.eventsItems = response.data;
           return;
       }
      } else {
-        // $scope.wrongUser = true;
-        // UserService.currentUser.auth_token = "";
-        // UserService.currentUser.isLogged = false;
-        // UserService.currentUser.email = "";
         $scope.eventsItems = {};
      }
     });
     promise.catch(function(response) {
-      // $scope.wrongUser = true;
-      // UserService.currentUser.auth_token = "";
-      // UserService.currentUser.isLogged = false;
-      // UserService.currentUser.email = "";
       $scope.eventsItems = {};
     });
-*/
+
 
     $scope.filterStatus = function(status) {
       $scope.event_status = ($scope.event_status == status) ? false : (($scope.event_status == false) ? status : $scope.event_status);
