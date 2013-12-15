@@ -14,7 +14,7 @@
 <!-- Events Container -->
 <div class="container" ng-repeat="event in eventsItems.results | orderBy:['start_date','start_time'] | filter:event_status" ng-show="!UserInterface.searching">
 	<!-- <div class="dividersBar">TODAY</div> -->
-	<div class="dividersBar">{{event.start_date}}</div>
+	<div class="dividersBar">{{event.start_date | date:'EEEE, MMM d'}}</div>
 	<!-- <div class="box-container np"> -->
 	<div class="box-container np" ng-repeat="event1 in eventsItems.results | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status}" ng-show="!UserInterface.searching">
 		<ul class="events list">
