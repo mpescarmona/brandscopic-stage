@@ -112,6 +112,22 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.searching = false;
 
     $scope.eventsItems = EventsRestClient.getEventsMocked();
+    // var eventList = $scope.eventsItems;
+    // var eventGroups = [];
+    // for (var i = 0, item, found; item = eventList[i++];) {
+    //   found = false;
+    //   for(var j = 0, group; group = eventGroups[j];) {
+    //     if (item.start_date == group) {
+    //       found = true;
+    //       break;
+    //     }
+    //   }
+    //   if (!found) {
+    //     eventGroups.push(item.start_date);
+    //   }
+    // };
+    // $scope.eventsGroups = eventGroups;
+
     // $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
     var statusList = EventsRestClient.getFacetByName("Event Status");
     var filteredList =  [];
