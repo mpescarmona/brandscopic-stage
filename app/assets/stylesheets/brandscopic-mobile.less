@@ -267,11 +267,28 @@ body{
 	&.comments{
 		.comment-user{
 			float: left;
-			width:30%;
+			width:70%;
 		}
 		.comment-date{
+			color: @brand;
 			float: right;
-			width: 20%;
+			text-align: right;
+			width: 30%;
+		}
+		.full-comment{
+			display: block;
+			font-size: 12px;
+			margin-top: 6px;
+			&:after{
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-top: 5px solid @blue;
+				content: "";
+				display: inline-block;
+				margin: 3px 0 0 5px;				
+				height: 0; 
+				width: 0; 
+			}
 		}
 	}
 	&.contactDetails{
