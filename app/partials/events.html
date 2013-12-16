@@ -16,8 +16,9 @@
 	<!-- <div class="dividersBar">TODAY</div> -->
 	<div class="dividersBar">{{event.start_date | date:'EEEE, MMM d'}}</div>
 	<!-- <div class="box-container np"> -->
-	<div class="box-container np" ng-repeat="event1 in eventsItems.results | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status}" ng-show="!UserInterface.searching">
-		<ul class="events list">
+<!-- 	<div class="box-container np" ng-repeat="event1 in eventsItems.results | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status}" ng-show="!UserInterface.searching"> -->
+	<div class="box-container np" ng-show="!UserInterface.searching">
+	<ul class="events list" ng-repeat="event1 in eventsItems.results | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status}" ng-show="!UserInterface.searching">
 			<li>
 				<a href="#/home/events/{{event1.id}}/about">
 					<div class="row" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}"> 

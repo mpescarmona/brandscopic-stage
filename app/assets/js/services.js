@@ -92,7 +92,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
 
 .service('EventsRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
   var eventList = {};
-  var companyId = 1;
+  var companyId = 2;
 
 //   var eventList = {
 
