@@ -143,12 +143,6 @@ body{
 			box-sizing: border-box;
 			list-style: none;
 			overflow: hidden;
-			a{
-				&.blue{
-					color: @blue;
-					font-weight: 400;
-				}
-			}
 			.row{
 				height: 100%;
 				margin: 14px 13px;
@@ -272,6 +266,22 @@ body{
 			margin: 18px 28px 30px 28px;
 		}
 	}
+	&.expenses{
+		ul{
+			li{
+				img{
+					float: left;
+					margin: 0px 10px 0 0;
+					height: 65px;
+					width: 60px;
+				}
+			}
+		}
+		.price{
+			float: right;
+			font-size: 14px;
+		}
+	}
 	&.comments{
 		.comment-user{
 			float: left;
@@ -319,9 +329,6 @@ body{
 		p{
 			color: @brand;
 		}
-	}
-	.margin-data{
-		margin: 13px;
 	}
 }
 
@@ -378,6 +385,10 @@ body{
 	input{
 		height: 28px;
 	}
+}
+
+.margin-data{
+	margin: 13px;
 }
 
 /* -- STATUS BAR -- */
