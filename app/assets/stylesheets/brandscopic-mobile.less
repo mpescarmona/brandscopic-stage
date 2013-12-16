@@ -27,6 +27,14 @@ label{
 	clear: both;
 	display: block;
 	font-weight: normal;
+	&.data{
+		color: @brand;
+		display: inline-block;
+		font-size: 12px;
+		padding: 11px 0 8px 4px;
+		width: 33%;
+		margin-bottom: 0;
+	}
 }
 
 body{
@@ -135,12 +143,6 @@ body{
 			box-sizing: border-box;
 			list-style: none;
 			overflow: hidden;
-			a{
-				&.blue{
-					color: @blue;
-					font-weight: 400;
-				}
-			}
 			.row{
 				height: 100%;
 				margin: 14px 13px;
@@ -264,6 +266,23 @@ body{
 			margin: 18px 28px 30px 28px;
 		}
 	}
+	&.expenses{
+		margin-bottom: 20px;
+		ul{
+			li{
+				img{
+					float: left;
+					margin: 0px 10px 0 0;
+					height: 65px;
+					width: 60px;
+				}
+			}
+		}
+		.expense-price{
+			font-size: 14px;
+			text-align: right;
+		}
+	}
 	&.comments{
 		.comment-user{
 			float: left;
@@ -275,21 +294,6 @@ body{
 			text-align: right;
 			width: 30%;
 		}
-		.full-comment{
-			display: block;
-			font-size: 12px;
-			margin-top: 6px;
-			&:after{
-				border-left: 5px solid transparent;
-				border-right: 5px solid transparent;
-				border-top: 5px solid @blue;
-				content: "";
-				display: inline-block;
-				margin: 3px 0 0 5px;				
-				height: 0; 
-				width: 0; 
-			}
-		}
 	}
 	&.contactDetails{
 		div:first-of-type{
@@ -299,6 +303,16 @@ body{
 			&:before{
 				margin-left: -22px;
 			}
+		}
+	}
+	&.data{
+		.clearfix{
+			&:first-of-type{
+				margin-top:15px;
+			}
+		}
+		h5{
+			margin-bottom: 5px;
 		}
 	}
 	li{
@@ -317,8 +331,25 @@ body{
 			color: @brand;
 		}
 	}
-	.margin-data{
-		margin: 13px;
+}
+
+.form-control{
+	height: 40px;
+}
+
+.full-comment{
+	display: block;
+	font-size: 12px;
+	margin-top: 6px;
+	&:after{
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+		border-top: 5px solid @blue;
+		content: "";
+		display: inline-block;
+		margin: 3px 0 0 5px;				
+		height: 0; 
+		width: 0; 
 	}
 }
 
@@ -355,6 +386,10 @@ body{
 	input{
 		height: 28px;
 	}
+}
+
+.margin-data{
+	margin: 13px;
 }
 
 /* -- STATUS BAR -- */
@@ -552,6 +587,21 @@ input{
 	}
 }
 
+.input-group{
+	float: left;
+	width: 67%;
+	input{
+		-webkit-box-shadow: none;
+		box-shadow: none; 
+	}
+	.input-group-addon{
+		background-color: @brand;
+		border-color: @brand;
+		color: white;
+		padding: 6px 15px;
+	}
+}
+
 textarea{
 	border: 0;
 	min-height: 30px;
@@ -611,6 +661,10 @@ textarea{
 
 .mt20{
 	margin-top: 20px;
+}
+
+.m25{
+	margin: 25px 0;
 }
 
 /*-- PROGRESS STYLES --*/
