@@ -28,10 +28,11 @@ label{
 	display: block;
 	font-weight: normal;
 	&.data{
+		color: @brand;
 		display: inline-block;
 		font-size: 12px;
-		padding: 8px 0 8px 7px;
-		width: 40%;
+		padding: 11px 0 8px 4px;
+		width: 33%;
 		margin-bottom: 0;
 	}
 }
@@ -294,12 +295,13 @@ body{
 		}
 	}
 	&.data{
-		.category{
-			clear:both;
-			margin: 10px 0;
+		.clearfix{
+			&:first-of-type{
+				margin-top:15px;
+			}
 		}
-		.input-group{
-			margin: 5px 0;
+		h5{
+			margin-bottom: 5px;
 		}
 	}
 	li{
@@ -321,6 +323,10 @@ body{
 	.margin-data{
 		margin: 13px;
 	}
+}
+
+.form-control{
+	height: 40px;
 }
 
 .full-comment{
@@ -571,7 +577,7 @@ input{
 
 .input-group{
 	float: left;
-	width: 60%;
+	width: 67%;
 	input{
 		-webkit-box-shadow: none;
 		box-shadow: none; 
@@ -580,6 +586,7 @@ input{
 		background-color: @brand;
 		border-color: @brand;
 		color: white;
+		padding: 6px 15px;
 	}
 }
 
@@ -642,6 +649,10 @@ textarea{
 
 .mt20{
 	margin-top: 20px;
+}
+
+.m25{
+	margin: 25px 0;
 }
 
 /*-- PROGRESS STYLES --*/
