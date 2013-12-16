@@ -111,7 +111,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.hasAddIcon = true;
     $scope.UserInterface.searching = false;
 
-    $scope.eventsItems = EventsRestClient.getEventsMocked();
+    // $scope.eventsItems = EventsRestClient.getEventsMocked();
     // var eventList = $scope.eventsItems;
     // var eventGroups = [];
     // for (var i = 0, item, found; item = eventList[i++];) {
@@ -128,27 +128,34 @@ angular.module('brandscopicApp.controllers', [])
     // };
     // $scope.eventsGroups = eventGroups;
 
-    // $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
-    var statusList = EventsRestClient.getFacetByName("Event Status");
+    var statusList = [];
     var filteredList =  [];
 
-    // temporary harcoding to hide Event Status 'Approved'
-    for (var i = 0, item; item = statusList[i++];) {
-      if (item.label != 'Approved') {
-        filteredList.push(item);
-      }
-    };
-    $scope.statusCount = filteredList;
-
-    $scope.event_status = false;
-
-/*
-    var eventList = new EventsRestClient.getEvents(UserService.currentUser.auth_token, 1);
+    var eventList = new EventsRestClient.getEvents(UserService.currentUser.auth_token, EventsRestClient.getCompanyId());
     var promise = eventList.getEvents().$promise;
     promise.then(function(response) {
      if (response.status == 200) {
       if (response.data != null) {
           $scope.eventsItems = response.data;
+
+          EventsRestClient.setEvents($scope.eventsItems);
+
+          // $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
+          statusList = EventsRestClient.getFacetByName("Event Status");
+          filteredList =  [];
+          // temporary harcoding to hide Event Status 'Approved'
+          for (var i = 0, item; item = statusList[i++];) {
+            if (item.label != 'Approved') {
+              filteredList.push(item);
+            }
+          };
+          $scope.statusCount = filteredList;
+
+          $scope.event_status = false;
+          $scope.filterStatus = function(status) {
+            $scope.event_status = ($scope.event_status == status) ? false : (($scope.event_status == false) ? status : $scope.event_status);
+          };
+
           return;
       }
      } else {
@@ -158,11 +165,6 @@ angular.module('brandscopicApp.controllers', [])
     promise.catch(function(response) {
       $scope.eventsItems = {};
     });
-*/
-
-    $scope.filterStatus = function(status) {
-      $scope.event_status = ($scope.event_status == status) ? false : (($scope.event_status == false) ? status : $scope.event_status);
-    };
   }])
 
   .controller('EventsAboutController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
@@ -213,16 +215,32 @@ angular.module('brandscopicApp.controllers', [])
 
     snapRemote.close()
 
-    // Options for User Interface in home partial
-    $scope.UserInterface = UserInterface;
-    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
-    $scope.UserInterface.hasMagnifierIcon = true;
-    $scope.UserInterface.hasAddIcon = true;
-    $scope.UserInterface.searching = false;
-    $scope.UserInterface.eventSubNav = "about";
-    $scope.eventAbout = EventsRestClient.getEventById($stateParams.eventId);
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
+          $scope.eventAbout = eventData;
 
-    $scope.eventId = $stateParams.eventId;
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = eventData.campaign.name;
+          $scope.UserInterface.hasMagnifierIcon = true;
+          $scope.UserInterface.hasAddIcon = true;
+          $scope.UserInterface.searching = false;
+          $scope.UserInterface.eventSubNav = "about";
+          $scope.eventId = $stateParams.eventId;
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
   }])
 
   .controller('EventsDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
@@ -232,14 +250,31 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    // Options for User Interface in home partial
-    $scope.UserInterface = UserInterface;
-    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
-    $scope.UserInterface.hasMagnifierIcon = true;
-    $scope.UserInterface.hasAddIcon = true;
-    $scope.UserInterface.searching = false;
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
 
-    $scope.eventId = $stateParams.eventId;
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = eventData.campaign.name;
+          $scope.UserInterface.hasMagnifierIcon = true;
+          $scope.UserInterface.hasAddIcon = true;
+          $scope.UserInterface.searching = false;
+
+          $scope.eventId = $stateParams.eventId;
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
   }])
 
   .controller('EventsPeopleController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
@@ -249,21 +284,37 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    // Options for User Interface in home partial
-    $scope.UserInterface = UserInterface;
-    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
-    $scope.UserInterface.hasMagnifierIcon = true;
-    $scope.UserInterface.hasAddIcon = true;
-    $scope.UserInterface.searching = false;
-    $scope.UserInterface.eventSubNav = "people";
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
 
-    $scope.eventId = $stateParams.eventId;
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = eventData.campaign.name;
+          $scope.UserInterface.hasMagnifierIcon = true;
+          $scope.UserInterface.hasAddIcon = true;
+          $scope.UserInterface.searching = false;
+          $scope.UserInterface.eventSubNav = "people";
+          $scope.eventId = $stateParams.eventId;
 
-    $scope.showPeople = "team";
+          $scope.showPeople = "team";
 
-    $scope.showPeopleType = function(type) {
-      $scope.showPeople = type;
-    };
+          $scope.showPeopleType = function(type) {
+            $scope.showPeople = type;
+          };
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
   }])
 
   .controller('EventsDataController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
@@ -273,15 +324,31 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    // Options for User Interface in home partial
-    $scope.UserInterface = UserInterface;
-    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
-    $scope.UserInterface.hasMagnifierIcon = false;
-    $scope.UserInterface.hasAddIcon = false;
-    $scope.UserInterface.searching = false;
-    $scope.UserInterface.eventSubNav = "data";
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
 
-    $scope.eventId = $stateParams.eventId;
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = eventData.campaign.name;
+          $scope.UserInterface.hasMagnifierIcon = false;
+          $scope.UserInterface.hasAddIcon = false;
+          $scope.UserInterface.searching = false;
+          $scope.UserInterface.eventSubNav = "data";
+          $scope.eventId = $stateParams.eventId;
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
   }])
 
   .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
@@ -291,15 +358,31 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    // Options for User Interface in home partial
-    $scope.UserInterface = UserInterface;
-    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
-    $scope.UserInterface.hasMagnifierIcon = true;
-    $scope.UserInterface.hasAddIcon = true;
-    $scope.UserInterface.searching = false;
-    $scope.UserInterface.eventSubNav = "comments";
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
 
-    $scope.eventId = $stateParams.eventId;
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = eventData.campaign.name;
+          $scope.UserInterface.hasMagnifierIcon = true;
+          $scope.UserInterface.hasAddIcon = true;
+          $scope.UserInterface.searching = false;
+          $scope.UserInterface.eventSubNav = "comments";
+          $scope.eventId = $stateParams.eventId;
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
   }])
 
   .controller('EventsTasksController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
@@ -309,51 +392,67 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    // Options for User Interface in home partial
-    $scope.UserInterface = UserInterface;
-    // $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
-    $scope.UserInterface.title = 'Tasks';
-    $scope.UserInterface.hasMagnifierIcon = true;
-    $scope.UserInterface.hasAddIcon = false;
-    $scope.UserInterface.searching = false;
-    $scope.UserInterface.eventSubNav = "tasks";
 
-    $scope.eventId = $stateParams.eventId;
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
 
-    $scope.eventTaskItems = [{'id': 1, 'assigned': 'Chris Jaskot', 'Task': 'Pickup t-shirts from storage unit', 'date': '2013-12-13', 'task_status': 'Late'},
-                             {'id': 2, 'assigned': 'George Tan', 'Task': 'Confirm time and location of event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
-                             {'id': 3, 'assigned': '', 'Task': 'Hire models for event', 'date': '2013-12-13', 'task_status': 'Unassigned'},
-                             {'id': 4, 'assigned': 'George Tan', 'Task': 'Identify drink recipes for promotion', 'date': '2013-12-13', 'task_status': 'Late'},
-                             {'id': 5, 'assigned': 'Chris Jaskot', 'Task': 'Order ballons for the event', 'date': '2013-12-13', 'task_status': 'Late'},
-                             {'id': 6, 'assigned': 'Chris Jaskot', 'Task': 'Order ballons for the event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
-                             {'id': 7, 'assigned': '', 'Task': 'Identify catering provider', 'date': '2013-12-13', 'task_status': 'Unassigned'},
-                             {'id': 8, 'assigned': 'Chris Jaskot', 'Task': 'Select event presenter', 'date': '2013-12-13', 'task_status': 'Incomplete'}];
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = eventData.campaign.name;
+          $scope.UserInterface.hasMagnifierIcon = true;
+          $scope.UserInterface.hasAddIcon = false;
+          $scope.UserInterface.searching = false;
+          $scope.UserInterface.eventSubNav = "tasks";
+          $scope.eventId = $stateParams.eventId;
+          $scope.eventTaskItems = [{'id': 1, 'assigned': 'Chris Jaskot', 'Task': 'Pickup t-shirts from storage unit', 'date': '2013-12-13', 'task_status': 'Late'},
+                                   {'id': 2, 'assigned': 'George Tan', 'Task': 'Confirm time and location of event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
+                                   {'id': 3, 'assigned': '', 'Task': 'Hire models for event', 'date': '2013-12-13', 'task_status': 'Unassigned'},
+                                   {'id': 4, 'assigned': 'George Tan', 'Task': 'Identify drink recipes for promotion', 'date': '2013-12-13', 'task_status': 'Late'},
+                                   {'id': 5, 'assigned': 'Chris Jaskot', 'Task': 'Order ballons for the event', 'date': '2013-12-13', 'task_status': 'Late'},
+                                   {'id': 6, 'assigned': 'Chris Jaskot', 'Task': 'Order ballons for the event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
+                                   {'id': 7, 'assigned': '', 'Task': 'Identify catering provider', 'date': '2013-12-13', 'task_status': 'Unassigned'},
+                                   {'id': 8, 'assigned': 'Chris Jaskot', 'Task': 'Select event presenter', 'date': '2013-12-13', 'task_status': 'Incomplete'}];
 
-    $scope.eventTaskFilters = [{'label': 'Late',
-                                'id': 'Late',
-                                'name': 'task_status',
-                                'count': 3,
-                                'selected': false
-                                },
-                                {
-                                'label': 'Unassigned',
-                                'id': 'Unassigned',
-                                'name': 'task_status',
-                                'count': 2,
-                                'selected': false
-                                },
-                                {
-                                'label': 'Incomplete',
-                                'id': 'Incomplete',
-                                'name': 'task_status',
-                                'count': 3,
-                                'selected': false
-                                }];
+          $scope.eventTaskFilters = [{'label': 'Late',
+                                      'id': 'Late',
+                                      'name': 'task_status',
+                                      'count': 3,
+                                      'selected': false
+                                      },
+                                      {
+                                      'label': 'Unassigned',
+                                      'id': 'Unassigned',
+                                      'name': 'task_status',
+                                      'count': 2,
+                                      'selected': false
+                                      },
+                                      {
+                                      'label': 'Incomplete',
+                                      'id': 'Incomplete',
+                                      'name': 'task_status',
+                                      'count': 3,
+                                      'selected': false
+                                      }];
 
-    $scope.task_status = false;
-    $scope.filterTask = function(status) {
-      $scope.task_status = ($scope.task_status == status) ? false : (($scope.task_status == false) ? status : $scope.task_status);
-    };
+          $scope.task_status = false;
+          $scope.filterTask = function(status) {
+            $scope.task_status = ($scope.task_status == status) ? false : (($scope.task_status == false) ? status : $scope.task_status);
+          };
+
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
   }])
 
   .controller('EventsPhotosController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
@@ -363,15 +462,31 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    // Options for User Interface in home partial
-    $scope.UserInterface = UserInterface;
-    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
-    $scope.UserInterface.hasMagnifierIcon = false;
-    $scope.UserInterface.hasAddIcon = true;
-    $scope.UserInterface.searching = false;
-    $scope.UserInterface.eventSubNav = "photos";
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
 
-    $scope.eventId = $stateParams.eventId;
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = eventData.campaign.name;
+          $scope.UserInterface.hasMagnifierIcon = false;
+          $scope.UserInterface.hasAddIcon = true;
+          $scope.UserInterface.searching = false;
+          $scope.UserInterface.eventSubNav = "photos";
+          $scope.eventId = $stateParams.eventId;
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
   }])
 
   .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
@@ -381,15 +496,31 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    // Options for User Interface in home partial
-    $scope.UserInterface = UserInterface;
-    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
-    $scope.UserInterface.hasMagnifierIcon = false;
-    $scope.UserInterface.hasAddIcon = true;
-    $scope.UserInterface.searching = false;
-    $scope.UserInterface.eventSubNav = "expenses";
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
 
-    $scope.eventId = $stateParams.eventId;
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = eventData.campaign.name;
+          $scope.UserInterface.hasMagnifierIcon = false;
+          $scope.UserInterface.hasAddIcon = true;
+          $scope.UserInterface.searching = false;
+          $scope.UserInterface.eventSubNav = "expenses";
+          $scope.eventId = $stateParams.eventId;
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
   }])
 
   .controller('EventsSurveysController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
@@ -399,14 +530,30 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    // Options for User Interface in home partial
-    $scope.UserInterface = UserInterface;
-    $scope.UserInterface.title = EventsRestClient.getEventName($stateParams.eventId);
-    $scope.UserInterface.hasMagnifierIcon = false;
-    $scope.UserInterface.hasAddIcon = true;
-    $scope.UserInterface.searching = false;
-    $scope.UserInterface.eventSubNav = "surveys";
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
 
-    $scope.eventId = $stateParams.eventId;
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = eventData.campaign.name;
+          $scope.UserInterface.hasMagnifierIcon = false;
+          $scope.UserInterface.hasAddIcon = true;
+          $scope.UserInterface.searching = false;
+          $scope.UserInterface.eventSubNav = "surveys";
+          $scope.eventId = $stateParams.eventId;
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
   }]);
         
