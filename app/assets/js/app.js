@@ -111,8 +111,43 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.details.data', {
       url: "/data",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_data.html",
-                              controller: 'EventsDetailsController'
+                              controller: 'EventsDataController'
                             }
             }
     })
+    .state('home.events.details.comments', {
+      url: "/comments",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_comments.html",
+                              controller: 'EventsCommentsController'
+                            }
+            }
+    })
+    .state('home.events.details.tasks', {
+      url: "/tasks",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks.html",
+                              controller: 'EventsTasksController'
+                            }
+            }
+    })    
+    .state('home.events.details.photos', {
+      url: "/photos",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_photos.html",
+                              controller: 'EventsPhotosController'
+                            }
+            }
+    })
+    .state('home.events.details.expenses', {
+      url: "/expenses",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses.html",
+                              controller: 'EventsExpensesController'
+                            }
+            }
+    })                    
+    .state('home.events.details.surveys', {
+      url: "/surveys",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys.html",
+                              controller: 'EventsSurveysController'
+                            }
+            }
+    })                    
 });

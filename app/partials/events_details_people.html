@@ -1,7 +1,7 @@
 <!-- Event Details Container - EVENT VIEW - PEOPLE-->
 
 <div class="container">
-	<div class="centerTxt m10">
+	<div class="centerTxt">
 		<div class="btn-group">
 		  <a class="btn btn-default" ng-class="{active: showPeople=='team'}" ng-click="showPeopleType('team')">Event team</a>
 		  <a class="btn btn-default" ng-class="{active: showPeople=='contacts'}" ng-click="showPeopleType('contacts')">Contacts</a>
@@ -13,7 +13,7 @@
 			<li>
 				<a href="#/home/events/{{eventId}}/people/team/1/edit">
 					<div class="row">
-						<div class="col-xs-5 teaMember">
+						<div class="col-xs-12 teaMember">
 							<h5 class="txtAdjust">Chris Jaskot</h5>
 							<p class="small txtAdjust">Field Manager</p>
 						</div>
@@ -23,13 +23,9 @@
 			<li>
 				<a href="#/home/events/{{eventId}}/people/team/2/edit">
 					<div class="row">
-						<div class="col-xs-5 teaMember">
+						<div class="col-xs-12 teaMember">
 							<h5 class="txtAdjust">George Tan</h5>
 							<p class="small txtAdjust">Field Manager</p>
-						</div>
-						<div class="col-xs-5 editpanel">
-							<a href="#" class="edit pull-left"></a>
-							<a href="#" class="deactivate pull-right"></a>
 						</div>
 					</div>
 				</a>
@@ -37,7 +33,7 @@
 			<li>
 				<a href="#/home/events/{{eventId}}/people/team/3/edit">
 					<div class="row">
-						<div class="col-xs-5 team">
+						<div class="col-xs-12 team">
 							<h5 class="txtAdjust">Gan Francisco MBN Team</h5>
 							<p class="small txtAdjust">Top performers for San Francisco area</p>
 						</div>
@@ -46,12 +42,15 @@
 			</li>
 		</ul>
 	</div>
+
+	<!-- CONTACT SECTION INSIDE EVENTS PEOPLE -->
+
 	<div class="box-container np" ng-show="showPeople=='contacts'">
 		<ul class="eventsPeople">
 			<li>
 				<a href="#/home/events/{{eventId}}/people/contacts/1/edit">
 					<div class="row">
-						<div class="col-xs-5 teaMember">
+						<div class="col-xs-12 teaMember">
 							<h5 class="txtAdjust">John Smith</h5>
 							<p class="small txtAdjust">Bar Manager</p>
 						</div>
@@ -61,11 +60,11 @@
 			<li>
 				<a href="#/home/events/{{eventId}}/people/contacts/2/edit">
 					<div class="row">
-						<div class="col-xs-5 teaMember">
+						<div class="col-xs-12 teaMember">
 							<h5 class="txtAdjust">Susan Jones</h5>
 							<p class="small txtAdjust">Bar Manager</p>
 						</div>
-	<!-- 					<div class="col-xs-5 editpanel">
+						<!-- <div class="col-xs-5 editpanel">
 							<a href="#" class="edit pull-left"></a>
 							<a href="#" class="deactivate pull-right"></a>
 						</div> -->
@@ -75,7 +74,7 @@
 			<li>
 				<a href="#/home/events/{{eventId}}/people/contacts/3/edit">
 					<div class="row">
-						<div class="col-xs-5 teaMember">
+						<div class="col-xs-12 teaMember">
 							<h5 class="txtAdjust">Frank Miles</h5>
 							<p class="small txtAdjust">Venue Owner</p>
 						</div>
@@ -85,12 +84,58 @@
 			<li>
 				<a href="#/home/events/{{eventId}}/people/contacts/4/edit">
 					<div class="row">
-						<div class="col-xs-5 teaMember">
+						<div class="col-xs-12 teaMember">
 							<h5 class="txtAdjust">Samantha Stephens</h5>
 							<p class="small txtAdjust">Restaurant Manager</p>
 						</div>
 					</div>
 				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+<!-- ESTA ES LA VISTA DE ADD -->
+
+<div class="container">
+	<div class="box-container np">
+		<ul class="eventsPeople">
+			<li>
+				<div class="row">
+					<div class="col-xs-7">
+						<h5 class="txtAdjust">Amber Smith Amber Smith Amber Smith</h5>
+						<p class="small">Bar Manager</p>
+					</div>
+					<a class="btn-default btn-sm add pull-right" href="#">Add</a>
+				</div>
+			</li>
+			<li>
+				<div class="row">
+					<div class="col-xs-7">
+						<h5 class="txtAdjust">Amy Jones</h5>
+						<p class="small">Bar Manager</p>
+					</div>
+					<a class="btn-default btn-sm add pull-right" href="#">Add</a>
+				</div>
+			</li>
+			<li>
+				<div class="row">
+					<div class="col-xs-7">
+						<h5 class="txtAdjust">Amber Smith Amber Smith Amber Smith</h5>
+						<p class="small">Bar Manager</p>
+					</div>
+					<a class="btn-default btn-sm add pull-right" href="#">Add</a>
+				</div>
+			</li>
+			<li>
+				<div class="row">
+					<div class="col-xs-7">
+						<h5 class="txtAdjust">Amy Jones</h5>
+						<p class="small">Restaurant Manager</p>
+					</div>
+					<a class="btn-default btn-sm add pull-right" href="#">Add</a>
+				</div>
 			</li>
 		</ul>
 	</div>

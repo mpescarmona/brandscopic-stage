@@ -2,33 +2,83 @@
 <div class="google-map">
 	<iframe width="100%" height="142" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com.ar/maps?t=m&amp;ie=UTF8&amp;ll=-32.926448,-68.813779&amp;spn=0.265698,0.523224&amp;z=11&amp;output=embed"></iframe>
 </div>
-
 <div class="container">
 	<!-- ALERT FOR CONTAINER STATUS - SUBMITTED -->
-	<div class="box-container submitted">
+	<div class="box-container submitted" ng-show="eventAbout.event_status=='Submitted'">
 		<p>Your post event report has been submitted for approval. Please review and either <a href="#">approve</a> or <a href="#">reject</a>.</p>
 	</div>
 	<!-- ALERT FOR CONTAINER STATUS - LATE -->
-	<div class="box-container late">
+	<div class="box-container late" ng-show="eventAbout.event_status=='Late'">
 		<p>Your event report is late. Please <a href="#">submit post event data</a>, <a href="#">upload photos</a>, <a href="#">enter expenses</a>, and <a href="#">enter comments</a> now. Once complete please <a href="#">submit</a> your post event form.</p>
 	</div>
 	<!-- ALERT FOR CONTAINER STATUS - SCHEDULED -->
-	<div class="box-container scheduled">
+	<div class="box-container scheduled" ng-show="eventAbout.event_status=='Scheduled'">
 		<p>Your event is scheduled for today. Please <a href="#">enter post event data</a>, <a href="#">upload photos</a>, <a href="#">conduct surveys</a>, <a href="#">enter expenses</a>, and  <a href="#">gather comments</a> from your audience during or shortly after the event. Once complete please <a href="#">submit</a> your post event form.</p>
 	</div>
-	<div class="box-container">
-		<h5>Jameson Locals FY14</h5>
+	<div class="box-container events eventDetails">
+		<h5>{{eventAbout.campaign.name}}</h5>
 		<div class="date-data">
-			WED Oct 16 <br>
-			11:00 AM - 12:00 AM
+			{{eventAbout.start_date}}<br>
+			{{eventAbout.start_time}} - {{eventAbout.end_time}}
 		</div>
 		<div class="place-data">
-			<a href="#" class="blue">Williams Tavern</a><br>
-			423 East 17th Avenue
+			<a href="#" class="blue">{{eventAbout.place.name}}</a><br>
+			{{eventAbout.place.formatted_address}}
 			<br>
-			Denver, CO, 80203
+			{{eventAbout.place.state_name}}, {{eventAbout.place.state}}, {{eventAbout.place.zipcode}}
 		</div>
 		<button type="button" class="btn-default btn-sm edit"></button>
 		<button type="button" class="btn-default btn-sm deactivate"></button>
+	</div>
+</div>
+
+<!-- Event Details Container - ADD EVENT VIEW-->
+
+<div class="container">
+	<div class="box-container events">
+		<div class="row">
+		  <div class="col-xs-12">
+		  	<label>Campaign name</label>
+		  </div>
+		  <div class="col-xs-12">
+		  	<input type="text">
+		  </div>
+		</div>
+		<div class="row eventDate">
+		  <div class="col-xs-12 mt20">
+		  	<label>Start</label>
+		  </div>
+		  <div class="col-xs-7">
+		  	<input type="text" class="event_start_date">
+		  </div>
+		  <div class="col-xs-1 centerTxt m10">
+		  	at
+		  </div>
+		  <div class="col-xs-4">
+		  	<input type="text">
+		  </div>
+		</div>
+		<div class="row eventDate">
+		  <div class="col-xs-12">
+		  	<label>End</label>
+		  </div>
+		  <div class="col-xs-7">
+		  	<input type="text" class="event_end_date">
+		  </div>
+		  <div class="col-xs-1 centerTxt m10">
+		  	at
+		  </div>
+		  <div class="col-xs-4">
+		  	<input type="text">
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-12 mt20">
+		  	<label>Place</label>
+		  </div>
+		  <div class="col-xs-12">
+		  	<input type="text">
+		  </div>
+		</div>
 	</div>
 </div>

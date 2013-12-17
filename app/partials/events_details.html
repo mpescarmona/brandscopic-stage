@@ -1,19 +1,19 @@
 
-<!-- Here should go the subnav partial -->
+<!-- SUBNAV -->
+
 <div class="subnav">
-	<div class="container">
-		<ul>
-			<li ng-class="{active: UserInterface.eventSubNav=='about'}"><a href="#/home/events/{{eventId}}/about">ABOUT</a></li>
-			<li ng-class="{active: UserInterface.eventSubNav=='people'}"><a href="#/home/events/{{eventId}}/people">PEOPLE</a></li>
-			<li ng-class="{active: UserInterface.eventSubNav=='tasks'}"><a href="#">TASKS</a></li>
-			<li ng-class="{active: UserInterface.eventSubNav=='data'}"><a href="#/home/events/{{eventId}}/data">DATA</a></li>
-			<li ng-class="{active: UserInterface.eventSubNav=='photos'}"><a href="#">PHOTOS</a></li>
-			<li ng-class="{active: UserInterface.eventSubNav=='comments'}"><a href="#">COMMENTS</a></li>
-			<li ng-class="{active: UserInterface.eventSubNav=='expenses'}"><a href="#">EXPENSES</a></li>
-			<li ng-class="{active: UserInterface.eventSubNav=='surveys'}"><a href="#">SURVEYS</a></li>
-		</ul>
-	</div>
+	<ul class="scrollplane">
+		<li ng-class="{active: UserInterface.eventSubNav=='about'}"><a href="#/home/events/{{eventId}}/about">ABOUT</a></li>
+		<li ng-class="{active: UserInterface.eventSubNav=='people'}"><a href="#/home/events/{{eventId}}/people">PEOPLE</a></li>
+		<li ng-class="{active: UserInterface.eventSubNav=='tasks'}"><a href="#/home/events/{{eventId}}/tasks">TASKS</a></li>
+		<li ng-class="{active: UserInterface.eventSubNav=='data'}"><a href="#/home/events/{{eventId}}/data">DATA</a></li>
+		<li ng-class="{active: UserInterface.eventSubNav=='photos'}"><a href="#/home/events/{{eventId}}/photos">PHOTOS</a></li>
+		<li ng-class="{active: UserInterface.eventSubNav=='comments'}"><a href="#/home/events/{{eventId}}/comments">COMMENTS</a></li>
+		<li ng-class="{active: UserInterface.eventSubNav=='expenses'}"><a href="#/home/events/{{eventId}}/expenses">EXPENSES</a></li>
+		<li ng-class="{active: UserInterface.eventSubNav=='surveys'}"><a href="#/home/events/{{eventId}}/surveys">SURVEYS</a></li>
+	</ul>
 </div>
 
 <!-- Event Details Partials -->
+
 <div ui-view="eventsDetail"></div>

@@ -1,0 +1,69 @@
+<div class="statusBar tasks" ng-show="!UserInterface.searching">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-4" ng-repeat="status in eventTaskFilters" ng-class="{active: task_status==status.id}"> 
+				<a ng-click="filterTask('{{status.id}}')">
+					<div class="number">{{status.count}}</div>
+					<p>{{status.label}}</p>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Events Container -->
+<div class="container" ng-repeat="task in eventTaskItems | filter:task_status" ng-show="!UserInterface.searching">
+	<!-- <div class="dividersBar">TODAY</div> -->
+	<div class="dividersBar">{{task.date}}</div>
+	<div class="box-container np">
+		<ul class="events list tasks">
+			<li>
+				<a href="#/home/events/{{task.id}}/tasks/{{task.id}}/details">
+					<div class="row" ng-class="{late: task_status=='Late', Unassigned: task_status=='Unassigned', Incomplete: task_status=='Incomplete'}"> 
+						<div class="col-xs-9">
+						    <h5 class="txtAdjust">{{task.Task}}</h5>
+								<p class="medium txtAdjust second">{{task.assigned}}</p>
+							<!--
+							<div class="col-xs-5 editpanel" ng-show="1==2">
+								<a href="#" class="edit pull-left"></a>
+								<a href="#" class="deactivate pull-right"></a>
+							</div>-->
+						</div>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<!-- TASKS DETAILS PAGE -->
+
+<div class="container">
+	<div class="box-container">
+		<h5>Pickup t-shirts from storage unit</h5>
+		<div class="date-data late">Today</div>
+		<div class="user-data">Chris Jasckot</div>
+		<button class="btn-default btn-sm">hola</button>
+		<button class="btn-default btn-sm">hola</button>
+		<button class="btn-default btn-sm">hola</button>
+	</div>
+	<div class="dividersBar big">COMMENTS</div>
+	<div class="box-container np events comments">
+		<ul>
+			<li>
+				<div class="margin-data">
+					<p class="comment-user">Craig Williams</p>
+					<p class="comment-date small">10 mins ago</p>
+					<p class="clearfix medium">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page demonstraverunt lectores legere me lius quod</p>
+					<a href="#" class="blue full-comment">Show full comment</a>
+				</div>
+			</li>
+			<li>
+				<div class="margin-data">
+					<p class="comment-user">Jonathan Prince</p>
+					<p class="comment-date small">Yesterday</p>
+					<p class="clearfix medium">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -10,6 +10,11 @@
 	margin-top: 10px;
 }
 
+.btn:active{
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
 :focus{
 	outline:0;
 }
@@ -18,17 +23,18 @@
 	display:none;
 }
 
-h5{
-	color: @txt;
-	font-size: 15px;
-	font-weight: 600;
-	margin:0 0 3px 0;
-}
-
 label{
 	clear: both;
 	display: block;
 	font-weight: normal;
+	&.data{
+		color: @brand;
+		display: inline-block;
+		font-size: 12px;
+		padding: 11px 0 8px 4px;
+		width: 33%;
+		margin-bottom: 0;
+	}
 }
 
 body{
@@ -64,10 +70,11 @@ body{
 	.border-top-radius(6px);
 	box-sizing: border-box;
 	color: @txt;
+	font-size: 14px;
 	height: auto;
 	margin-bottom: 2px;
 	margin-top: 2px;
-	padding: 10px 12px;
+	padding: 9px 12px;
 	width:100%;
 
 	&.dashboard{
@@ -79,15 +86,28 @@ body{
 				&:last-child{
 					margin-bottom: 0;
 				}
+				.chart-bar{
+					position: relative;
+					display: inline-block;
+					height: 33px;
+					width: 100%;
+				}
+				p{
+					width:50%;
+					&.pull-right{
+						color: @lightGrey;
+						width:auto;
+					}
+				}
 			}
 		}
 		p{
 			float: left;
 			margin-bottom: 5px;
-			width:90%;
+			width:91%;
 		}
 		.nextIcon:before{
-			bottom: 8px;
+			bottom: 6px;
 			left:5px;
 		}
 		.row{
@@ -121,35 +141,52 @@ body{
 		li{
 			border-bottom: 1px solid @borders;
 			box-sizing: border-box;
-			height: 60px;
 			list-style: none;
+			overflow: hidden;
 			.row{
 				height: 100%;
-				margin:0;
-				padding: 9px 0;
-			}
-			h5{
-				margin-bottom: 4px;
-			}
-			&:last-child{
-				border-bottom: none;
-			}
-		}
-		&.events{ 
-			li{
-				padding: 3px 0 3px 3px;
-				.editpanel{
-					margin-top: -3px;
-				}
+				margin: 14px 13px;
 			}
 		}
 		&.eventsPeople{
-			.col-xs-5{
-				&.team, &.teaMember{
-					float: left;
-				    position: relative;
-				    margin: 11px 0 0 30px;
-			  	}
+	  	li:last-child{
+	  		border-bottom: 0;
+	  	}
+			.team, .teaMember{
+				float: left;
+			  position: relative;
+			  margin-left: 50px;
+			  h5{
+			   	line-height: 22px;
+			  }
+			  p{
+			  	margin: 0;
+			  }
+		  }
+		}
+		&.list{
+			height: 60px;
+			&:last-of-type{
+				li{
+					border-bottom: 0;
+				}
+			}
+			.row{
+				margin: 3px 0 3px 2px;
+				height: 54px;
+				div{
+					margin-right: 5px;
+					margin-top: 8px;
+					&:first-of-type{
+						margin-left: 10px;
+						margin-right: 6px;
+					}
+				}
+			}
+			&.tasks{
+				li{
+					border-bottom: 0;
+				}
 			}
 		}
 	}
@@ -161,6 +198,9 @@ body{
 	font-weight: 400;
 	text-align: center;
 	text-transform: uppercase;
+	&.big{
+		padding: 7px 0;
+	}
 }
 
 .editpanel{
@@ -183,18 +223,42 @@ body{
 	}
 }
 
+/* -- EVENTS SECTION -- */
+
 .events{
+	&.editEvent{
+		li{
+			div{
+				padding: 17px 5px;
+				&:first-of-type{
+					font-size: 10px;
+					font-weight: 600;
+					line-height: 20px;
+				}
+				&:last-of-type{
+					h5{
+						color: @brand;
+					}
+				}
+			}
+		}
+	}
 	.eventHour{
 		color: @txt;
-		padding: 0 0 0 10px;
+		margin-right: 10px;
 		p{
-			margin: 3px 0;
+			&:first-child{
+				margin: 2px 0;
+			}
+			&:last-child{
+				margin: 4px 0;
+			}
 			&:last-child:before{
 				content:"\2014";
 				display: inline-block;
 				font-size: 12px;
-				bottom: 6px;
-				left: 15px;
+				bottom: 7px;
+				left: 5px;
 				margin: 0 0 5px 10px;
 				position: absolute;
 				width: 100%;
@@ -202,29 +266,137 @@ body{
 			}
 		}
 	}
-	.eventDate{
+	/*.eventDate{
 		input{
 			text-transform: uppercase;
 		}
+	}*/
+	&.eventDetails{
+		div:first-of-type{
+			margin: 18px 28px 30px 28px;
+		}
 	}
-	.col-xs-1{
-		margin-top: 10px;
-		text-align: center;
+	&.expenses{
+		margin-bottom: 20px;
+		.margin-expense{
+			div p{
+				color: @brand;
+				font-size: 17px;
+				line-height: 34px;
+			}
+		}
+		ul{
+			li{
+				&:last-child{
+					border-bottom: 0;
+				}
+				img{
+					float: left;
+					margin: 0px 10px 0 0;
+					height: 58px;
+					width: 54px;
+				}
+				.row{
+					margin: 4px 14px 4px 4px;
+					.title{
+						line-height: 59px;
+					}
+				}
+			}
+		}
+		.expense-price{
+			font-size: 14px;
+			padding-top: 10px;
+			text-align: right;
+			.blue{
+				font-size: 17px;
+			}
+		}
+		.total-price{
+			font-size: 22px;
+			text-align: right;
+		}
 	}
-	.col-xs-9{
-		.eventPlace{
+	&.comments{
+		.comment-user{
+			float: left;
+			width:70%;
+		}
+		.comment-date{
 			color: @brand;
-			padding: 8px 0 0 0;
+			float: right;
+			text-align: right;
+			width: 30%;
+		}
+		ul li:last-child{
+			border-bottom: 0;
+		}
+	}
+	&.contactDetails{
+		div:first-of-type{
+			margin-top: 35px;
+		}
+		.place-data{
+			&:before{
+				margin-left: -22px;
+			}
+		}
+	}
+	&.data{
+		.clearfix{
+			&:first-of-type{
+				margin-top:15px;
+			}
+		}
+		h5{
+			margin-bottom: 5px;
+		}
+	}
+	li{
+		.editpanel{
+			margin-top: -3px;
+		}
+		h5{
+			margin-bottom: 2px;
 		}
 	}
 	.row{
 		margin: 0;
+	}
+	&.surveys{
+		p{
+			color: @brand;
+		}
+		li:last-child{
+			border-bottom: 0;
+		}
+	}
+}
+
+.form-control{
+	height: 40px;
+}
+
+.full-comment{
+	display: block;
+	font-size: 12px;
+	margin-top: 6px;
+	&:after{
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+		border-top: 5px solid @blue;
+		content: "";
+		display: inline-block;
+		margin: 3px 0 0 5px;				
+		height: 0; 
+		width: 0; 
 	}
 }
 
 .google-map{
 	height: 142px;
 	margin-bottom: 5px;
+	margin-top: -5px;
 	width: 100%;
 	&.fullscreen{
 		height: 100%;
@@ -256,16 +428,25 @@ body{
 	}
 }
 
+.margin-data{
+	margin: 13px;
+}
+
+.margin-expense{
+	margin: 8px 0;
+}
+
+/* -- STATUS BAR -- */
+
 .statusBar{
 	background-color: white;
 	color: @txt;
-	font-weight: 300;
 	height: 60px;
 	margin-bottom: 3px;
 	.container{
 		padding: 0 !important;
 	}
-	.col-xs-3{
+	.col-xs-3, .col-xs-4 {
 		border-right: 1px solid @borders;
 		font-size: 11px;
 		padding: 0;
@@ -273,30 +454,43 @@ body{
 		text-align: center;
 		.number{
 			font-size: 32px;
+			font-weight: 300;
 			line-height: 42px;
 		}
 		p{
 			font-size: 10px;
+			font-weight: 400;
 			margin-bottom: 4px;
 			text-transform: uppercase;
-		}
-		&:last-child{
-			border: 0;
+			letter-spacing: -0.2px;
 		}
 		&.active{
 			background-color: @listHover;
+		}
+		&:last-of-type{
+			border-right: 0;
 		}
 	}
 	.row{
 		margin: 0 !important;
 	}
+	&.tasks{
+		margin-top: -5px;
+	}
 }
+
+/* -- EVENTS SUBNAV -- */
 
 .subnav{
 	background-color: @txt;
-	height: 37px;
-	overflow: hidden;
-	ul{
+	margin-bottom: 5px;
+  overflow-x: auto; 
+  overflow-y: hidden;
+  height: 37px;
+  width: 100%;
+	ul.scrollplane{
+		height: 37px; // less than scroll container
+		width: 198%; // greater than scroll container;
 		padding: 0;
 		li{
 			display: inline-block;
@@ -307,10 +501,10 @@ body{
 				list-style: none;
 				padding: 9px 12px;
 			}
-							&:hover, &.active{
-					color:white;
-					border-bottom: 3px solid @blue;
-				}
+			&:hover, &.active{
+				color:white;
+				border-bottom: 3px solid @blue;
+			}
 		}
 	}
 }
@@ -331,13 +525,25 @@ body{
 	background-color: @lightGrey;
 	border: 0;
 	color: white;
+	&:focus, &:active{
+		background-color: @lightGrey;	
+		color: white;	
+	}
 	&.btn-sm{
 		margin-right: 5px;
-		height: 33px;
-		width: 90px;
 		&.edit:before, &.deactivate:before{
 			font-size: 23px;
-			line-height: 10px;
+			bottom: 6px;
+			height: 22px;
+			width: 90px;
+		}
+		&.add{
+			background-color: white;
+			border: 1px solid @listHover;
+			color: @lightGrey;
+			font-size: 14px;
+			padding: 5px 16px;
+			width: auto;
 		}
 	}
 	&:hover{
@@ -355,6 +561,7 @@ body{
 }
 
 .btn-group{
+	margin: 8px 0 12px 0;
 	.btn{
 		height: auto;
 		padding: 5px 0;
@@ -424,6 +631,29 @@ input{
 	}
 }
 
+.input-group{
+	float: left;
+	width: 67%;
+	input{
+		-webkit-box-shadow: none;
+		box-shadow: none; 
+	}
+	.input-group-addon{
+		background-color: @brand;
+		border-color: @brand;
+		color: white;
+		padding: 6px 15px;
+	}
+}
+
+textarea{
+	border: 0;
+	color: @lightGrey;
+	min-height: 30px;
+	height: auto;
+	width: 100%;
+}
+
 /*-- LOGIN STYLES --*/
 
 .back{
@@ -468,12 +698,6 @@ input{
 	}
 }
 
-.txtAdjust{
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
 /*-- MARGIN --*/
 
 .m10{
@@ -482,6 +706,10 @@ input{
 
 .mt20{
 	margin-top: 20px;
+}
+
+.m25{
+	margin: 25px 0;
 }
 
 /*-- PROGRESS STYLES --*/
@@ -505,28 +733,31 @@ input{
 .chart-bar{
 	position: relative;
 	display: inline-block;
-	height: 30px;
-	width: 90%;
-	max-width: 90%;
+	height: 33px;
+	width: 91%;
 	.today-line-indicator{
 		position: absolute;
 		width: 4px;
 		background-color: #347a99;
-		height: 30px;
-		top: -5px;
+		height: 25px;
+		top: -2px;
 		border: 1px solid #347a99;
 		border-radius: 2px;
 		&:after{
 			color: @lightGrey;
 			content:"Today";
 			display: inline-block;
-			font-size: 9px;
-			top: 30px;
+			font-size: 10px;
+			top: 23px;
 			right: 12px;
 			position: absolute;
 			width: 100%;
 		}
 	}
 }
+
+
+
+
 
 

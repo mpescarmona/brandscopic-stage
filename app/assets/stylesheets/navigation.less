@@ -67,17 +67,18 @@
   background: @header;
 	width: auto;
 	position: relative;
+  text-align: center;
 	height: 44px;
   h1{
-    bottom: 5px;
 	  color: white;
-	  font-size: 16px;
+	  font-size: 17px;
 	  font-weight: 400;
-	  left: 44px;
-	  position: absolute;
-	  right: 44px;
-	  text-align: center;
-	  width: auto; 	
+	  position: relative;
+    display: inline-block;
+    line-height: 45px;
+    margin:0;
+    height: 44px;
+	  width: 150px; 	
   }
   :before{
   	color: white;
@@ -133,7 +134,6 @@
 	  }
 	  &:last-of-type{
 	  	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	  	margin-top: 50%;
 	  }
 	}
 	li > a {
