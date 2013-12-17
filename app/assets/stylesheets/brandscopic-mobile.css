@@ -709,18 +709,33 @@ body.appLayout .container {
 .events.expenses {
   margin-bottom: 20px;
 }
+.events.expenses .margin-expense div p {
+  color: #989898;
+  font-size: 17px;
+  line-height: 34px;
+}
 .events.expenses ul li:last-child {
   border-bottom: 0;
 }
 .events.expenses ul li img {
   float: left;
   margin: 0px 10px 0 0;
-  height: 65px;
-  width: 60px;
+  height: 58px;
+  width: 54px;
+}
+.events.expenses ul li .row {
+  margin: 4px 14px 4px 4px;
+}
+.events.expenses ul li .row .title {
+  line-height: 59px;
 }
 .events.expenses .expense-price {
   font-size: 14px;
+  padding-top: 10px;
   text-align: right;
+}
+.events.expenses .expense-price .blue {
+  font-size: 17px;
 }
 .events.expenses .total-price {
   font-size: 22px;
@@ -756,9 +771,6 @@ body.appLayout .container {
 }
 .events li h5 {
   margin-bottom: 2px;
-}
-.events .row {
-  margin: 0;
 }
 .events.surveys p {
   color: #989898;
@@ -820,7 +832,7 @@ body.appLayout .container {
   margin: 13px;
 }
 .margin-expense {
-  margin: 18px 13px;
+  margin: 8px 0;
 }
 /* -- STATUS BAR -- */
 .statusBar {
