@@ -595,9 +595,6 @@ body.appLayout .container {
   height: 100%;
   margin: 14px 13px;
 }
-.box-container ul li.lastItem {
-  border-bottom: 0;
-}
 .box-container ul.eventsPeople li:last-child {
   border-bottom: 0;
 }
@@ -617,6 +614,9 @@ body.appLayout .container {
 }
 .box-container ul.list {
   height: 60px;
+}
+.box-container ul.list:last-of-type li {
+  border-bottom: 0;
 }
 .box-container ul.list .row {
   margin: 3px 0 3px 2px;
@@ -706,6 +706,9 @@ body.appLayout .container {
 .events.expenses {
   margin-bottom: 20px;
 }
+.events.expenses ul li:last-child {
+  border-bottom: 0;
+}
 .events.expenses ul li img {
   float: left;
   margin: 0px 10px 0 0;
@@ -730,6 +733,9 @@ body.appLayout .container {
   text-align: right;
   width: 30%;
 }
+.events.comments ul li:last-child {
+  border-bottom: 0;
+}
 .events.contactDetails div:first-of-type {
   margin-top: 35px;
 }
@@ -748,14 +754,14 @@ body.appLayout .container {
 .events li h5 {
   margin-bottom: 2px;
 }
-.events li:last-child {
-  border-bottom: 0;
-}
 .events .row {
   margin: 0;
 }
 .events.surveys p {
   color: #989898;
+}
+.events.surveys ul li:last-child {
+  border-bottom: 0;
 }
 .form-control {
   height: 40px;

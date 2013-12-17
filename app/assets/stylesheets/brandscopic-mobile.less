@@ -147,9 +147,6 @@ body{
 				height: 100%;
 				margin: 14px 13px;
 			}
-			&.lastItem{
-				border-bottom: 0;
-			}
 		}
 		&.eventsPeople{
 	  	li:last-child{
@@ -169,6 +166,11 @@ body{
 		}
 		&.list{
 			height: 60px;
+			&:last-of-type{
+				li{
+					border-bottom: 0;
+				}
+			}
 			.row{
 				margin: 3px 0 3px 2px;
 				height: 54px;
@@ -273,6 +275,9 @@ body{
 		margin-bottom: 20px;
 		ul{
 			li{
+				&:last-child{
+					border-bottom: 0;
+				}
 				img{
 					float: left;
 					margin: 0px 10px 0 0;
@@ -300,6 +305,9 @@ body{
 			float: right;
 			text-align: right;
 			width: 30%;
+		}
+		ul li:last-child{
+			border-bottom: 0;
 		}
 	}
 	&.contactDetails{
@@ -329,9 +337,6 @@ body{
 		h5{
 			margin-bottom: 2px;
 		}
-		&:last-child{
-			border-bottom: 0;
-		}
 	}
 	.row{
 		margin: 0;
@@ -339,6 +344,9 @@ body{
 	&.surveys{
 		p{
 			color: @brand;
+		}
+		ul li:last-child{
+			border-bottom: 0;
 		}
 	}
 }
