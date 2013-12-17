@@ -153,7 +153,7 @@ angular.module('brandscopicApp.controllers', [])
 
           $scope.event_status = false;
           $scope.filterStatus = function(status) {
-            $scope.event_status = ($scope.event_status == status) ? false : (($scope.event_status == false) ? status : $scope.event_status);
+            $scope.event_status = ($scope.event_status == status) ? false : status;
           };
 
           return;
@@ -441,7 +441,7 @@ angular.module('brandscopicApp.controllers', [])
 
           $scope.task_status = false;
           $scope.filterTask = function(status) {
-            $scope.task_status = ($scope.task_status == status) ? false : (($scope.task_status == false) ? status : $scope.task_status);
+            $scope.task_status = ($scope.task_status == status) ? false : status;
           };
 
           return;
