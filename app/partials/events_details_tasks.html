@@ -14,8 +14,8 @@
 <div class="container" ng-repeat="task in eventTaskItems | filter:task_status" ng-show="!UserInterface.searching">
 	<!-- <div class="dividersBar">TODAY</div> -->
 	<div class="dividersBar">{{task.date}}</div>
-	<div class="box-container np">
-		<ul class="events list">
+	<div class="box-container np events list task">
+		<ul>
 			<li>
 				<a href="#/home/events/{{task.id}}/tasks/{{task.id}}/details">
 					<div class="row" ng-class="{late: task_status=='Late', Unassigned: task_status=='Unassigned', Incomplete: task_status=='Incomplete'}"> 
