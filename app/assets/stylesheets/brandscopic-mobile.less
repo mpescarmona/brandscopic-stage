@@ -183,6 +183,11 @@ body{
 					}
 				}
 			}
+			&.tasks{
+				li{
+					border-bottom: 0;
+				}
+			}
 		}
 	}
 }
@@ -273,6 +278,13 @@ body{
 	}
 	&.expenses{
 		margin-bottom: 20px;
+		.margin-expense{
+			div p{
+				color: @brand;
+				font-size: 17px;
+				line-height: 34px;
+			}
+		}
 		ul{
 			li{
 				&:last-child{
@@ -281,14 +293,24 @@ body{
 				img{
 					float: left;
 					margin: 0px 10px 0 0;
-					height: 65px;
-					width: 60px;
+					height: 58px;
+					width: 54px;
+				}
+				.row{
+					margin: 4px 14px 4px 4px;
+					.title{
+						line-height: 59px;
+					}
 				}
 			}
 		}
 		.expense-price{
 			font-size: 14px;
+			padding-top: 10px;
 			text-align: right;
+			.blue{
+				font-size: 17px;
+			}
 		}
 		.total-price{
 			font-size: 22px;
@@ -345,7 +367,7 @@ body{
 		p{
 			color: @brand;
 		}
-		ul li:last-child{
+		li:last-child{
 			border-bottom: 0;
 		}
 	}
@@ -411,7 +433,7 @@ body{
 }
 
 .margin-expense{
-	margin: 18px 13px;
+	margin: 8px 0;
 }
 
 /* -- STATUS BAR -- */
