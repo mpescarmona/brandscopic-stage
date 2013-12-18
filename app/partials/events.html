@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-xs-3" ng-repeat="status in statusCount" ng-class="{active: event_status==status.id}"> 
 				<a ng-click="filterStatus('{{status.id}}')">
-					<div class="number">{{status.count}}</div>
+					<div class="number">{{status.count | totalCount}}</div>
 					<p>{{status.label}}</p>
 				</a>
 			</div>
@@ -15,11 +15,9 @@
 <div class="container" ng-repeat="event in eventsItems.results | orderBy:['start_date','start_time'] | filter:event_status" ng-show="!UserInterface.searching">
 	<!-- <div class="dividersBar">TODAY</div> -->
 	<div class="dividersBar">{{event.start_date | date:'EEEE, MMM d'}}</div>
-	<!-- <div class="box-container np"> -->
-<!-- 	<div class="box-container np" ng-repeat="event1 in eventsItems.results | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status}" ng-show="!UserInterface.searching"> -->
 	<div class="box-container np" ng-show="!UserInterface.searching">
-	<ul class="events list" ng-repeat="event1 in eventsItems.results | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status}" ng-show="!UserInterface.searching">
-			<li ng-class="{lastItem: $last}">
+	<ul class="events list">
+			<li  ng-repeat="event1 in eventsItems.results | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status}" ng-show="!UserInterface.searching" ng-class="{lastItem: $last}">
 				<a href="#/home/events/{{event1.id}}/about">
 					<div class="row" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}"> 
 						<!--approved: event_status=='Approved'-->
