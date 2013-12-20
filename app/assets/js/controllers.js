@@ -139,17 +139,7 @@ angular.module('brandscopicApp.controllers', [])
           $scope.eventsItems = response.data;
 
           EventsRestClient.setEvents($scope.eventsItems);
-
-          // $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
-          statusList = EventsRestClient.getFacetByName("Event Status");
-          filteredList =  [];
-          // temporary harcoding to hide Event Status 'Approved'
-          for (var i = 0, item; item = statusList[i++];) {
-            if (item.label != 'Approved') {
-              filteredList.push(item);
-            }
-          };
-          $scope.statusCount = filteredList;
+          $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
 
           $scope.event_status = false;
           $scope.filterStatus = function(status) {
