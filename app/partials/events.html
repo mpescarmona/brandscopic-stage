@@ -2,7 +2,7 @@
 <div class="statusBar" ng-show="!UserInterface.searching">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-3" ng-repeat="status in statusCount" ng-class="{active: event_status==status.id}"> 
+			<div class="col-xs-2 filter" ng-repeat="status in statusCount" ng-class="{active: event_status==status.id}"> 
 				<a ng-click="filterStatus('{{status.id}}')">
 					<div class="number">{{status.count | totalCount}}</div>
 					<p>{{status.label}}</p>
