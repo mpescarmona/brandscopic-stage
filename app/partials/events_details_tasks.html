@@ -1,7 +1,7 @@
 <div class="statusBar tasks" ng-show="!UserInterface.searching">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-4" ng-repeat="status in eventTaskFilters" ng-class="{active: task_status==status.id}"> 
+			<div class="col-xs-2 filter" ng-repeat="status in eventTaskFilters" ng-class="{active: task_status==status.id}"> 
 				<a ng-click="filterTask('{{status.id}}')">
 					<div class="number">{{status.count}}</div>
 					<p>{{status.label}}</p>
