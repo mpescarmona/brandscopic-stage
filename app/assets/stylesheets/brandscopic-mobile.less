@@ -150,7 +150,7 @@ body{
 				height: 100%;
 				margin: 14px 13px;
 			}
-			&.lastItem{
+			&.lastItem, &:last-child{
 				border-bottom: 0;
 			}
 		}
@@ -429,7 +429,9 @@ body{
 }
 
 .margin-data{
-	margin: 13px;
+	float: left;
+	width: 100%;
+	padding: 13px;
 }
 
 .margin-expense{
@@ -795,6 +797,20 @@ textarea{
 			right: 12px;
 			position: absolute;
 			width: 100%;
+		}
+	}
+}
+
+.venues{
+	margin-top: 5px;
+	.score{
+		.score-number{
+			font-size: 26px;
+			font-weight: 100;
+		}
+		p{
+			font-size: 9px;
+			line-height: 19px;
 		}
 	}
 }
