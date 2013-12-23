@@ -150,4 +150,11 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })                    
+    .state('home.tasks', {
+      url: "/tasks",
+      views:{'details@home':{ templateUrl: "partials/tasks.html",
+                              controller: 'TasksController'
+                            }
+            }
+    })                    
 });

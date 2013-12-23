@@ -92,7 +92,7 @@ angular.module('brandscopicApp.controllers', [])
     };
 
     $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#home/events'},
-                              {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#'},
+                              {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#home/tasks'},
                               {'class': 'venuesIcon', 'label': 'VENUES', 'link': '#'},
                               {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#'},
                               {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#home/dashboard'}];
@@ -570,5 +570,20 @@ angular.module('brandscopicApp.controllers', [])
     promise.catch(function(response) {
       $scope.eventsItems = {};
     });
+  }])
+
+  .controller('TasksController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close();
+
+    // Options for User Interface in home partial
+    UserInterface.title = "Tasks";
+    UserInterface.hasMagnifierIcon = false;
+    UserInterface.hasAddIcon = false;
+    UserInterface.searching = false;
+
   }]);
         
