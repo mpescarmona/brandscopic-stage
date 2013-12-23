@@ -575,7 +575,7 @@ body{
 	}
 	&.btn-sm{
 		margin-right: 5px;
-		&.edit:before, &.deactivate:before{
+		&.approved:before, &.edit:before, &.deactivate:before{
 			font-size: 23px;
 			bottom: 6px;
 			height: 22px;
@@ -638,6 +638,27 @@ button{
 
 .centerTxt{
 	text-align: center;
+}
+
+.edit-area{
+	.btn-sm{
+		display: inline-block;
+		margin-right: 7px;
+		padding: 0;
+		height: 32px;
+		width: 31%;
+		&.approved:before{
+			font-size: 20px;
+			bottom: 4px;
+		}
+		&.edit:before, &.deactivate:before{
+			font-size: 23px;
+			bottom: 6px;	
+		}
+		&:last-child{
+			margin-right: 0;
+		}
+	}
 }
 
 .error{

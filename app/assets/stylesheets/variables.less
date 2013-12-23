@@ -63,6 +63,10 @@ p.second{
 	color: @brand;
 }
 
+.approved{
+	background-color:@approved !important;
+}
+
 .blue{
 	color: @blue;
 	font-weight: 400;
@@ -113,6 +117,7 @@ h6{
 }
 
 .addIcon:before, 
+.approved:before,
 .backIcon:before,
 .dashboardIcon:before,
 .date-data:before, 
@@ -144,11 +149,11 @@ h6{
 .addIcon:before{
 	content:"\e615"
 }
+.approved:before{
+	content:"\e618";
+}
 .backIcon:before{
 	content:"\e60e";
-}
-.closeIcon:before{
-
 }
 .dashboardIcon:before{
 	content:"\e602";
