@@ -226,26 +226,6 @@ body{
 /* -- EVENTS SECTION -- */
 
 .events{
-	&.editEvent{
-		li{
-			div{
-				padding: 17px 5px;
-				&:first-of-type{
-					font-size: 10px;
-					font-weight: 600;
-					line-height: 20px;
-				}
-				&:last-of-type{
-					h5{
-						color: @brand;
-					}
-				}
-			}
-			&:last-child{
-				border-bottom: 0;
-			}
-		}
-	}
 	.eventHour{
 		color: @txt;
 		margin-right: 10px;
@@ -286,6 +266,31 @@ body{
 				color: @brand;
 				font-size: 17px;
 				line-height: 34px;
+			}
+		}
+		.expenses-details{
+			padding: 10px 0 10px 10px;
+			box-sizing: border-box;
+		}
+		.expenses-attach{
+			background-color: @listHover;
+			color: @lightGrey;
+			height: 163px;
+			margin: 5px 5px 5px 0px;
+			text-align: center;
+			p{
+				&:before{
+					font-family: 'icons';
+					font-size: 75px;
+					padding-left: 30px;
+					padding-top: 23px;
+					line-height: 101px;
+					position: relative;
+					vertical-align: middle;
+					-webkit-font-smoothing: antialiased;
+					content: "\e619";
+					display: block;
+				}
 			}
 		}
 		ul{
@@ -375,6 +380,7 @@ body{
 
 .form-control{
 	height: 40px;
+	border-radius: 6px;
 }
 
 .full-comment{
@@ -641,11 +647,13 @@ button{
 }
 
 .edit-area{
+	margin-bottom: 5px;
+	margin-top: 25px;
 	.btn-sm{
 		display: inline-block;
 		margin-right: 7px;
 		padding: 0;
-		height: 32px;
+		height: 33px;
 		width: 31%;
 		&.approved:before{
 			font-size: 20px;
@@ -670,7 +678,7 @@ input{
 	border: 1px solid @lightGrey;
 	.border-top-radius(6px);
 	.border-bottom-radius(6px);
-	color: @lightTxt;
+	color: @brand;
 	height: 40px;
 	margin-bottom: 10px;
 	padding: 0 10px;
@@ -710,6 +718,11 @@ input{
 		color: white;
 		padding: 6px 15px;
 	}
+}
+
+select{
+	margin-bottom: 15px;
+	width: 100%;
 }
 
 textarea{
@@ -778,6 +791,10 @@ textarea{
 	margin: 25px 0;
 }
 
+.mt25{
+	margin-top: 25px;
+}
+
 /*-- PROGRESS STYLES --*/
 
 .progress{
@@ -822,6 +839,12 @@ textarea{
 	}
 }
 
+.tasks{
+	.date-data:before{
+		margin-left: -25px;
+	}
+}
+
 .venues{
 	margin-top: 5px;
 	.score{
@@ -832,6 +855,28 @@ textarea{
 		p{
 			font-size: 9px;
 			line-height: 19px;
+		}
+	}
+}
+
+
+.edit-list{
+	li{
+		div{
+			padding: 17px 5px;
+			&:first-of-type{
+				font-size: 10px;
+				font-weight: 600;
+				line-height: 20px;
+			}
+			&:last-of-type{
+				h5{
+					color: @brand;
+				}
+			}
+		}
+		&:last-child{
+			border-bottom: 0;
 		}
 	}
 }
