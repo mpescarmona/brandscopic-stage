@@ -39,6 +39,31 @@ angular.module('brandscopicApp.controllers', [])
         UserService.currentUser.email = "";
       });
     };
+    
+    $scope.forgotPassword = function(email) {
+      var session = new SessionRestClient.forgotPassword(email);
+
+      var promise = session.forgotPassword().$promise;
+      promise.then(function(response) {
+       if (response.status == 200) {
+        UserService.currentUser.isLogged = false;
+        UserService.currentUser.email = "";
+        $state.go('login');
+        return;
+       } else {
+          $scope.wrongUser = true;
+          UserService.currentUser.auth_token = "";
+          UserService.currentUser.isLogged = false;
+          UserService.currentUser.email = "";
+       }
+      });
+      promise.catch(function(response) {
+        $scope.wrongUser = true;
+        UserService.currentUser.auth_token = "";
+        UserService.currentUser.isLogged = false;
+        UserService.currentUser.email = "";
+      });
+    };
   }])
 
   .controller('HomeController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {

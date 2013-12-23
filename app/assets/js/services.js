@@ -57,6 +57,35 @@ angular.module('brandscopicApp.services', ['ngResource'])
                               }
                         });
 	};
+
+  this.forgotPassword = function(email) {
+    return $resource( ApiParams.baseUrl + '/users/password/new_password',
+                        {},
+                        // should do a POST call to /users/password/new_password with email and password
+                        {forgotPassword:{ method: 'POST',
+                                headers: {'Accept': 'application/json'},
+                                params: {email: email},
+                                interceptor: {
+                                                response: function (data) {
+                                                    console.log('response in interceptor', data);
+                                                    return data;
+                                                },
+                                                responseError: function (data) {
+                                                    console.log('error in interceptor', data);
+                                                    return data;
+                                                }
+                                              },
+                                transformResponse: function(data, header) {
+                                  var wrapped = angular.fromJson(data);
+                                  angular.forEach(wrapped.items, function(item, idx) {
+                                     wrapped.items[idx] = new Post(item); //<-- replace each item with an instance of the resource object
+                                  });
+                                  return wrapped;
+                                }
+                              }
+                        });
+  };
+
 }])
 
 .service('CompaniesRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
