@@ -157,4 +157,12 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })                    
+
+    .state('home.venues', {
+      url: "/venues",
+      views:{'details@home':{ templateUrl: "partials/venues.html",
+                              controller: 'VenuesController'
+                            }
+            }
+    })                    
 });
