@@ -327,6 +327,7 @@ angular.module('brandscopicApp.controllers', [])
           $scope.UserInterface.eventSubNav = "people";
           $scope.eventId = $stateParams.eventId;
 
+          // $scope.showPeople = ($scope.showPeople == "") ? "team" : $scope.showPeople;
           $scope.showPeople = "team";
 
           $scope.showPeopleType = function(type) {
@@ -480,6 +481,7 @@ angular.module('brandscopicApp.controllers', [])
           $scope.UserInterface.searching = false;
           $scope.UserInterface.eventSubNav = "tasks";
           $scope.eventId = $stateParams.eventId;
+          $scope.taskId = $stateParams.taskId;
           $scope.eventTaskItems = [{'id': 1, 'assigned': 'Chris Jaskot', 'Task': 'Pickup t-shirts from storage unit', 'date': '2013-12-13', 'task_status': 'Late'},
                                    {'id': 2, 'assigned': 'George Tan', 'Task': 'Confirm time and location of event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
                                    {'id': 3, 'assigned': '', 'Task': 'Hire models for event', 'date': '2013-12-13', 'task_status': 'Unassigned'},
@@ -503,8 +505,22 @@ angular.module('brandscopicApp.controllers', [])
                                       'selected': false
                                       },
                                       {
+                                      'label': 'Assigned',
+                                      'id': 'Assigned',
+                                      'name': 'task_status',
+                                      'count': 2,
+                                      'selected': false
+                                      },
+                                      {
                                       'label': 'Incomplete',
                                       'id': 'Incomplete',
+                                      'name': 'task_status',
+                                      'count': 2,
+                                      'selected': false
+                                      },
+                                      {
+                                      'label': 'Complete',
+                                      'id': 'Complete',
                                       'name': 'task_status',
                                       'count': 3,
                                       'selected': false
