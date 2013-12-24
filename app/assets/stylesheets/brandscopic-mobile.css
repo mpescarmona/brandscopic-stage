@@ -1269,16 +1269,7 @@ textarea {
   color: #989898;
 }
 .edit-list li div {
-  padding: 3px 20px;
-}
-.edit-list li div .user-data:before {
-  font-size: 24px;
-  margin-right: 19px;
-}
-.edit-list li div .date-data:before {
-  font-size: 22px;
-  margin-left: -24px;
-  margin-right: 25px;
+  padding: 18px 8px;
 }
 .edit-list li div:first-of-type {
   font-size: 10px;
@@ -1288,6 +1279,24 @@ textarea {
 .edit-list li:last-child {
   border-bottom: 0;
 }
-.edit-list .title {
+.edit-list.tasks div {
+  padding: 0;
+}
+.edit-list.tasks div .user-data:before {
+  font-size: 24px;
+  margin-right: 19px;
+}
+.edit-list.tasks div .date-data {
+  margin: 10px 28px;
+}
+.edit-list.tasks div .date-data:before {
+  font-size: 22px;
+  margin-left: -15px;
+  margin-right: 20px;
+}
+.edit-list.tasks li div {
+  padding: 3px 20px;
+}
+.edit-list.tasks .title {
   padding: 10px;
 }

@@ -896,16 +896,7 @@ textarea{
 	}
 	li{
 		div{
-			padding: 3px 20px;
-			.user-data:before{
-				font-size: 24px;
-				margin-right: 19px;
-			}
-			.date-data:before{
-				font-size: 22px;
-				margin-left: -24px;
-				margin-right: 25px;
-			}
+			padding: 18px 8px;
 			&:first-of-type{
 				font-size: 10px;
 				font-weight: 600;
@@ -916,8 +907,30 @@ textarea{
 			border-bottom: 0;
 		}
 	}
-	.title{
-		padding: 10px;
+	&.tasks{
+		div{
+			padding: 0;
+			.user-data:before{
+				font-size: 24px;
+				margin-right: 19px;
+			}
+			.date-data{
+				margin: 10px 28px;
+				&:before{
+					font-size: 22px;
+					margin-left: -15px;
+					margin-right: 20px;
+				}
+			}
+		}
+		li{
+			div{
+				padding: 3px 20px;
+			}
+		}
+		.title{
+			padding: 10px;
+		}
 	}
 }
 
