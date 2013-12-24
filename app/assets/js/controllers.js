@@ -91,6 +91,11 @@ angular.module('brandscopicApp.controllers', [])
       return;
     };
 
+    $scope.gotToState = function(newState) {
+      $state.go(newState);
+      return;
+    };
+
     $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#home/events'},
                               {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#home/tasks'},
                               {'class': 'venuesIcon', 'label': 'VENUES', 'link': '#home/venues'},
@@ -134,6 +139,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface.title = "Events";
     $scope.UserInterface.hasMagnifierIcon = true;
     $scope.UserInterface.hasAddIcon = true;
+    $scope.UserInterface.AddIconState = "home.events.add";
     $scope.UserInterface.searching = false;
 
     // $scope.eventsItems = EventsRestClient.getEventsMocked();
@@ -571,6 +577,23 @@ angular.module('brandscopicApp.controllers', [])
       $scope.eventsItems = {};
     });
   }])
+
+  .controller('EventsAddController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = "Event";
+    $scope.UserInterface.hasMagnifierIcon = false;
+    $scope.UserInterface.hasAddIcon = false;
+    $scope.UserInterface.searching = false;
+    // $scope.UserInterface.eventSubNav = "Event";
+    // $scope.eventId = $stateParams.eventId;
+  }])
+
 
   .controller('TasksController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
     if( !UserService.isLogged() ) {

@@ -52,6 +52,13 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.events.add', {
+      url: "/add",
+      views:{'details@home':{ templateUrl: "partials/events_add.html",
+                              controller: 'EventsAddController'
+                            }
+            }
+    })
     .state('home.events.details', {
       url: "/:eventId",
       views:{'details@home':{ templateUrl: "partials/events_details.html",

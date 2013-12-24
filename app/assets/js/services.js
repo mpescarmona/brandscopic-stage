@@ -26,6 +26,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.hasAddIcon = false;
   this.searching = false;
   this.eventSubNav = "";
+  this.AddIconState = "";
 })
 
 .service('SessionRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
