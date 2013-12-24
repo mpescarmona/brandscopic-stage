@@ -696,14 +696,6 @@ body.appLayout .container {
   text-decoration: none;
 }
 /* -- EVENTS SECTION -- */
-.events {
-  /*.eventDate{
-		input{
-			text-transform: uppercase;
-		}
-	}*/
-
-}
 .events .eventHour {
   color: #666666;
   margin-right: 10px;
