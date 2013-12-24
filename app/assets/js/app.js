@@ -39,7 +39,7 @@ config(function($stateProvider, $urlRouterProvider) {
             }
     })
     .state('home.companies.select', {
-      url: "/companies/select",
+      url: "/select",
       views:{'details@home':{ templateUrl: "partials/companies_select.html",
                               controller: 'CompaniesController'
                             }
