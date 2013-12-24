@@ -129,6 +129,13 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.events.details.comments.add', {
+      url: "/comments",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_comments_add.html",
+                              controller: 'EventsCommentsController'
+                            }
+            }
+    })
     .state('home.events.details.tasks', {
       url: "/tasks",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks.html",

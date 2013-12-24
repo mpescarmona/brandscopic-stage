@@ -379,6 +379,11 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
+    $scope.gotToState = function(newState) {
+      $state.go(newState);
+      return;
+    };
+
     var eventData = [];
     var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
     var promise = currentEvent.getEventById().$promise;
@@ -392,6 +397,7 @@ angular.module('brandscopicApp.controllers', [])
           $scope.UserInterface.title = eventData.campaign.name;
           $scope.UserInterface.hasMagnifierIcon = true;
           $scope.UserInterface.hasAddIcon = true;
+          $scope.UserInterface.AddIconState = "home.events.details.comments.add";
           $scope.UserInterface.searching = false;
           $scope.UserInterface.eventSubNav = "comments";
           $scope.eventId = $stateParams.eventId;
