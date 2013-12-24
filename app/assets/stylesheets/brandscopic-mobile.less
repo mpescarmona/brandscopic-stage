@@ -891,23 +891,33 @@ textarea{
 
 
 .edit-list{
+	h5{
+		color: @brand;
+	}
 	li{
 		div{
-			padding: 17px 5px;
+			padding: 3px 20px;
+			.user-data:before{
+				font-size: 24px;
+				margin-right: 19px;
+			}
+			.date-data:before{
+				font-size: 22px;
+				margin-left: -24px;
+				margin-right: 25px;
+			}
 			&:first-of-type{
 				font-size: 10px;
 				font-weight: 600;
 				line-height: 20px;
 			}
-			&:last-of-type{
-				h5{
-					color: @brand;
-				}
-			}
 		}
 		&:last-child{
 			border-bottom: 0;
 		}
+	}
+	.title{
+		padding: 10px;
 	}
 }
 
