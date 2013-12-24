@@ -130,9 +130,9 @@ config(function($stateProvider, $urlRouterProvider) {
             }
     })
     .state('home.events.details.comments.add', {
-      url: "/comments",
+      url: "/add",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_comments_add.html",
-                              controller: 'EventsCommentsController'
+                              controller: 'EventsCommentsAddController'
                             }
             }
     })
@@ -154,6 +154,13 @@ config(function($stateProvider, $urlRouterProvider) {
       url: "/expenses",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses.html",
                               controller: 'EventsExpensesController'
+                            }
+            }
+    })                    
+    .state('home.events.details.expenses.add', {
+      url: "/add",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses_add.html",
+                              controller: 'EventsExpensesAddController'
                             }
             }
     })                    

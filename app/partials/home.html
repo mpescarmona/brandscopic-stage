@@ -22,7 +22,7 @@
     <button snap-toggle class="noButton menuIcon pull-left"></button>
     <h1 class="txtAdjust">{{UserInterface.title}}</h1>
     <button class="noButton magnifierIcon pull-right" 
-            
+            ng-show="UserInterface.hasMagnifierIcon"
             ng-swipe-left="UserInterface.searching=true">
     </button>
     <button class="noButton addIcon pull-right" ng-click="gotToState(UserInterface.AddIconState)" ng-show="UserInterface.hasAddIcon"></button>
