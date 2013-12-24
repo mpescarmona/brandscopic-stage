@@ -305,6 +305,11 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
+    $scope.gotToState = function(newState) {
+      $state.go(newState);
+      return;
+    };
+
     var eventData = [];
     var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
     var promise = currentEvent.getEventById().$promise;
@@ -327,6 +332,11 @@ angular.module('brandscopicApp.controllers', [])
           $scope.showPeopleType = function(type) {
             $scope.showPeople = type;
           };
+          // if ($scope.showPeople =="team") {
+          //   $scope.UserInterface.AddIconState = "home.events.details.people.team.add";
+          // } else {
+            $scope.UserInterface.AddIconState = "home.events.details.people.contacts.add";
+          // }
           return;
       }
      } else {
@@ -336,6 +346,22 @@ angular.module('brandscopicApp.controllers', [])
     promise.catch(function(response) {
       $scope.eventsItems = {};
     });
+  }])
+
+  .controller('EventsPeopleAddController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    $scope.UserInterface = UserInterface;
+    $scope.UserInterface.title = "Contacts";
+    $scope.UserInterface.hasMagnifierIcon = false;
+    $scope.UserInterface.hasAddIcon = false;
+    $scope.UserInterface.searching = false;
+    // $scope.UserInterface.eventSubNav = "Event";
+    // $scope.eventId = $stateParams.eventId;
   }])
 
   .controller('EventsDataController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
@@ -642,7 +668,6 @@ angular.module('brandscopicApp.controllers', [])
     // $scope.eventId = $stateParams.eventId;
   }])
 
-
   .controller('TasksController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
     if( !UserService.isLogged() ) {
       $state.go('login');
@@ -670,6 +695,51 @@ angular.module('brandscopicApp.controllers', [])
     UserInterface.hasMagnifierIcon = false;
     UserInterface.hasAddIcon = false;
     UserInterface.searching = false;
+
+  }])
+
+  .controller('CompaniesController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close();
+
+    // Options for User Interface in home partial
+
+
+    var eventData = [];
+    var companies = new CompaniesRestClient.getCompanies(UserService.currentUser.auth_token);
+    var promise = companies.getCompanies().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
+
+          // Options for User Interface in home partial
+          // $scope.UserInterface = UserInterface;
+          // $scope.UserInterface.title = eventData.campaign.name;
+          // $scope.UserInterface.hasMagnifierIcon = false;
+          // $scope.UserInterface.hasAddIcon = true;
+          // $scope.UserInterface.AddIconState = "home.events.details.comments.add";
+          // $scope.UserInterface.searching = false;
+          // $scope.UserInterface.eventSubNav = "comments";
+          // $scope.eventId = $stateParams.eventId;
+
+    UserInterface.title = "Companies";
+    UserInterface.hasMagnifierIcon = false;
+    UserInterface.hasAddIcon = false;
+    UserInterface.searching = false;
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
+
 
   }]);
         

@@ -31,6 +31,20 @@ config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "partials/home.html",
       controller: "HomeController"
     })
+    .state('home.companies', {
+      url: "/companies",
+      views:{'details@home':{ templateUrl: "partials/companies.html",
+                              controller: 'CompaniesController'
+                            }
+            }
+    })
+    .state('home.companies.select', {
+      url: "/companies/select",
+      views:{'details@home':{ templateUrl: "partials/companies_select.html",
+                              controller: 'CompaniesController'
+                            }
+            }
+    })
     .state('home.dashboard', {
       url: "/dashboard",
       views:{'details@home':{ templateUrl: "partials/dashboard.html",
@@ -91,6 +105,13 @@ config(function($stateProvider, $urlRouterProvider) {
       url: "/contacts",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts.html",
                               controller: 'EventsPeopleController'
+                            }
+            }
+    })
+    .state('home.events.details.people.contacts.add', {
+      url: "/add",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_add.html",
+                              controller: 'EventsPeopleAddController'
                             }
             }
     })

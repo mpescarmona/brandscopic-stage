@@ -20,6 +20,13 @@ angular.module('brandscopicApp.services', ['ngResource'])
 	};
 })
 
+.service('CompanyService', function() {
+  this.currentCompany = {
+    id: 0,
+    name: '',
+  };
+})
+
 .service('UserInterface', function() {
   this.Title = "";
   this.hasMagnifierIcon = false;
