@@ -23,7 +23,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
 .service('CompanyService', function() {
   this.currentCompany = {
     id: 0,
-    name: '',
+    name: '[Choose Company]',
   };
 })
 
@@ -105,6 +105,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
                         {getCompanies:{ method: 'GET',
                                 headers: {'Accept': 'application/json'},
                                 params: {auth_token: authToken},
+                                isArray: true,
                                 interceptor: {
                                                 response: function (data) {
                                                     console.log('response in interceptor', data);
@@ -127,7 +128,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
   };
 }])
 
-.service('EventsRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
+.service('EventsRestClient', ['$resource', 'ApiParams', 'CompanyService', function($resource, ApiParams, CompanyService) {
   var eventList = {};
   var companyId = 2;
 
@@ -194,10 +195,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
   }
 
   this.getCompanyId = function() {
-    return companyId;
-  }
-  this.setCompanyId = function(Id) {
-    companyId = Id;
+    return CompanyService.currentCompany.id;
   }
 
   this.getFacetByName = function(facetName) {

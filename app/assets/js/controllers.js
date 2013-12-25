@@ -66,7 +66,7 @@ angular.module('brandscopicApp.controllers', [])
     };
   }])
 
-  .controller('HomeController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
+  .controller('HomeController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'CompanyService', function($scope, $state, snapRemote, UserService, UserInterface, CompanyService) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -77,12 +77,10 @@ angular.module('brandscopicApp.controllers', [])
       disable: 'right'
     };
 
+    $scope.currentCompany = CompanyService.currentCompany;
     // Options for User Interface in home partial
     $scope.UserInterface = UserInterface;
     $scope.UserInterface.title = "Home";
-    // $scope.UserInterface.hasMagnifierIcon = false;
-    // $scope.UserInterface.hasAddIcon = false;
-    // $scope.UserInterface.searching = false;
 
     $scope.logout = function() {
       UserService.currentUser.isLogged = false;
@@ -714,47 +712,46 @@ angular.module('brandscopicApp.controllers', [])
 
   }])
 
-  .controller('CompaniesController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
+  .controller('CompaniesController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'CompaniesRestClient', function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, CompaniesRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
     snapRemote.close();
 
-    // Options for User Interface in home partial
+    $scope.currentCompany = CompanyService.currentCompany;
 
-
-    var eventData = [];
+    var companyData = [];
     var companies = new CompaniesRestClient.getCompanies(UserService.currentUser.auth_token);
     var promise = companies.getCompanies().$promise;
     promise.then(function(response) {
      if (response.status == 200) {
       if (response.data != null) {
-          eventData = response.data;
+          companyData = response.data;
 
           // Options for User Interface in home partial
-          // $scope.UserInterface = UserInterface;
-          // $scope.UserInterface.title = eventData.campaign.name;
-          // $scope.UserInterface.hasMagnifierIcon = false;
-          // $scope.UserInterface.hasAddIcon = true;
-          // $scope.UserInterface.AddIconState = "home.events.details.comments.add";
-          // $scope.UserInterface.searching = false;
-          // $scope.UserInterface.eventSubNav = "comments";
-          // $scope.eventId = $stateParams.eventId;
+          $scope.UserInterface = UserInterface;
+          UserInterface.title = "Companies";
+          UserInterface.hasMagnifierIcon = false;
+          UserInterface.hasAddIcon = false;
+          UserInterface.searching = false;
 
-    UserInterface.title = "Companies";
-    UserInterface.hasMagnifierIcon = false;
-    UserInterface.hasAddIcon = false;
-    UserInterface.searching = false;
+          $scope.companies = companyData;
           return;
       }
      } else {
-        $scope.eventsItems = {};
+        $scope.companies = {};
      }
     });
     promise.catch(function(response) {
-      $scope.eventsItems = {};
+      $scope.companies = {};
     });
+
+    $scope.chooseCompany = function(companyId, companyName) {
+      CompanyService.currentCompany.id = companyId;
+      CompanyService.currentCompany.name = companyName;
+      return;
+    };
 
 
   }]);

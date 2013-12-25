@@ -2,7 +2,18 @@
 <div class="container">
 	<div class="box-container np events">
 		<ul class="companies-list">
-			<li class="txtAdjust selected">
+			<li class="txtAdjust" ng-repeat="company in companies">
+				<a ng-click="chooseCompany({{company.id}}, '{{company.name}}')">
+				<div class="row" ng-class="{selected: currentCompany.id==company.id}">
+					<div class="col-xs-10 company">
+						<h5 class="txtAdjust">{{company.name}}</h5>
+					</div>
+					<div class="col-xs-2"></div>
+				</div>
+				</a>
+			</li>
+
+<!-- 			<li class="txtAdjust selected">
 				<div class="row">
 					<div class="col-xs-10 company">
 						<h5 class="txtAdjust">Brandscopic</h5>
@@ -33,6 +44,6 @@
 					</div>
 					<div class="col-xs-2"></div>
 				</div>
-			</li>
+			</li> -->
 		</ul>
 	</div>
