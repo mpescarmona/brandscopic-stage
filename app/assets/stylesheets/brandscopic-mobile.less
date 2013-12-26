@@ -543,8 +543,9 @@ body{
 		&.venues{
 			margin-top: 0;
 			width: 100%;
-			li a{
-				padding: 9px;
+			li{
+				text-align: center;
+				width: 24.6%;
 			}
 		}
 	}
@@ -706,7 +707,7 @@ button{
 	font-weight: 400;
 }
 
-input{
+input[type="text"], input[type="password"]{
 	border: 1px solid @lightGrey;
 	.border-top-radius(6px);
 	.border-bottom-radius(6px);
@@ -749,6 +750,25 @@ input{
 		border-color: @brand;
 		color: white;
 		padding: 6px 15px;
+	}
+}
+
+/*-- RADIO BUTTONS STYLES --*/
+
+.radio {
+	input[type="radio"] {
+		margin: 4px 0 0 0;
+		opacity: 0;
+	}
+	span{
+		background-image: none !important;
+		border: 4px solid #d7dcde;
+		display: block;
+		height: 15px;
+		-webkit-border-radius: 15px;
+		-moz-border-radius: 15px;
+		border-radius: 15px;
+		width: 15px;
 	}
 }
 
