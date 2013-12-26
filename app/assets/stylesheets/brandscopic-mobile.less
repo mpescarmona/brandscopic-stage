@@ -540,6 +540,13 @@ body{
 				border-bottom: 3px solid @blue;
 			}
 		}
+		&.venues{
+			margin-top: 0;
+			width: 100%;
+			li a{
+				padding: 9px;
+			}
+		}
 	}
 }
 
@@ -876,7 +883,12 @@ textarea{
 
 .venues{
 	margin-top: 5px;
+	h5.analysis{
+		line-height: 32px;
+		padding-left: 35px;
+	}
 	.score{
+		text-align: center;
 		.score-number{
 			font-size: 26px;
 			font-weight: 100;
@@ -885,9 +897,33 @@ textarea{
 			font-size: 9px;
 			line-height: 19px;
 		}
+		&.big{
+			.score-number{
+				font-size: 33px;
+			}
+		}
+	}
+	ul.stats{
+		margin: 25px auto;
+		li{
+			border-bottom: 0;
+			text-align: center;
+			margin: 10px auto;
+			.number{
+				color: @blue;
+				text-align: right;
+				width: 42%;
+				line-height: 14px;
+				font-size: 14px;
+			}
+			.category{
+				font-size: 11px;
+				text-align: left;
+				width: 55%;
+			}
+		}	
 	}
 }
-
 
 .edit-list{
 	h5{
