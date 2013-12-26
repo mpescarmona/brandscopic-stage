@@ -137,6 +137,7 @@ h6{
 .tasksIcon:before, 
 .team:before,
 .teaMember:before,
+.time-data:before,
 .user-data:before,
 .venuesIcon:before{
   font-family: 'icons';
@@ -253,6 +254,32 @@ h6{
 	}
 }
 
+.time-data{
+	margin: 15px 5px 15px 28px !important;
+	&:before{
+		content:"\e61a";
+		float: left;
+		font-size: 17px;
+		margin-left: -25px;
+		top: 2px;
+	}
+	ul{
+		display: inline-block;
+		width: 100%;
+		li{
+			border-bottom: 0 !important;
+			.day{
+				float: left;
+				width:40%;
+			}
+			.hour{
+				float: right;
+				width: 60%;
+			}
+		}
+	}
+}
+
 .user-data{
 	&:before{
 		content:"\e606";
@@ -261,7 +288,7 @@ h6{
 	}
 }
 
-.date-data, .place-data, .phone-data, .mail-data, .user-data{
+.date-data, .place-data, .phone-data, .mail-data, .time-data, .user-data{
 	line-height: 18px;
 	margin: 15px 28px;
 	&:before{
