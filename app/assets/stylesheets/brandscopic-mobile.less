@@ -755,22 +755,46 @@ input[type="text"], input[type="password"]{
 
 /*-- RADIO BUTTONS STYLES --*/
 
-.radio {
-	input[type="radio"] {
-		margin: 4px 0 0 0;
-		opacity: 0;
-	}
-	span{
-		background-image: none !important;
-		border: 4px solid #d7dcde;
-		display: block;
-		height: 15px;
-		-webkit-border-radius: 15px;
-		-moz-border-radius: 15px;
-		border-radius: 15px;
-		width: 15px;
-	}
+.radio{
+	padding: 0;
 }
+
+input[type=radio] {  
+    display: none;  
+}  
+label {  
+  display: inline-block;  
+  cursor: pointer;  
+  position: relative;  
+  padding-left: 32px;  
+  margin-right: 15px;  
+  font-size: 13px;  
+} 
+label:before {  
+  content: "";  
+  border: 4px solid red;
+  display: inline-block;  
+
+  width: 21px;  
+  height: 21px;  
+
+  margin-right: 10px;  
+  position: absolute;  
+  left: 0;  
+  bottombottom: 1px;  
+}  
+.radio label:before {  
+  border-radius: 18px;  
+}  
+input[type=radio]:checked + label:before {  
+   content: "\2022";
+	color: red;
+	font-size: 17px;
+	text-align: center;
+	line-height: 11px;
+}  
+
+
 
 select{
 	margin-bottom: 15px;
