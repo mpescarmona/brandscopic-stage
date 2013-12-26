@@ -479,7 +479,6 @@ angular.module('brandscopicApp.controllers', [])
           $scope.UserInterface.searching = false;
           $scope.UserInterface.eventSubNav = "tasks";
           $scope.eventId = $stateParams.eventId;
-          $scope.taskId = $stateParams.taskId;
           $scope.eventTaskItems = [{'id': 1, 'assigned': 'Chris Jaskot', 'Task': 'Pickup t-shirts from storage unit', 'date': '2013-12-13', 'task_status': 'Late'},
                                    {'id': 2, 'assigned': 'George Tan', 'Task': 'Confirm time and location of event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
                                    {'id': 3, 'assigned': '', 'Task': 'Hire models for event', 'date': '2013-12-13', 'task_status': 'Unassigned'},
@@ -528,6 +527,88 @@ angular.module('brandscopicApp.controllers', [])
           $scope.filterTask = function(status) {
             $scope.task_status = ($scope.task_status == status) ? false : status;
           };
+
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
+  }])
+
+  .controller('EventsTasksDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
+
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = "Task details";
+          $scope.UserInterface.hasMagnifierIcon = true;
+          $scope.UserInterface.hasAddIcon = false;
+          $scope.UserInterface.searching = false;
+          $scope.UserInterface.eventSubNav = "tasks";
+          $scope.eventId = $stateParams.eventId;
+          $scope.taskId = $stateParams.taskId;
+
+          // $scope.task_status = false;
+          // $scope.filterTask = function(status) {
+          //   $scope.task_status = ($scope.task_status == status) ? false : status;
+          // };
+
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
+  }])
+
+  .controller('EventsTasksEditController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    var eventData = [];
+    var currentEvent = new EventsRestClient.getEventById(UserService.currentUser.auth_token, EventsRestClient.getCompanyId(), $stateParams.eventId);
+    var promise = currentEvent.getEventById().$promise;
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
+
+          // Options for User Interface in home partial
+          $scope.UserInterface = UserInterface;
+          $scope.UserInterface.title = "Edit task";
+          $scope.UserInterface.hasMagnifierIcon = true;
+          $scope.UserInterface.hasAddIcon = false;
+          $scope.UserInterface.searching = false;
+          $scope.UserInterface.eventSubNav = "tasks";
+          $scope.eventId = $stateParams.eventId;
+          $scope.taskId = $stateParams.taskId;
+
+          // $scope.task_status = false;
+          // $scope.filterTask = function(status) {
+          //   $scope.task_status = ($scope.task_status == status) ? false : status;
+          // };
 
           return;
       }

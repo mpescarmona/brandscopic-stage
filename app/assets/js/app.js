@@ -167,7 +167,14 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.details.tasks.details', {
       url: "/:taskId/details",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks_details.html",
-                              controller: 'EventsTasksController'
+                              controller: 'EventsTasksDetailsController'
+                            }
+            }
+    })
+    .state('home.events.details.tasks.details.edit', {
+      url: "/edit",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks_details_edit.html",
+                              controller: 'EventsTasksEditController'
                             }
             }
     })
