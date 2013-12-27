@@ -618,7 +618,7 @@ angular.module('brandscopicApp.controllers', [])
       , authToken = UserService.currentUser.auth_token
       , companyId = EventsRestClient.getCompanyId()
       , eventId = $stateParams.eventId
-      , currentEvent = new EventsRestClient.getEventById(authToken, companyId, )
+      , currentEvent = new EventsRestClient.getEventById(authToken, companyId)
       , promise = currentEvent.getEventById().$promise
       , ui = {}
 
