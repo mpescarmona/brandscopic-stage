@@ -1,0 +1,15 @@
+
+<!-- SUBNAV -->
+
+<div class="subnav">
+	<ul class="scrollplane venues">
+		<li ng-class="{active: UserInterface.venueSubNav=='about'}"><a href="#/home/venues/{{venue.id}}/about">ABOUT</a></li>
+		<li ng-class="{active: UserInterface.venueSubNav=='analysis'}"><a href="#/home/venues/{{venue.id}}/analysis">ANALYSIS</a></li>
+		<li ng-class="{active: UserInterface.venueSubNav=='photos'}"><a href="#/home/venues/{{venue.id}}/photos">PHOTOS</a></li>
+		<li ng-class="{active: UserInterface.venueSubNav=='comments'}"><a href="#/home/venues/{{venue.id}}/comments">COMMENTS</a></li>
+	</ul>
+</div>
+
+<!-- Venues Details Partials -->
+
+<div ui-view="venuesDetail"></div>

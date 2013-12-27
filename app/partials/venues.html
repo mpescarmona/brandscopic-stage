@@ -1,55 +1,28 @@
 <!-- VENUES - LIST VIEW-->
 
-<div class="container">
+<div class="container" ng-repeat="venue in venuesItems">
 	<div class="box-container np venues">
 		<ul>
 			<li>
 				<div class="margin-data">
 					<div class="col-xs-2 score">
 						<p class="blue">
-							<span class="score-number">97</span> SCORE
+							<span class="score-number">{{venue.score}}</span> SCORE
 						</p>
 					</div>
 					<div class="col-xs-9">
-						<h5 class="txtAdjust">Fox and Hound Pub & Grill</h5>
-						<p class="txtAdjust medium">505 University Drive, College Station</p>
+						<h5 class="txtAdjust">{{venue.name}}</h5>
+						<p class="txtAdjust medium">{{venue.address}}</p>
 					</div>
-					<a href="#/home/dashboard/{{item.id}}" class="noButton nextIcon pull-right"></a>
-				</div>
-			</li>
-			<li>
-				<div class="margin-data">
-					<div class="col-xs-2 score">
-						<p class="blue">
-							<span class="score-number">89</span> SCORE
-						</p>
-					</div>
-					<div class="col-xs-9">
-						<h5 class="txtAdjust">Tavern on the Avenue</h5>
-						<p class="txtAdjust medium">505 University Drive, College Station</p>
-					</div>
-					<a href="#/home/dashboard/{{item.id}}" class="noButton nextIcon pull-right"></a>
-				</div>
-			</li>
-			<li>
-				<div class="margin-data">
-					<div class="col-xs-2 score">
-						<p class="blue">
-							<span class="score-number">76</span> SCORE
-						</p>
-					</div>
-					<div class="col-xs-9">
-						<h5 class="txtAdjust">Bottom of the Hill</h5>
-						<p class="txtAdjust medium">505 University Drive, College Station</p>
-					</div>
-					<a href="#/home/dashboard/{{item.id}}" class="noButton nextIcon pull-right"></a>
+					<a href="#/home/venues/{{venue.id}}/about" class="noButton nextIcon pull-right"></a>
 				</div>
 			</li>
 		</ul>
 	</div>
 </div>
 
-<!-- VENUES DETAILS - ABOUT -->
+
+<!-- VENUES DETAILS - ABOUT 
 
 <div class="subnav">
 	<ul class="scrollplane venues">
@@ -138,7 +111,7 @@
 	</div>
 </div>
 
-<!-- VENUES DETAILS - ANALYSIS -->
+ VENUES DETAILS - ANALYSIS 
 
 <div class="container">
 	<div class="box-container venues">
@@ -209,7 +182,7 @@
 	</div>
 </div>
 
-<!-- ADD VENUE -->
+ ADD VENUE 
 
 <div class="container">
 	<div class="box-container">
@@ -280,3 +253,4 @@
 	</div>
 </div>
 
+-->

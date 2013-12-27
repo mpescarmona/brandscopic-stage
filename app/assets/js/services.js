@@ -32,8 +32,9 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.hasMagnifierIcon = false;
   this.hasAddIcon = false;
   this.searching = false;
-  this.eventSubNav = "";
   this.AddIconState = "";
+  this.eventSubNav = "";
+  this.venueSubNav = "";
 })
 
 .service('SessionRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
@@ -130,7 +131,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
 
 .service('EventsRestClient', ['$resource', 'ApiParams', 'CompanyService', function($resource, ApiParams, CompanyService) {
   var eventList = {};
-  var companyId = 2;
+  var companyId = CompanyService.currentCompany.id;
 
   this.getEventsMocked = function() {
     return eventList;
@@ -208,7 +209,30 @@ angular.module('brandscopicApp.services', ['ngResource'])
     };
     return myFacet;
   };
+}])
 
+.service('VenuesRestClient', ['$resource', 'ApiParams', 'CompanyService', function($resource, ApiParams, CompanyService) {
+  var venueList =  [{'id': 1, 'score': 97, 'name': 'Fox and Hound Pub & Grill', 'address': '505 University Drive, College Station'},
+                    {'id': 2, 'score': 89, 'name': 'Tavern on the Avenue', 'address': '505 University Drive, College Station'},
+                    {'id': 3, 'score': 76, 'name': 'Bottom of the Hill', 'address': '505 University Drive, College Station'}];
+
+
+  var companyId = 2;
+
+  this.getVenuesMocked = function() {
+    return venueList;
+  };
+
+  this.getVenueById = function(venueId) {
+    var myVenue =  [];
+    for (var i = 0, venue; venue = venueList[i++];) {
+      if (venue.id == venueId) {
+        myVenue = venue;
+        break;
+      }
+    };
+    return myVenue;
+  };
 
 }])
 
