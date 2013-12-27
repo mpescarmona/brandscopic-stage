@@ -220,5 +220,40 @@ config(function($stateProvider, $urlRouterProvider) {
                               controller: 'VenuesController'
                             }
             }
-    })                    
+    })
+    .state('home.venues.details', {
+      url: "/:venueId",
+      views:{'details@home':{ templateUrl: "partials/venues_details.html",
+                              controller: 'VenuesDetailsController'
+                            }
+            }
+    })
+    .state('home.venues.details.about', {
+      url: "/about",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_about.html",
+                              controller: 'VenuesAboutController'
+                            }
+            }
+    })
+    .state('home.venues.details.analysis', {
+      url: "/analysis",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_analysis.html",
+                              controller: 'VenuesAnalysisController'
+                            }
+            }
+    })
+    .state('home.venues.details.photos', {
+      url: "/photos",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_photos.html",
+                              controller: 'VenuesPhotosController'
+                            }
+            }
+    })
+    .state('home.venues.details.comments', {
+      url: "/comments",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_comments.html",
+                              controller: 'VenuesCommentsController'
+                            }
+            }
+    })
 });

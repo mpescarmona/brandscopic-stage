@@ -1,211 +1,22 @@
 <!-- VENUES - LIST VIEW-->
 
-<div class="container">
+<div class="container" ng-repeat="venue in venuesItems">
 	<div class="box-container np venues">
 		<ul>
 			<li>
 				<div class="margin-data">
 					<div class="col-xs-2 score">
 						<p class="blue">
-							<span class="score-number">97</span> SCORE
+							<span class="score-number">{{venue.score}}</span> SCORE
 						</p>
 					</div>
 					<div class="col-xs-9">
-						<h5 class="txtAdjust">Fox and Hound Pub & Grill</h5>
-						<p class="txtAdjust medium">505 University Drive, College Station</p>
+						<h5 class="txtAdjust">{{venue.name}}</h5>
+						<p class="txtAdjust medium">{{venue.address}}</p>
 					</div>
-					<a href="#/home/dashboard/{{item.id}}" class="noButton nextIcon pull-right"></a>
-				</div>
-			</li>
-			<li>
-				<div class="margin-data">
-					<div class="col-xs-2 score">
-						<p class="blue">
-							<span class="score-number">89</span> SCORE
-						</p>
-					</div>
-					<div class="col-xs-9">
-						<h5 class="txtAdjust">Tavern on the Avenue</h5>
-						<p class="txtAdjust medium">505 University Drive, College Station</p>
-					</div>
-					<a href="#/home/dashboard/{{item.id}}" class="noButton nextIcon pull-right"></a>
-				</div>
-			</li>
-			<li>
-				<div class="margin-data">
-					<div class="col-xs-2 score">
-						<p class="blue">
-							<span class="score-number">76</span> SCORE
-						</p>
-					</div>
-					<div class="col-xs-9">
-						<h5 class="txtAdjust">Bottom of the Hill</h5>
-						<p class="txtAdjust medium">505 University Drive, College Station</p>
-					</div>
-					<a href="#/home/dashboard/{{item.id}}" class="noButton nextIcon pull-right"></a>
+					<a href="#/home/venues/{{venue.id}}/about" class="noButton nextIcon pull-right"></a>
 				</div>
 			</li>
 		</ul>
 	</div>
 </div>
-
-<!-- VENUES DETAILS - ABOUT -->
-
-<div class="subnav">
-	<ul class="scrollplane venues">
-		<li ng-class="{active: UserInterface.eventSubNav=='about'}"><a href="#/home/events/{{eventId}}/about">ABOUT</a></li>
-		<li ng-class="{active: UserInterface.eventSubNav=='people'}"><a href="#/home/events/{{eventId}}/people">ANALYSIS</a></li>
-		<li ng-class="{active: UserInterface.eventSubNav=='photos'}"><a href="#/home/events/{{eventId}}/photos">PHOTOS</a></li>
-		<li ng-class="{active: UserInterface.eventSubNav=='comments'}"><a href="#/home/events/{{eventId}}/comments">COMMENTS</a></li>
-	</ul>
-</div>
-
-<div class="google-map">
-	<iframe width="100%" height="142" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com.ar/maps?t=m&amp;ie=UTF8&amp;ll=-32.926448,-68.813779&amp;spn=0.265698,0.523224&amp;z=11&amp;output=embed"></iframe>
-</div>
-
-<div class="container">
-	<div class="box-container">
-		<h5>Fox and Hound Pub & Grill</h5>
-		<div class="place-data">
-			505 University Drive, College Station<br>
-			TX, United States<br>
-			(979) 846-0211<br>
-			<a href="#" class="blue">www.foxandhound.com</a><br>
-			$$ Bar<br>
-			TD Linx Code
-		</div>
-		<div class="time-data">
-			<ul>	
-				<li>
-					<div class="day">
-			   		Tuesday
-			   	</div>
-			   	<div class="hour">
-			   		11:00 AM - 2:00 PM
-			   	</div>
-			  </li>
-				<li>
-					<div class="day">
-			   		Wednesday
-			   	</div>
-			   	<div class="hour">
-			   		11:00 AM - 2:00 PM
-			   	</div>
-			  </li>
-				<li>
-					<div class="day">
-			   		Thursday
-			   	</div>
-			   	<div class="hour">
-			   		11:00 AM - 2:00 PM
-			   	</div>
-			  </li>
-				<li>
-					<div class="day">
-			   		Friday
-			   	</div>
-			   	<div class="hour">
-			   		11:00 AM - 2:00 PM
-			   	</div>
-			  </li>
-				<li>
-					<div class="day">
-			   		Saturday
-			   	</div>
-			   	<div class="hour">
-			   		11:00 AM - 2:00 PM
-			   	</div>
-			  </li>
-				<li>
-					<div class="day">
-			   		Sunday
-			   	</div>
-			   	<div class="hour">
-			   		11:00 AM - 2:00 PM
-			   	</div>
-			  </li>
-				<li>
-					<div class="day">
-			   		Monday
-			   	</div>
-			   	<div class="hour">
-			   		11:00 AM - 2:00 PM
-			   	</div>
-			  </li>
-			</ul>
-		</div>
-	</div>
-</div>
-
-<!-- VENUES DETAILS - ANALYSIS -->
-
-<div class="container">
-	<div class="box-container venues">
-		<div class="score big pull-left">
-			<p class="blue">
-				<span class="score-number">89</span><br>
-				SCORE
-			</p>
-		</div>
-		<h5 class="analysis">Fox and Hound Pub & Grill</h5>
-		<p class="medium clearfix mt25">
-			Fox and Hound Pub & Grill has earned a venue score of 65 and has performed well relative to orther bars in the area. Specifically, Fox and Hound Pub & Grill and an average number of impressions per promo hour. In addition, the cost per impression is lower than other the area. <br>
-			Attendees at previous events have been mostly 25-34 year old white males. However, there has been a equivalent percentage of 25-34 year old white females as well.
-		</p>
-		<ul class="stats">
-			<li>
-				<div class="number pull-left">
-					6 
-				</div>
-				<div class="category pull-right">
-					EVENTS
-				<div>
-			</li>
-			<li>
-				<div class="number pull-left">
-					10
-				</div>
-				<div class="category pull-right">
-					PROMO HOURS
-				<div>
-			</li>
-			<li>
-				<div class="number pull-left">
-					1,450
-				</div>
-				<div class="category pull-right">
-					IMPRESSIONS
-				<div>
-			</li>
-			<li>
-				<div class="number pull-left">
-					1,050
-				</div>
-				<div class="category pull-right">
-					INFLUENCED
-				<div>
-			</li>
-			<li>
-				<div class="number pull-left">
-					880
-				</div>
-				<div class="category pull-right">
-					SAMPLED
-				<div>
-			</li>
-		</ul>
-	</div>
-	<div class="dividersBar big">DEMOGRAPHICS</div>
-	<div class="box-container">
-		Here goes all the graphics :)
-	</div>
-	<div class="dividersBar big">TRENDS BY DAY OF WEEK</div>
-	<div class="box-container">
-		<p class="medium">
-			Fox and Hound Pub & Grill has historically performed the best on Fridays. Specifically, Fox and Hound Pub & Grill yields the most impressions per hour and influences per hour on Fridays. Butter also yields a high number of impressions per hour samples per hur on Saturdays.
-		</p><br>
-		Here goes the graphic for TRENDS :)
-	</div>
-</div>
-
