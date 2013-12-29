@@ -221,6 +221,13 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.venues.add', {
+      url: "/add",
+      views:{'details@home':{ templateUrl: "partials/venues_add.html",
+                              controller: 'VenuesAddController'
+                            }
+            }
+    })
     .state('home.venues.details', {
       url: "/:venueId",
       views:{'details@home':{ templateUrl: "partials/venues_details.html",

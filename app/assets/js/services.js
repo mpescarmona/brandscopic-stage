@@ -25,6 +25,9 @@ angular.module('brandscopicApp.services', ['ngResource'])
     id: 0,
     name: '[Choose Company]',
   };
+  this.getCompanyId = function() {
+    return this.currentCompany.id;
+  };
 })
 
 .service('UserInterface', function() {
@@ -130,12 +133,10 @@ angular.module('brandscopicApp.services', ['ngResource'])
 }])
 
 .service('EventsRestClient', ['$resource', 'ApiParams', 'CompanyService', function($resource, ApiParams, CompanyService) {
-  var eventList = {};
-  var companyId = CompanyService.currentCompany.id;
+  var 
+      eventList = {}
+    , companyId = CompanyService.getCompanyId();
 
-  this.getEventsMocked = function() {
-    return eventList;
-  };
   this.getEvents = function(authToken, companyId) {
     return $resource( ApiParams.baseUrl + '/events',
                         {},
@@ -193,11 +194,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
 
   this.setEvents = function(events) {
     eventList = events;
-  }
-
-  this.getCompanyId = function() {
-    return CompanyService.currentCompany.id;
-  }
+  };
 
   this.getFacetByName = function(facetName) {
     var myFacet =  [];
@@ -212,15 +209,40 @@ angular.module('brandscopicApp.services', ['ngResource'])
 }])
 
 .service('VenuesRestClient', ['$resource', 'ApiParams', 'CompanyService', function($resource, ApiParams, CompanyService) {
-  var venueList =  [{'id': 1, 'score': 97, 'name': 'Fox and Hound Pub & Grill', 'address': '505 University Drive, College Station'},
-                    {'id': 2, 'score': 89, 'name': 'Tavern on the Avenue', 'address': '505 University Drive, College Station'},
-                    {'id': 3, 'score': 76, 'name': 'Bottom of the Hill', 'address': '505 University Drive, College Station'}];
+  var venueList = []
+    , companyId = CompanyService.getCompanyId();
 
+  this.getVenues = function(authToken, companyId, searchTerm) {
+    return $resource( ApiParams.baseUrl + '/venues/search',
+                        {},
+                        // should do a GET call to /venues/search
+                        {getVenues:{ method: 'GET',
+                                headers: {'Accept': 'application/json'},
+                                params: {auth_token: authToken, company_id: companyId, term: searchTerm},
+                                isArray: true,
+                                interceptor: {
+                                                response: function (data) {
+                                                    console.log('response in interceptor', data);
+                                                    return data;
+                                                },
+                                                responseError: function (data) {
+                                                    console.log('error in interceptor', data);
+                                                    return data;
+                                                }
+                                              },
+                                transformResponse: function(data, header) {
+                                  var wrapped = angular.fromJson(data);
+                                  angular.forEach(wrapped.items, function(item, idx) {
+                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
+                                  });
+                                  return wrapped;
+                                }
+                              }
+                        });
+  };
 
-  var companyId = 2;
-
-  this.getVenuesMocked = function() {
-    return venueList;
+  this.setVenues = function(venues) {
+    venueList = venues;
   };
 
   this.getVenueById = function(venueId) {
