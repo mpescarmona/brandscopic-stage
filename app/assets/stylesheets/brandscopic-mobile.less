@@ -115,6 +115,10 @@ body{
 		}
 	}
 
+	&.photos{
+		padding: 4px;
+	}
+
 	&.np{
 		padding: 0;
 	}
@@ -135,9 +139,11 @@ body{
 			text-decoration: underline;
 		}
 	}
+
 	.row{
 		margin: 0;
 	}
+
 	ul{
 		margin-bottom: 0;
 		padding: 0;
@@ -201,19 +207,11 @@ body{
 			.row{
 				margin: 3px 0 3px 2px;
 				height: 54px;
-				div{
-					margin-right: 5px;
-					margin-top: 8px;
-					&:first-of-type{
-						margin-left: 10px;
-						margin-right: 6px;
-					}
-				}
 			}
-			&.tasks{
-				li{
-					border-bottom: 0;
-				}
+		}
+		&.venues{
+			.row{
+				margin: 4px;
 			}
 		}
 	}
@@ -296,8 +294,9 @@ body{
 .events{
 	.eventHour{
 		color: @txt;
-		margin-right: 10px;
+		margin-top: 9px;
 		p{
+			text-align: center;
 			&:first-child{
 				margin: 2px 0;
 			}
@@ -308,14 +307,18 @@ body{
 				content:"\2014";
 				display: inline-block;
 				font-size: 12px;
-				bottom: 7px;
-				left: 5px;
-				margin: 0 0 5px 10px;
+				bottom: 12px;
+				left: 0;
 				position: absolute;
 				width: 100%;
 				color: @lightGrey;
 			}
 		}
+	}
+	.eventDescription{
+		margin-top: 7px;
+		box-sizing:border-box;
+		padding-left: 10px;
 	}
 	&.eventDetails{
 		div:first-of-type{
@@ -425,6 +428,11 @@ body{
 		}
 		li:last-child{
 			border-bottom: 0;
+		}
+	}
+	&.tasks{
+		div{
+			padding: 4px 0 0 10px;
 		}
 	}
 }
@@ -948,6 +956,8 @@ textarea{
 		margin-left: -25px;
 	}
 }
+
+/*-- VENUES STYLES --*/
 
 .venues{
 	margin-top: 5px;
