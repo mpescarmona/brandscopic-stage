@@ -386,10 +386,13 @@ angular.module('brandscopicApp.controllers', [])
       , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
-      , promise = currentEvent.getEventById().$promise
+      , promiseEvent = currentEvent.getEventById().$promise
+      , eventResultsData = []
+      , eventResults = new EventsRestClient.getEventResultsById(authToken, companyId, eventId)
+      , promiseResults = eventResults.getEventResultsById().$promise
       , ui = {}
 
-    promise.then(function(response) {
+    promiseEvent.then(function(response) {
      if (response.status == 200) {
       if (response.data != null) {
           eventData = response.data;
@@ -399,15 +402,29 @@ angular.module('brandscopicApp.controllers', [])
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
-          $scope.eventId = $stateParams.eventId;
-          return;
+          $scope.eventId = eventId;
+
+          promiseResults.then(function(responseResults) {
+           if (responseResults.status == 200) {
+            if (responseResults.data != null) {
+                eventResultsData = responseResults.data;
+                $scope.eventResultsItems = eventResultsData;
+            }
+           } else {
+              $scope.eventResultsItems = {};
+           }
+          });
+          promiseResults.catch(function(responseResults) {
+            $scope.eventResultsItems = {};
+          });
+
       }
      } else {
-        $scope.eventsItems = {};
+        $scope.eventResultsItems = {};
      }
     });
-    promise.catch(function(response) {
-      $scope.eventsItems = {};
+    promiseEvent.catch(function(response) {
+      $scope.eventResultsItems = {};
     });
   }])
 
