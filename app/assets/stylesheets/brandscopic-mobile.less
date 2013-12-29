@@ -230,6 +230,47 @@ body{
 	}
 }
 
+/*-- COMMENTS - EVENTS AND VENUES --*/
+
+.comments{
+	.comment-user{
+		float: left;
+		width:70%;
+	}
+	.comment-date{
+		color: @brand;
+		float: right;
+		text-align: right;
+		width: 30%;
+	}
+	ul li:last-child{
+		border-bottom: 0;
+	}
+}
+
+.new_comment{
+	background-color: white;
+	box-sizing:border-box;
+	height: 50px;
+	padding: 7px 0;
+	position: fixed;
+	width: 100%;
+	.btn{
+		background-color: #c0c0c0;
+		border: 1px solid #c0c0c0;
+		height: 35px;
+		width: 68px;
+	}
+	.row{
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	input[type="text"]{
+		border: 1px solid rgba(192, 192, 192, 0.54);
+		height: 35px;
+	}
+}
+
 .editpanel{
 	background-color: @lightGrey;
 	box-sizing: border-box;
@@ -348,21 +389,6 @@ body{
 		.total-price{
 			font-size: 22px;
 			text-align: right;
-		}
-	}
-	&.comments{
-		.comment-user{
-			float: left;
-			width:70%;
-		}
-		.comment-date{
-			color: @brand;
-			float: right;
-			text-align: right;
-			width: 30%;
-		}
-		ul li:last-child{
-			border-bottom: 0;
 		}
 	}
 	&.contactDetails{
@@ -787,14 +813,12 @@ input[type=radio] + label:before {
   border-radius: 18px;  
 }  
 input[type=radio]:checked + label:before {  
-   content: "\2022";
+  content: "\2022";
 	color: red;
 	font-size: 17px;
 	text-align: center;
 	line-height: 11px;
 }  
-
-
 
 select{
 	margin-bottom: 15px;
