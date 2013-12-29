@@ -126,7 +126,7 @@ angular.module('brandscopicApp.controllers', [])
                              {'id': 6, 'name': 'Royal Salute FY14', 'today': '25%', 'progress': '30%'}];
   }])
 
-  .controller('EventsController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient',  function($scope, $state, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient',  function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -156,9 +156,8 @@ angular.module('brandscopicApp.controllers', [])
     var 
         ui = {title: 'Events', hasMagnifierIcon: true, hasAddIcon: true, searching: false, AddIconState: "home.events.add"}
       , statusList = []
-      , filteredList =  []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventList = new EventsRestClient.getEvents(authToken, companyId)
       , promise = eventList.getEvents().$promise
 
@@ -188,7 +187,7 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
-  .controller('EventsAboutController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsAboutController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -239,7 +238,7 @@ angular.module('brandscopicApp.controllers', [])
     var 
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promise = currentEvent.getEventById().$promise
@@ -268,7 +267,7 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
-  .controller('EventsDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -278,7 +277,7 @@ angular.module('brandscopicApp.controllers', [])
     var 
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promise = currentEvent.getEventById().$promise
@@ -306,7 +305,7 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
-  .controller('EventsPeopleController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsPeopleController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -321,7 +320,7 @@ angular.module('brandscopicApp.controllers', [])
     var 
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promise = currentEvent.getEventById().$promise
@@ -374,7 +373,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface = UserInterface;
   }])
 
-  .controller('EventsDataController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsDataController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -384,7 +383,7 @@ angular.module('brandscopicApp.controllers', [])
     var 
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promise = currentEvent.getEventById().$promise
@@ -412,7 +411,7 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
-  .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -427,7 +426,7 @@ angular.module('brandscopicApp.controllers', [])
     var 
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promise = currentEvent.getEventById().$promise
@@ -474,7 +473,7 @@ angular.module('brandscopicApp.controllers', [])
 
  }])
 
-  .controller('EventsTasksController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsTasksController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -484,7 +483,7 @@ angular.module('brandscopicApp.controllers', [])
     var 
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promise = currentEvent.getEventById().$promise
@@ -561,7 +560,7 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
-  .controller('EventsTasksDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsTasksDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -571,7 +570,7 @@ angular.module('brandscopicApp.controllers', [])
     var 
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promise = currentEvent.getEventById().$promise
@@ -606,7 +605,7 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
-  .controller('EventsTasksEditController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsTasksEditController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -616,7 +615,7 @@ angular.module('brandscopicApp.controllers', [])
     var 
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId)
       , promise = currentEvent.getEventById().$promise
@@ -651,7 +650,7 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
-  .controller('EventsPhotosController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsPhotosController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -661,7 +660,7 @@ angular.module('brandscopicApp.controllers', [])
     var 
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, $stateParams.eventId)
       , promise = currentEvent.getEventById().$promise
       , ui = {}
@@ -688,7 +687,7 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
-  .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -703,7 +702,7 @@ angular.module('brandscopicApp.controllers', [])
     var 
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promise = currentEvent.getEventById().$promise
@@ -748,7 +747,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.eventId = $stateParams.eventId;
  }])
 
-  .controller('EventsSurveysController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, EventsRestClient) {
+  .controller('EventsSurveysController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -758,7 +757,7 @@ angular.module('brandscopicApp.controllers', [])
     var
         eventData = []
       , authToken = UserService.currentUser.auth_token
-      , companyId = EventsRestClient.getCompanyId()
+      , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promise = currentEvent.getEventById().$promise
@@ -798,7 +797,6 @@ angular.module('brandscopicApp.controllers', [])
     // Options for User Interface in home partial
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
-
   }])
 
   .controller('TasksController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
@@ -814,10 +812,45 @@ angular.module('brandscopicApp.controllers', [])
     // Options for User Interface in home partial
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
-
   }])
 
-  .controller('VenuesController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient',  function($scope, $state, snapRemote, UserService, UserInterface, VenuesRestClient) {
+  .controller('VenuesController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'VenuesRestClient',  function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, VenuesRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close();
+
+    var 
+        ui = {title: 'Venues', hasMagnifierIcon: true, hasAddIcon: true, searching: false, AddIconState: "home.venues.add"}
+      , venuesList = []
+      , authToken = UserService.currentUser.auth_token
+      , companyId = CompanyService.getCompanyId()
+      , searchTerm = ''
+      , venueList = new VenuesRestClient.getVenues(authToken, companyId, searchTerm)
+      , promise = venueList.getVenues().$promise
+
+    angular.extend(UserInterface, ui)
+    $scope.UserInterface = UserInterface;
+
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          $scope.venuesItems = response.data;
+
+          VenuesRestClient.setVenues($scope.venuesItems);
+          return;
+      }
+     } else {
+        $scope.venuesItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.venuesItems = {};
+    });
+  }])
+
+  .controller('VenuesAddController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, snapRemote, UserService, UserInterface, VenuesRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -825,12 +858,11 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close();
 
     var
-        ui = { title: 'Venues', hasMagnifierIcon: true, hasAddIcon: true, searching: false};
+        ui = { title: 'Venue', hasMagnifierIcon: false, hasAddIcon: false, searching: false}
 
     // Options for User Interface in home partial
     angular.extend(UserInterface, ui);
-    $scope.venuesItems = VenuesRestClient.getVenuesMocked();
-
+    $scope.UserInterface = UserInterface;
   }])
 
   .controller('VenuesDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
@@ -850,7 +882,6 @@ angular.module('brandscopicApp.controllers', [])
     angular.extend(UserInterface, ui);
 
     $scope.venue = currentVenue;
-
   }])
 
   .controller('VenuesAboutController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
@@ -869,7 +900,6 @@ angular.module('brandscopicApp.controllers', [])
 
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
-
   }])
 
   .controller('VenuesAnalysisController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
