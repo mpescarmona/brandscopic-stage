@@ -215,6 +215,9 @@ body{
 					margin-top: 3px;
 					box-sizing: border-box;
 					padding-left: 10px;
+					p{
+						color: @brand;
+					}
 				}
 			}
 			.nextIcon:before{
@@ -326,6 +329,9 @@ body{
 		margin-top: 7px;
 		box-sizing:border-box;
 		padding-left: 10px;
+		p{
+			color: @brand;
+		}
 	}
 	&.eventDetails{
 		div:first-of-type{
@@ -794,46 +800,140 @@ input[type="text"], input[type="password"]{
 	}
 }
 
-/*-- RADIO BUTTONS STYLES --*/
+/*-- RADIO BUTTONS STYLES */
 
-.radio{
-	padding: 0;
+.radio-selector{
+	.radio{
+		padding: 0;
+	}
+	input[type=radio] {  
+	    display: none;  
+	}  
+	input[type=radio] + label {  
+	  display: inline-block;  
+	  cursor: pointer;  
+	  position: relative;  
+	  padding-left: 38px;  
+	  margin: 5px 15px 5px 0; 
+	  font-size: 13px;  
+	  line-height: 20px;
+	} 
+
+	input[type=radio] + label:before {  
+	  content: "";  
+	  border: 4px solid @lightGrey;
+	  display: inline-block; 
+	  border-radius: 18px;
+
+	  width: 21px;  
+	  height: 21px;  
+
+	  margin-right: 10px;  
+	  position: absolute;  
+	  left: 0;  
+	}  
+
+	input[type=radio]:checked + label:before {  
+	  content: "\2022";
+		color: @lightTxt;
+		border: 4px solid @lightTxt;
+		font-size: 17px;
+		text-align: center;
+		line-height: 11px;
+	}  
+	&.table{
+		display: inline-table;
+		.row{
+			margin: 14px 0;
+			&.fl{
+				font-size: 12px;
+			}
+			.txtAdjust{
+				box-sizing:border-box;
+				padding-right: 10px;
+			}
+		}
+	  li{
+	  	border: 0;
+	  	display: table-row;
+	  	div.col-xs-3{
+	  		display: table-cell;
+	  		text-align: center;
+	  		&:first-child{
+	  			text-align: left;
+	  		}
+	  	}
+	  }
+		input[type=radio] + label {
+			margin: 0;
+			overflow: hidden;
+			line-height: 24px;
+			width: 1px;
+			padding-left: 21px;
+			&:before{
+				width: 21px;
+			}
+		}
+	}
 }
 
-input[type=radio] {  
-    display: none;  
-}  
-input[type=radio] + label {  
-  display: inline-block;  
-  cursor: pointer;  
-  position: relative;  
-  padding-left: 32px;  
-  margin-right: 15px;  
-  font-size: 13px;  
-} 
-input[type=radio] + label:before {  
-  content: "";  
-  border: 4px solid red;
-  display: inline-block;  
 
-  width: 21px;  
-  height: 21px;  
+/* RATING STARS FOR COMMENTS */
+.rating {
+    float:left;
+    label{
+    	clear:none;
+    	margin: 5px 0;
+    }
+}
 
-  margin-right: 10px;  
-  position: absolute;  
-  left: 0;  
-  bottombottom: 1px;  
-}  
-.radio label:before {  
-  border-radius: 18px;  
-}  
-input[type=radio]:checked + label:before {  
-  content: "\2022";
-	color: red;
-	font-size: 17px;
-	text-align: center;
-	line-height: 11px;
-}  
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+    float:right;
+    width:1.2em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:85%;
+    line-height:1.2;
+    color:#ddd;
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input:checked ~ label {
+    color: #f70;
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+}
+
+.rating > label:active {
+    position:relative;
+}
+
+
 
 select{
 	margin-bottom: 15px;

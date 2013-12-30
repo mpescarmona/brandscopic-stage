@@ -55,19 +55,143 @@
 		<h5>Demographics</h5>
 		<p>Gender</p>
 
+		<div class="radio-selector">
+			<div class="radio clearfix">  
+		    <input id="male" type="radio" name="gender" value="male">  
+		    <label for="male">Male</label>  
+			</div>  
+			<div class="radio clearfix">
+				<input id="female" type="radio" name="gender" value="female">  
+		    <label for="female">Female</label> 
+			</div> 
+		</div>
 
-		<div class="radio clearfix">  
-	    <input id="male" type="radio" name="gender" value="male">  
-	    <label for="male">Male</label>  
-		</div>  
-		<div class="radio clearfix">
-			<input id="female" type="radio" name="gender" value="female">  
-	    <label for="female">Female</label> 
-		</div> 
+		<p>Race/Ethnicity</p>
 
+		<div class="radio-selector">
+			<div class="radio clearfix">  
+		    <input id="african" type="radio" name="race" value="african">  
+		    <label for="african">African American</label>  
+			</div>  
+			<div class="radio clearfix">
+				<input id="asian" type="radio" name="race" value="asian">  
+		    <label for="asian">Asian</label> 
+			</div> 
+			<div class="radio clearfix">
+				<input id="hispanic" type="radio" name="race" value="hispanic">  
+		    <label for="hispanic">Hispanic Latino</label> 
+			</div> 
+			<div class="radio clearfix">
+				<input id="native" type="radio" name="race" value="native">  
+		    <label for="native">Native Americans</label> 
+			</div> 
+			<div class="radio clearfix">
+				<input id="white" type="radio" name="race" value="white">  
+		    <label for="white">White</label> 
+			</div> 
+		</div>
+
+		<p>Age</p>
+
+		<div class="radio-selector">
+			<div class="radio clearfix">  
+		    <input id="18" type="radio" name="age" value="18">  
+		    <label for="18"><18</label>  
+			</div>  
+			<div class="radio clearfix">
+				<input id="19" type="radio" name="age" value="19">  
+		    <label for="19">19-24</label> 
+			</div> 
+			<div class="radio clearfix">
+				<input id="25" type="radio" name="age" value="25">  
+		    <label for="25">25-34</label> 
+			</div> 
+			<div class="radio clearfix">
+				<input id="35" type="radio" name="age" value="35">  
+		    <label for="35">35-44</label> 
+			</div> 
+			<div class="radio clearfix">
+				<input id="45" type="radio" name="age" value="45">  
+		    <label for="45">45-54</label> 
+			</div> 
+			<div class="radio clearfix">
+				<input id="55" type="radio" name="age" value="55">  
+		    <label for="55">55-64</label> 
+			</div> 
+			<div class="radio clearfix">
+				<input id="65" type="radio" name="age" value="65">  
+		    <label for="65">65+</label> 
+			</div> 
+		</div>
+
+		<p>Home Zip Code</p>
+		<input type="text" name="zipcode">
 
 		<h5>Competitive awarenes & Usage</h5>
 		<p class="medium">For each of the following brands, please let us know if you have purchased the product in the last 12 montsh, are aware of the product, or are unaware of the product.</p>
+
+		<ul class="radio-selector table">
+			<li>
+				<div class="row fl">
+					<div class="col-xs-3"></div>
+					<div class="col-xs-3">PURCHASED</div>
+					<div class="col-xs-3">AWARE</div>
+					<div class="col-xs-3">UNAWARE</div>
+				</div>
+			</li>
+			<li>
+				<div class="row">
+					<div class="col-xs-3 txtAdjust">Absolut</div>
+					<div class="col-xs-3">
+						<input id="purchased" type="radio" name="absolut" value="purchased">  
+		    		<label for="purchased">Purchased</label> 
+					</div>
+					<div class="col-xs-3">
+						<input id="aware" type="radio" name="absolut" value="aware">  
+		    		<label for="aware">Aware</label> 
+					</div>
+					<div class="col-xs-3">
+						<input id="unaware" type="radio" name="absolut" value="unaware">  
+		    		<label for="unaware">Unaware</label> 
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="row">
+					<div class="col-xs-3 txtAdjust">Ballantines</div>
+					<div class="col-xs-3">
+						<input id="purchased" type="radio" name="purchased" value="purchased">  
+		    		<label for="purchased">Purchased</label> 
+					</div>
+					<div class="col-xs-3">
+						<input id="aware" type="radio" name="aware" value="aware">  
+		    		<label for="aware">Aware</label> 
+					</div>
+					<div class="col-xs-3">
+						<input id="unaware" type="radio" name="unaware" value="unaware">  
+		    		<label for="unaware">Unaware</label> 
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="row">
+					<div class="col-xs-3 txtAdjust">Chivas Regal</div>
+					<div class="col-xs-3">
+						<input id="purchased" type="radio" name="purchased" value="purchased">  
+		    		<label for="purchased">Purchased</label> 
+					</div>
+					<div class="col-xs-3">
+						<input id="aware" type="radio" name="aware" value="aware">  
+		    		<label for="aware">Aware</label> 
+					</div>
+					<div class="col-xs-3">
+						<input id="unaware" type="radio" name="unaware" value="unaware">  
+		    		<label for="unaware">Unaware</label> 
+					</div>
+				</div>
+			</li>
+		</ul>
+
 		<p class="medium">For each brand you have used, approximately how much do you spend each month?</p>
 		<h5>Conversion likehood</h5>
 		<p class="medium">For each of the following brands, please let us know how likely you are to purchase the brand in the next 12 months.</p>
