@@ -42,9 +42,10 @@ angular.module('brandscopicApp.controllers', [])
     };
     
     $scope.forgotPassword = function(email) {
-      var session = new SessionRestClient.forgotPassword(email);
+      var
+          session = new SessionRestClient.forgotPassword(email)
+        , promise = session.forgotPassword().$promise
 
-      var promise = session.forgotPassword().$promise;
       promise.then(function(response) {
        if (response.status == 200) {
         UserService.currentUser.isLogged = false;
@@ -67,7 +68,7 @@ angular.module('brandscopicApp.controllers', [])
     };
   }])
 
-  .controller('HomeController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'CompanyService', function($scope, $state, snapRemote, UserService, UserInterface, CompanyService) {
+  .controller('HomeController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'CompanyService', 'SessionRestClient', function($scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -78,16 +79,40 @@ angular.module('brandscopicApp.controllers', [])
       disable: 'right'
     };
 
+    var
+      authToken = UserService.currentUser.auth_token
+
     $scope.currentCompany = CompanyService.currentCompany;
     // Options for User Interface in home partial
     $scope.UserInterface = UserInterface;
     $scope.UserInterface.title = "Home";
 
     $scope.logout = function() {
-      UserService.currentUser.isLogged = false;
-      UserService.currentUser.email = "";
-      $state.go('login');
-      return;
+      var
+          session = new SessionRestClient.logout(authToken)
+        , promise = session.logout().$promise
+
+      promise.then(function(response) {
+        if (response.status == 200) {
+          UserService.currentUser.auth_token = ""; 
+          UserService.currentUser.isLogged = false;
+          UserService.currentUser.email = "";
+          $state.go('login');
+          return;
+        } else {
+          // $state.go('login');
+          $scope.wrongUser = true;
+          UserService.currentUser.auth_token = "";
+          UserService.currentUser.isLogged = false;
+          UserService.currentUser.email = "";
+        }
+      });
+      promise.catch(function(response) {
+        $scope.wrongUser = true;
+        UserService.currentUser.auth_token = "";
+        UserService.currentUser.isLogged = false;
+        UserService.currentUser.email = "";
+      });
     };
 
     $scope.gotToState = function(newState) {

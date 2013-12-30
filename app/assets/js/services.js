@@ -98,6 +98,37 @@ angular.module('brandscopicApp.services', ['ngResource'])
                         });
   };
 
+  this.logout = function(authToken) {
+    return $resource( ApiParams.baseUrl + '/sessions',
+                        {},
+                        // should do a DELETE call to /sessions with authToken
+                        {logout:{ method: 'DELETE',
+                                headers: {'Accept': 'application/json'},
+                                params: {id: authToken},
+                                interceptor: {
+                                                response: function (data) {
+                                                    console.log('response in interceptor', data);
+                                                    return data;
+                                                },
+                                                responseError: function (data) {
+                                                    console.log('error in interceptor', data);
+                                                    return data;
+                                                }
+                                              },
+                                transformResponse: function(data, header) {
+                                  if (data.toString() != "") {
+                                    var wrapped = angular.fromJson(data);
+                                    angular.forEach(wrapped.items, function(item, idx) {
+                                       wrapped.items[idx] = new Post(item); //<-- replace each item with an instance of the resource object
+                                    });
+                                    return wrapped;
+                                  } else {
+                                    return data;
+                                  }
+                                }
+                              }
+                        });
+  };
 }])
 
 .service('CompaniesRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
