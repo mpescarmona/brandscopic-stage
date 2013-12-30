@@ -1,50 +1,28 @@
 <!-- VENUES - LIST VIEW-->
 
-<div class="container" ng-repeat="venue in venuesItems">
-	<div class="box-container np">
-		<ul class="venues">
-			<li>
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="col-xs-2 score">
-							<p class="blue">
-								<!-- <span class="score-number">{{venue.score}}</span> SCORE -->
-								<span class="score-number">0</span>
-								<br> SCORE
-							</p>
-						</div>
-						<div class="col-xs-9 venuesDescription">
-	<!-- 						<h5 class="txtAdjust">{{venue.name}}</h5>
-							<p class="txtAdjust medium">{{venue.address}}</p> -->
-							<h5 class="txtAdjust">{{venue.label}}</h5>
-							<p class="txtAdjust medium">{{venue.value}}</p>
-						</div>
-		        <a href="#/home/dashboard/{{item.id}}" class="noButton nextIcon pull-right"></a>
-		      </div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="col-xs-2 score">
-							<p class="blue">
-								<!-- <span class="score-number">{{venue.score}}</span> SCORE -->
-								<span class="score-number">0</span>
-								<br> SCORE
-							</p>
-						</div>
-						<div class="col-xs-9 venuesDescription">
-	<!-- 						<h5 class="txtAdjust">{{venue.name}}</h5>
-							<p class="txtAdjust medium">{{venue.address}}</p> -->
-							<h5 class="txtAdjust">{{venue.label}}</h5>
-							<p class="txtAdjust medium">{{venue.value}}</p>
-						</div>
-		        <a href="#/home/dashboard/{{item.id}}" class="noButton nextIcon pull-right"></a>
-		      </div>
-				</div>
-			</li>
-		</ul>
-	</div>
+<div class="container" >
+  <div class="box-container np">
+    <ul class="venues">
+      <li ng-repeat="venue in venuesItems">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="col-xs-2 score">
+              <p class="blue">
+                <!-- <span class="score-number">{{venue.score}}</span> SCORE -->
+                <span class="score-number">0</span>
+                <br> SCORE
+              </p>
+            </div>
+            <div class="col-xs-9 venuesDescription">
+              <!-- 						<h5 class="txtAdjust">{{venue.name}}</h5>
+              <p class="txtAdjust medium">{{venue.address}}</p> -->
+              <h5 class="txtAdjust">{{venue.label}}</h5>
+              <p class="txtAdjust medium">{{venue.value}}</p>
+            </div>
+            <a href="#/home/venues/{{venue.id}}/about" class="noButton nextIcon pull-right"></a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
-
-
