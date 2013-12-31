@@ -231,6 +231,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
                         {getEventTeamsById:{ method: 'GET',
                                 headers: {'Accept': 'application/json'},
                                 params: {auth_token: authToken, company_id: companyId},
+                                isArray: true,
                                 interceptor: {
                                                 response: function (data) {
                                                     console.log('response in interceptor', data);
@@ -259,6 +260,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
                         {getEventContactsById:{ method: 'GET',
                                 headers: {'Accept': 'application/json'},
                                 params: {auth_token: authToken, company_id: companyId},
+                                isArray: true,
                                 interceptor: {
                                                 response: function (data) {
                                                     console.log('response in interceptor', data);

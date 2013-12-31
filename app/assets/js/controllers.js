@@ -348,10 +348,16 @@ angular.module('brandscopicApp.controllers', [])
       , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
-      , promise = currentEvent.getEventById().$promise
+      , promiseEvent = currentEvent.getEventById().$promise
+      , eventTeamData = []
+      , eventTeam = new EventsRestClient.getEventTeamsById(authToken, companyId, eventId)
+      , promiseTeam = eventTeam.getEventTeamsById().$promise
+      , eventContactsData = []
+      , eventContacts = new EventsRestClient.getEventContactsById(authToken, companyId, eventId)
+      , promiseContacts = eventContacts.getEventContactsById().$promise
       , ui = {}
 
-    promise.then(function(response) {
+    promiseEvent.then(function(response) {
      if (response.status == 200) {
       if (response.data != null) {
           eventData = response.data;
@@ -361,7 +367,7 @@ angular.module('brandscopicApp.controllers', [])
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
-          $scope.eventId = $stateParams.eventId;
+          // $scope.eventId = $stateParams.eventId;
           // $scope.showPeople = ($scope.showPeople == "") ? "team" : $scope.showPeople;
           $scope.showPeople = "team";
 
@@ -373,13 +379,44 @@ angular.module('brandscopicApp.controllers', [])
           // } else {
             $scope.UserInterface.AddIconState = "home.events.details.people.contacts.add";
           // }
+
+          // get event Team members
+          promiseTeam.then(function(responseTeam) {
+           if (responseTeam.status == 200) {
+            if (responseTeam.data != null) {
+                eventTeamData = responseTeam.data;
+                $scope.eventTeamItems = eventTeamData;
+            }
+           } else {
+              $scope.eventTeamItems = {};
+           }
+          });
+          promiseTeam.catch(function(responseTeam) {
+            $scope.eventTeamItems = {};
+          });
+
+          // get event Contact members
+          promiseContacts.then(function(responseContacts) {
+           if (responseContacts.status == 200) {
+            if (responseContacts.data != null) {
+                eventContactsData = responseContacts.data;
+                $scope.eventContactItems = eventContactsData;
+            }
+           } else {
+              $scope.eventContactItems = {};
+           }
+          });
+          promiseTeam.catch(function(responseTeam) {
+            $scope.eventContactItems = {};
+          });
+
           return;
       }
      } else {
         $scope.eventsItems = {};
      }
     });
-    promise.catch(function(response) {
+    promiseEvent.catch(function(response) {
       $scope.eventsItems = {};
     });
   }])
@@ -404,8 +441,8 @@ angular.module('brandscopicApp.controllers', [])
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promiseEvent = currentEvent.getEventById().$promise
       , eventResultsData = []
-      , eventResults = new EventsRestClient.getEventResultsById(authToken, companyId, eventId)
-      , promiseResults = eventResults.getEventResultsById().$promise
+      , eventResults = new EventsRestClient.getEventContactsById(authToken, companyId, eventId)
+      , promiseResults = eventResults.getEventContactsById().$promise
       , ui = {}
 
     promiseEvent.then(function(response) {
