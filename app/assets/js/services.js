@@ -224,6 +224,62 @@ angular.module('brandscopicApp.services', ['ngResource'])
                         });
   };
   
+  this.getEventTeamsById = function(authToken, companyId, eventId) {
+    return $resource( ApiParams.baseUrl + '/events/' + eventId + '/team',
+                        {},
+                        // should do a GET call to /events/:eventId
+                        {getEventTeamsById:{ method: 'GET',
+                                headers: {'Accept': 'application/json'},
+                                params: {auth_token: authToken, company_id: companyId},
+                                interceptor: {
+                                                response: function (data) {
+                                                    console.log('response in interceptor', data);
+                                                    return data;
+                                                },
+                                                responseError: function (data) {
+                                                    console.log('error in interceptor', data);
+                                                    return data;
+                                                }
+                                              },
+                                transformResponse: function(data, header) {
+                                  var wrapped = angular.fromJson(data);
+                                  angular.forEach(wrapped.items, function(item, idx) {
+                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
+                                  });
+                                  return wrapped;
+                                }
+                              }
+                        });
+  };
+
+  this.getEventContactsById = function(authToken, companyId, eventId) {
+    return $resource( ApiParams.baseUrl + '/events/' + eventId + '/contacts',
+                        {},
+                        // should do a GET call to /events/:eventId
+                        {getEventContactsById:{ method: 'GET',
+                                headers: {'Accept': 'application/json'},
+                                params: {auth_token: authToken, company_id: companyId},
+                                interceptor: {
+                                                response: function (data) {
+                                                    console.log('response in interceptor', data);
+                                                    return data;
+                                                },
+                                                responseError: function (data) {
+                                                    console.log('error in interceptor', data);
+                                                    return data;
+                                                }
+                                              },
+                                transformResponse: function(data, header) {
+                                  var wrapped = angular.fromJson(data);
+                                  angular.forEach(wrapped.items, function(item, idx) {
+                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
+                                  });
+                                  return wrapped;
+                                }
+                              }
+                        });
+  };
+  
   this.getEventResultsById = function(authToken, companyId, eventId) {
     return $resource( ApiParams.baseUrl + '/events/' + eventId + '/results',
                         {},

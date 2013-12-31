@@ -384,6 +384,81 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
+  .controller('EventsPeopleContactsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    // $scope.gotToState = function(newState) {
+    //   $state.go(newState);
+    //   return;
+    // };
+
+    var 
+        eventData = []
+      , authToken = UserService.currentUser.auth_token
+      , companyId = CompanyService.getCompanyId()
+      , eventId = $stateParams.eventId
+      , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
+      , promiseEvent = currentEvent.getEventById().$promise
+      , eventResultsData = []
+      , eventResults = new EventsRestClient.getEventResultsById(authToken, companyId, eventId)
+      , promiseResults = eventResults.getEventResultsById().$promise
+      , ui = {}
+
+    promiseEvent.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
+
+          // Options for User Interface in home partial
+          ui = {title: eventData.campaign.name, hasMagnifierIcon: true, hasAddIcon: true, searching: false, eventSubNav: "people"};
+          angular.extend(UserInterface, ui);
+          $scope.UserInterface = UserInterface;
+
+          $scope.eventId = $stateParams.eventId;
+
+
+          promiseResults.then(function(responseResults) {
+           if (responseResults.status == 200) {
+            if (responseResults.data != null) {
+                eventResultsData = responseResults.data;
+                $scope.eventResultsItems = eventResultsData;
+            }
+           } else {
+              $scope.eventResultsItems = {};
+           }
+          });
+          promiseResults.catch(function(responseResults) {
+            $scope.eventResultsItems = {};
+          });
+
+
+          
+          // $scope.showPeople = ($scope.showPeople == "") ? "team" : $scope.showPeople;
+          $scope.showPeople = "team";
+
+          $scope.showPeopleType = function(type) {
+            $scope.showPeople = type;
+          };
+          // if ($scope.showPeople =="team") {
+          //   $scope.UserInterface.AddIconState = "home.events.details.people.team.add";
+          // } else {
+            $scope.UserInterface.AddIconState = "home.events.details.people.contacts.add";
+          // }
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promiseEvent.catch(function(response) {
+      $scope.eventsItems = {};
+    });
+  }])
+
   .controller('EventsPeopleAddController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'EventsRestClient', function($scope, $state, snapRemote, UserService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
@@ -1038,6 +1113,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.chooseCompany = function(companyId, companyName) {
       CompanyService.currentCompany.id = companyId;
       CompanyService.currentCompany.name = companyName;
+      $state.go('home.dashboard');
       return;
     };
   }]);

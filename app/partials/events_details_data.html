@@ -7,11 +7,9 @@
 
 		<div class="clearfix m25" ng-repeat="segment in results.segments" id="{{segment.id}}">
 			<div class="input-group">
-
-	  		<input type="{{results.options.capture_mechanism}}" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'=='count'">
-
-	  		<input type="text" class="form-control" ng-show="'{{results.field_type}}'!='count'">
-	  		<span class="input-group-addon">{{segment.value}}</span>
+		  		<input type="{{results.options.capture_mechanism}}" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'=='count'">
+		  		<input type="text" class="form-control" value="{{segment.value}}" ng-show="'{{results.field_type}}'!='count'">
+		  		<span class="input-group-addon" ng-show="'{{results.options.capture_mechanism}}'!='radio'">%</span>
 			</div>
 			<label class="data">{{segment.text}}</label>
 		</div>

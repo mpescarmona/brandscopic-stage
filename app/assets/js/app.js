@@ -104,7 +104,7 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.details.people.contacts', {
       url: "/contacts",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts.html",
-                              controller: 'EventsPeopleController'
+                              controller: 'EventsPeopleContactsController'
                             }
             }
     })

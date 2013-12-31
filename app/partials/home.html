@@ -26,7 +26,7 @@
             ng-show="UserInterface.hasMagnifierIcon"
             ng-swipe-left="UserInterface.searching=true">
     </button>
-    <button class="noButton addIcon pull-right" ng-click="gotToState(UserInterface.AddIconState)" ng-show="UserInterface.hasAddIcon"></button>
+    <button class="noButton addIcon pull-right" ng-click="gotToState(UserInterface.AddIconState)" ng-animate=" ' animate' " ng-show="UserInterface.hasAddIcon"></button>
   </div>
   <!-- Search header -->
   <div class="navHeader" ng-show="UserIterface.searching" ng-swipe-left="UserInterface.searching=false">
