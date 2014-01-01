@@ -667,7 +667,7 @@ body{
 	outline:0;
 }
 
-.btn-default{
+.btn-default, a.btn-default{
 	background-color: @lightGrey;
 	border: 0;
 	color: white;
@@ -747,6 +747,7 @@ button{
 	margin-top: 25px;
 	.btn-sm{
 		display: inline-block;
+		text-align: center;
 		margin-right: 7px;
 		padding: 0;
 		height: 33px;
@@ -758,6 +759,9 @@ button{
 		&.edit:before, &.deactivate:before{
 			font-size: 23px;
 			bottom: 6px;	
+		}
+		&.edit{
+			padding-top:5px;
 		}
 		&:last-child{
 			margin-right: 0;
@@ -1199,8 +1203,32 @@ textarea{
     top: -100%;
 }
 
+/*-- TESTING WITH THE STYLE FOR THE SELECTS --*/
 
+select{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	&.form-control{
+		box-shadow: none;
+		-webkit-box-shadow: none;
+		background:url('arrows.png') no-repeat right center;
+		option{
+			&.choose{
+				color:@lightGrey;
+			}
+		}
 
+		&:focus{
+			border-color:@lightGrey;
+			box-shadow: none;
+			-webkit-box-shadow: none;
+		}
+	}
+}
+
+select option[default] {
+    color: red;
+}
 
 
 
