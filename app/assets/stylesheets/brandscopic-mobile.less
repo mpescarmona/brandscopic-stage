@@ -446,6 +446,11 @@ body{
 		li:last-child{
 			border-bottom: 0;
 		}
+		.input-group{
+			input[type="text"]{
+				border-left: 0;
+			}
+		}
 	}
 	&.tasks{
 		div{
@@ -1220,8 +1225,9 @@ select{
 
 		&:focus{
 			border-color:@lightGrey;
-			box-shadow: none;
+			outline: 0;
 			-webkit-box-shadow: none;
+			box-shadow:none;
 		}
 	}
 }
