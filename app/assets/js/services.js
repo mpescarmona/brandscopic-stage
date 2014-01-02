@@ -224,11 +224,11 @@ angular.module('brandscopicApp.services', ['ngResource'])
                         });
   };
   
-  this.getEventTeamsById = function(authToken, companyId, eventId) {
-    return $resource( ApiParams.baseUrl + '/events/' + eventId + '/team',
+  this.getEventMembersById = function(authToken, companyId, eventId, type) {
+    return $resource( ApiParams.baseUrl + '/events/' + eventId + '/members',
                         {},
                         // should do a GET call to /events/:eventId
-                        {getEventTeamsById:{ method: 'GET',
+                        {getEventMembersById:{ method: 'GET',
                                 headers: {'Accept': 'application/json'},
                                 params: {auth_token: authToken, company_id: companyId},
                                 isArray: true,
