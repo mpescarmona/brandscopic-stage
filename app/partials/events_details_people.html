@@ -22,7 +22,7 @@
 								<h5 class="txtAdjust" ng-show="'{{team.type}}'=='team'">{{team.name}}</h5>
 								<p class="small txtAdjust" ng-show="'{{team.type}}'=='team'">{{team.description}}</p>
 							</div>
-							<div class="col-xs-2 deletepanel" ng-show="showButtons">
+							<div class="col-xs-2 second deletepanel" ng-show="showButtons" ng-animate="{enter: 'animate-show', leave: 'animate-hide'}">
 								<a href="#" class="deactivate"></a>
 							</div>
 						</div>
