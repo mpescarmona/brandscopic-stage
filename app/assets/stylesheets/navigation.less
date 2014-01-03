@@ -61,7 +61,7 @@
 }
 
 
-/* HEADER styles */
+/* HEADER styles 
 
 .navHeader {
   background: @header;
@@ -106,6 +106,88 @@
   }
   .backIcon:before{
   	font-size: 22px;
+  }
+}
+
+*/
+
+.navHeader {
+  background-color: @header;
+  display: block;
+  width: 100%;
+  position: relative;
+  float: left;
+  h1{
+    color: white;
+    min-height: 1.1em;
+    text-align: center;
+    font-size: 16px;
+    display: block;
+    margin: .6em 10% .8em;
+    padding: 2px 0 0 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    outline: 0 !important;
+  }
+  :before{
+    color: white;
+  }
+  .right{
+    text-align:right;
+    width:25%;
+    float:left;
+    padding: 0;
+    box-sizing:border-box;
+    padding-right: 10px;
+  }
+
+  .center{
+    float:left;
+    text-align:center;
+    width:50%;
+  }
+
+  .left{
+    text-align:left;
+    width:25%;
+    float:left;
+    padding: 0;
+    box-sizing:border-box;
+    padding-left: 10px;
+  }
+  button.noButton{
+    height: 44px;
+    width: 30px;
+    &.addIcon{
+      width: 30px;
+    }
+    &.out{
+      display: block;
+      margin-left: 8px;
+    }
+  }
+  .btn-danger, .btn-cancel{
+    color: white;
+    margin-top: 8px;
+    height: 28px;
+    padding: 0;
+    width: 55px;
+    .border-bottom-radius(4px);
+    .border-top-radius(4px);
+  }
+  .addIcon:before, .delete:before{
+    font-size: 27px;
+  }
+  .menuIcon:before{
+    bottom: 1px;
+    font-size: 26px;
+  }
+  .magnifierIcon:before{
+    font-size: 24px;
+  }
+  .backIcon:before{
+    font-size: 22px;
   }
 }
 

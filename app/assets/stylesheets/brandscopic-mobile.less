@@ -167,17 +167,28 @@ body{
 			}
 			.row{
 				height: 100%;
-				overflow-y: hidden;
+				/*
 				.swipe{
 					height: 60px;
-					width: 133.2%;
+					width: 120%;
 					div {
-						display: inline-block;
+						height: 60px;
 						&.first{
 							padding-top: 12px;
+							padding-right: 10px;
+							box-sizing:border-box;
+							display: block;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+						}
+						&.second{
+							display: inline-block;
+							float: right;
+							width: 60px;
 						}
 					}
-					/*
+					
 					.second{
 						-webkit-transition: all 1s ease;
 						-moz-transition: all 1s ease;
@@ -188,7 +199,6 @@ body{
 					}
 					*/
 				}
-			}
 			&.lastItem, &:last-child{
 				border-bottom: 0;
 			}
@@ -225,13 +235,17 @@ body{
 			}
 		}
 		&.eventsPeople{
+			li{
+				height: 60px;
+			}
 	  	li:last-child{
 	  		border-bottom: 0;
 	  	}
 			.team, .teaMember{
-				float: left;
 			  position: relative;
 			  padding-left: 50px;
+			  padding-top: 10px;
+			  padding-right: 10px;
 			  h5{
 			   	line-height: 22px;
 			  }
@@ -340,7 +354,9 @@ body{
 }
 
 .deletepanel{
+	margin-left: 10px;
 	text-align: center;
+	width: 70px;
 }
 
 /* -- EVENTS SECTION -- */
@@ -571,6 +587,8 @@ body{
 	background-color: white;
 	color: @txt;
 	height: 60px;
+	float: left;
+	width: 100%;
 	margin-bottom: 3px;
 	.container{
 		padding: 0 !important;
@@ -749,6 +767,14 @@ body{
 	border: 0;
 	&:hover{
 		background-color: @buttons-hover;
+	}
+}
+
+.btn-cancel{
+	background-color: @brand;
+	border: 0;
+	&:hover{
+		background-color: @brand;
 	}
 }
 
@@ -1222,18 +1248,6 @@ textarea{
 }
 
 
-/*-- ANIMATE FOR ANGULAR - STYLES --*/
-
-.animate-enter {
-	-webkit-transition: 1s linear all; /* Chrome */
-	transition: 1s linear all;
-	opacity: 0;
-}
- 
-.animate-enter.animate-enter-active {
-	opacity: 1;
-}
-
 /*-- TESTING WITH THE STYLE FOR THE SELECTS --*/
 
 select{
@@ -1262,6 +1276,31 @@ select option[default] {
     color: red;
 }
 
+/*-- ANIMATE FOR ANGULAR - STYLES --*/
+
+.animate-enter, 
+.animate-leave
+{ 
+    -webkit-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+} 
+ 
+.animate-enter {
+    left: 100%;
+}
+.animate-enter.animate-enter-active {
+    left: 0;
+}
+ 
+.animate-leave {
+    left: 0;
+}
+.animate-leave.animate-leave-active{
+    left: -100%;
+}
 
 
 

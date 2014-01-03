@@ -13,8 +13,10 @@
 			<li ng-repeat="team in eventTeamItems">
 				<a href="#/home/events/{{eventId}}/people">
 					<div class="row" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false">
-						<div class="swipe">
-							<div class="col-xs-10 first" ng-class="{teaMember: team.type=='user', team: team.type=='team'}">
+							<div class="deletepanel" ng-show="showButtons" ng-animate="'animate'">
+								<a href="#" class="deactivate"></a>
+							</div>
+							<div ng-class="{teaMember: team.type=='user', team: team.type=='team'}">
 								<!-- show if is a user -->
 								<h5 class="txtAdjust" ng-show="'{{team.type}}'=='user'">{{team.full_name}}</h5>
 								<p class="small txtAdjust" ng-show="'{{team.type}}'=='user'">{{team.role_name}}</p>
@@ -22,11 +24,7 @@
 								<h5 class="txtAdjust" ng-show="'{{team.type}}'=='team'">{{team.name}}</h5>
 								<p class="small txtAdjust" ng-show="'{{team.type}}'=='team'">{{team.description}}</p>
 							</div>
-							<div class="col-xs-2 second deletepanel" ng-show="showButtons" ng-animate="{enter: 'animate-show', leave: 'animate-hide'}">
-								<a href="#" class="deactivate"></a>
-							</div>
 						</div>
-					</div>
 				</a>
 			</li>
 		</ul>

@@ -8,7 +8,7 @@
     <ul>
       <li ng-repeat="item in navigationItems">
         <a href="{{item.link}}" class="{{item.class}}">{{item.label}}</a>
-      </li>
+      </li> 
     </ul>
     <ul class="navbar-fixed-bottom">
       <li ng-repeat="action in actionItems">
@@ -20,16 +20,28 @@
 <snap-content snap-options="snapOptions" data-snap-ignore="true">
   <!-- Default header -->
   <div class="navHeader" ng-show="!UserInterface.searching">
-    <button snap-toggle class="noButton menuIcon pull-left"></button>
-    <h1 class="txtAdjust">{{UserInterface.title}}</h1>
-    <button class="noButton magnifierIcon pull-right" 
+    <div class="left">
+      <button snap-toggle class="noButton menuIcon pull-left"></button>
+      <button snap-toggle class="noButton delete pull-left hidden"></button>
+      <button snap-toggle class="noButton backIcon pull-left hidden"></button>
+    </div>
+    <div class="center">
+      <h1 class="txtAdjust">{{UserInterface.title}}</h1>
+    </div>
+    <div class="right">
+      <button class="noButton magnifierIcon out pull-right hidden"
             ng-show="UserInterface.hasMagnifierIcon"
             ng-swipe-left="UserInterface.searching=true">
-    </button>
-    <button class="noButton addIcon pull-right" ng-click="gotToState(UserInterface.AddIconState)" ng-animate=" ' animate' " ng-show="UserInterface.hasAddIcon"></button>
+      </button>
+      <button class="noButton addIcon pull-right hidden" ng-click="gotToState(UserInterface.AddIconState)" ng-animate=" ' animate' " ng-show="UserInterface.hasAddIcon"></button>
+      <button class="btn btn-danger">Save</button>
+      <button class="btn btn-cancel hidden">Cancel</button>
+    </div>
   </div>
+
   <!-- Search header -->
-  <div class="navHeader" ng-show="UserIterface.searching" ng-swipe-left="UserInterface.searching=false">
+
+    <div class="navHeader" ng-show="UserIterface.searching" ng-swipe-left="UserInterface.searching=false">
     <button snap-toggle class="noButton backIcon"></button>
     <input class="search" type="text">
   </div>
