@@ -356,6 +356,8 @@ angular.module('brandscopicApp.controllers', [])
       , eventContacts = new EventsRestClient.getEventContactsById(authToken, companyId, eventId)
       , promiseContacts = eventContacts.getEventContactsById().$promise
       , ui = {}
+      
+    $scope.showButtons = false
 
     promiseEvent.then(function(response) {
      if (response.status == 200) {
