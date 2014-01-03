@@ -12,34 +12,22 @@
 		<ul class="eventsPeople">
 			<li ng-repeat="team in eventTeamItems">
 				<a href="#/home/events/{{eventId}}/people">
-					<div class="row">
-						<div class="col-xs-12 teaMember">
-							<h5 class="txtAdjust">{{team.full_name}}</h5>
-							<p class="small txtAdjust">{{team.role_name}}</p>
+					<div class="row" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false">
+						<div class="col-xs-12" ng-class="{teaMember: team.type=='user', team: team.type=='team'}">
+							<!-- show if is a user -->
+							<h5 class="txtAdjust" ng-show="'{{team.type}}'=='user'">{{team.full_name}}</h5>
+							<p class="small txtAdjust" ng-show="'{{team.type}}'=='user'">{{team.role_name}}</p>
+							<!-- show if is a team -->
+							<h5 class="txtAdjust" ng-show="'{{team.type}}'=='team'">{{team.name}}</h5>
+							<p class="small txtAdjust" ng-show="'{{team.type}}'=='team'">{{team.description}}</p>
+						</div>
+						<div class="col-xs-5 editpanel" ng-show="showButtons">
+							<a href="#" class="edit pull-left"></a>
+							<a href="#" class="deactivate pull-right"></a>
 						</div>
 					</div>
 				</a>
 			</li>
-<!-- 			<li>
-				<a href="#/home/events/{{eventId}}/people">
-					<div class="row">
-						<div class="col-xs-12 teaMember">
-							<h5 class="txtAdjust">George Tan</h5>
-							<p class="small txtAdjust">Field Manager</p>
-						</div>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="#/home/events/{{eventId}}/people">
-					<div class="row">
-						<div class="col-xs-12 team">
-							<h5 class="txtAdjust">Gan Francisco MBN Team</h5>
-							<p class="small txtAdjust">Top performers for San Francisco area</p>
-						</div>
-					</div>
-				</a>
-			</li> -->
 		</ul>
 	</div>
 
@@ -50,50 +38,21 @@
 			<li ng-repeat="contact in eventContactItems">
 				<a href="#/home/events/{{eventId}}/people/contacts/{{}}/edit">
 					<div class="row">
-						<div class="col-xs-12 teaMember">
-							<h5 class="txtAdjust">{{contact.full_name}}</h5>
-							<p class="small txtAdjust">{{contact.title}}</p>
+						<div class="col-xs-12" ng-class="{teaMember: contact.type=='user', team: contact.type=='contact'}">
+							<!-- show if is a contact -->
+							<h5 class="txtAdjust" ng-show="'{{contact.type}}'=='contact'">{{contact.full_name}}</h5>
+							<p class="small txtAdjust" ng-show="'{{contact.type}}'=='contact'">{{contact.title}}</p>
+							<!-- show if is a user -->
+							<h5 class="txtAdjust" ng-show="'{{contact.type}}'=='user'">{{contact.full_name}}</h5>
+							<p class="small txtAdjust" ng-show="'{{contact.type}}'=='user'">{{contact.role_name}}</p>
 						</div>
 						<!-- <div class="col-xs-5 editpanel">
 							<a href="#" class="edit pull-left"></a>
 							<a href="#" class="deactivate pull-right"></a>
-						</div> -->					</div>
-				</a>
-			</li>
-<!-- 			<li>
-				<a href="#/home/events/{{eventId}}/people/contacts/2/edit">
-					<div class="row">
-						<div class="col-xs-12 teaMember">
-							<h5 class="txtAdjust">Susan Jones</h5>
-							<p class="small txtAdjust">Bar Manager</p>
-						</div>
-						<!-- <div class="col-xs-5 editpanel">
-							<a href="#" class="edit pull-left"></a>
-							<a href="#" class="deactivate pull-right"></a>
-						</div> -->
-<!--					</div>
-				</a>
-			</li>
-			<li>
-				<a href="#/home/events/{{eventId}}/people/contacts/3/edit">
-					<div class="row">
-						<div class="col-xs-12 teaMember">
-							<h5 class="txtAdjust">Frank Miles</h5>
-							<p class="small txtAdjust">Venue Owner</p>
-						</div>
+						</div> -->					
 					</div>
 				</a>
 			</li>
-			<li>
-				<a href="#/home/events/{{eventId}}/people/contacts/4/edit">
-					<div class="row">
-						<div class="col-xs-12 teaMember">
-							<h5 class="txtAdjust">Samantha Stephens</h5>
-							<p class="small txtAdjust">Restaurant Manager</p>
-						</div>
-					</div>
-				</a>
-			</li> -->
 		</ul>
 	</div>
 </div>

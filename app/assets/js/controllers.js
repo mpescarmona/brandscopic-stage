@@ -350,12 +350,14 @@ angular.module('brandscopicApp.controllers', [])
       , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
       , promiseEvent = currentEvent.getEventById().$promise
       , eventTeamData = []
-      , eventTeam = new EventsRestClient.getEventTeamsById(authToken, companyId, eventId)
-      , promiseTeam = eventTeam.getEventTeamsById().$promise
+      , eventTeam = new EventsRestClient.getEventMembersById(authToken, companyId, eventId)
+      , promiseTeam = eventTeam.getEventMembersById().$promise
       , eventContactsData = []
       , eventContacts = new EventsRestClient.getEventContactsById(authToken, companyId, eventId)
       , promiseContacts = eventContacts.getEventContactsById().$promise
       , ui = {}
+      
+    $scope.showButtons = false
 
     promiseEvent.then(function(response) {
      if (response.status == 200) {
