@@ -185,6 +185,13 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.events.details.photos.slider', {
+      url: "/slider",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_photos_slider.html",
+                              controller: 'EventsPhotoSliderController'
+                            }
+            }
+    })
     .state('home.events.details.expenses', {
       url: "/expenses",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses.html",
