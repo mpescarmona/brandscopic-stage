@@ -80,6 +80,13 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.events.details.edit', {
+      url: "/edit",
+      views:{'details@home':{ templateUrl: "partials/events_add.html",
+                              controller: 'EventsEditController'
+                            }
+            }
+    })
     .state('home.events.details.about', {
       url: "/about",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_about.html",

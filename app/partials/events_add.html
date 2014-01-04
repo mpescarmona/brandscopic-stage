@@ -7,7 +7,9 @@
 		  	<label>Campaign name</label>
 		  </div>
 		  <div class="col-xs-12">
-		  	<input type="text">
+			<select class="form-control">
+				<option value="{{event.campaign.id}}">{{event.campaign.name}}</option>
+			</select>
 		  </div>
 		</div>
 		<div class="row eventDate">
@@ -15,13 +17,13 @@
 		  	<label>Start</label>
 		  </div>
 		  <div class="col-xs-7">
-		  	<input type="text" class="event_start_date">
+		  	<input type="text" class="event_start_date" value="{{event.start_date}}">
 		  </div>
 		  <div class="col-xs-1 centerTxt m10">
 		  	at
 		  </div>
 		  <div class="col-xs-4">
-		  	<input type="text">
+		  	<input type="text"value="{{event.start_time}}">
 		  </div>
 		</div>
 		<div class="row eventDate">
@@ -29,13 +31,13 @@
 		  	<label>End</label>
 		  </div>
 		  <div class="col-xs-7">
-		  	<input type="text" class="event_end_date">
+		  	<input type="text" class="event_end_date"value="{{event.end_date}}">
 		  </div>
 		  <div class="col-xs-1 centerTxt m10">
 		  	at
 		  </div>
 		  <div class="col-xs-4">
-		  	<input type="text">
+		  	<input type="text"value="{{event.end_time}}">
 		  </div>
 		</div>
 		<div class="row">
@@ -43,8 +45,21 @@
 		  	<label>Place</label>
 		  </div>
 		  <div class="col-xs-12">
-		  	<input type="text">
+		  	<!-- <input type="text"> -->
+			<select class="form-control">
+				<option value="{{event.place.id}}">{{event.place.name}}</option>
+			</select>
 		  </div>
 		</div>
+
+		<div class="row">
+		  <div class="col-xs-12 mt20">
+		  	<label>Save</label>
+		  </div>
+		  <div class="col-xs-12">
+	          <button class="btn btn-danger" ng-click="updateEvent(event)">Save</button>
+		  </div>
+		</div>
+
 	</div>
 </div>

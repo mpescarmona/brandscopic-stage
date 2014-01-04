@@ -3,7 +3,7 @@
 <div class="container" ng-repeat="results in eventResultsItems | orderBy:['ordering']">
 	<div class="category">
 		<h6>{{results.name}}</h6>
-		<p class="small">Aproximate percent of atendees who are male or female.</p>
+		<p class="small">{{results.description}}</p>
 
 		<div class="clearfix m25" ng-repeat="segment in results.segments" id="{{segment.id}}">
 			<div class="input-group">

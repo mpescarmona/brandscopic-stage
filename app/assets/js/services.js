@@ -38,6 +38,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.AddIconState = "";
   this.eventSubNav = "";
   this.venueSubNav = "";
+  this.actionSave = "";  
 })
 
 .service('SessionRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
@@ -213,6 +214,42 @@ angular.module('brandscopicApp.services', ['ngResource'])
                                                     return data;
                                                 }
                                               },
+                                transformResponse: function(data, header) {
+                                  var wrapped = angular.fromJson(data);
+                                  angular.forEach(wrapped.items, function(item, idx) {
+                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
+                                  });
+                                  return wrapped;
+                                }
+                              }
+                        });
+  };
+  
+  this.updateEvent = function(authToken, companyId, evt) {
+    return $resource( ApiParams.baseUrl + '/events/' + evt.id,
+                        {event: evt},
+                        // should do a GET call to /events/:eventId
+                        {updateEvent:{ method: 'PUT',
+                                headers: {'Accept': 'application/json',
+                                          'Content-Type': 'application/x-www-form-urlencoded'},
+                                params: {auth_token: authToken, company_id: companyId},
+
+                                interceptor: {
+                                                response: function (data) {
+                                                    console.log('response in interceptor', data);
+                                                    return data;
+                                                },
+                                                responseError: function (data) {
+                                                    console.log('error in interceptor', data);
+                                                    return data;
+                                                }
+                                              },
+                                // transformRequest: function (data, header) {
+                                //     console.log('data in transformRequest', data);
+                                //     console.log('header in transformRequest', header);
+                                //     var result = JSON.stringify(data);
+                                //     return result;
+                                // },
                                 transformResponse: function(data, header) {
                                   var wrapped = angular.fromJson(data);
                                   angular.forEach(wrapped.items, function(item, idx) {
