@@ -12,7 +12,7 @@ angular.module('brandscopicApp.controllers', [])
 
     $scope.wrongUser = null;
     $scope.validateApiUser = function() {
-      var 
+      var
           session = new SessionRestClient.login($scope.user.email, $scope.user.password)
         , promise = session.login().$promise
 
@@ -40,7 +40,7 @@ angular.module('brandscopicApp.controllers', [])
         UserService.currentUser.email = "";
       });
     };
-    
+
     $scope.forgotPassword = function(email) {
       var
           session = new SessionRestClient.forgotPassword(email)
@@ -94,7 +94,7 @@ angular.module('brandscopicApp.controllers', [])
 
       promise.then(function(response) {
         if (response.status == 200) {
-          UserService.currentUser.auth_token = ""; 
+          UserService.currentUser.auth_token = "";
           UserService.currentUser.isLogged = false;
           UserService.currentUser.email = "";
           $state.go('login');
@@ -137,7 +137,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close();
 
-    var 
+    var
         ui = {title: 'Dashboard', hasMagnifierIcon: false, hasAddIcon: false, searching: false}
 
     // Options for User Interface in home partial
@@ -178,7 +178,7 @@ angular.module('brandscopicApp.controllers', [])
     // };
     // $scope.eventsGroups = eventGroups;
 
-    var 
+    var
         ui = {title: 'Events', hasMagnifierIcon: true, hasAddIcon: true, searching: false, AddIconState: "home.events.add"}
       , statusList = []
       , authToken = UserService.currentUser.auth_token
@@ -260,7 +260,7 @@ angular.module('brandscopicApp.controllers', [])
 
     snapRemote.close()
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -299,7 +299,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -342,7 +342,7 @@ angular.module('brandscopicApp.controllers', [])
       return;
     };
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -356,8 +356,7 @@ angular.module('brandscopicApp.controllers', [])
       , eventContacts = new EventsRestClient.getEventContactsById(authToken, companyId, eventId)
       , promiseContacts = eventContacts.getEventContactsById().$promise
       , ui = {}
-      
-    $scope.showButtons = false
+
 
     promiseEvent.then(function(response) {
      if (response.status == 200) {
@@ -435,7 +434,7 @@ angular.module('brandscopicApp.controllers', [])
     //   return;
     // };
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -475,7 +474,7 @@ angular.module('brandscopicApp.controllers', [])
           });
 
 
-          
+
           // $scope.showPeople = ($scope.showPeople == "") ? "team" : $scope.showPeople;
           $scope.showPeople = "team";
 
@@ -519,7 +518,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -579,7 +578,7 @@ angular.module('brandscopicApp.controllers', [])
       return;
     };
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -636,7 +635,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -723,7 +722,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -768,7 +767,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -813,7 +812,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -909,7 +908,7 @@ angular.module('brandscopicApp.controllers', [])
       return;
     };
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -947,7 +946,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close()
 
-    var 
+    var
         ui = {title: "Expense", hasMagnifierIcon: false, hasAddIcon: false, searching: false, eventSubNav: "expenses", AddIconState: ""}
 
     // Options for User Interface in home partial
@@ -1031,7 +1030,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close();
 
-    var 
+    var
         ui = {title: 'Venues', hasMagnifierIcon: true, hasAddIcon: true, searching: false, AddIconState: "home.venues.add"}
       , venuesList = []
       , authToken = UserService.currentUser.auth_token
@@ -1082,7 +1081,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close();
 
-    var 
+    var
         eventData = []
       , token = UserService.currentUser.auth_token
       , venueId = $stateParams.venueId
@@ -1101,7 +1100,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close();
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , venueId = $stateParams.venueId
@@ -1119,7 +1118,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close();
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , venueId = $stateParams.venueId
@@ -1137,7 +1136,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close();
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , venueId = $stateParams.venueId
@@ -1155,7 +1154,7 @@ angular.module('brandscopicApp.controllers', [])
     }
     snapRemote.close();
 
-    var 
+    var
         eventData = []
       , authToken = UserService.currentUser.auth_token
       , venueId = $stateParams.venueId
@@ -1175,7 +1174,7 @@ angular.module('brandscopicApp.controllers', [])
 
     $scope.currentCompany = CompanyService.currentCompany;
 
-    var 
+    var
         companyData = []
       , authToken = UserService.currentUser.auth_token
       , companies = new CompaniesRestClient.getCompanies(authToken)
@@ -1210,4 +1209,4 @@ angular.module('brandscopicApp.controllers', [])
       return;
     };
   }]);
-        
+
