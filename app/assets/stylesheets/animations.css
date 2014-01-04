@@ -1,13 +1,33 @@
-.action-buttons {
-  -webkit-transition:all linear 0.5s;
-  -moz-transition:all linear 0.5s;
-  -o-transition:all linear 0.5s;
-  transition:all linear 0.5s;
-  display:block!important;
-  margin-right: 0px;
+.single-button.pushed{
+  margin-left: -70px;
+  display: block;
 }
 
-.action-buttons.ng-hide {
-  margin-right: -70px;
+.action-buttons {
+  -webkit-transition:all linear 0.1s;
+  -moz-transition:all linear 0.1s;
+  -o-transition:all linear 0.1s;
+  transition:all linear 0.1s;
   display:block!important;
 }
+.action-buttons.ng-hide {
+  display: block !important;
+}
+
+.single-button-pannel.action-buttons{
+  margin-right: 0;
+  float: right;
+}
+.single-button-pannel.action-buttons.ng-hide{
+  margin-right: -70px;
+}
+
+.single-button.action-buttons{
+  margin-left: 0;
+  float: left;
+}
+.single-button.action-buttons.pushed{
+  margin-left: -70px;
+  display: block !important;
+}
+
