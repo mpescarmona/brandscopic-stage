@@ -161,23 +161,6 @@ angular.module('brandscopicApp.controllers', [])
     // Options for User Interface in home partial
     $scope.UserInterface = UserInterface;
 
-    // $scope.eventsItems = EventsRestClient.getEventsMocked();
-    // var eventList = $scope.eventsItems;
-    // var eventGroups = [];
-    // for (var i = 0, item, found; item = eventList[i++];) {
-    //   found = false;
-    //   for(var j = 0, group; group = eventGroups[j];) {
-    //     if (item.start_date == group) {
-    //       found = true;
-    //       break;
-    //     }
-    //   }
-    //   if (!found) {
-    //     eventGroups.push(item.start_date);
-    //   }
-    // };
-    // $scope.eventsGroups = eventGroups;
-
     var 
         ui = {title: 'Events', hasMagnifierIcon: true, hasAddIcon: true, searching: false, AddIconState: "home.events.add"}
       , statusList = []
@@ -212,7 +195,7 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
-  .controller('EventsAboutController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
+  .controller('EventsAboutController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -269,6 +252,12 @@ angular.module('brandscopicApp.controllers', [])
       , promise = currentEvent.getEventById().$promise
       , ui = {}
 
+    $scope.editUrl = "#/home/events/" + eventId + "/edit";
+    $scope.gotToUrl = function(newUrl) {
+      $window.location.href = newUrl;
+      return;
+    };
+
     promise.then(function(response) {
      if (response.status == 200) {
       if (response.data != null) {
@@ -277,6 +266,44 @@ angular.module('brandscopicApp.controllers', [])
 
           // Options for User Interface in home partial
           ui = {title: eventData.campaign.name, hasMagnifierIcon: true, hasAddIcon: true, searching: false, eventSubNav: "about"};
+          angular.extend(UserInterface, ui);
+          $scope.UserInterface = UserInterface;
+          return;
+      }
+     } else {
+        $scope.eventsItems = {};
+     }
+    });
+    promise.catch(function(response) {
+      $scope.eventsItems = {};
+    });
+  }])
+
+
+  .controller('EventsEditController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close();
+
+    var 
+        eventData = []
+      , authToken = UserService.currentUser.auth_token
+      , companyId = CompanyService.getCompanyId()
+      , eventId = $stateParams.eventId
+      , currentEvent = new EventsRestClient.getEventById(authToken, companyId, eventId)
+      , promise = currentEvent.getEventById().$promise
+      , ui = {}
+
+    promise.then(function(response) {
+     if (response.status == 200) {
+      if (response.data != null) {
+          eventData = response.data;
+          $scope.event = eventData;
+
+          // Options for User Interface in home partial
+          ui = {title: eventData.campaign.name, hasMagnifierIcon: true, hasAddIcon: true, searching: false, actionSave: 'updateEvent(' + $scope.event + ')'};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -290,7 +317,41 @@ angular.module('brandscopicApp.controllers', [])
     promise.catch(function(response) {
       $scope.eventsItems = {};
     });
+
+    $scope.updateEvent = function(evt) {
+      var
+          updatedEvent = new EventsRestClient.updateEvent(authToken, companyId, evt)
+        , promiseSaved = updatedEvent.updateEvent().$promise
+
+      promiseSaved.then(function(response) {
+       if (response.status == 200) {
+        if (response.data != null) {
+            eventData = response.data;
+            $scope.updatedEvent = eventData;
+
+            // Options for User Interface in home partial
+            // ui = {title: eventData.campaign.name, hasMagnifierIcon: true, hasAddIcon: true, searching: false, actionSave: 'updateEvent(event)'};
+            // angular.extend(UserInterface, ui);
+            // $scope.UserInterface = UserInterface;
+
+            // $scope.eventId = $stateParams.eventId;
+            return;
+        }
+       } else {
+          // $scope.eventsItems = {};
+       }
+      });
+      promiseSaved.catch(function(response) {
+        // $scope.eventsItems = {};
+      });
+
+    }
+
+    // Options for User Interface in home partial
+    // angular.extend(UserInterface, ui);
+    // $scope.UserInterface = UserInterface;
   }])
+
 
   .controller('EventsDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
@@ -1003,6 +1064,21 @@ angular.module('brandscopicApp.controllers', [])
 
     var
         ui = { title: 'Event', hasMagnifierIcon: false, hasAddIcon: false, searching: false}
+
+    // Options for User Interface in home partial
+    angular.extend(UserInterface, ui);
+    $scope.UserInterface = UserInterface;
+  }])
+
+  .controller('TasksController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close();
+
+    var
+        ui = { title: 'Tasks', hasMagnifierIcon: false, hasAddIcon: false, searching: false}
 
     // Options for User Interface in home partial
     angular.extend(UserInterface, ui);
