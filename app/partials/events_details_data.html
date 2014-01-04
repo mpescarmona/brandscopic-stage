@@ -7,7 +7,7 @@
 		<textarea rows="5" cols="30" placeholder="Write a summary"></textarea><br />
 		</textarea>
 	</div>
-	
+
 	<div class="dividersBar big">CONSUMER REACH</div>
 	<div class="box-container events">
 		<label>Impressions (optional)</label>
@@ -19,8 +19,8 @@
 	</div>
 
 	<div class="dividersBar big">DEMOGRAPHICS</div>
-	<div class="box-container events data" ng-repeat="results in eventResultsItems | orderBy:['ordering']">
-		<div class="category">
+	<div class="box-container events data">
+		<div class="category" ng-repeat="results in eventResultsItems | orderBy:['ordering']">
 			<h6>{{results.name}}</h6>
 			<p class="small">Aproximate percent of atendees who are male or female.</p>
 
