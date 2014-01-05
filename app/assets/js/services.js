@@ -13,7 +13,8 @@ angular.module('brandscopicApp.services', ['ngResource'])
 	this.currentUser = {
 		isLogged: false,
 		email: '',
-		auth_token: ''
+		auth_token: '',
+    current_company_id: 0
 	};
 	this.isLogged = function() {
 		return this.currentUser.isLogged;
@@ -228,10 +229,12 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.updateEvent = function(authToken, companyId, evt) {
     return $resource( ApiParams.baseUrl + '/events/' + evt.id,
                         {event: evt},
-                        // should do a GET call to /events/:eventId
+                        // should do a PUT call to /events/:eventId
                         {updateEvent:{ method: 'PUT',
-                                headers: {'Accept': 'application/json',
-                                          'Content-Type': 'application/x-www-form-urlencoded'},
+                                headers: {'Accept': 'application/json'
+                                          // , 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                                          // , 'Content-Type': undefined},
+                                         },
                                 params: {auth_token: authToken, company_id: companyId},
 
                                 interceptor: {
@@ -244,9 +247,17 @@ angular.module('brandscopicApp.services', ['ngResource'])
                                                     return data;
                                                 }
                                               },
-                                // transformRequest: function (data, header) {
+
+                                // transformRequest: function(obj) {
+                                //   var str = [];
+                                //   for(var p in obj)
+                                //     str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                                //   return str.join("&");
+                                // },
+
+                                // transformRequest: function (data, headerGetter) {
                                 //     console.log('data in transformRequest', data);
-                                //     console.log('header in transformRequest', header);
+                                //     console.log('header in transformRequest', headerGetter);
                                 //     var result = JSON.stringify(data);
                                 //     return result;
                                 // },

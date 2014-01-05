@@ -7,22 +7,47 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserService = UserService;
   }])
 
-  .controller('LoginController', ['$scope', '$state', 'UserService', 'SessionRestClient', function($scope, $state, UserService, SessionRestClient) {
+  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
     $scope.user = {'email': '', 'password': ''};
 
     $scope.wrongUser = null;
     $scope.validateApiUser = function() {
       var
           session = new SessionRestClient.login($scope.user.email, $scope.user.password)
-        , promise = session.login().$promise
+        , promiseLogin = session.login().$promise
+        , companyData = []
+        , authToken = UserService.currentUser.auth_token
+        , companies = null
+        , promiseCompanies = null
 
-      promise.then(function(response) {
+      promiseLogin.then(function(response) {
        if (response.status == 200) {
         if (response.data.success == true) {
             $scope.wrongUser = false;
             UserService.currentUser.auth_token = response.data.data.auth_token;
             UserService.currentUser.isLogged = true;
             UserService.currentUser.email = $scope.user.email;
+            UserService.currentUser.current_company_id = response.data.data.current_company_id;
+
+            companies = new CompaniesRestClient.getCompanies(UserService.currentUser.auth_token)
+            promiseCompanies = companies.getCompanies().$promise
+
+            promiseCompanies.then(function(responseCompanies) {
+             if (responseCompanies.status == 200) {
+              if (responseCompanies.data != null) {
+                  companyData = responseCompanies.data;
+
+                  for (var i = 0, company; company = companyData[i++];) {
+                    if (company.id == UserService.currentUser.current_company_id) {
+                      CompanyService.currentCompany.id = company.id;
+                      CompanyService.currentCompany.name = company.name;
+                      break;
+                    }
+                  };
+                  return;
+              }
+             }
+            });
             $state.go('home.dashboard');
             return;
         }
@@ -33,7 +58,7 @@ angular.module('brandscopicApp.controllers', [])
           UserService.currentUser.email = "";
        }
       });
-      promise.catch(function(response) {
+      promiseLogin.catch(function(response) {
         $scope.wrongUser = true;
         UserService.currentUser.auth_token = "";
         UserService.currentUser.isLogged = false;
