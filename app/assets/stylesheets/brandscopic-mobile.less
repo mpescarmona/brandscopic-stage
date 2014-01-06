@@ -845,7 +845,7 @@ button{
 	font-weight: 400;
 }
 
-input[type="text"], input[type="email"], input[type="password"]{
+input[type="text"], input[type="search"], input[type="date"], input[type="time"], input[type="email"], input[type="password"]{
 	border: 1px solid @lightGrey;
 	.border-top-radius(6px);
 	.border-bottom-radius(6px);
@@ -872,7 +872,7 @@ input[type="text"], input[type="email"], input[type="password"]{
 	}
 	&.event_start_date, &.event_end_date{
 		background: url('../images/calendar.svg') no-repeat left !important;
-		text-align: right;
+		text-align: right !important;
 	}
 }
 
