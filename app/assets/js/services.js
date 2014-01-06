@@ -35,6 +35,11 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.Title = "";
   this.hasMagnifierIcon = false;
   this.hasAddIcon = false;
+  this.hasSaveIcon = false;
+  this.hasCancelIcon = false;
+  this.hasMenuIcon = true;
+  this.hasDeleteIcon = false;
+  this.hasBackIcon = false;
   this.searching = false;
   this.AddIconState = "";
   this.eventSubNav = "";
