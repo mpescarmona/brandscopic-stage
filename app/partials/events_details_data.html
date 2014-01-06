@@ -2,7 +2,7 @@
 
 <div class="container">
 
-	<div class="dividersBar big">SUMMARY</div>
+<!-- 	<div class="dividersBar big">SUMMARY</div>
 	<div class="box-container">
 		<textarea rows="5" cols="30" placeholder="Write a summary"></textarea><br />
 		</textarea>
@@ -16,30 +16,26 @@
 		<input type="text"></input>
 		<label># Consumer sampled</label>
 		<input type="text"></input>
-	</div>
+	</div> -->
 
 	<div class="dividersBar big">DEMOGRAPHICS</div>
 	<div class="box-container events data">
 		<div class="category" ng-repeat="results in eventResultsItems | orderBy:['ordering']">
 			<h6>{{results.name}}</h6>
-			<p class="small">Aproximate percent of atendees who are male or female.</p>
-
+			<p class="small">{{results.description}}</p>
 			<div class="clearfix m25" ng-repeat="segment in results.segments" id="{{segment.id}}">
 				<div class="input-group">
-		  		<input type="{{results.options.capture_mechanism}}" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'=='count'">
-		  		<input type="text" class="form-control" value="{{segment.value}}" ng-show="'{{results.field_type}}'!='count'">
-		  		<span class="input-group-addon" ng-show="'{{results.options.capture_mechanism}}'!='radio'">%</span>
+			  		<input type="{{results.options.capture_mechanism}}" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'=='count'">
+			  		<input type="text" class="form-control" value="{{segment.value}}" ng-show="'{{results.field_type}}'!='count'">
+			  		<span class="input-group-addon" ng-show="'{{results.options.capture_mechanism}}'!='radio'">%</span>
 				</div>
 				<label class="data">{{segment.text}}</label>
 			</div>
 
-			<div class="clearfix m25" ng-show="'{{results.field_type}}'!='count' || {{results.field_type}}'!='percentaje'" id="{{results.id}}">
+			<div class="clearfix m25" ng-show="'{{results.field_type}}'!='count' || '{{results.field_type}}'!='percentaje'" id="{{results.id}}">
 				<div class="input-group">
-
-		  		<input type="text" value="{{results.value}}" class="form-control">
-
-		  		<input type="text" class="form-control" ng-show="'{{results.field_type}}'!='count'">
-		  		<span class="input-group-addon">{{results.value}}</span>
+			  		<input type="text" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'!='count'">
+			  		<span class="input-group-addon">{{results.value}}</span>
 				</div>
 				<label class="data">{{results.text}}</label>
 			</div>
@@ -78,7 +74,7 @@
 				</div>
 				<label class="data">Male</label>
 			</div>
-			
+
 			<div class="clearfix m25">
 				<div class="input-group">
 		  		<input type="text" class="form-control">
@@ -155,7 +151,7 @@
 				</div>
 				<label class="data">25 - 34</label>
 			</div>
-			
+
 			<div class="clearfix m25">
 				<div class="input-group">
 		  		<input type="text" class="form-control">

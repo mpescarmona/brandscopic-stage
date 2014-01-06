@@ -21,21 +21,21 @@
   <!-- Default header -->
   <div class="navHeader" ng-show="!UserInterface.searching">
     <div class="left">
-      <button snap-toggle class="noButton menuIcon pull-left"></button>
-      <button snap-toggle class="noButton delete pull-left hidden"></button>
-      <button snap-toggle class="noButton backIcon pull-left hidden"></button>
+      <button snap-toggle class="noButton menuIcon pull-left" ng-show="UserInterface.hasMenuIcon"></button>
+      <button snap-toggle class="noButton delete pull-left" ng-show="UserInterface.hasDeleteIcon"></button>
+      <button snap-toggle class="noButton backIcon pull-left" ng-show="UserInterface.hasBackIcon"></button>
     </div>
     <div class="center">
       <h1 class="txtAdjust">{{UserInterface.title}}</h1>
     </div>
     <div class="right">
-      <button class="noButton magnifierIcon out pull-right hidden"
+      <button class="noButton magnifierIcon out pull-right"
             ng-show="UserInterface.hasMagnifierIcon"
             ng-swipe-left="UserInterface.searching=true">
       </button>
-      <button class="noButton addIcon pull-right hidden" ng-click="gotToState(UserInterface.AddIconState)" ng-animate=" ' animate' " ng-show="UserInterface.hasAddIcon"></button>
-      <button class="btn btn-danger">Save</button>
-      <button class="btn btn-cancel hidden">Cancel</button>
+      <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon" ng-click="gotToState(UserInterface.AddIconState)" ng-animate=" ' animate' "></button>
+      <button class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" ng-click="UserInterface.actionSave">Save</button>
+      <button class="btn btn-cancel" ng-show="UserInterface.hasCancelIcon">Cancel</button>
     </div>
   </div>
 
