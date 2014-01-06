@@ -872,8 +872,15 @@ input[type="text"], input[type="search"], input[type="date"], input[type="time"]
 	}
 	&.event_start_date, &.event_end_date{
 		background: url('../images/calendar.svg') no-repeat left !important;
+		box-sizing: border-box;
 		text-align: right !important;
+		padding-left: 90px;
 	}
+}
+
+input[type="time"]{
+	box-sizing:border-box;
+	padding-left:42px;
 }
 
 .input-group{
@@ -1302,7 +1309,6 @@ select option[default] {
 .animate-leave.animate-leave-active{
     left: -100%;
 }
-
 
 
 
