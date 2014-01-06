@@ -21,7 +21,7 @@
 				<a href="#/home/events/{{event1.id}}/about">
 					<div class="row" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" > 
 						<!--approved: event_status=='Approved'-->
-						<div ng-class="{pushed: showButtons}" class="action-buttons single-button">
+						<div ng-class="{pushed: showButtons}" class="action-buttons dual-button">
 							<div class="col-xs-3 eventHour">
 								<p class="xs">{{event1.start_time}}</p>
 								<p class="xs">{{event1.end_time}}</p>
@@ -31,7 +31,7 @@
 									<p class="medium txtAdjust second">{{event1.place.name}}, {{event1.place.city}}, {{event1.place.state}}</p>
 							</div>
 						</div>
-						<div class="editpanel action-buttons single-button-pannel" ng-show="showButtons" ng-animate="'animate'">
+						<div class="editpanel action-buttons dual-button-pannel" ng-show="showButtons" ng-animate="'animate'">
 						 	<a href="#" class="edit"></a>
 							<a href="#" class="deactivate"></a>
 						</div>

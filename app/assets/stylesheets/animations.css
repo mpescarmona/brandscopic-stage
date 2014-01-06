@@ -14,12 +14,11 @@
   display: block !important;
 }
 
+/*-- SINGLE PANEL STYLES --*/
+
 .single-button-pannel.action-buttons{
   margin-right: 0;
   float: right;
-}
-.single-button-pannel.action-buttons.editpanel.ng-hide{
-  margin-right: -102px;
 }
 
 .single-button-pannel.action-buttons.ng-hide{
@@ -33,6 +32,25 @@
 }
 .single-button.action-buttons.pushed{
   margin-left: -70px;
+  display: block !important;
+}
+
+/*-- BIGGER PANEL STYLES --*/
+
+.dual-button-pannel.action-buttons{
+  margin-right: 0;
+  float: right;
+}
+.dual-button-pannel.action-buttons.ng-hide{
+  margin-right: -102px;
+}
+.dual-button.action-buttons{
+  margin-left: 0;
+  float: left;
+  width: 90%;
+}
+.dual-button.action-buttons.pushed{
+  margin-left: -102px;
   display: block !important;
 }
 
