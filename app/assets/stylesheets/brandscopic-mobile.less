@@ -241,7 +241,7 @@ body{
 	  	li:last-child{
 	  		border-bottom: 0;
 	  	}
-			.team, .teaMember{
+			.team, .team_member{
 			  position: relative;
 			  padding-left: 50px;
 			  padding-top: 10px;
@@ -252,6 +252,9 @@ body{
 			  p{
 			  	margin: 0;
 			  }
+		  }
+		  &.add .row{
+		  	padding: 13px;
 		  }
 		}
 		&.list{
@@ -496,6 +499,15 @@ body{
 		}
 	}
 	&.surveys{
+		label.short{
+			float: left;
+			padding-right: 10px;
+			padding-top: 10px;
+			width: 33%;
+		}
+		select{
+			width: 67%;
+		}
 		p{
 			color: @brand;
 		}
@@ -845,7 +857,7 @@ button{
 	font-weight: 400;
 }
 
-input[type="text"], input[type="search"], input[type="date"], input[type="time"], input[type="email"], input[type="password"]{
+input[type="text"], input[type="number"], input[type="search"], input[type="date"], input[type="time"], input[type="email"], input[type="password"]{
 	border: 1px solid @lightGrey;
 	.border-top-radius(6px);
 	.border-bottom-radius(6px);
@@ -875,6 +887,9 @@ input[type="text"], input[type="search"], input[type="date"], input[type="time"]
 		box-sizing: border-box;
 		text-align: right !important;
 		padding-left: 90px;
+	}
+	&.short{
+		width: 60%;
 	}
 }
 
