@@ -1,16 +1,18 @@
 <!-- BIG PHOTO -->
 
 <div class="gallery_fullscreen">
-    <img ng-repeat="slide in slides" class="slide slide-animation"
-        ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
+<!-- <div class="container slider"> -->
+    <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage"
+         ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
 
-    <a class="arrow prev" href="#" ng-click="nextSlide()"></a>
-    <a class="arrow next" href="#" ng-click="prevSlide()"></a>
+    <a class="arrow prev" href="#home/events/{{eventId}}/photos/slider" ng-click="nextSlide()"></a>
+    <a class="arrow next" href="#home/events/{{eventId}}/photos/slider" ng-click="prevSlide()"></a>
     <nav class="nav">
         <div class="wrapper">
             <ul class="dots">
                 <li class="dot" ng-repeat="slide in slides">
-                    <a href="#" ng-class="{'active':isCurrentSlideIndex($index)}"
+                    <a href="#home/events/{{eventId}}/photos/slider" ng-class="{'active':isCurrentSlideIndex($index)}"
                       ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a></li>
             </ul>
         </div>
