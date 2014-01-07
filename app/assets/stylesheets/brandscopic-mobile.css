@@ -1580,6 +1580,9 @@ textarea {
 .loginLayout .forgot button {
   color: #989898;
 }
+.loginLayout .navHeader {
+  margin-top: 0;
+}
 .loginLayout .topLogin {
   background-color: #363636;
   box-sizing: border-box;
@@ -1773,7 +1776,4 @@ select option[default] {
 }
 .animate-leave.animate-leave-active {
   left: -100%;
-}
-.ho {
-  overflow: hidden;
 }

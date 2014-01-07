@@ -1,35 +1,27 @@
-<!-- BIG PHOTO -->
+<!-- BIG PHOTO --> 
 
 <div class="gallery_fullscreen">
 <!-- <div class="container slider"> -->
+  <div class="container slider">
     <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage"
          ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
          ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
-
-    <a class="arrow prev" href="#home/events/{{eventId}}/photos/slider" ng-click="nextSlide()"></a>
-    <a class="arrow next" href="#home/events/{{eventId}}/photos/slider" ng-click="prevSlide()"></a>
-    <nav class="nav">
-        <div class="wrapper">
-            <ul class="dots">
-                <li class="dot" ng-repeat="slide in slides">
-                    <a href="#home/events/{{eventId}}/photos/slider" ng-class="{'active':isCurrentSlideIndex($index)}"
-                      ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a></li>
-            </ul>
-        </div>
-    </nav>
-
-
-
-<!-- 	<img src="assets/images/party2.jpg">
-	<div class="container">
-		<div class="description">
-			<h5>Mama Walker's MBN FY14</h5>
-			<p class="middle">
-				Fox and Hound Pub & Grill<br>
-				505 University Drive, College State, TX, United States
-			</p>
-		</div>
-	</div>
-	<hr>
-	<a href="#" class="deactivate"></a> -->
+  </div>
+    <!--
+    <ul>
+      <li ng-repeat="slide in slides">
+        <a href="#home/events/{{eventId}}/photos/slider" ng-class="{'active':isCurrentSlideIndex($index)}"
+        ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a>
+      </li>
+    </ul>
+    -->
+  <div class="container description">
+    <h5>Mama Walker's MBN FY14</h5>
+    <p class="small mt5">
+      Fox and Hound Pub & Grill<br>
+      505 University Drive, College State, TX, United States
+    </p>
+    <hr>
+    <a href="#" class="deactivate"></a>
+  </div>
 </div>
