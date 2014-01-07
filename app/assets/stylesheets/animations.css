@@ -28,8 +28,11 @@
 .single-button.action-buttons{
   margin-left: 0;
   float: left;
-  width: 90%;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 15px;
 }
+
 .single-button.action-buttons.pushed{
   margin-left: -70px;
   display: block !important;
@@ -41,16 +44,23 @@
   margin-right: 0;
   float: right;
 }
+
 .dual-button-pannel.action-buttons.ng-hide{
   margin-right: -102px;
 }
+
 .dual-button.action-buttons{
   margin-left: 0;
-  float: left;
-  width: 90%;
 }
+
 .dual-button.action-buttons.pushed{
-  margin-left: -102px;
+  margin-left: -72px;
   display: block !important;
+}
+
+.fix-swipe{
+  overflow: hidden;
+  float: left;
+  margin-left: 6px;
 }
 
