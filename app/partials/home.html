@@ -36,6 +36,7 @@
       <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon" ng-click="gotToState(UserInterface.AddIconState)" ng-animate=" ' animate' "></button>
       <button class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" ng-click="UserInterface.actionSave">Save</button>
       <button class="btn btn-cancel" ng-show="UserInterface.hasCancelIcon">Cancel</button>
+      <button class="noButton delete" ng-show="UserInterface.hasCloseIcon" ng-click="gotToState(UserInterface.CloseState)"></button>
       <button class="btn btn-danger hidden">Post</button>
     </div>
   </div>
