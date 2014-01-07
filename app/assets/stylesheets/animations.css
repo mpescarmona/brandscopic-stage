@@ -54,13 +54,13 @@
 }
 
 .dual-button.action-buttons.pushed{
-  margin-left: -72px;
+  margin-left: -102px;
   display: block !important;
 }
 
 .fix-swipe{
   overflow: hidden;
   float: left;
-  margin-left: 6px;
+  margin-right: 6px;
 }
 
