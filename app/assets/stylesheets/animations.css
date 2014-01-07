@@ -1,66 +1,63 @@
-.single-button.pushed{
-  margin-left: -70px;
-  display: block;
+@singlebutton: 70px;
+@dualbutton: 100px;
+
+.swipe-list li{
+  overflow: hidden;
+}
+
+.row-content{
+  float: left;
+}
+.actions-panel{
+  float: right;
+}
+
+.single-button{
+  &.row{
+    width: ~"calc(100% + @{singlebutton})";
+  }
+  .row-content{
+    width: ~"calc(100% - @{singlebutton})";
+  }
+}
+.dual-button{
+  &.row{
+    width: ~"calc(100% + @{dualbutton})";
+  }
+  .row-content{
+    width: ~"calc(100% - @{dualbutton})";
+  }
 }
 
 .action-buttons {
-  -webkit-transition:all linear 0.1s;
-  -moz-transition:all linear 0.1s;
-  -o-transition:all linear 0.1s;
-  transition:all linear 0.1s;
+  -webkit-transition:margin linear 0.1s;
+  -moz-transition:margin linear 0.1s;
+  -o-transition:margin linear 0.1s;
+  transition:margin linear 0.1s;
   display:block!important;
 }
 .action-buttons.ng-hide {
   display: block !important;
 }
 
-/*-- SINGLE PANEL STYLES --*/
-
-.single-button-pannel.action-buttons{
-  margin-right: 0;
-  float: right;
-}
-
-.single-button-pannel.action-buttons.ng-hide{
-  margin-right: -70px;
-}
+/*-- SINGLE ACTION PANEL STYLES --*/
 
 .single-button.action-buttons{
-  margin-left: 0;
-  float: left;
-  width: 100%;
-  box-sizing: border-box;
-  padding-right: 15px;
+  margin-left: -@singlebutton !important;
 }
 
-.single-button.action-buttons.pushed{
-  margin-left: -70px;
-  display: block !important;
+.single-button.action-buttons.ng-hide{
+  margin-left: 0 !important;
 }
 
-/*-- BIGGER PANEL STYLES --*/
-
-.dual-button-pannel.action-buttons{
-  margin-right: 0;
-  float: right;
-}
-
-.dual-button-pannel.action-buttons.ng-hide{
-  margin-right: -102px;
-}
+/*-- TWO ACTIONS PANEL STYLES --*/
 
 .dual-button.action-buttons{
-  margin-left: 0;
+  margin-left: -@dualbutton !important;
 }
 
-.dual-button.action-buttons.pushed{
-  margin-left: -72px;
-  display: block !important;
+.dual-button.action-buttons.ng-hide{
+  margin-left: 0 !important;
 }
 
-.fix-swipe{
-  overflow: hidden;
-  float: left;
-  margin-left: 6px;
-}
 
