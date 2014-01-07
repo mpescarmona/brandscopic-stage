@@ -65,7 +65,7 @@
 }
 .navHeader h1 {
   color: white;
-  min-height: 1.1em;
+  min-height: 1.4em;
   text-align: center;
   font-size: 16px;
   display: block;
@@ -328,7 +328,7 @@ h6 {
 .saveicon:before,
 .tasksIcon:before,
 .team:before,
-.teaMember:before,
+.team_member:before,
 .time-data:before,
 .user-data:before,
 .venuesIcon:before {
@@ -354,7 +354,7 @@ h6 {
   content: "\e612";
 }
 .delete:before {
-  content: "\e614";
+  content: "\e611";
 }
 .edit:before {
   content: "\e60c";
@@ -390,12 +390,12 @@ h6 {
   content: "\e604";
 }
 .team:before {
-  content: "\e611";
+  content: "\e666";
 }
-.teaMember:before {
+.team_member:before {
   content: "\e606";
 }
-.teaMember:before,
+.team_member:before,
 .team:before {
   color: #c0c0c0;
   display: block;
@@ -762,19 +762,22 @@ body.appLayout .container {
   border-bottom: 0;
 }
 .box-container ul.eventsPeople .team,
-.box-container ul.eventsPeople .teaMember {
+.box-container ul.eventsPeople .team_member {
   position: relative;
   padding-left: 50px;
   padding-top: 10px;
   padding-right: 10px;
 }
 .box-container ul.eventsPeople .team h5,
-.box-container ul.eventsPeople .teaMember h5 {
+.box-container ul.eventsPeople .team_member h5 {
   line-height: 22px;
 }
 .box-container ul.eventsPeople .team p,
-.box-container ul.eventsPeople .teaMember p {
+.box-container ul.eventsPeople .team_member p {
   margin: 0;
+}
+.box-container ul.eventsPeople.add .row {
+  padding: 13px;
 }
 .box-container ul.list .row {
   margin: 3px 0 3px 2px;
@@ -868,6 +871,12 @@ body.appLayout .container {
   margin-left: 10px;
   text-align: center;
   width: 70px;
+}
+.editpanel {
+  padding: 13px 8px 13px 0;
+}
+.editpanel a {
+  margin: 0 7px;
 }
 /* -- EVENTS SECTION -- */
 .events .eventHour {
@@ -982,6 +991,15 @@ body.appLayout .container {
 }
 .events li h5 {
   margin-bottom: 2px;
+}
+.events.surveys label.short {
+  float: left;
+  padding-right: 10px;
+  padding-top: 10px;
+  width: 33%;
+}
+.events.surveys select {
+  width: 67%;
 }
 .events.surveys p {
   color: #989898;
@@ -1313,6 +1331,7 @@ button.noButton:hover {
   font-weight: 400;
 }
 input[type="text"],
+input[type="number"],
 input[type="search"],
 input[type="date"],
 input[type="time"],
@@ -1331,6 +1350,7 @@ input[type="password"] {
   -webkit-appearance: none;
 }
 input[type="text"].email,
+input[type="number"].email,
 input[type="search"].email,
 input[type="date"].email,
 input[type="time"].email,
@@ -1339,6 +1359,7 @@ input[type="password"].email {
   border: 0;
 }
 input[type="text"].email.not-rounded,
+input[type="number"].email.not-rounded,
 input[type="search"].email.not-rounded,
 input[type="date"].email.not-rounded,
 input[type="time"].email.not-rounded,
@@ -1352,6 +1373,7 @@ input[type="password"].email.not-rounded {
   margin-bottom: 0;
 }
 input[type="text"].password,
+input[type="number"].password,
 input[type="search"].password,
 input[type="date"].password,
 input[type="time"].password,
@@ -1365,12 +1387,14 @@ input[type="password"].password {
   margin-bottom: 10px;
 }
 input[type="text"].event_start_date,
+input[type="number"].event_start_date,
 input[type="search"].event_start_date,
 input[type="date"].event_start_date,
 input[type="time"].event_start_date,
 input[type="email"].event_start_date,
 input[type="password"].event_start_date,
 input[type="text"].event_end_date,
+input[type="number"].event_end_date,
 input[type="search"].event_end_date,
 input[type="date"].event_end_date,
 input[type="time"].event_end_date,
@@ -1379,11 +1403,16 @@ input[type="password"].event_end_date {
   background: url('../images/calendar.svg') no-repeat left !important;
   box-sizing: border-box;
   text-align: right !important;
-  padding-left: 90px;
+  padding-left: 30px;
 }
-input[type="time"] {
-  box-sizing: border-box;
-  padding-left: 42px;
+input[type="text"].short,
+input[type="number"].short,
+input[type="search"].short,
+input[type="date"].short,
+input[type="time"].short,
+input[type="email"].short,
+input[type="password"].short {
+  width: 60%;
 }
 .input-group {
   float: left;
@@ -1744,4 +1773,7 @@ select option[default] {
 }
 .animate-leave.animate-leave-active {
   left: -100%;
+}
+.ho {
+  overflow: hidden;
 }
