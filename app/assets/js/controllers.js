@@ -928,7 +928,27 @@ angular.module('brandscopicApp.controllers', [])
     });
   }])
 
-  .controller('EventsPhotoSliderController', ['$scope', '$stateParams', function ($scope, $stateParams) {
+  .controller('EventsPhotoSliderController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    var
+        eventData = []
+      , authToken = UserService.currentUser.auth_token
+      , companyId = CompanyService.getCompanyId()
+      , currentEvent = new EventsRestClient.getEventById(authToken, companyId, $stateParams.eventId)
+      , promise = currentEvent.getEventById().$promise
+      , ui = {}
+
+    // Options for User Interface in home partial
+    ui = {title: "", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: true, CloseState: "home.events.details.photos", searching: false, eventSubNav: "photos"};
+    angular.extend(UserInterface, ui);
+    $scope.UserInterface = UserInterface;
+
+
       $scope.eventId = $stateParams.eventId;
       $scope.slides = [
           {image: 'assets/images/img00.jpg', description: 'Image 00'},
