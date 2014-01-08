@@ -167,38 +167,7 @@ body{
 			}
 			.row{
 				height: 100%;
-				/*
-				.swipe{
-					height: 60px;
-					width: 120%;
-					div {
-						height: 60px;
-						&.first{
-							padding-top: 12px;
-							padding-right: 10px;
-							box-sizing:border-box;
-							display: block;
-							overflow: hidden;
-							text-overflow: ellipsis;
-							white-space: nowrap;
-						}
-						&.second{
-							display: inline-block;
-							float: right;
-							width: 60px;
-						}
-					}
-
-					.second{
-						-webkit-transition: all 1s ease;
-						-moz-transition: all 1s ease;
-						-o-transition: all 1s ease;
-						-ms-transition: all 1s ease;
-						transition: all 1s ease;
-						left: 0;
-					}
-					*/
-				}
+			}
 			&.lastItem, &:last-child{
 				border-bottom: 0;
 			}
@@ -363,6 +332,7 @@ body{
 
 .editpanel{
 	padding: 13px 8px 13px 0;
+	width: 99px;
 	a{
 		margin: 0 7px;
 	}
@@ -449,26 +419,24 @@ body{
 				&:last-child{
 					border-bottom: 0;
 				}
-				img{
-					float: left;
-					margin: 0px 10px 0 0;
-					height: 58px;
-					width: 54px;
+				.title p{
+					line-height: 52px;
 				}
-				.row{
-					margin: 4px 14px 4px 4px;
-					.title{
-						line-height: 59px;
+				.expense-price{
+					font-size: 14px;
+					padding-top: 6px;
+					padding-right: 14px;
+					text-align: right;
+					.blue{
+						font-size: 17px;
 					}
 				}
-			}
-		}
-		.expense-price{
-			font-size: 14px;
-			padding-top: 10px;
-			text-align: right;
-			.blue{
-				font-size: 17px;
+				img{
+					float: left;
+					margin: 1px 10px 0 5px;
+					height: 52px;
+					width: 50px;
+				}
 			}
 		}
 		.total-price{
