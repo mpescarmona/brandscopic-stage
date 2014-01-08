@@ -334,7 +334,7 @@ body{
 	padding: 13px 8px 13px 0;
 	width: 99px;
 	a{
-		margin: 0 7px;
+		margin: 0 7px 0 6px
 	}
 }
 
@@ -491,6 +491,19 @@ body{
 		.input-group{
 			input[type="text"]{
 				border-left: 0;
+			}
+		}
+	}
+	&.tasks{
+		.row-content{
+			div{
+				&:first-of-type{
+					padding-top: 15px;
+					text-align: center;
+				}
+			}
+			.task-description{
+				margin-top: 8px;
 			}
 		}
 	}
