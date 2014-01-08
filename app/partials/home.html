@@ -19,7 +19,7 @@
 </snap-drawer>
 <snap-content snap-options="snapOptions" data-snap-ignore="true">
   <!-- Default header -->
-  <div class="navHeader" ng-show="!UserInterface.searching">
+  <div class="navHeader" ng-class="{gallery: UserInterface.hasCustomHomeClass}" ng-show="!UserInterface.searching">
     <div class="left">
       <button snap-toggle class="noButton menuIcon pull-left" ng-show="UserInterface.hasMenuIcon"></button>
       <button snap-toggle class="noButton delete pull-left" ng-show="UserInterface.hasDeleteIcon"></button>

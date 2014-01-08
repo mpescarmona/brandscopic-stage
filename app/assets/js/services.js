@@ -46,7 +46,10 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.CloseState = "";
   this.eventSubNav = "";
   this.venueSubNav = "";
-  this.actionSave = "";  
+  this.actionSave = "";
+  this.showEventSubNav = true;
+  this.showVenueSubNav = true;
+  this.hasCustomHomeClass = false;
 })
 
 .service('SessionRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {

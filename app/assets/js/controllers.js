@@ -8,7 +8,7 @@ angular.module('brandscopicApp.controllers', [])
   }])
 
   .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
-    $scope.user = {'email': '', 'password': ''};
+    $scope.user = {'email': 'mpescarmona@gmail.com', 'password': 'Mario123'};
 
     $scope.wrongUser = null;
     $scope.validateApiUser = function() {
@@ -163,7 +163,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close();
 
     var
-        ui = {title: 'Dashboard', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, searching: false}
+        ui = {title: 'Dashboard', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false}
 
     // Options for User Interface in home partial
     angular.extend(UserInterface, ui)
@@ -187,7 +187,7 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface = UserInterface;
 
     var
-        ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, AddIconState: "home.events.add"}
+        ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add"}
       , statusList = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -290,7 +290,7 @@ angular.module('brandscopicApp.controllers', [])
           $scope.eventAbout = eventData;
 
           // Options for User Interface in home partial
-          ui = {title: eventData.campaign.name,hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, eventSubNav: "about"};
+          ui = {title: eventData.campaign.name,hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "about"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
           return;
@@ -328,7 +328,7 @@ angular.module('brandscopicApp.controllers', [])
           $scope.event = eventData;
 
           // Options for User Interface in home partial
-          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, searching: false, actionSave: 'updateEvent(' + $scope.event + ')'};
+          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, actionSave: 'updateEvent(' + $scope.event + ')'};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -355,7 +355,7 @@ angular.module('brandscopicApp.controllers', [])
             $scope.updatedEvent = eventData;
 
             // Options for User Interface in home partial
-            // ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, actionSave: 'updateEvent(event)'};
+            // ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, actionSave: 'updateEvent(event)'};
             // angular.extend(UserInterface, ui);
             // $scope.UserInterface = UserInterface;
 
@@ -400,7 +400,7 @@ angular.module('brandscopicApp.controllers', [])
           eventData = response.data;
 
           // Options for User Interface in home partial
-          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false};
+          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -450,7 +450,7 @@ angular.module('brandscopicApp.controllers', [])
           eventData = response.data;
 
           // Options for User Interface in home partial
-          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, eventSubNav: "people"};
+          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -538,7 +538,7 @@ angular.module('brandscopicApp.controllers', [])
           eventData = response.data;
 
           // Options for User Interface in home partial
-          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, eventSubNav: "people"};
+          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -591,7 +591,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close()
 
     var
-        ui = {title: "Contacts", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, searching: false}
+        ui = {title: "Contacts", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false}
 
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
@@ -622,7 +622,7 @@ angular.module('brandscopicApp.controllers', [])
           eventData = response.data;
 
           // Options for User Interface in home partial
-          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, searching: false, eventSubNav: "data"};
+          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -681,7 +681,7 @@ angular.module('brandscopicApp.controllers', [])
           $scope.eventId = $stateParams.eventId;
 
           // Options for User Interface in home partial
-          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, eventSubNav: "comments", AddIconState: "home.events.details.comments.add"};
+          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: "home.events.details.comments.add"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -704,7 +704,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close()
 
     var
-        ui = {title: "Comment", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, searching: false, eventSubNav: "comments", AddIconState: ""}
+        ui = {title: "Comment", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: ""}
 
     $scope.eventId = $stateParams.eventId;
 
@@ -736,7 +736,7 @@ angular.module('brandscopicApp.controllers', [])
           eventData = response.data;
 
           // Options for User Interface in home partial
-          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, searching: false, eventSubNav: "tasks"};
+          ui = {title: eventData.campaign.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -823,7 +823,7 @@ angular.module('brandscopicApp.controllers', [])
           eventData = response.data;
 
           // Options for User Interface in home partial
-          ui = {title: "Task details", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, searching: false, eventSubNav: "tasks"};
+          ui = {title: "Task details", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -868,7 +868,7 @@ angular.module('brandscopicApp.controllers', [])
           eventData = response.data;
 
           // Options for User Interface in home partial
-          ui = {title: "Edit task", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, searching: false, eventSubNav: "tasks"};
+          ui = {title: "Edit task", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -912,7 +912,7 @@ angular.module('brandscopicApp.controllers', [])
           eventData = response.data;
 
           // Options for User Interface in home partial
-          ui = {title: eventData.campaign.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, eventSubNav: "photos"};
+          ui = {title: eventData.campaign.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "photos"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -944,7 +944,7 @@ angular.module('brandscopicApp.controllers', [])
       , ui = {}
 
     // Options for User Interface in home partial
-    ui = {title: "", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: true, CloseState: "home.events.details.photos", searching: false, eventSubNav: "photos"};
+    ui = {title: "", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: true, showEventSubNav: false, hasCustomHomeClass: true, CloseState: "home.events.details.photos", searching: false, eventSubNav: "photos"};
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
 
@@ -1045,7 +1045,7 @@ angular.module('brandscopicApp.controllers', [])
           eventData = response.data;
 
           // Options for User Interface in home partial
-          ui = {title: eventData.campaign.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, eventSubNav: "expenses", AddIconState: "home.events.details.expenses.add"};
+          ui = {title: eventData.campaign.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: "home.events.details.expenses.add"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -1069,7 +1069,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close()
 
     var
-        ui = {title: "Expense", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, searching: false, eventSubNav: "expenses", AddIconState: ""}
+        ui = {title: "Expense", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, searching: false, eventSubNav: "expenses", AddIconState: ""}
 
     // Options for User Interface in home partial
     angular.extend(UserInterface, ui);
@@ -1099,7 +1099,7 @@ angular.module('brandscopicApp.controllers', [])
       if (response.data != null) {
           eventData = response.data;
 
-          ui = {title: eventData.campaign.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, eventSubNav: "surveys"};
+          ui = {title: eventData.campaign.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "surveys"};
           angular.extend(UserInterface, ui);
           $scope.UserInterface = UserInterface;
 
@@ -1123,7 +1123,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close();
 
     var
-        ui = { title: 'Event', hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, searching: false}
+        ui = { title: 'Event', hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false}
 
     // Options for User Interface in home partial
     angular.extend(UserInterface, ui);
@@ -1138,7 +1138,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close();
 
     var
-        ui = { title: 'Tasks', hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, searching: false}
+        ui = { title: 'Tasks', hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false}
 
     // Options for User Interface in home partial
     angular.extend(UserInterface, ui);
@@ -1153,7 +1153,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close();
 
     var
-        ui = { title: 'Tasks', hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, searching: false}
+        ui = { title: 'Tasks', hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false}
 
     // Options for User Interface in home partial
     angular.extend(UserInterface, ui);
@@ -1168,7 +1168,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close();
 
     var
-        ui = {title: 'Venues', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, AddIconState: "home.venues.add"}
+        ui = {title: 'Venues', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false, AddIconState: "home.venues.add"}
       , venuesList = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -1204,7 +1204,7 @@ angular.module('brandscopicApp.controllers', [])
     snapRemote.close();
 
     var
-        ui = { title: 'Venue', hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, searching: false}
+        ui = { title: 'Venue', hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false}
 
     // Options for User Interface in home partial
     angular.extend(UserInterface, ui);
@@ -1223,7 +1223,7 @@ angular.module('brandscopicApp.controllers', [])
       , token = UserService.currentUser.auth_token
       , venueId = $stateParams.venueId
       , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = { title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false}
+      , ui = { title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false}
 
     angular.extend(UserInterface, ui);
 
@@ -1242,7 +1242,7 @@ angular.module('brandscopicApp.controllers', [])
       , authToken = UserService.currentUser.auth_token
       , venueId = $stateParams.venueId
       , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, venueSubNav: "about"}
+      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "about"}
 
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
@@ -1260,7 +1260,7 @@ angular.module('brandscopicApp.controllers', [])
       , authToken = UserService.currentUser.auth_token
       , venueId = $stateParams.venueId
       , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, venueSubNav: "analysis"}
+      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "analysis"}
 
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
@@ -1278,7 +1278,7 @@ angular.module('brandscopicApp.controllers', [])
       , authToken = UserService.currentUser.auth_token
       , venueId = $stateParams.venueId
       , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, venueSubNav: "photos"}
+      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "photos"}
 
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
@@ -1296,7 +1296,7 @@ angular.module('brandscopicApp.controllers', [])
       , authToken = UserService.currentUser.auth_token
       , venueId = $stateParams.venueId
       , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, searching: false, venueSubNav: "comments"}
+      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "comments"}
 
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
@@ -1325,7 +1325,7 @@ angular.module('brandscopicApp.controllers', [])
 
           // Options for User Interface in home partial
           $scope.UserInterface = UserInterface;
-          ui = { title: 'Companies', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, searching: false};
+          ui = { title: 'Companies', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false};
           angular.extend(UserInterface, ui);
 
           $scope.companies = companyData;

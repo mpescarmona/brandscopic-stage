@@ -1,7 +1,7 @@
 
 <!-- SUBNAV -->
 
-<div class="subnav">
+<div class="subnav" ng-show="UserInterface.showEventSubNav">
 	<ul class="scrollplane">
 		<li ng-class="{active: UserInterface.eventSubNav=='about'}"><a href="#/home/events/{{eventId}}/about">ABOUT</a></li>
 		<li ng-class="{active: UserInterface.eventSubNav=='people'}"><a href="#/home/events/{{eventId}}/people">PEOPLE</a></li>
