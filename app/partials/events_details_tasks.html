@@ -20,13 +20,13 @@
 				<a href="#/home/events/{{eventId}}/tasks/{{task.id}}/details">
 					<div class="row" ng-class="{late: task_status=='Late', Unassigned: task_status=='Unassigned', Incomplete: task_status=='Incomplete'}"> 
 						<div class="col-xs-12">
-						    <h5 class="txtAdjust">{{task.Task}}</h5>
+							<div class="col-xs-1">
+								<input type="checkbox" name="task">
+							</div>
+							<div class="col-xs-11">
+					    	<h5 class="txtAdjust">{{task.Task}}</h5>
 								<p class="medium txtAdjust second">{{task.assigned}}</p>
-							<!--
-							<div class="col-xs-5 editpanel" ng-show="1==2">
-								<a href="#" class="edit pull-left"></a>
-								<a href="#" class="deactivate pull-right"></a>
-							</div>-->
+							</div>
 						</div>
 					</div>
 				</a>
@@ -34,14 +34,14 @@
 			<li>
 				<a href="#/home/events/{{eventId}}/tasks/{{task.id}}/details">
 					<div class="row" ng-class="{late: task_status=='Late', Unassigned: task_status=='Unassigned', Incomplete: task_status=='Incomplete'}"> 
-						<div class="col-xs-12">
-						    <h5 class="txtAdjust">{{task.Task}}</h5>
+					<div class="col-xs-12">
+							<div class="col-xs-1">
+								<input type="checkbox" name="task">
+							</div>
+							<div class="col-xs-11">
+					    	<h5 class="txtAdjust">{{task.Task}}</h5>
 								<p class="medium txtAdjust second">{{task.assigned}}</p>
-							<!--
-							<div class="col-xs-5 editpanel" ng-show="1==2">
-								<a href="#" class="edit pull-left"></a>
-								<a href="#" class="deactivate pull-right"></a>
-							</div>-->
+							</div>
 						</div>
 					</div>
 				</a>
