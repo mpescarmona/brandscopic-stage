@@ -797,8 +797,15 @@ button{
 }
 
 .edit-area{
+	height: 38px;
+	text-align: justify;
 	margin-bottom: 5px;
-	margin-top: 25px;
+	margin-top: 20px;
+	&:after{
+	  content: '';
+	  width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+	  display: inline-block;
+	}
 	.btn-sm{
 		display: inline-block;
 		text-align: center;
@@ -808,7 +815,7 @@ button{
 		width: 31%;
 		&.approved:before{
 			font-size: 20px;
-			bottom: 4px;
+			bottom: 5px;
 		}
 		&.edit:before, &.deactivate:before{
 			font-size: 23px;
@@ -832,7 +839,7 @@ input[type="text"], input[type="number"], input[type="search"], input[type="date
 	border: 1px solid @lightGrey;
 	.border-top-radius(6px);
 	.border-bottom-radius(6px);
-	color: @brand;
+	color: @txt;
 	height: 40px;
 	margin-bottom: 10px;
 	padding: 0 10px;
@@ -840,6 +847,7 @@ input[type="text"], input[type="number"], input[type="search"], input[type="date
 	-webkit-appearance: none;
 	&.email{
 		border:0;
+		font-weight: 600;
 		&.not-rounded{
 			border-bottom: 1px solid @lightGrey;
 			.border-top-radius(6px);
@@ -1335,6 +1343,29 @@ select option[default] {
 }
 .animate-leave.animate-leave-active{
     left: -100%;
+}
+
+
+/*-- PLACEHOLDER COLORS */
+
+::-webkit-input-placeholder {
+   color: @lightTxt;
+   font-weight: 400;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: @lightTxt; 
+   font-weight: 400; 
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: @lightTxt; 
+   font-weight: 400; 
+}
+
+:-ms-input-placeholder {  
+   color: @lightTxt;
+   font-weight: 400;  
 }
 
 
