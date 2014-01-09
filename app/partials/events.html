@@ -12,7 +12,7 @@
 	</div>
 </div>
 <!-- Events Container -->
-<div class="container" ng-repeat="event in eventsItems.results | orderBy:['start_date','start_time'] | filter:event_status" ng-show="!UserInterface.searching">
+<div class="container" ng-repeat="event in eventsItems | orderBy:['start_date','start_time'] | filter:event_status" ng-show="!UserInterface.searching">
 	<!-- <div class="dividersBar">TODAY</div> -->
 	<div class="dividersBar">{{event.start_date | date:'EEEE, MMM d'}}</div>
 	<div class="box-container np" ng-show="!UserInterface.searching">

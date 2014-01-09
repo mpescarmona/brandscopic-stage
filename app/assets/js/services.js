@@ -385,6 +385,27 @@ angular.module('brandscopicApp.services', ['ngResource'])
   };
 }])
 
+
+.service('Event', ['$resource', function($resource) {
+  return $resource('//stage.brandscopic.com/api/v1/events/:id.:format', {auth_token: '@token', format: 'json', company_id: '@company_id'},
+  {
+        'all'    : { method: 'GET', isArray: true }
+
+      , 'get'    : { method: 'GET' }
+
+      , 'create' : { method: 'POST'
+                     , headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'}
+                     , transformRequest: dataChanger('event')
+                  }
+
+      , 'save'   : { method: 'PUT'
+                     , headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'}
+                     , transformRequest: dataChanger('event')
+                  }
+  });
+}])
+
+
 .service('VenuesRestClient', ['$resource', 'ApiParams', 'CompanyService', function($resource, ApiParams, CompanyService) {
   var venueList = []
     , companyId = CompanyService.getCompanyId();

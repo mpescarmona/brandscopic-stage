@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', [])
+angular.module('brandscopicApp.controllers', ['model.event'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
   }])
@@ -176,7 +176,51 @@ angular.module('brandscopicApp.controllers', [])
                              {'id': 6, 'name': 'Royal Salute FY14', 'today': '25%', 'progress': '30%'}];
   }])
 
-  .controller('EventsController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient',  function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
+  // .controller('EventsController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient',  function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
+  //   if( !UserService.isLogged() ) {
+  //     $state.go('login');
+  //     return;
+  //   }
+  //   snapRemote.close()
+
+  //   // Options for User Interface in home partial
+  //   $scope.UserInterface = UserInterface;
+
+  //   var
+  //       ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add"}
+  //     , statusList = []
+  //     , authToken = UserService.currentUser.auth_token
+  //     , companyId = CompanyService.getCompanyId()
+  //     , eventList = new EventsRestClient.getEvents(authToken, companyId)
+  //     , promise = eventList.getEvents().$promise
+
+  //   angular.extend(UserInterface, ui)
+
+  //   promise.then(function(response) {
+  //    if (response.status == 200) {
+  //     if (response.data != null) {
+  //         $scope.eventsItems = response.data;
+
+  //         EventsRestClient.setEvents($scope.eventsItems);
+  //         $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
+
+  //         $scope.event_status = false;
+  //         $scope.filterStatus = function(status) {
+  //           $scope.event_status = ($scope.event_status == status) ? false : status;
+  //         };
+
+  //         return;
+  //     }
+  //    } else {
+  //       $scope.eventsItems = {};
+  //    }
+  //   });
+  //   promise.catch(function(response) {
+  //     $scope.eventsItems = {};
+  //   });
+  // }])
+
+  .controller('EventsController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event',  function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -187,38 +231,24 @@ angular.module('brandscopicApp.controllers', [])
     $scope.UserInterface = UserInterface;
 
     var
-        ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add"}
-      , statusList = []
-      , authToken = UserService.currentUser.auth_token
-      , companyId = CompanyService.getCompanyId()
-      , eventList = new EventsRestClient.getEvents(authToken, companyId)
-      , promise = eventList.getEvents().$promise
+         ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add"}
+       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
+       , actions = { success: function(events, filters){
+                               $scope.eventsItems = events
+                               $scope.statusCount = filters
+                                angular.extend(UserInterface, ui)
+                              }
 
-    angular.extend(UserInterface, ui)
+        }
+       
+    Event.all(credentials, actions)
 
-    promise.then(function(response) {
-     if (response.status == 200) {
-      if (response.data != null) {
-          $scope.eventsItems = response.data;
-
-          EventsRestClient.setEvents($scope.eventsItems);
-          $scope.statusCount = EventsRestClient.getFacetByName("Event Status");
-
-          $scope.event_status = false;
+   $scope.event_status = false;
           $scope.filterStatus = function(status) {
             $scope.event_status = ($scope.event_status == status) ? false : status;
-          };
-
-          return;
-      }
-     } else {
-        $scope.eventsItems = {};
-     }
-    });
-    promise.catch(function(response) {
-      $scope.eventsItems = {};
-    });
+          }
   }])
+
 
   .controller('EventsAboutController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
@@ -981,42 +1011,42 @@ angular.module('brandscopicApp.controllers', [])
       };
   }])
 
-  .animation('.slide-animation', function () {
-      return {
-          addClass: function (element, className, done) {
-              var scope = element.scope();
+  // .animation('.slide-animation', function () {
+  //     return {
+  //         addClass: function (element, className, done) {
+  //             var scope = element.scope();
 
-              if (className == 'ng-hide') {
-                  var finishPoint = element.parent().width();
-                  if(scope.direction !== 'right') {
-                      finishPoint = -finishPoint;
-                  }
-                  TweenMax.to(element, 0.5, {left: finishPoint, onComplete: done });
-              }
-              else {
-                  done();
-              }
-          },
-          removeClass: function (element, className, done) {
-              var scope = element.scope();
+  //             if (className == 'ng-hide') {
+  //                 var finishPoint = element.parent().width();
+  //                 if(scope.direction !== 'right') {
+  //                     finishPoint = -finishPoint;
+  //                 }
+  //                 TweenMax.to(element, 0.5, {left: finishPoint, onComplete: done });
+  //             }
+  //             else {
+  //                 done();
+  //             }
+  //         },
+  //         removeClass: function (element, className, done) {
+  //             var scope = element.scope();
 
-              if (className == 'ng-hide') {
-                  element.removeClass('ng-hide');
+  //             if (className == 'ng-hide') {
+  //                 element.removeClass('ng-hide');
 
-                  var startPoint = element.parent().width();
-                  if(scope.direction === 'right') {
-                      startPoint = -startPoint;
-                  }
+  //                 var startPoint = element.parent().width();
+  //                 if(scope.direction === 'right') {
+  //                     startPoint = -startPoint;
+  //                 }
 
-                  TweenMax.set(element, { left: startPoint });
-                  TweenMax.to(element, 0.5, {left: 0, onComplete: done });
-              }
-              else {
-                  done();
-              }
-          }
-      };
-  })
+  //                 TweenMax.set(element, { left: startPoint });
+  //                 TweenMax.to(element, 0.5, {left: 0, onComplete: done });
+  //             }
+  //             else {
+  //                 done();
+  //             }
+  //         }
+  //     };
+  // })
 
   .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, EventsRestClient) {
     if( !UserService.isLogged() ) {
