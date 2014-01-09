@@ -172,23 +172,6 @@ body{
 				border-bottom: 0;
 			}
 		}
-		&.comments{
-			.editpanel{
-				background-color: white;
-				height: 30px;
-				padding: 5px 0 0 0;
-				width: auto;
-				a{
-					color: @brand;
-					&:last-child{
-						margin-right: 0;
-					}
-					&:before{
-						font-size: 22px;
-					}
-				}
-			}
-		}
 		&.companies-list{
 			li{
 				box-sizing:border-box;
@@ -284,6 +267,7 @@ body{
 .comments{
 	.comment-user{
 		float: left;
+		margin-bottom: 6px;
 		width:70%;
 	}
 	.comment-date{
@@ -294,6 +278,31 @@ body{
 	}
 	ul li:last-child{
 		border-bottom: 0;
+	}
+	.comment-txt{
+	  display: block; /* Fallback for non-webkit */
+	  display: -webkit-box;
+	  -webkit-line-clamp: 4;
+	  -webkit-box-orient: vertical;
+	  height: 67.2px;
+	  margin-top: 8px;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	}
+	.editpanel{
+		background-color: white;
+		height: 30px;
+		padding: 0;
+		width: auto;
+		a{
+			color: @brand;
+			&:last-child{
+				margin-right: 0;
+			}
+			&:before{
+				font-size: 22px;
+			}
+		}
 	}
 }
 
