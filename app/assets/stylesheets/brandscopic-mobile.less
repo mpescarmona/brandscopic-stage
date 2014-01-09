@@ -279,7 +279,7 @@ body{
 	ul li:last-child{
 		border-bottom: 0;
 	}
-	.comment-txt{
+	.comment-short{
 	  display: block; /* Fallback for non-webkit */
 	  display: -webkit-box;
 	  -webkit-line-clamp: 4;
@@ -714,6 +714,11 @@ body{
 	&:focus, &:active{
 		background-color: @lightGrey;
 		color: white;
+	}
+	&.approved{
+		&.complete{
+			background-color: @approved !important;
+		}
 	}
 	&.btn-sm{
 		margin-right: 5px;
