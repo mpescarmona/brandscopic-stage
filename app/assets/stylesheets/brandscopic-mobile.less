@@ -1370,45 +1370,17 @@ select option[default] {
 
 /*-- search reset test --*/
 
-.search {
-  position: relative;
-  display: block;
-  float: left;
-}
-
-.search-reset {
+.type-reset {
+	cursor: pointer;
   display: none;
   position: absolute;
 	top: 8px;
-	right: 8px;
-	width: 11px;
-	height: 24px;
-	text-indent: -9999px;
-	padding: 0 12px;
-  cursor: pointer;
-  background: url(http://www.awmcreative.com/demos/images/iconReset.gif) 7px 6px no-repeat #e8e8e8;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -o-border-radius: 15px;
-  border-radius: 15px;
-  -webkit-transition:
-  background-color 0.2s ease 0.2s;
-  -moz-transition: background-color 0.2s ease 0.2s;
-  -ms-transition: background-color 0.2s ease 0.2s;
-  -o-transition: background-color 0.2s ease 0.2s;
-  transition: background-color 0.2s ease 0.2s;
+	right: 2px;
+  &:before{
+  	bottom: 2px;
+  	color: @brand;
+  	font-size: 20px;
+		right: 9px;
+  }
 }
-
-.search-reset:hover {
-  background-color: #ddd;
-}	
-
-.search-reset:active {
-  -webkit-box-shadow: inset 1px 1px 2px #bbb;
-  -moz-box-shadow: inset 1px 1px 2px #bbb;
-  -ms-box-shadow: inset 1px 1px 2px #bbb;
-  -o-box-shadow: inset 1px 1px 2px #bbb;
-  box-shadow: inset 1px 1px 2px #bbb;
-}	
 
