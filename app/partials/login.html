@@ -9,41 +9,24 @@
         <p class="centerTxt m10" ng-show="wrongUser">
           <span class="error">Whoops!</span> Email/Password are not found.</p>
         <div class="col-xs-12">
-          <input class="email not-rounded type-input" ng-class="{error: wrongUser}" type="email" placeholder="Email" ng-model="user.email">
-          <div class="type-reset"></div>
-          <input class="password type-input" ng-class="{error: wrongUser}" type="password" placeholder="Password" ng-model="user.password">
-          <div class="type-reset"></div>
+          <div class="field-block" input-reset>
+            <input class="email not-rounded type-input" ng-class="{error: wrongUser}" type="email" placeholder="Email" ng-model="user.email">
+            <a href="#" class="type-reset hidden"></a>
+          </div>
+
+          <div class="field-block" input-reset>
+            <input class="password type-input" ng-class="{error: wrongUser}" type="password" placeholder="Password" ng-model="user.password">
+            <a href="#" class="type-reset hidden"></a>
+          </div>
+
         </div>
-        <div class="col-xs-12"> 
+        <div class="col-xs-12">
           <button class="btn btn-danger" ng-click="validateApiUser()">Login</button>
         </div>
       </div>
       <div class="col-xs-12 forgot">
         <button flip-toggle class="noButton">Forgot your password?</button>
       </div>
-      <!-- SCRIPT FOR CLEAR INPUTS -->
-      <script>
-        $(document).ready(function(){
-            $(".type-input").keyup(function() {
-                if ($(this).val().length !=0) {
-                    $(".type-reset").show();
-                } else {
-                    $(".type-reset").hide();
-                }
-            });
-        $('.type-input').keydown(function(e){
-            if (e.keyCode == 27) {
-                $(this).val("");
-                $(".type-reset").hide();
-            }
-        });
-        $(".type-reset").click(function(event) {
-            $(".type-reset").hide();
-            $(".type-input").val("");
-            });
-        });
-      </script>
-      <!-- END SCRIPT FOR CLEAR INPUTS -->
     </div>
   </flip-front>
 
@@ -62,9 +45,9 @@
         <div class="col-xs-12">
           <p>Enter your email and we'll send you<br>instructions to help you reset your password.</p>
         </div>
-        <div class="col-xs-12">
+        <div class="col-xs-12 field-block" input-reset>
           <input type="email" placeholder="Email" ng-model="user.email" class="email type-input">
-          <div class="type-reset"></div>
+          <a class="type-reset" href="#"></a>
         </div>
       </div>
       <div class="row">

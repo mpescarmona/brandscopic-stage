@@ -1355,25 +1355,27 @@ select option[default] {
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   color: @lightTxt; 
-   font-weight: 400; 
+   color: @lightTxt;
+   font-weight: 400;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   color: @lightTxt; 
-   font-weight: 400; 
+   color: @lightTxt;
+   font-weight: 400;
 }
 
-:-ms-input-placeholder {  
+:-ms-input-placeholder {
    color: @lightTxt;
-   font-weight: 400;  
+   font-weight: 400;
 }
 
 /*-- search reset test --*/
 
+.field-block{
+  position: relative;
+}
 .type-reset {
 	cursor: pointer;
-  display: none;
   position: absolute;
 	top: 8px;
 	right: 2px;
