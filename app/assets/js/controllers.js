@@ -254,7 +254,7 @@ angular.module('brandscopicApp.controllers', ['model.event'])
     Event.find(credentials, actions)
   }])
 
-  .controller('EventsAddController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'Event', function($scope, $state, snapRemote, UserService, UserInterface, Event) {
+  .controller('EventsAddController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -272,6 +272,7 @@ angular.module('brandscopicApp.controllers', ['model.event'])
                                     $scope.UserInterface = UserInterface
                                     $scope.eventId = $stateParams.eventId
                                     $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/add"
+                                    $
                              }
         }
 
