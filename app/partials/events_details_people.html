@@ -11,21 +11,21 @@
 	<div class="box-container np" ng-show="showPeople=='team'">
 		<ul class="eventsPeople swipe-list">
 			<li ng-repeat="team in eventTeamItems">
-        <a href="#/home/events/{{eventId}}/people">
-          <div class="row action-buttons single-button" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" >
-							<div ng-class="{team_member: team.type=='user', team: team.type=='team', pushed: showButtons}" class="row-content">
-								<!-- show if is a user -->
-								<h5 class="txtAdjust" ng-show="'{{team.type}}'=='user'">{{team.full_name}}</h5>
-								<p class="small txtAdjust" ng-show="'{{team.type}}'=='user'">{{team.role_name}}</p>
-								<!-- show if is a team -->
-								<h5 class="txtAdjust" ng-show="'{{team.type}}'=='team'">{{team.name}}</h5>
-								<p class="small txtAdjust" ng-show="'{{team.type}}'=='team'">{{team.description}}</p>
+		        <a href="#/home/events/{{eventId}}/people">
+		          <div class="row action-buttons single-button" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" >
+									<div ng-class="{team_member: team.type=='user', team: team.type=='team', pushed: showButtons}" class="row-content">
+										<!-- show if is a user -->
+										<h5 class="txtAdjust" ng-show="'{{team.type}}'=='user'">{{team.full_name}}</h5>
+										<p class="small txtAdjust" ng-show="'{{team.type}}'=='user'">{{team.role_name}}</p>
+										<!-- show if is a team -->
+										<h5 class="txtAdjust" ng-show="'{{team.type}}'=='team'">{{team.name}}</h5>
+										<p class="small txtAdjust" ng-show="'{{team.type}}'=='team'">{{team.description}}</p>
+									</div>
+		              <div class="deletepanel actions-panel">
+										<a href="#" class="deactivate"></a>
+									</div>
 							</div>
-              <div class="deletepanel actions-panel">
-								<a href="#" class="deactivate"></a>
-							</div>
-						</div>
-        </a>
+		        </a>
 			</li>
 		</ul>
 	</div>
@@ -35,7 +35,7 @@
 	<div class="box-container np" ng-show="showPeople=='contacts'">
 		<ul class="eventsPeople">
 			<li ng-repeat="contact in eventContactItems">
-				<a href="#/home/events/{{eventId}}/people/contacts/{{}}/edit">
+				<a href="#/home/events/{{eventId}}/people/contacts/{{contact.id}}/edit">
 					<div class="row">
 						<div class="col-xs-12" ng-class="{team_member: contact.type=='user', team: contact.type=='contact'}">
 							<!-- show if is a contact -->
