@@ -870,6 +870,9 @@ input[type="text"], input[type="number"], input[type="search"], input[type="date
 		text-align: right !important;
 		padding-left: 30px;
 	}
+	&.clean{
+		border: 0;
+	}
 	&.short{
 		width: 60%;
 	}
@@ -1281,6 +1284,12 @@ textarea{
 					margin-right: 20px;
 				}
 			}
+		}
+		input[type=text], input[type=date]{
+			color: @brand;
+			font-size: 17px;
+			margin-left: 20px;
+			margin-bottom: 0;
 		}
 		li{
 			div{
