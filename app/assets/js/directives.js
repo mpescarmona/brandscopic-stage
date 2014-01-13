@@ -2,7 +2,6 @@
 
 /* Directives */
 
-
 angular.module('brandscopicApp.directives', [])
   .directive('appVersion', ['version', function(version) {
     return function(scope, elm, attrs) {
@@ -33,7 +32,25 @@ angular.module('brandscopicApp.directives', [])
     };
   })
 
-.directive('windowResizeThingy', function($window) {
+
+  .directive('redirectTo', function ($window) {
+    return function (scope, el, attrs, ctrl) {
+      el.on('click', function (e) {
+        $window.location.href = this.getAttribute('redirect-to')
+      })
+    }
+  })
+
+  .directive('redirectToState', function ($state) {
+    return function (scope, el, attrs, ctrl) {
+      el.on('click', function (e) {
+        // $window.location.href = this.getAttribute('redirect-to')
+        $state.go(this.getAttribute('redirect-to-state'))
+      })
+    }
+  })
+
+  .directive('windowResizeThingy', function($window) {
    return {
      restrict: 'A',
      link: function(scope, elem, attr) {

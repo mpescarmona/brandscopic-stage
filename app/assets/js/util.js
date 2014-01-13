@@ -1,7 +1,7 @@
 angular.module('util.jsonToFormData', [])
 
   .factory('jsonToFormDataFor', function(){
-    return function(key_name){
+    return function (key_name){
       return function (data) {
         var paramsProcessor = function (properties, key){
           var params = []
@@ -18,6 +18,6 @@ angular.module('util.jsonToFormData', [])
         for(attr in data)
           if (data[attr] instanceof Object) delete data[attr]
 
-            return angular.isObject(event) && String(data) !== '[object File]' ? paramsProcessor(data, key_name) : event;
+            return String(data) !== '[object File]' ? paramsProcessor(data, key_name) : event;
       }
 } })

@@ -98,7 +98,7 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.details.about.map', {
       url: "/map",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_about_map.html",
-                              controller: 'EventsAboutController'
+                              controller: 'EventsAboutMapController'
                             }
             }
     })
@@ -126,7 +126,7 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.details.people.contacts.edit', {
       url: "/:contactId/edit",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_edit.html",
-                              controller: 'EventsPeopleController'
+                              controller: 'EventsPeopleEditController'
                             }
             }
     })
@@ -218,6 +218,13 @@ config(function($stateProvider, $urlRouterProvider) {
       url: "/surveys",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys.html",
                               controller: 'EventsSurveysController'
+                            }
+            }
+    })                    
+    .state('home.events.details.surveys.add', {
+      url: "/add",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys_add.html",
+                              controller: 'EventsSurveysAddController'
                             }
             }
     })                    

@@ -27,28 +27,52 @@ angular.module('snap')
           element: element[0]
         };
 
+        angular.extend(snapOptions, snapRemote.globalOptions);
+
+        var snapId = attrs.snapId;
+        if(!!snapId) {
+          snapId = scope.$eval(attrs.snapId);
+        }
+
         // override snap options if some provided in snap-options attribute
         if(angular.isDefined(attrs.snapOptions) && attrs.snapOptions) {
           angular.extend(snapOptions, scope.$eval(attrs.snapOptions));
         }
 
-        snapRemote.register(new window.Snap(snapOptions));
+        snapRemote.register(new window.Snap(snapOptions), snapId);
 
         // watch snapOptions for updates
         if(angular.isDefined(attrs.snapOptions) && attrs.snapOptions) {
           scope.$watch(attrs.snapOptions, function(newSnapOptions) {
-            snapRemote.getSnapper().then(function(snapper) {
+            snapRemote.getSnapper(snapId).then(function(snapper) {
               snapper.settings(newSnapOptions);
             });
           }, true);
         }
 
         scope.$on('$destroy', function() {
-          snapRemote.unregister();
+          snapRemote.unregister(snapId);
         });
       }
     };
   }]);
+
+angular.module('snap')
+  .directive('snapDragger', ['snapRemote', function(snapRemote) {
+    'use strict';
+    return {
+      restrict: 'AE',
+      link: function(scope, element, attrs) {
+        var snapId = scope.$eval(attrs.snapId);
+        snapRemote.getSnapper(snapId).then(function(snapper) {
+          snapper.settings({
+            dragger: element[0]
+          });
+        });
+      }
+    };
+  }]);
+
 
 angular.module('snap')
   .directive('snapDrawer', function () {
@@ -102,12 +126,15 @@ angular.module('snap')
       return {
         restrict: 'A',
         link: function (scope, element, attrs) {
+          var snapId = attrs.snapId
+            , snapSide = attrs.snapToggle || 'left';
+
+          if(!!snapId) {
+            snapId = scope.$eval(snapId);
+          }
+
           element.bind('click', function() {
-            if (attrs.snapToggle) {
-              snapRemote.toggle(attrs.snapToggle);
-            } else {
-              snapRemote.toggle('left');
-            }
+            snapRemote.toggle(snapSide, snapId);
             $rootScope.$digest();
           });
         }
@@ -115,14 +142,21 @@ angular.module('snap')
   }]);
 
 angular.module('snap')
-  .factory('snapRemote', ['$q', function($q) {
-    'use strict';
+.provider('snapRemote', function SnapRemoteProvider() {
+  'use strict';
+
+  // Global Snap.js options
+  var opts = this.globalOptions = {};
+
+  this.$get = ['$q', function($q) {
 
     var snapperStore = {}
       , DEFAULT_SNAPPER_ID = '__DEFAULT_SNAPPER_ID__'
       , exports = {}
       , initStoreForId
       , resolveInStoreById;
+
+    exports.globalOptions = opts;
 
     exports.getSnapper = function(id) {
       id = id || DEFAULT_SNAPPER_ID;
@@ -152,25 +186,25 @@ angular.module('snap')
 
     exports.toggle = function(side, id) {
       id = id || DEFAULT_SNAPPER_ID;
-      exports.getSnapper().then(function(snapper) {
+      exports.getSnapper(id).then(function(snapper) {
         if(side === snapper.state().state) {
-          exports.close(side);
+          exports.close(id);
         } else {
-          exports.open(side);
+          exports.open(side, id);
         }
       });
     };
 
     exports.open = function(side, id) {
       id = id || DEFAULT_SNAPPER_ID;
-      exports.getSnapper().then(function(snapper) {
+      exports.getSnapper(id).then(function(snapper) {
         snapper.open(side);
       });
     };
 
     exports.close = function(id) {
       id = id || DEFAULT_SNAPPER_ID;
-      exports.getSnapper().then(function(snapper) {
+      exports.getSnapper(id).then(function(snapper) {
         snapper.close();
       });
     };
@@ -188,4 +222,7 @@ angular.module('snap')
     };
 
     return exports;
-  }]);
+  }];
+
+  return this;
+});

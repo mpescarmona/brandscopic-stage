@@ -33,10 +33,10 @@
             ng-show="UserInterface.hasMagnifierIcon"
             ng-swipe-left="UserInterface.searching=true">
       </button>
-      <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon" ng-click="gotToState(UserInterface.AddIconState)" ng-animate=" ' animate' "></button>
+      <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon" redirect-to-state="{{UserInterface.AddIconState}}" ng-animate=" ' animate' "></button>
       <button class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" ng-click="UserInterface.actionSave">Save</button>
       <button class="btn btn-cancel" ng-show="UserInterface.hasCancelIcon">Cancel</button>
-      <button class="noButton delete" ng-show="UserInterface.hasCloseIcon" ng-click="gotToState(UserInterface.CloseState)"></button>
+      <button class="noButton delete" ng-show="UserInterface.hasCloseIcon" redirect-to-state="{{UserInterface.CloseState}}"></button>
       <button class="btn btn-danger hidden">Post</button>
     </div>
   </div>
@@ -51,5 +51,3 @@
   <!-- Partials -->
   <div ui-view="details"></div>
 </snap-content>
-
-
