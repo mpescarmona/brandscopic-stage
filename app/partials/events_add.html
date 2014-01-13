@@ -2,6 +2,7 @@
 
 <div class="container" ng-animate=" ' animate' ">
 	<div class="box-container events mt5">
+		<form>
 		<div class="row">
 		  <div class="col-xs-12">
 		  	<label>Campaign name</label>
@@ -10,6 +11,7 @@
 			<select class="form-control">
 				<option value="{{event.campaign.id}}">{{event.campaign.name}}</option>
 			</select>
+		  	<!-- <span ng-show="event_error.campaign.id" ng-class="{error: event_error.campaign.id != ''}" ng-model="event_error.campaign.id">{{event_error.campaign}}</span> -->
 		  </div>
 		</div>
 		<div class="row eventDate">
@@ -17,13 +19,15 @@
 		  	<label>Start</label>
 		  </div>
 		  <div class="col-xs-7">
-		  	<input type="date" class="event_start_date" value="{{event.start_date}}">
+		  	<input type="date" class="event_start_date" ng-model="event.start_date">
+		  	<span ng-show="event_error.start_date" ng-class="{error: event_error.start_date != ''}" ng-model="event_error.start_date">{{event_error.start_date}}</span>
 		  </div>
 		  <div class="col-xs-1 centerTxt m10">
 		  	at
 		  </div>
 		  <div class="col-xs-4">
-		  	<input type="time"value="{{event.start_time}}">
+		  	<input type="time" ng-model="event.start_time">
+		  	<span ng-show="event_error.start_time" ng-class="{error: event_error.start_time != ''}" ng-model="event_error.start_time">{{event_error.start_time}}</span>
 		  </div>
 		</div>
 		<div class="row eventDate">
@@ -31,13 +35,15 @@
 		  	<label>End</label>
 		  </div>
 		  <div class="col-xs-7">
-		  	<input type="date" class="event_end_date"value="{{event.end_date}}">
+		  	<input type="date" class="event_end_date" ng-model = "event.end_date">
+		  	<span ng-show="event_error.end_date" ng-class="{error: event_error.end_date != ''}" ng-model="event_error.end_date">{{event_error.end_date}}</span>
 		  </div>
 		  <div class="col-xs-1 centerTxt m10">
 		  	at
 		  </div>
 		  <div class="col-xs-4">
-		  	<input type="time"value="{{event.end_time}}">
+		  	<input type="time" ng-model="event.end_time">
+		  	<span ng-show="event_error.end_time" ng-class="{error: event_error.end_time != ''}" ng-model="event_error.end_time">{{event_error.end_time}}</span>
 		  </div>
 		</div>
 		<div class="row">
@@ -49,6 +55,7 @@
 			<select class="form-control">
 				<option value="{{event.place.id}}">{{event.place.name}}</option>
 			</select>
+		  	<!-- <span ng-show="event_error.place.id" ng-class="{error: event_error.place.id != ''}" ng-model="event_error.place.id">{{event_error.place}}</span> -->
 		  </div>
 		</div>
 
@@ -57,9 +64,9 @@
 		  	<label>Save</label>
 		  </div>
 		  <div class="col-xs-12">
-	          <button class="btn btn-danger" ng-click="updateEvent(event)">Save</button>
+	          <input type="submit" value="save" class="btn btn-danger" ng-click="updateEvent(event)">
 		  </div>
 		</div>
-
+	</form>
 	</div>
 </div>
