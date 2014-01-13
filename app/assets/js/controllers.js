@@ -8,7 +8,7 @@ angular.module('brandscopicApp.controllers', ['model.event'])
   }])
 
   .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
-    $scope.user = {'email': 'mpescarmona@gmail.com', 'password': 'Mario123'};
+    $scope.user = {'email': '', 'password': ''};
 
     $scope.wrongUser = null;
     $scope.validateApiUser = function() {
@@ -90,7 +90,22 @@ angular.module('brandscopicApp.controllers', ['model.event'])
         UserService.currentUser.isLogged = false;
         UserService.currentUser.email = "";
       });
-    };
+    }
+
+    $scope.keyUpClear = function (e) {
+        this.nextSibiling.className = (this.value.length) ? 'type-reset hidden' : 'type-reset'
+    }
+
+    $scope.keyDownClear = function (e) {
+        this.value = ''
+        this.netxSibiling.className = 'type-reset'
+    }
+
+    $scope.clickClear =  function (e){
+        this.className = 'type-reset hidden'
+        this.previousSibiling.value = ''
+    }
+
   }])
 
   .controller('HomeController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'CompanyService', 'SessionRestClient', function($scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient) {
@@ -195,7 +210,7 @@ angular.module('brandscopicApp.controllers', ['model.event'])
                                 angular.extend(UserInterface, ui)
                               }
         }
-       
+
     Event.all(credentials, actions)
 
    $scope.event_status = false;

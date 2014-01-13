@@ -23,7 +23,7 @@ angular.module('brandscopicApp.directives', [])
             ctrl.$setValidity('pwd', true);
             return viewValue;
           } else {
-            ctrl.$setValidity('pwd', false);                    
+            ctrl.$setValidity('pwd', false);
             return undefined;
           }
 
@@ -59,7 +59,7 @@ angular.module('brandscopicApp.directives', [])
        if($window.windowResizeThingyApplied) return;
        $window.windowResizeThingyApplied = true;
 
-        // hide the url bar 
+        // hide the url bar
         var page = elem[0],
           ua = $window.navigator.userAgent,
           iphone = ~ua.indexOf('iPhone') || ~ua.indexOf('iPod'),
@@ -110,4 +110,28 @@ angular.module('brandscopicApp.directives', [])
         })();
      }
    };
+  })
+  .directive('inputReset', function(){
+    return function(scope, el, attr){
+      el.on('keyup', function(e){
+        var isEmpty = ! this.querySelector('input').value.length
+        this.querySelector('a').className = isEmpty ?  'type-reset hidden' : 'type-reset';
+      })
+      el.on('keydown', function(e){
+        if (e.keyCode == 27) {
+          this.querySelector('a').className = 'type-reset hidden'
+          this.querySelector('input').value = ''
+        }
+      })
+      el.find('a').on('click', function(e){
+        e.preventDefault()
+        this.className = 'type-reset hidden'
+        this.parentElement.querySelector('input').value = ''
+      })
+      el.find('input').on('change', function(e){
+        var isEmpty = ! this.value.length
+        this.parentElement.querySelector('a').className = isEmpty ?  'type-reset hidden' : 'type-reset';
+      })
+
+    };
   });
