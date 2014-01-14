@@ -24,19 +24,21 @@ angular.module('model.event', ['persistence.event'])
            }
       }
       , create = function (credentials, actions, attributes) {
-          if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions)
             if (Object.keys(attributes).length)
-              eventClient.update(credentials
+              eventClient.create(credentials
                                  , attributes
-                                 , updateResponse(actions.success)
-                                 , updateResponse(actions.error)
+                                 , createResponse(actions.success)
+                                 , createResponse(actions.error)
                                 )
       }
       , createResponse = function (action) {
         return function (resp) {
           if (resp.status == 'Active')
-            if (! event || event && event.id == resp.id )
+            if ('id' in resp) {
               event = resp
+              collection.push(event)
+            }
 
           var answer = resp.id ? resp : resp.data
 
@@ -55,8 +57,10 @@ angular.module('model.event', ['persistence.event'])
       , updateResponse = function (action) {
         return function (resp) {
           if (resp.status == 'Active')
-            if (! event || event && event.id == resp.id )
+            if (! event || event && event.id == resp.id ) {
               event = resp
+              collection = undefined
+            }
 
           var answer = resp.id ? resp : resp.data
 

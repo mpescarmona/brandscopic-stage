@@ -8,7 +8,11 @@
 		  	<label>Campaign name</label>
 		  </div>
 		  <div class="col-xs-12">
-			<select ng-model="campaign" ng-options="c.name for c in campaigns" class="form-control"></select>
+<!-- 			<select class="form-control">
+				<option value="{{event.campaign.id}}">{{event.campaign.name}}</option>
+			</select>
+ -->			<select ng-model="campaign" ng-options="c.name for c in campaigns" class="form-control"></select>
+			
 		  	<!-- <span ng-show="event_error.campaign.id" ng-class="{error: event_error.campaign.id}" ng-model="event_error.campaign.id">{{event_error.campaign.join()}}</span> -->
 		  </div>
 		</div>
@@ -25,7 +29,7 @@
 		  </div>
 		  <div class="col-xs-4">
 		  	<input type="time" ng-model="event.start_time">
-		  	<span ng-show="event_error.start_at" ng-class="{error: event_error.start_at}" ng-model="event_error.start_time">{{event_error.start_at.join()}}</span>
+		  	<span ng-show="event_error.start_time" ng-class="{error: event_error.start_time}" ng-model="event_error.start_time">{{event_error.start_time.join()}}</span>
 		  </div>
 		</div>
 		<div class="row eventDate">
@@ -41,7 +45,7 @@
 		  </div>
 		  <div class="col-xs-4">
 		  	<input type="time" ng-model="event.end_time">
-		  	<span ng-show="event_error.end_at" ng-class="{error: event_error.end_at}" ng-model="event_error.end_at">{{event_error.end_at.join()}}</span>
+		  	<span ng-show="event_error.end_time" ng-class="{error: event_error.end_time}" ng-model="event_error.end_time">{{event_error.end_time.join()}}</span>
 		  </div>
 		</div>
 		<div class="row">
@@ -50,16 +54,19 @@
 		  </div>
 		  <div class="col-xs-12">
 		  	<!-- <input type="text"> -->
-        <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+			<select class="form-control">
+				<option value="{{event.place.id}}">{{event.place.name}}</option>
+			</select>
 		  	<!-- <span ng-show="event_error.place.id" ng-class="{error: event_error.place.id}" ng-model="event_error.place.id">{{event_error.place.join()}}</span> -->
 		  </div>
 		</div>
+
 		<div class="row">
 		  <div class="col-xs-12 mt20">
 		  	<label>Save</label>
 		  </div>
 		  <div class="col-xs-12">
-	          <input type="submit" value="save" class="btn btn-danger" ng-click="createEvent(event)">
+	          <input type="submit" value="save" class="btn btn-danger" ng-click="updateEvent(event)">
 		  </div>
 		</div>
 	</form>
