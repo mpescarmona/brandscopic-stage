@@ -84,7 +84,7 @@ config(function($stateProvider, $urlRouterProvider) {
     })
     .state('home.events.details.edit', {
       url: "/edit",
-      views:{'details@home':{ templateUrl: "partials/events_add.html",
+      views:{'details@home':{ templateUrl: "partials/events_edit.html",
                               controller: 'EventsEditController'
                             }
             }
