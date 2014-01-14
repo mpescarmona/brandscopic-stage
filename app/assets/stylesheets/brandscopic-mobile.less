@@ -494,6 +494,20 @@ body{
 			margin-bottom: 5px;
 		}
 	}
+	ul.dropdown-menu{
+		box-shadow:none;
+		margin-top:0;
+		-webkit-box-shadow:none;
+		width: 100%;
+		&> .active > a{
+			background-color: @brand;
+			border-bottom: 0;
+			color: white;
+		}
+		&> li > a{
+			color: @txt;
+		}
+	}
 	li{
 		.editpanel{
 			margin-top: -3px;
