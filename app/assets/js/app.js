@@ -13,7 +13,8 @@ angular.module('brandscopicApp', [
   'brandscopicApp.services',
   'brandscopicApp.directives',
   'brandscopicApp.controllers',
-  'brandscopicApp.animations'
+  'brandscopicApp.animations',
+  'ui.bootstrap'
 ]).
 config(function($stateProvider, $urlRouterProvider) {
   //
@@ -171,7 +172,7 @@ config(function($stateProvider, $urlRouterProvider) {
                               controller: 'EventsTasksController'
                             }
             }
-    })    
+    })
     .state('home.events.details.tasks.details', {
       url: "/:taskId/details",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks_details.html",
@@ -206,35 +207,35 @@ config(function($stateProvider, $urlRouterProvider) {
                               controller: 'EventsExpensesController'
                             }
             }
-    })                    
+    })
     .state('home.events.details.expenses.add', {
       url: "/add",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses_add.html",
                               controller: 'EventsExpensesAddController'
                             }
             }
-    })                    
+    })
     .state('home.events.details.surveys', {
       url: "/surveys",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys.html",
                               controller: 'EventsSurveysController'
                             }
             }
-    })                    
+    })
     .state('home.events.details.surveys.add', {
       url: "/add",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys_add.html",
                               controller: 'EventsSurveysAddController'
                             }
             }
-    })                    
+    })
     .state('home.tasks', {
       url: "/tasks",
       views:{'details@home':{ templateUrl: "partials/tasks.html",
                               controller: 'TasksController'
                             }
             }
-    })                    
+    })
 
     .state('home.venues', {
       url: "/venues",
