@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
   }])
@@ -254,29 +254,30 @@ angular.module('brandscopicApp.controllers', ['model.event'])
     Event.find(credentials, actions)
   }])
 
-  .controller('EventsAddController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+  .controller('EventsAddController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Campaign', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Campaign) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
     snapRemote.close();
 
+    $scope.event = {}
+    $scope.campaigns = {}
+
     var
         ui = {title: 'Event', hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, actionSave: 'createEvent(' + $scope.event + ')'}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event) {
-                                    $scope.event = event;
-
-                                    // Options for User Interface in home partial
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
+      , actions = { success: function(campaigns) {
+                                    $scope.campaigns = campaigns
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface
-                                    $scope.eventId = $stateParams.eventId
-                                    $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/add"
-                                    $
                              }
         }
 
-    Event.find(credentials, actions)
+    Campaign.all(credentials, actions)
+
+
+    $scope.editUrl = "#/home/events/add"
 
     $scope.createEvent = function() {
       var
@@ -290,18 +291,20 @@ angular.module('brandscopicApp.controllers', ['model.event'])
                          console.log(event_error)
                       }
                     }
-
+      $scope.event.campaign_id = $scope.campaign.id
       Event.create(credentials, actions, $scope.event)
     }
 
   }])
 
-  .controller('EventsEditController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event) {
+  .controller('EventsEditController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Campaign', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Campaign) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
     snapRemote.close();
+
+    $scope.event = {}
 
     var
         ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, actionSave: 'updateEvent(' + $scope.event + ')'}
@@ -309,12 +312,20 @@ angular.module('brandscopicApp.controllers', ['model.event'])
       , actions = { success: function(event) {
                                     $scope.event = event;
 
-                                    // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface
-                                    $scope.eventId = $stateParams.eventId
-                                    $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/edit"
+
+                                    var
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
+                                      , actions = { success: function(campaigns) {
+                                                                  $scope.campaigns = campaigns
+                                                                // Options for User Interface in home partial
+                                                                  ui.title = event.campaign.name
+                                                                  angular.extend(UserInterface, ui)
+                                                                  $scope.UserInterface = UserInterface
+                                                                  $scope.eventId = $stateParams.eventId
+                                                                  $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/edit"
+                                                             }
+                                      }
+                                    Campaign.all(credentials, actions)
                              }
         }
 
@@ -333,6 +344,7 @@ angular.module('brandscopicApp.controllers', ['model.event'])
                       }
                     }
 
+      $scope.event.campaign_id = $scope.campaign.id
       Event.update(credentials, actions, $scope.event)
     }
 
