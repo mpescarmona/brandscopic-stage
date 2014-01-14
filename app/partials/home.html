@@ -2,13 +2,13 @@
 <snap-drawer>
   <!-- Menu -->
   <div>
-    
+
       <a href="#home/companies/select"><h5 class="txtAdjust">{{currentCompany.name}}</h5></a>
-    
+
     <ul>
       <li ng-repeat="item in navigationItems">
         <a href="{{item.link}}" class="{{item.class}}">{{item.label}}</a>
-      </li> 
+      </li>
     </ul>
     <ul class="navbar-fixed-bottom">
       <li ng-repeat="action in actionItems">
@@ -47,7 +47,7 @@
     <button snap-toggle class="noButton backIcon"></button>
     <input class="search" type="text">
   </div>
-    
+
   <!-- Partials -->
-  <div ui-view="details"></div>
+  <div ui-view="details" class="view-animate"></div>
 </snap-content>
