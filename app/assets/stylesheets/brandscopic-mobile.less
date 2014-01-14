@@ -540,6 +540,11 @@ body{
 .form-control{
 	height: 40px;
 	border-radius: 6px;
+	&:focus{
+		border: 1px solid #c0c0c0;
+		box-shadow: none;
+		-webkit-box-shadow: none;
+	}
 }
 
 .full-comment{
@@ -628,6 +633,7 @@ body{
 				color: @brand;
 				font-size: 23px;
 				font-weight: 100;
+				font-style: normal;
 			}
 		}
 		p{
