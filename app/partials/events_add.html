@@ -52,9 +52,7 @@
 		  </div>
 		  <div class="col-xs-12">
 		  	<!-- <input type="text"> -->
-			<select class="form-control">
-				<option value="{{event.place.id}}">{{event.place.name}}</option>
-			</select>
+        <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
 		  	<!-- <span ng-show="event_error.place.id" ng-class="{error: event_error.place.id}" ng-model="event_error.place.id">{{event_error.place.join()}}</span> -->
 		  </div>
 		</div>
