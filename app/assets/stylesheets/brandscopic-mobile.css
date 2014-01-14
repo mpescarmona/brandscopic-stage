@@ -537,6 +537,13 @@ h6 {
   -webkit-transform: rotatey(-180deg);
   transform: rotatey(-180deg);
 }
+/*-- angular ui fix for bootstrap ui -------------------------*/
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+  cursor: pointer;
+}
 /*-- GENERAL STYLES -------------------------*/
 .separated {
   margin-top: 10px;
@@ -1017,6 +1024,11 @@ body.appLayout .container {
   height: 40px;
   border-radius: 6px;
 }
+.form-control:focus {
+  border: 1px solid #c0c0c0;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
 .full-comment {
   display: block;
   font-size: 12px;
@@ -1096,7 +1108,8 @@ body.appLayout .container {
 .statusBar .col-xs-2.filter a .number {
   color: #989898;
   font-size: 23px;
-  font-weight: 100;
+  font-weight: 300;
+  font-style: normal;
 }
 .statusBar .col-xs-2.filter p {
   font-size: 10px;
@@ -1382,6 +1395,15 @@ input[type="password"].event_end_date {
   box-sizing: border-box;
   text-align: right !important;
   padding-left: 30px;
+}
+input[type="text"].clean,
+input[type="number"].clean,
+input[type="search"].clean,
+input[type="date"].clean,
+input[type="time"].clean,
+input[type="email"].clean,
+input[type="password"].clean {
+  border: 0;
 }
 input[type="text"].short,
 input[type="number"].short,
@@ -1739,6 +1761,13 @@ textarea {
   font-size: 22px;
   margin-left: -15px;
   margin-right: 20px;
+}
+.edit-list.tasks input[type=text],
+.edit-list.tasks input[type=date] {
+  color: #989898;
+  font-size: 17px;
+  margin-left: 20px;
+  margin-bottom: 0;
 }
 .edit-list.tasks li div {
   padding: 3px 20px;
