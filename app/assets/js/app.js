@@ -14,7 +14,8 @@ angular.module('brandscopicApp', [
   'brandscopicApp.directives',
   'brandscopicApp.controllers',
   'brandscopicApp.animations',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngMap'
 ]).
 config(function($stateProvider, $urlRouterProvider) {
   //

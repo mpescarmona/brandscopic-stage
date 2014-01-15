@@ -242,6 +242,35 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign'])
        }
 
     Event.find(credentials, actions)
+
+    $scope.map_styles     =  [
+                {
+                        stylers: [
+                                { hue: "#00ffe6" },
+                                { saturation: -100 },
+                                { gamma: 0.8 }
+                        ]
+                },{
+                        featureType: "road",
+                        elementType: "geometry",
+                        stylers: [
+                                { lightness: 100 },
+                                { visibility: "simplified" }
+                        ]
+                },{
+                        featureType: "road",
+                        elementType: "labels",
+                        stylers: [
+                                { visibility: "off" }
+                        ]
+                },{
+                        featureType: "road.arterial",
+                        elementType: "geometry",
+                        stylers: [
+                                { color: "#BABABA" }
+                        ]
+                }
+        ]
   }])
 
   .controller('EventsAboutMapController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
