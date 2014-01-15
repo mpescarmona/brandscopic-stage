@@ -3,10 +3,14 @@
 <div class="google-map fullscreen">
 	<div class="container">
 		<div class="box-container">
-			<h5>Fox and Hound Pub & Grill</h5>
-			<p class="small">505 University Drive, College Station, TX, United States</p>
-			<a href="#" class="blue">Get directions</a>
+			<h5>{{event.campaign.name}}</h5>
+			<p class="small">{{event.place.formatted_address}}</p>
+			<a href="http://maps.google.com/maps?q={{[event.place.latitude,event.place.longitude].join()}}" class="blue" target="_blank">Get directions</a>
 		</div>
 	</div>
-	<iframe height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com.ar/maps?t=m&amp;ie=UTF8&amp;ll=-32.926448,-68.813779&amp;spn=0.265698,0.523224&amp;z=11&amp;output=embed"></iframe> 
+  <!--FIXME! STYLES FOR THIS VIEW NEEDS TO BE FIXED-->
+  <div class="map-container" style="height:400px">
+    <map zoom-control="true" center="{{[event.place.latitude,event.place.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
+    <marker position="{{[event.place.latitude,event.place.longitude]}}" title="{{event.place.name||'venue'}}"></marker>
+  </div>
 </div>
