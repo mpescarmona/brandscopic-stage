@@ -494,6 +494,20 @@ body{
 			margin-bottom: 5px;
 		}
 	}
+	ul.dropdown-menu{
+		box-shadow:none;
+		margin-top:0;
+		-webkit-box-shadow:none;
+		width: 100%;
+		&> .active > a{
+			background-color: @brand;
+			border-bottom: 0;
+			color: white;
+		}
+		&> li > a{
+			color: @txt;
+		}
+	}
 	li{
 		.editpanel{
 			margin-top: -3px;
@@ -540,6 +554,11 @@ body{
 .form-control{
 	height: 40px;
 	border-radius: 6px;
+	&:focus{
+		border: 1px solid #c0c0c0;
+		box-shadow: none;
+		-webkit-box-shadow: none;
+	}
 }
 
 .full-comment{
@@ -627,7 +646,8 @@ body{
 			.number{
 				color: @brand;
 				font-size: 23px;
-				font-weight: 100;
+				font-weight: 300;
+				font-style: normal;
 			}
 		}
 		p{
@@ -658,12 +678,13 @@ body{
 	background-color: @txt;
 	margin-bottom: 5px;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: none;
   height: 37px;
   width: 100%;
 	ul.scrollplane{
 		height: 37px; // less than scroll container
 		width: 198%; // greater than scroll container;
+		margin-bottom: 0;
 		padding: 0;
 		li{
 			display: inline-block;
@@ -873,6 +894,9 @@ input[type="text"], input[type="number"], input[type="search"], input[type="date
 		box-sizing: border-box;
 		text-align: right !important;
 		padding-left: 30px;
+	}
+	&.clean{
+		border: 0;
 	}
 	&.short{
 		width: 60%;
@@ -1286,10 +1310,14 @@ textarea{
 				}
 			}
 		}
-		li{
-			div{
-				padding: 3px 20px;
-			}
+		input[type=text], input[type=date]{
+			color: @brand;
+			font-size: 17px;
+			margin-bottom: 0;
+			padding-left: 30px;
+		}
+		input[type=date]{
+			text-align: left;
 		}
 		.title{
 			padding: 10px;
@@ -1306,7 +1334,6 @@ select{
 	&.form-control{
 		box-shadow: none;
 		-webkit-box-shadow: none;
-		background:url('arrows.png') no-repeat right center;
 		option{
 			&.choose{
 				color:@lightGrey;
@@ -1376,7 +1403,7 @@ select option[default] {
    font-weight: 400;
 }
 
-/*-- search reset test --*/
+/*-- Input type Reset --*/
 
 .field-block{
   position: relative;
@@ -1393,4 +1420,11 @@ select option[default] {
 		right: 9px;
   }
 }
+
+input.user-data{
+	background:url('../images/user.png') no-repeat left center;
+	margin: 0;
+}
+
+
 
