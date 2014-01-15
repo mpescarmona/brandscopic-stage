@@ -1314,13 +1314,22 @@ textarea{
 			color: @brand;
 			font-size: 17px;
 			margin-bottom: 0;
-			padding-left: 30px;
-		}
-		input[type=date]{
-			text-align: left;
-		}
-		.title{
-			padding: 10px;
+			padding-left: 5px;
+			padding-right: 5px;
+			&.user-data{
+				background:url('../images/user.svg') no-repeat left center;
+				margin: 0;
+				padding-left: 40px;
+			}
+			&.date-data{
+				margin: 0;
+				padding-left: 18px;
+				text-align: left !important;
+				&:before{
+					font-size: 26px;
+					padding-top: 3px;
+				}
+			}
 		}
 	}
 }
@@ -1421,10 +1430,7 @@ select option[default] {
   }
 }
 
-input.user-data{
-	background:url('../images/user.png') no-repeat left center;
-	margin: 0;
-}
+
 
 
 
