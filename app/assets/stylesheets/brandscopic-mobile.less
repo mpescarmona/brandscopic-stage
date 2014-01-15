@@ -118,6 +118,15 @@ body{
 		}
 	}
 
+	&.event-description{
+		left:2%;
+		right: 2%;
+		top: 52px !important;
+		z-index: 50;
+		position: absolute !important;
+		width: auto !important;
+	}
+
 	&.photos{
 		padding: 4px;
 	}
@@ -585,14 +594,8 @@ body{
 	width: 100%;
 	&.fullscreen{
 		height: 100%;
-		.box-container{
-			margin-top: 10px;
-			position: absolute;
-			width: 97%;
-		}
-	}
-	iframe{
-		width: 100%;
+		position: absolute;
+		z-index: -10;
 	}
 }
 
