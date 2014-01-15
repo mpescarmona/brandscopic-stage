@@ -8,11 +8,7 @@
 		  	<label>Campaign name</label>
 		  </div>
 		  <div class="col-xs-12">
-<!-- 			<select class="form-control">
-				<option value="{{event.campaign.id}}">{{event.campaign.name}}</option>
-			</select>
- -->			<select ng-model="campaign" ng-options="c.name for c in campaigns" class="form-control"></select>
-			
+			<select ng-model="event.campaign.id" ng-selected="{{event.campaign.id}}" ng-options="c.id as c.name for c in campaigns" class="form-control"></select>
 		  	<!-- <span ng-show="event_error.campaign.id" ng-class="{error: event_error.campaign.id}" ng-model="event_error.campaign.id">{{event_error.campaign.join()}}</span> -->
 		  </div>
 		</div>
