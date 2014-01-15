@@ -1313,13 +1313,11 @@ textarea{
 		input[type=text], input[type=date]{
 			color: @brand;
 			font-size: 17px;
-			margin-left: 20px;
 			margin-bottom: 0;
+			padding-left: 30px;
 		}
-		li{
-			div{
-				padding: 3px 20px;
-			}
+		input[type=date]{
+			text-align: left;
 		}
 		.title{
 			padding: 10px;
@@ -1336,7 +1334,6 @@ select{
 	&.form-control{
 		box-shadow: none;
 		-webkit-box-shadow: none;
-		background:url('arrows.png') no-repeat right center;
 		option{
 			&.choose{
 				color:@lightGrey;
@@ -1424,5 +1421,10 @@ select option[default] {
   }
 }
 
-/*-- --*/
+input.user-data{
+	background:url('../images/user.png') no-repeat left center;
+	margin: 0;
+}
+
+
 
