@@ -97,7 +97,7 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
-    .state('home.events.details.about.map', {
+    .state('home.events.details.map', {
       url: "/map",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_about_map.html",
                               controller: 'EventsAboutMapController'
