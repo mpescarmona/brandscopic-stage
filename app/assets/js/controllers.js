@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
   }])
@@ -386,7 +386,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign'])
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event) {
                                     $scope.event = event;
-
 
                                     var
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
@@ -921,7 +920,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign'])
   }])
 
 
-  .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+  .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -939,11 +938,27 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign'])
       , actions = { success: function(event){
                                     $scope.event = event;
 
-                                    // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface;
-                                    $scope.eventId = $stateParams.eventId;
+                                    $scope.total = function() {
+                                        var total = 0;
+                                        angular.forEach($scope.expenses, function(item) {
+                                            total += item.amount;
+                                        })
+
+                                        return total;
+                                    }
+
+                                    var
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                      , actions = { success: function(expenses) {
+                                                                  $scope.expenses = expenses
+                                                                // Options for User Interface in home partial
+                                                                  ui.title = event.campaign.name
+                                                                  angular.extend(UserInterface, ui)
+                                                                  $scope.UserInterface = UserInterface
+                                                                  $scope.eventId = $stateParams.eventId
+                                                             }
+                                      }
+                                    Expense.all(credentials, actions)
                               }
        }
 
