@@ -939,11 +939,9 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.event = event;
 
                                     $scope.total = function() {
-                                        var total = 0;
-                                        angular.forEach($scope.expenses, function(item) {
-                                            total += item.amount;
-                                        })
+                                        var total = 0
 
+                                        for(var i = 0, item; item = $scope.expenses[i++], total += item.amount;)
                                         return total;
                                     }
 
@@ -998,7 +996,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "surveys"}
+        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "surveys",  AddIconState: "home.events.details.surveys.add"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
                                     $scope.event = event;
