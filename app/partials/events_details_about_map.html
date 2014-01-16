@@ -1,15 +1,14 @@
 <!-- Event Details Container - EVENT VIEW - ABOUT MAP-->
 
-<div class="google-map fullscreen">
-	<div class="container">
-		<div class="box-container">
-			<h5>{{event.campaign.name}}</h5>
-			<p class="small">{{event.place.formatted_address}}</p>
-			<a href="http://maps.google.com/maps?q={{[event.place.latitude,event.place.longitude].join()}}" class="blue" target="_blank">Get directions</a>
-		</div>
+<div class="container">
+	<div class="box-container event-description">
+		<h5>{{event.campaign.name}}</h5>
+		<p>{{event.place.formatted_address}}</p>
+		<a href="http://maps.google.com/maps?q={{[event.place.latitude,event.place.longitude].join()}}" class="blue" target="_blank">Get directions</a>
 	</div>
+</div>
   <!--FIXME! STYLES FOR THIS VIEW NEEDS TO BE FIXED-->
-  <div class="map-container" style="height:400px">
+  <div class="google-map fullscreen">
     <map zoom-control="true" center="{{[event.place.latitude,event.place.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
     <marker position="{{[event.place.latitude,event.place.longitude]}}" title="{{event.place.name||'venue'}}"></marker>
   </div>

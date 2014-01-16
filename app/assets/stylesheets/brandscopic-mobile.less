@@ -118,6 +118,22 @@ body{
 		}
 	}
 
+	&.event-description{
+		left:2%;
+		right: 2%;
+		top: 52px !important;
+		z-index: 50;
+		position: absolute !important;
+		width: auto !important;
+		a{
+			font-weight: 600;
+		}
+		h5{
+			font-weight: 600;
+			line-height: 26px;
+		}
+	}
+
 	&.photos{
 		padding: 4px;
 	}
@@ -553,7 +569,8 @@ body{
 
 .form-control{
 	height: 40px;
-	border-radius: 6px;
+	//.border-bottom-radius(6px);
+	//.border-top-radius(6px);
 	&:focus{
 		border: 1px solid #c0c0c0;
 		box-shadow: none;
@@ -584,14 +601,8 @@ body{
 	width: 100%;
 	&.fullscreen{
 		height: 100%;
-		.box-container{
-			margin-top: 10px;
-			position: absolute;
-			width: 97%;
-		}
-	}
-	iframe{
-		width: 100%;
+		position: absolute;
+		z-index: -10;
 	}
 }
 
@@ -1314,13 +1325,22 @@ textarea{
 			color: @brand;
 			font-size: 17px;
 			margin-bottom: 0;
-			padding-left: 30px;
-		}
-		input[type=date]{
-			text-align: left;
-		}
-		.title{
-			padding: 10px;
+			padding-left: 5px;
+			padding-right: 5px;
+			&.user-data{
+				background:url('../images/user.svg') no-repeat left center;
+				margin: 0;
+				padding-left: 40px;
+			}
+			&.date-data{
+				margin: 0;
+				padding-left: 18px;
+				text-align: left !important;
+				&:before{
+					font-size: 26px;
+					padding-top: 3px;
+				}
+			}
 		}
 	}
 }
@@ -1421,10 +1441,7 @@ select option[default] {
   }
 }
 
-input.user-data{
-	background:url('../images/user.png') no-repeat left center;
-	margin: 0;
-}
+
 
 
 

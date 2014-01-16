@@ -3,7 +3,7 @@
 	<map zoom-control="false" center="{{[event.place.latitude,event.place.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
   <marker position="{{[event.place.latitude,event.place.longitude]}}" title="{{event.place.name||'venue'}}"></marker>
 </div>
-<a href="#/home/events/{{event.id}}/map" class="blue">me full screen!</a>
+<a href="#/home/events/{{event.id}}/map" class="fullscreen"></a>
 <div class="container">
 	<!-- ALERT FOR CONTAINER STATUS - SUBMITTED -->
 	<div class="box-container submitted" ng-show="event.event_status=='Submitted'">

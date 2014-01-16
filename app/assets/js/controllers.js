@@ -419,7 +419,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign'])
                       }
                     }
 
-      $scope.event.campaign_id = $scope.campaign.id
+      $scope.event.campaign_id = $scope.event.campaign.id
       Event.update(credentials, actions, $scope.event)
     }
 
