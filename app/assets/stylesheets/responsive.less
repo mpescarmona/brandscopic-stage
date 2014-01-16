@@ -1,14 +1,27 @@
 
-/* Smartphones (landscape) ----------- */
-@media only screen and (min-width : 380px) {
+/* Smartphones (landscape) ------------------------- */
+
+@media only screen and (min-width : 481px) {
+
+	/*-- FIXED STYLES ON PHOTOS GALLERY --*/
+
 	body.appLayout .container.slider {
-		background-color: #252525;
 		width: 81% !important;
 	}
-	.gallery_fullscreen img {
-		width: 100%;
+	.gallery_fullscreen{
+		height: 100%;
+		padding-top:0;
+		img {
+			max-height: 370px;
+			width: 100%;
+		}
 	}
 	.slide{
 		top: -60px;
+	}
+
+	/*-- FIXED STYLES ON SUBNAV --*/
+	.subnav ul.scrollplane{
+		width: 98%;
 	}
 }
