@@ -6,14 +6,17 @@
 			<div class="col-xs-7 expenses-details">
 				<label class="medium">Name</label>
 				<input type="text"></input>
-				<label class="medium mt25">Amount</label>
+				<label class="medium mt15">Amount</label>
 				<div class="input-group">
 					<span class="input-group-addon">$</span>
-			  	<input type="text" class="form-control">
+			  	<input type="number" class="form-control">
 				</div>
 			</div>
 			<div class="col-xs-4 expenses-attach pull-right">
-				<p>Attach receipt</p>
+				<div class="fileUpload">
+				  <p>Attach receipt</p>
+				  <input type="file" class="upload" accept="image/*"/>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -67,6 +67,11 @@ body.appLayout .container.slider{
   width: 100%;
   margin-top: 46px;
   top: 0;
+  bottom:0;
+  left:0;
+  right:0;
+  overflow-y:scroll;
+  overflow-x: hidden;
 }
 
 .gallery_fullscreen .description a.deactivate{
@@ -88,5 +93,17 @@ body.appLayout .container.slider{
 .gallery_fullscreen img{
   max-height: 140%;
   width: 100%;
+}
+
+/*-- GALLERY FOR EXPENSES --*/
+
+.gallery_fullscreen.expenses{
+  text-align: center;
+}
+
+.gallery_fullscreen.expenses img{
+  height: auto;
+  margin-bottom: 50px;
+  width: 300px;
 }
 

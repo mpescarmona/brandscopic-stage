@@ -5,9 +5,25 @@
 
 	/*-- FIXED STYLES ON PHOTOS GALLERY --*/
 
-	body.appLayout .container.slider {
-		width: 81% !important;
+	body.appLayout .container{
+		&.description{
+			bottom: 0;
+			z-index: 300;
+			position: absolute;
+			padding: 0 0 5px 0;
+			width: 100%;
+		}
 	}
+
+	.slider{
+		position: absolute;
+		left: 4%;
+		width: auto;
+		right: 4%;
+		top: 11px;
+		z-index: 100;
+	}
+
 	.gallery_fullscreen{
 		height: 100%;
 		padding-top:0;
@@ -15,6 +31,18 @@
 			max-height: 370px;
 			width: 100%;
 		}
+		&.expenses{
+			img{
+				max-height: none;
+			}
+		}
+	}
+	.slider{
+		position: absolute;
+		left: 4%;
+		width: auto;
+		right: 4%;
+		top: 11px;
 	}
 	.slide{
 		top: -60px;
