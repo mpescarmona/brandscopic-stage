@@ -937,6 +937,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
                                     $scope.event = event;
+                                    $scope.eventId = $stateParams.eventId;
 
                                     $scope.total = function() {
                                         var total = 0
@@ -981,6 +982,31 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface;
                                     $scope.eventId = $stateParams.eventId;
+                              }
+       }
+
+    Event.find(credentials, actions)
+
+ }])
+
+  .controller('EventsExpensesPhotoController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    var
+        ui = {title: "", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: true, showEventSubNav: false, hasCustomHomeClass: true, CloseState: "home.events.details.expenses", searching: false, eventSubNav: "expenses"}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+      , actions = { success: function(event){
+                                    $scope.event = event;
+
+                                    // Options for User Interface in home partial
+                                    angular.extend(UserInterface, ui)
+                                    $scope.UserInterface = UserInterface;
+                                    $scope.eventId = $stateParams.eventId;
+                                    $scope.expenseId = $stateParams.expenseId;
                               }
        }
 

@@ -216,6 +216,13 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.events.details.expenses.photo', {
+      url: "/:expenseId/photo",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses_photo.html",
+                              controller: 'EventsExpensesPhotoController'
+                            }
+            }
+    })
     .state('home.events.details.surveys', {
       url: "/surveys",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys.html",
