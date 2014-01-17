@@ -5,8 +5,13 @@
 
 	/*-- FIXED STYLES ON PHOTOS GALLERY --*/
 
-	body.appLayout .container.slider {
-		width: 81% !important;
+	body.appLayout .container{
+		&.slider{
+			width: 81% !important;
+		}
+		&.description{
+			bottom: -15px;
+		}
 	}
 	.gallery_fullscreen{
 		height: 100%;
@@ -15,6 +20,14 @@
 			max-height: 370px;
 			width: 100%;
 		}
+		&.expenses{
+			img{
+				max-height: none;
+			}
+		}
+	}
+	.slider{
+		min-height: none !important;
 	}
 	.slide{
 		top: -60px;
