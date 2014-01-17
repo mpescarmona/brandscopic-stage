@@ -1,6 +1,17 @@
 @singlebutton: 70px;
 @dualbutton: 100px;
 
+.row-width(@value){
+  width: ~"-webkit-calc(100% + @{value})";
+  width: ~"-moz-calc(100% + @{value})";
+  width: ~"calc(100% + @{value})";
+}
+.row-content-width(@value){
+  width: ~"-webkit-calc(100% - @{value})";
+  width: ~"-moz-calc(100% - @{value})";
+  width: ~"calc(100% - @{value})";
+}
+
 .swipe-list li{
   overflow: hidden;
 }
@@ -14,18 +25,18 @@
 
 .single-button{
   &.row{
-    width: ~"calc(100% + @{singlebutton})";
+    .row-width(@singlebutton);
   }
   .row-content{
-    width: ~"calc(100% - @{singlebutton})";
+    .row-content-width(@singlebutton);
   }
 }
 .dual-button{
   &.row{
-    width: ~"calc(100% + @{dualbutton})";
+    .row-width(@dualbutton);
   }
   .row-content{
-    width: ~"calc(100% - @{dualbutton})";
+    .row-content-width(@dualbutton);
   }
 }
 
