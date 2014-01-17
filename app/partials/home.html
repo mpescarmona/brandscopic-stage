@@ -34,7 +34,7 @@
             ng-swipe-left="UserInterface.searching=true">
       </button>
       <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon" redirect-to-state="{{UserInterface.AddIconState}}" ng-animate=" ' animate' "></button>
-      <div class="noButton addIcon pull-right fileUpload">
+      <div class="noButton addIcon pull-right fileUpload hidden">
         <input type="file" class="upload" accept="image/*"/>
       </div>
       <button class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" ng-click="UserInterface.actionSave">Save</button>
