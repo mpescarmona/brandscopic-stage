@@ -1,8 +1,14 @@
 <!-- VENUES DETAILS - ABOUT -->
 
 <div class="google-map">
-	<iframe width="100%" height="142" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com.ar/maps?t=m&amp;ie=UTF8&amp;ll=-32.926448,-68.813779&amp;spn=0.265698,0.523224&amp;z=11&amp;output=embed"></iframe>
+	<map zoom-control="false" center="{{[event.place.latitude,event.place.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
+  <marker position="{{[event.place.latitude,event.place.longitude]}}" title="{{event.place.name||'venue'}}"></marker>
 </div>
+<!--<a href="#/home/events/{{event.id}}/map" class="fullscreen"></a>-->
+
+<a href="#/home/venues/{{venue.id}}/map" class="fullscreen"></a>
+
+<!-- END OF THE MAP FOR VENUES -->
 
 <div class="container">
 	<div class="box-container">
