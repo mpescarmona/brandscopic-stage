@@ -5,7 +5,8 @@
   	<div class="box-container">
   		<textarea rows="5" cols="30" placeholder="Write your comment" ng-model="comment.content"></textarea><br />
   		</textarea>
-  	</div>
+      <span ng-show="comment_error.content" ng-class="{error: comment_error.content}" ng-model="comment_error.content">{{comment_error.content.join()}}</span>        
+    </div>
     <div class="row">
       <div class="col-xs-12 mt20">
         <label>Save</label>
