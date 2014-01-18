@@ -16,28 +16,26 @@
 	<!-- <div class="dividersBar">TODAY</div> -->
 	<div class="dividersBar">{{event.start_date | date:'EEEE, MMM d'}}</div>
 	<div class="box-container np" ng-show="!UserInterface.searching">
-	<ul class="events list swipe-list">
-			<li ng-repeat="event1 in eventsItems | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status}" ng-show="!UserInterface.searching" ng-class="{lastItem: $last}">
-      <a href="#/home/events/{{event1.id}}/about"> <!-- FIXME!! -->
-					<div class="row action-buttons dual-button" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'">
-					<!--approved: event_status=='Approved'-->
-		        <div class="row-content">
-		          <div class="col-xs-3 eventHour">
-		            <p class="xs">{{event1.start_time}}</p>
-		            <p class="xs">{{event1.end_time}}</p>
-		          </div>
-		          <div class="col-xs-9 eventDescription">
-		            <h5 class="txtAdjust">{{event1.campaign.name}}</h5>
-		            <p class="medium txtAdjust second">{{event1.place.name}}, {{event1.place.city}}, {{event1.place.state}}</p>
-		          </div>
-		        </div>
-						<div class="editpanel actions-panel">
-						 	<a href="#" class="edit"></a>
-							<a href="#" class="deactivate"></a>
-						</div>
-					</div>
-				</a>
-			</li>
+    <ul class="events list swipe-list" go-to>
+      <li ng-repeat="event1 in eventsItems | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status}" ng-show="!UserInterface.searching" ng-class="{lastItem: $last}">
+        <div class="row action-buttons dual-button" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="goTo('#/home/events/{{event1.id}}/about')">
+          <!--approved: event_status=='Approved'-->
+          <div class="row-content">
+            <div class="col-xs-3 eventHour">
+              <p class="xs">{{event1.start_time}}</p>
+              <p class="xs">{{event1.end_time}}</p>
+            </div>
+            <div class="col-xs-9 eventDescription">
+              <h5 class="txtAdjust">{{event1.campaign.name}}</h5>
+              <p class="medium txtAdjust second">{{event1.place.name}}, {{event1.place.city}}, {{event1.place.state}}</p>
+            </div>
+          </div>
+          <div class="editpanel actions-panel">
+            <a href="#" class="edit"></a>
+            <a href="#" class="deactivate"></a>
+          </div>
+        </div>
+      </li>
 		</ul>
 	</div>
 </div>

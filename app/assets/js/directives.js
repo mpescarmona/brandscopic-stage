@@ -31,7 +31,19 @@ angular.module('brandscopicApp.directives', [])
       }
     };
   })
-
+  
+  //goHere is used in list of elements to see item details
+  
+  .directive('goTo', function ($window) {
+    return {
+      restrict: 'A',
+      link: function (scope, el, attrs) {
+        scope.goTo = function(path){
+          $window.location.href = path;
+        }
+      }
+    }
+  })
 
   .directive('redirectTo', function ($window) {
     return function (scope, el, attrs, ctrl) {
