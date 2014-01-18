@@ -9,8 +9,8 @@
 					<p class="comment-user">Craig Williams</p>
 					<p class="comment-date small">10 mins ago</p>
   
-					<p class="clearfix medium comment-short">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page demonstraverunt lectores legere me lius quod.</p>
-					<a href="#" class="blue full-comment">Show full comment</a>
+					<p class="clearfix medium {{comment-short: event.comment.length > 540 }}">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page demonstraverunt lectores legere me lius quod.</p>
+					<span class="{{hide: event.comment.length =< 540}} blue full-comment">Show full comment</span>
 				</div>
 			</li>
 			<li>
@@ -37,19 +37,3 @@
 			</li>
 		</ul>
 	</div>
-	<div ng-controller="AccordionDemoCtrl">
-	  <accordion>
-	    <accordion-group heading="Static Header">
-	      This content is straight in the template.
-	    </accordion-group>
-	    <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
-	      {{group.content}}
-	    </accordion-group>
-	    <accordion-group heading="Dynamic Body Content">
-	      <p>The body of the accordion group grows to fit the contents</p>
-	        <button class="btn btn-small" ng-click="addItem()">Add Item</button>
-	        <div ng-repeat="item in items">{{item}}</div>
-	    </accordion-group>
-	  </accordion>
-	</div>
-</div>
