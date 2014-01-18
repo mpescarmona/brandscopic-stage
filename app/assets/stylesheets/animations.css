@@ -71,3 +71,48 @@
   margin-left: 0 !important;
 }
 
+
+
+
+/*expandible comments*/
+/*FIXME: future improvement, calculate the height from font size*/
+
+.expandible-comment{
+  .margin-data{
+    max-height: 190px;
+    position: relative;
+    overflow: hidden;
+    padding: 13px 13px 0 13px;
+    margin-bottom: 13px;
+    .full-comment{
+      position: absolute;
+      top: 152px;
+      background: white;  /*pls replace with variable*/
+      width: 100%;
+      cursor: pointer;
+      padding: 4px 0 15px;
+      &:before{
+        display: inline;
+        content: attr(data-content-collapsed); /* this allows content stay in views instead of css, will allow future translations*/
+      }
+    }
+  }
+  &.expanded{
+    .margin-data{
+      max-height: inherit;
+    }
+    .full-comment{
+      position: relative;
+      top: inherit;
+      padding: 0;
+      &:before{
+        display: inline;
+        content: attr(data-content-expanded);
+      }
+      &:after{
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid #3e9ccf; /*pls replace with variable*/
+      }
+    }
+  }
+}
