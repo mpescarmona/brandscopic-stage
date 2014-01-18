@@ -63,11 +63,9 @@ angular.module('brandscopicApp.services', ['ngResource'])
                                 params: {email: email, password: password},
                                 interceptor: {
                                                 response: function (data) {
-                                                    console.log('response in interceptor', data);
                                                     return data;
                                                 },
                                                 responseError: function (data) {
-                                                    console.log('error in interceptor', data);
                                                     return data;
                                                 }
                                               },
