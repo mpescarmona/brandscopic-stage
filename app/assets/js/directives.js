@@ -45,6 +45,19 @@ angular.module('brandscopicApp.directives', [])
     }
   })
 
+  //stop propagation from stackoverflow.com/questions/14544741/angularjs-directive-to-stoppropagation
+  
+  .directive('stopEvent', function () {
+    return {
+      restrict: 'A',
+      link: function (scope, element, attr) {
+        element.bind(attr.stopEvent, function (e) {
+          e.stopPropagation();
+        });
+      }
+    };
+  })
+
   .directive('redirectTo', function ($window) {
     return function (scope, el, attrs, ctrl) {
       el.on('click', function (e) {
