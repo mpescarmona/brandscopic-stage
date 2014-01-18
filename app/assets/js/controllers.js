@@ -810,13 +810,18 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.task_status = false;
                                     $scope.filterTask = function(status) {
                                       $scope.task_status = ($scope.task_status == status) ? false : status;
-                                    };
+                                    }
+                                    //$scope.goHere = function (hash) {
+                                      //$location.path(hash);
+                                    //};
+                                    // remember to inject $location
 
                               }
 
        }
 
    Event.find(credentials, actions)
+   
 
   }])
 
@@ -1145,6 +1150,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     promise.catch(function(response) {
       $scope.venuesItems = {};
     });
+
   }])
 
   .controller('VenuesAddController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, snapRemote, UserService, UserInterface, VenuesRestClient) {
