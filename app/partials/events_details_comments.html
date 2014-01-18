@@ -8,9 +8,9 @@
 				<div class="margin-data">
 					<p class="comment-user">Craig Williams</p>
 					<p class="comment-date small">{{comment.created_at}}</p>
-  
-					<p class="clearfix medium comment-short">{{comment.content}}</p>
-					<a href="#" class="blue full-comment">Show full comment</a>
+
+					<p class="clearfix medium {{comment-short: event.comment.length > 540 }}">{{comment.content}}</p>
+					<span class="{{hide: event.comment.length =< 540}} blue full-comment">Show full comment</span>
 					<div class="editpanel pull-right" ng-show="checked">
 						<a href="#" class="edit"></a>
 						<a href="#" class="deactivate"></a>
