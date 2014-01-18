@@ -32,7 +32,7 @@ angular.module('brandscopicApp.directives', [])
     };
   })
   
-  //goHere is used in list of elements to see item details
+  //goTo is used in list of elements to see item details
   
   .directive('goTo', function ($window) {
     return {

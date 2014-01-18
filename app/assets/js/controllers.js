@@ -155,11 +155,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       });
     };
 
-    // $scope.gotToState = function(newState) {
-    //   $state.go(newState);
-    //   return;
-    // };
-
     $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#home/events'},
                               {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#home/tasks'},
                               {'class': 'venuesIcon', 'label': 'VENUES', 'link': '#home/venues'},
