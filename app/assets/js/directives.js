@@ -37,7 +37,7 @@ angular.module('brandscopicApp.directives', [])
   .directive('goTo', function ($window) {
     return {
       restrict: 'A',
-      link: function (scope, el, attrs) {
+      link: function (scope, _el, _attrs) {
         scope.goTo = function(path){
           $window.location.href = path;
         }
@@ -50,8 +50,8 @@ angular.module('brandscopicApp.directives', [])
   .directive('stopEvent', function () {
     return {
       restrict: 'A',
-      link: function (scope, element, attr) {
-        element.bind(attr.stopEvent, function (e) {
+      link: function (_scope, el, attr) {
+        $el.on(attr.stopEvent, function (e) {
           e.stopPropagation();
         });
       }
