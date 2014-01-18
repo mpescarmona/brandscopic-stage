@@ -4,36 +4,19 @@
 	<div class="dividersBar big">SUMMARY</div>
 	<div class="box-container np">
 		<ul class="comments">
-			<li>
+			<li ng-repeat="comment in comments">
 				<div class="margin-data">
 					<p class="comment-user">Craig Williams</p>
-					<p class="comment-date small">10 mins ago</p>
-  
-					<p class="clearfix medium {{comment-short: event.comment.length > 540 }}">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page demonstraverunt lectores legere me lius quod.</p>
-					<span class="{{hide: event.comment.length =< 540}} blue full-comment">Show full comment</span>
-				</div>
-			</li>
-			<li>
-				<div class="margin-data">
-					<a href="#" ng-model="checked">
-						<p class="comment-user">Jonathan Prince</p>
-						<p class="comment-date small">Yesterday</p>
+					<p class="comment-date small">{{comment.created_at}}</p>
 
-						<p class="clearfix medium">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page demonstraverunt lectores legere me lius quod</p>
-					</a>
+					<p class="clearfix medium {{comment-short: event.comment.length > 540 }}">{{comment.content}}</p>
+					<span class="{{hide: event.comment.length =< 540}} blue full-comment">Show full comment</span>
 					<div class="editpanel pull-right" ng-show="checked">
 						<a href="#" class="edit"></a>
 						<a href="#" class="deactivate"></a>
 					</div>
 				</div>
 			</li>
-			<li>
-				<div class="margin-data">
-					<p class="comment-user">Chad Thompson</p>
-					<p class="comment-date small">A month ago</p>
-					
-					<p class="clearfix medium">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
-				</div>
-			</li>
 		</ul>
 	</div>
+</div>

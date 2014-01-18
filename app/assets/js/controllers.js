@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
   }])
@@ -661,32 +661,44 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
   }])
 
-  .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+  .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Comment', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Comment) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
     snapRemote.close()
 
-    $scope.gotToState = function(newState) {
-      $state.go(newState);
-      return;
-    };
+    // $scope.gotToState = function(newState) {
+    //   $state.go(newState);
+    //   return;
+    // };
 
     var
         ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: "home.events.details.comments.add"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event){
+      , actions = { success: function(event) {
                                     $scope.event = event;
+                                    $scope.eventId = $stateParams.eventId;
 
                                     // Options for User Interface in home partial
                                     ui.title = event.campaign.name
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface;
-                                    $scope.eventId = $stateParams.eventId;
+
+                                    var
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                      , pepe = { success: function(comments) {
+                                                                  $scope.comments = comments
+                                                                // Options for User Interface in home partial
+                                                                  // ui.title = event.campaign.name
+                                                                  // angular.extend(UserInterface, ui)
+                                                                  // $scope.UserInterface = UserInterface
+                                                             }
+                                                }
+
+                                    Comment.all(credentials, pepe)
                               }
        }
-
     Event.find(credentials, actions)
 
   }])
