@@ -3,15 +3,17 @@ angular.module('model.comment', ['persistence.comment'])
   .service('Comment', ['commentClient', function (commentClient) {
     var
        company_id
+      , event_id
       , collection
       , comment
 
       , all = function (credentials, actions) {
-          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
-            if (collection && company_id == credentials.company_id)
+          if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions) {
+            if (collection && company_id == credentials.company_id && event_id == credentials.event_id)
               actions.success(collection)
             else {
               company_id = credentials.company_id
+              event_id = credentials.event_id
               commentClient.all(credentials, allResponse(actions))
             }
           } else
@@ -32,7 +34,7 @@ angular.module('model.comment', ['persistence.comment'])
       }
 
       , create = function (credentials, actions, attributes) {
-          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions)
+          if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
             if (Object.keys(attributes).length)
               commentClient.create(credentials
                                  , attributes
@@ -42,18 +44,16 @@ angular.module('model.comment', ['persistence.comment'])
       }
       , createResponse = function (action) {
         return function (resp) {
-          if (resp.length)
-            if ('id' in resp) {
-              comment = resp
-              collection.push(comment)
-            }
+          if ('id' in resp) {
+            comment = resp
+            collection.push(comment)
+          }
 
           var answer = resp.id ? resp : resp.data
 
           if (action) action(angular.copy(answer))
         }
       }
-
 
       return {
           all: all
