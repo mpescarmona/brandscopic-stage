@@ -4,6 +4,7 @@ angular.module('model.comment', ['persistence.comment'])
     var
        company_id
       , collection
+      , comment
 
       , all = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
@@ -21,7 +22,7 @@ angular.module('model.comment', ['persistence.comment'])
           return function(resp){
             if (resp.length) {
               collection = resp
-              
+
               actions.success(angular.copy(collection))
             }
             else
@@ -30,7 +31,32 @@ angular.module('model.comment', ['persistence.comment'])
           }
       }
 
+      , create = function (credentials, actions, attributes) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions)
+            if (Object.keys(attributes).length)
+              commentClient.create(credentials
+                                 , attributes
+                                 , createResponse(actions.success)
+                                 , createResponse(actions.error)
+                                )
+      }
+      , createResponse = function (action) {
+        return function (resp) {
+          if (resp.length)
+            if ('id' in resp) {
+              comment = resp
+              collection.push(comment)
+            }
+
+          var answer = resp.id ? resp : resp.data
+
+          if (action) action(angular.copy(answer))
+        }
+      }
+
+
       return {
           all: all
+        , create: create
       }
   }])

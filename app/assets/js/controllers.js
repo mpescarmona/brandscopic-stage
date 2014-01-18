@@ -703,7 +703,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
   }])
 
-  .controller('EventsCommentsAddController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, Event) {
+  .controller('EventsCommentsAddController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'Event', 'Comment', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, Event, Comment) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -712,12 +712,33 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
     var
         ui = {title: "Comment", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: ""}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+      , actions = { success: function(event) {
+                                    $scope.eventId = $stateParams.eventId;
+                                    // Options for User Interface in home partial
+                                    $scope.event = event;
 
-    $scope.eventId = $stateParams.eventId;
+                                    $scope.createComment = function() {
+                                      var
+                                          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                        , actions = { success: function (comment) {
+                                                            $scope.comment = comment
+                                                            $location.path("/home/events/" + event.id + "/comments")
+                                                      }
+                                                    , error: function (comment_error) {
+                                                        $scope.comment_error = comment_error
+                                                         console.log(comment_error)
+                                                      }
+                                                    }
+                                      Comment.create(credentials, actions, $scope.comment)
+                                    }
 
-    // Options for User Interface in home partial
+                             }
+        }
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
+
+    Event.find(credentials, actions)
 
  }])
 
