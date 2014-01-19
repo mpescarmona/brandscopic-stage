@@ -50,7 +50,7 @@ angular.module('brandscopicApp.directives', [])
   .directive('stopEvent', function () {
     return {
       restrict: 'A',
-      link: function (_scope, el, attr) {
+      link: function (_scope, $el, attr) {
         $el.on(attr.stopEvent, function (e) {
           e.stopPropagation();
         });
