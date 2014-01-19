@@ -9,7 +9,7 @@ angular.module('model.expense', ['persistence.expense'])
 
       , all = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions) {
-            if (collection && company_id == credentials.company_id)
+            if (collection && company_id == credentials.company_id && event_id == credentials.event_id)
               actions.success(collection)
             else {
               company_id = credentials.company_id
@@ -46,7 +46,7 @@ angular.module('model.expense', ['persistence.expense'])
         return function (resp) {
           if ('id' in resp) {
             expense = resp
-            collection.push(expense)
+            collection = undefined
           }
 
           var answer = resp.id ? resp : resp.data

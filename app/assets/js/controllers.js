@@ -967,13 +967,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.UserInterface = UserInterface
                                     $scope.eventId = $stateParams.eventId
 
-                                    $scope.total = function() {
-                                        var total = 0
-
-                                        for(var i = 0, item; item = $scope.expenses[i++], total += item.amount;)
-                                        return total
-                                    }
-
                                     var
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                       , actions = { success: function(expenses) {
@@ -983,6 +976,15 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                                   angular.extend(UserInterface, ui)
                                                                   $scope.UserInterface = UserInterface
                                                                   $scope.eventId = $stateParams.eventId
+
+                                                                  $scope.total = function() {
+                                                                      var total = 0
+
+                                                                      for(var i = 0, item; item = $scope.expenses[i++];) {
+                                                                        total += Number(item.amount)
+                                                                      }
+                                                                      return total
+                                                                  }
                                                              }
                                       }
                                     Expense.all(credentials, actions)
