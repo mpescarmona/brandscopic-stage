@@ -948,7 +948,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
   }])
 
 
-  .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
+  .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -964,14 +964,19 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: "home.events.details.expenses.add"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
-                                    $scope.event = event;
-                                    $scope.eventId = $stateParams.eventId;
+                                    $scope.event = event
+                                    $scope.expenses = {}
+
+                                    // Options for User Interface in home partial
+                                    angular.extend(UserInterface, ui)
+                                    $scope.UserInterface = UserInterface
+                                    $scope.eventId = $stateParams.eventId
 
                                     $scope.total = function() {
                                         var total = 0
 
                                         for(var i = 0, item; item = $scope.expenses[i++], total += item.amount;)
-                                        return total;
+                                        return total
                                     }
 
                                     var
@@ -993,7 +998,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
   }])
 
-  .controller('EventsExpensesAddController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, Event, Expense) {
+  .controller('EventsExpensesAddController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -1015,7 +1020,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                       var
                                           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                         , actions = { success: function (expense) {
-                                                            $scope.expense = expense
+                                                            $scope.event_expense = expense
                                                             $location.path("/home/events/" + event.id + "/expenses")
                                                       }
                                                     , error: function (expense_error) {
@@ -1023,7 +1028,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                          console.log(expense_error)
                                                       }
                                                     }
-                                      Expense.create(credentials, actions, $scope.comment)
+                                      Expense.create(credentials, actions, $scope.event_expense)
                                     }
                               }
        }
