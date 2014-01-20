@@ -377,7 +377,7 @@ body{
 }
 
 .editpanel{
-	padding: 13px 8px 13px 0;
+	padding: 13px 8px 13px 13px;
 	width: 99px;
 	a{
 		margin: 0 7px 0 6px
@@ -1495,7 +1495,7 @@ html{min-height:100%;position:relative}
 	color: #c0c0c0;
 	height: 100%;
 	left: 0;
-	margin: 12% auto;
+	margin: 25% auto;
 	position: absolute;
 	right: 0;
 	text-align: center;
@@ -1507,12 +1507,17 @@ html{min-height:100%;position:relative}
 			position: relative;
 		}
 	}
+	&.people{
+		margin: 33% auto;
+	}
 	h4{
 		color: @lightGrey;
+		font-weight: 600;
 		padding-bottom: 18px;
 	}
 	h6:last-child{
 		bottom: 0;
+		font-weight: 600;
 		width: 100%;
 		position: fixed;
 		margin-bottom: 50px;
@@ -1541,8 +1546,9 @@ html{min-height:100%;position:relative}
 
 .no-contacts:before{
 	content: "\e61e";
-	font-size: 93px;
+	font-size: 87px;
 	left: 4px;
+	padding-bottom: 4px;
 	top: 9px;
 }
 
@@ -1550,7 +1556,7 @@ html{min-height:100%;position:relative}
 	content: "\e61c";
 	left: 10px;
 	top: 20px;
-	font-size: 94px;
+	font-size: 90px;
 }
 
 .no-photo:before{
