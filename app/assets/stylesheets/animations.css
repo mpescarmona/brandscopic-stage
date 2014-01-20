@@ -86,7 +86,7 @@
     margin-bottom: 13px;
     .full-comment{
       position: absolute;
-      top: 152px;
+      top: 155px;
       background: white;  /*pls replace with variable*/
       width: 100%;
       cursor: pointer;
