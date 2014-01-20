@@ -1483,14 +1483,47 @@ html{min-height:100%;position:relative}
 /*-- EMPTY STATES STYLES */
 
 .empty{
-	color: @lightGrey;
+	bottom: 0;
+	color: #c0c0c0;
+	height: 100%;
+	left: 0;
+	margin: 12% auto;
+	position: absolute;
+	right: 0;
 	text-align: center;
+	top: 0;
+	width: 100%;
+	z-index: -43;
+	&.people{
+		margin: 15% auto;
+	}
+	&.notifications{
+		h6:last-child{
+			position: relative;
+		}
+	}
 	h4{
 		color: @lightGrey;
 		padding-bottom: 18px;
 	}
+	h6:last-child{
+		bottom: 0;
+		width: 100%;
+		position: fixed;
+		margin-bottom: 50px;
+		line-height: 21px;
+	}
 	span:before{
 		color:@lightGrey;
+	}
+	.glyphicon-plus:before{
+		content:"\e615";
+		font-family: 'icons';
+		font-size: 13px;
+		font-weight: bolder;
+	}
+	.glyphicon{
+		top:-1px !important;
 	}
 }
 
@@ -1505,7 +1538,7 @@ html{min-height:100%;position:relative}
 	content: "\e61e";
 	font-size: 93px;
 	left: 4px;
-	top: 5px;
+	top: 9px;
 }
 
 .no-event-team:before{

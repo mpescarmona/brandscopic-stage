@@ -301,4 +301,11 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.notifications', {
+      url: "/notifications",
+      views:{'details@home':{ templateUrl: "partials/notifications.html",
+                              controller: 'NotificationsController'
+                            }
+            }
+    })
 });
