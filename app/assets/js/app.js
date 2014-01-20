@@ -121,7 +121,7 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.details.people.contacts.add', {
       url: "/add",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_add.html",
-                              controller: 'EventsPeopleAddController'
+                              controller: 'EventsPeopleContactsAddController'
                             }
             }
     })
@@ -135,7 +135,14 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.details.people.team', {
       url: "/team",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team.html",
-                              controller: 'EventsPeopleController'
+                              controller: 'EventsPeopleTeamController'
+                            }
+            }
+    })
+    .state('home.events.details.people.team.add', {
+      url: "/add",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team_add.html",
+                              controller: 'EventsTeamAddController'
                             }
             }
     })

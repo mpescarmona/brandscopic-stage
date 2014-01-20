@@ -46,7 +46,7 @@ angular.module('model.comment', ['persistence.comment'])
         return function (resp) {
           if ('id' in resp) {
             comment = resp
-            collection.push(comment)
+            collection = undefined
           }
 
           var answer = resp.id ? resp : resp.data

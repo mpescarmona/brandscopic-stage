@@ -2,13 +2,13 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
   }])
 
   .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
-    $scope.user = {'email': '', 'password': ''};
+    $scope.user = {'email': 'mpescarmona@gmail.com', 'password': 'Mario123'};
 
     $scope.wrongUser = null;
     $scope.validateApiUser = function() {
@@ -200,18 +200,25 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
       , actions = { success: function(events, filters){
-                               $scope.eventsItems = events
-                               $scope.filters = filters
+                                // workaround for remove the non 'Active' events
+                                for(var i = 0, evt; evt = events[i++];) {
+                                  if (evt.status != 'Active') {
+                                    events.splice(i-1, 1)
+                                  }
+                                }
+
+                                $scope.eventsItems = events
+                                $scope.filters = filters
                                 angular.extend(UserInterface, ui)
                               }
         }
 
     Event.all(credentials, actions)
 
-   $scope.event_status = false;
-          $scope.filterStatus = function(status) {
-            $scope.event_status = ($scope.event_status == status) ? false : status;
-          }
+    $scope.event_status = false;
+    $scope.filterStatus = function(status) {
+      $scope.event_status = ($scope.event_status == status) ? false : status;
+    }
   }])
 
   .controller('EventsAboutController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
@@ -228,7 +235,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.event = event
 
                                     // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
+                                    ui.title = event.campaign ? event.campaign.name : "Event"
                                     $scope.UserInterface = UserInterface
                                     $scope.eventId = $stateParams.eventId
                                     $scope.editUrl = "#home/events/" + $stateParams.eventId + "/edit"
@@ -238,7 +245,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
     Event.find(credentials, actions)
 
-    $scope.map_styles     =  [
+    $scope.map_styles = [
                 {
                         stylers: [
                                 { hue: "#00ffe6" },
@@ -266,6 +273,24 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                         ]
                 }
         ]
+
+    $scope.deleteEvent = function() {
+      var
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function (event) {
+                            $scope.event = event
+                            // $location.path("/home/events/" + event.id + "/about")
+                      }
+                    , error: function (event_error) {
+                        $scope.event_error = event_error
+                         console.log(event_error)
+                      }
+                    }
+
+      $scope.event.active = false
+      Event.update(credentials, actions, $scope.event)
+    }
+
   }])
 
   .controller('EventsAboutMapController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
@@ -387,7 +412,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                       , actions = { success: function(campaigns) {
                                                                   $scope.campaigns = campaigns
                                                                 // Options for User Interface in home partial
-                                                                  ui.title = event.campaign.name
+                                                                  ui.title = event.campaign ? event.campaign.name : "Event"
                                                                   angular.extend(UserInterface, ui)
                                                                   $scope.UserInterface = UserInterface
                                                                   $scope.eventId = $stateParams.eventId
@@ -433,7 +458,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.event = event;
 
                                     // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
+                                    ui.title = event.campaign ? event.campaign.name : "Event"
                                     angular.extend(UserInterface, ui)
                                     $scope.eventId = $stateParams.eventId
                                     $scope.UserInterface = UserInterface
@@ -473,7 +498,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.event = event;
 
                                     // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
+                                    ui.title = event.campaign ? event.campaign.name : "People"
                                     angular.extend(UserInterface, ui)
                                     $scope.eventId = $stateParams.eventId
                                     $scope.UserInterface = UserInterface
@@ -547,7 +572,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.event = event;
 
                                     // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
+                                    ui.title = event.campaign ? event.campaign.name : "People"
                                     angular.extend(UserInterface, ui)
                                     $scope.eventId = $stateParams.eventId
                                     $scope.UserInterface = UserInterface
@@ -583,7 +608,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleAddController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'Event', function($scope, $state, snapRemote, UserService, UserInterface, Event) {
+  .controller('EventsPeopleContactsAddController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'EventContact', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -592,9 +617,33 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
     var
         ui = {title: "Contacts", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+      , actions = { success: function(event) {
+                                    $scope.event = event;
+                                    $scope.eventId = $stateParams.eventId
 
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
+                                    // Options for User Interface in home partial
+                                    angular.extend(UserInterface, ui)
+                                    $scope.UserInterface = UserInterface
+
+                                    var
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                      , actions = { success: function(contacts) {
+                                                                  $scope.contacts = contacts
+                                                                // Options for User Interface in home partial
+                                                                  angular.extend(UserInterface, ui)
+                                                                  $scope.UserInterface = UserInterface
+                                                                  $scope.eventId = $stateParams.eventId
+                                                                  // $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/edit"
+                                                             }
+                                      }
+                                    EventContact.contacts(credentials, actions)
+
+
+                    }
+        }
+
+   Event.find(credentials, actions)
   }])
 
   .controller('EventsPeopleEditController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'Event', function($scope, $state, snapRemote, UserService, UserInterface, Event) {
@@ -633,7 +682,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.event = event;
 
                                     // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
+                                    ui.title = event.campaign ? event.campaign.name : "Data"
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface
 
@@ -671,7 +720,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.eventId = $stateParams.eventId;
 
                                     // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
+                                    ui.title = event.campaign ? event.campaign.name : "Comments"
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface;
 
@@ -741,7 +790,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.event = event;
 
                                     // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
+                                    ui.title = event.campaign ? event.campaign.name : "Tasks"
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface;
                                     // $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/edit";
@@ -877,7 +926,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.event = event;
 
                                     // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
+                                    ui.title = event.campaign ? event.campaign.name : "Photos"
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface;
                                     $scope.eventId = $stateParams.eventId;
@@ -943,7 +992,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
   }])
 
 
-  .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
+  .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -959,25 +1008,32 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: "home.events.details.expenses.add"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
-                                    $scope.event = event;
-                                    $scope.eventId = $stateParams.eventId;
+                                    $scope.event = event
+                                    $scope.expenses = {}
 
-                                    $scope.total = function() {
-                                        var total = 0
-
-                                        for(var i = 0, item; item = $scope.expenses[i++], total += item.amount;)
-                                        return total;
-                                    }
+                                    // Options for User Interface in home partial
+                                    angular.extend(UserInterface, ui)
+                                    $scope.UserInterface = UserInterface
+                                    $scope.eventId = $stateParams.eventId
 
                                     var
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                       , actions = { success: function(expenses) {
                                                                   $scope.expenses = expenses
                                                                 // Options for User Interface in home partial
-                                                                  ui.title = event.campaign.name
+                                                                  ui.title = event.campaign ? event.campaign.name : "Expenses"
                                                                   angular.extend(UserInterface, ui)
                                                                   $scope.UserInterface = UserInterface
                                                                   $scope.eventId = $stateParams.eventId
+
+                                                                  $scope.total = function() {
+                                                                      var total = 0
+
+                                                                      for(var i = 0, item; item = $scope.expenses[i++];) {
+                                                                        total += Number(item.amount)
+                                                                      }
+                                                                      return total
+                                                                  }
                                                              }
                                       }
                                     Expense.all(credentials, actions)
@@ -988,7 +1044,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
   }])
 
-  .controller('EventsExpensesAddController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, Event, Expense) {
+  .controller('EventsExpensesAddController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -1010,7 +1066,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                       var
                                           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                         , actions = { success: function (expense) {
-                                                            $scope.expense = expense
+                                                            $scope.event_expense = expense
                                                             $location.path("/home/events/" + event.id + "/expenses")
                                                       }
                                                     , error: function (expense_error) {
@@ -1018,7 +1074,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                          console.log(expense_error)
                                                       }
                                                     }
-                                      Expense.create(credentials, actions, $scope.comment)
+                                      Expense.create(credentials, actions, $scope.event_expense)
                                     }
                               }
        }
@@ -1066,7 +1122,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.event = event;
 
                                     // Options for User Interface in home partial
-                                    ui.title = event.campaign.name
+                                    ui.title = event.campaign ? event.campaign.name : "Surveys"
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface;
                                     $scope.eventId = $stateParams.eventId;

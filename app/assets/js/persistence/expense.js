@@ -6,5 +6,11 @@ angular.module('persistence.expense', ['ngResource', 'util.jsonToFormData'])
   return $resource('//stage.brandscopic.com/api/v1/events/:event_id/event_expenses.:format', {auth_token: '@token', format: 'json', company_id: '@company_id', event_id: '@event_id'},
   {
         'all'     : { method: 'GET', isArray: true }
+
+      , 'create'  : { method: 'POST'
+                     , headers: contentType
+                     , transformRequest: jsonToFormDataFor('event_expense')
+                    }
+
   });
 }]);
