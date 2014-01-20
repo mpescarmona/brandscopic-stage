@@ -31,7 +31,32 @@ angular.module('brandscopicApp.directives', [])
       }
     };
   })
+  
+  //goTo is used in list of elements to see item details
+  
+  .directive('goTo', function ($window) {
+    return {
+      restrict: 'A',
+      link: function (scope, _el, _attrs) {
+        scope.goTo = function(path){
+          $window.location.href = path;
+        }
+      }
+    }
+  })
 
+  //stop propagation from stackoverflow.com/questions/14544741/angularjs-directive-to-stoppropagation
+  
+  .directive('stopEvent', function () {
+    return {
+      restrict: 'A',
+      link: function (_scope, $el, attr) {
+        $el.on(attr.stopEvent, function (e) {
+          e.stopPropagation();
+        });
+      }
+    };
+  })
 
   .directive('redirectTo', function ($window) {
     return function (scope, el, attrs, ctrl) {
