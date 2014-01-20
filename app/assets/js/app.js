@@ -294,6 +294,13 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.venues.details.photos.slider', {
+      url: "/slider",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_photos_slider.html",
+                              controller: 'VenuesPhotoSliderController'
+                            }
+            }
+    })
     .state('home.venues.details.comments', {
       url: "/comments",
       views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_comments.html",
