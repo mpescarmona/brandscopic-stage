@@ -8,7 +8,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
   }])
 
   .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
-    $scope.user = {'email': '', 'password': ''};
+    $scope.user = {'email': 'mpescarmona@gmail.com', 'password': 'Mario123'};
 
     $scope.wrongUser = null;
     $scope.validateApiUser = function() {
@@ -200,18 +200,25 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
       , actions = { success: function(events, filters){
-                               $scope.eventsItems = events
-                               $scope.filters = filters
+                                // workaround for remove the non 'Active' events
+                                for(var i = 0, evt; evt = events[i++];) {
+                                  if (evt.status != 'Active') {
+                                    events.splice(i-1, 1)
+                                  }
+                                }
+
+                                $scope.eventsItems = events
+                                $scope.filters = filters
                                 angular.extend(UserInterface, ui)
                               }
         }
 
     Event.all(credentials, actions)
 
-   $scope.event_status = false;
-          $scope.filterStatus = function(status) {
-            $scope.event_status = ($scope.event_status == status) ? false : status;
-          }
+    $scope.event_status = false;
+    $scope.filterStatus = function(status) {
+      $scope.event_status = ($scope.event_status == status) ? false : status;
+    }
   }])
 
   .controller('EventsAboutController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
@@ -238,7 +245,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
     Event.find(credentials, actions)
 
-    $scope.map_styles     =  [
+    $scope.map_styles = [
                 {
                         stylers: [
                                 { hue: "#00ffe6" },
@@ -266,6 +273,24 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                         ]
                 }
         ]
+
+    $scope.deleteEvent = function() {
+      var
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function (event) {
+                            $scope.event = event
+                            // $location.path("/home/events/" + event.id + "/about")
+                      }
+                    , error: function (event_error) {
+                        $scope.event_error = event_error
+                         console.log(event_error)
+                      }
+                    }
+
+      $scope.event.active = false
+      Event.update(credentials, actions, $scope.event)
+    }
+
   }])
 
   .controller('EventsAboutMapController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {

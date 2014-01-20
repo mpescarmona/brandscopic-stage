@@ -30,7 +30,7 @@
 			{{event.place.state_name}}, {{event.place.state}}, {{event.place.zipcode}}
 		</div>
 		<button type="button" class="btn-default btn-sm edit" redirect-to="{{editUrl}}"></button>
-		<button type="button" class="btn-default btn-sm deactivate"></button>
+		<button type="button" class="btn-default btn-sm deactivate" ng-click="deleteEvent(event)"></button>
 	</div>
 </div>
 
