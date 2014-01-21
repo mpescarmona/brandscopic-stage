@@ -384,6 +384,19 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                          console.log(event_error)
                       }
                     }
+        , sm1 = $scope.event.start_date.indexOf('-')
+        , sm2 = $scope.event.start_date.indexOf('/')
+        , em1 = $scope.event.end_date.indexOf('-')
+        , em2 = $scope.event.end_date.indexOf('/')
+      if (sm1 == 4)
+        $scope.event.start_date = $scope.event.start_date.replace(/^(\d{4})\-(\d{2})\-(\d{2}).*$/, '$2/$3/$1')
+      if (sm2 == 4)
+        $scope.event.start_date = $scope.event.start_date.replace(/^(\d{4})\/(\d{2})\/(\d{2}).*$/, '$2/$3/$1')
+      if (em1 == 4)
+        $scope.event.end_date = $scope.event.end_date.replace(/^(\d{4})\-(\d{2})\-(\d{2}).*$/, '$2/$3/$1')
+      if (em2 == 4)
+        $scope.event.end_date = $scope.event.end_date.replace(/^(\d{4})\/(\d{2})\/(\d{2}).*$/, '$2/$3/$1')
+
       $scope.event.campaign_id = $scope.campaign ? $scope.campaign.id : 0
       Event.create(credentials, actions, $scope.event)
     }
@@ -437,6 +450,18 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                          console.log(event_error)
                       }
                     }
+        , sm1 = $scope.event.start_date.indexOf('-')
+        , sm2 = $scope.event.start_date.indexOf('/')
+        , em1 = $scope.event.end_date.indexOf('-')
+        , em2 = $scope.event.end_date.indexOf('/')
+      if (sm1 == 4)
+        $scope.event.start_date = $scope.event.start_date.replace(/^(\d{4})\-(\d{2})\-(\d{2}).*$/, '$2/$3/$1')
+      if (sm2 == 4)
+        $scope.event.start_date = $scope.event.start_date.replace(/^(\d{4})\/(\d{2})\/(\d{2}).*$/, '$2/$3/$1')
+      if (em1 == 4)
+        $scope.event.end_date = $scope.event.end_date.replace(/^(\d{4})\-(\d{2})\-(\d{2}).*$/, '$2/$3/$1')
+      if (em2 == 4)
+        $scope.event.end_date = $scope.event.end_date.replace(/^(\d{4})\/(\d{2})\/(\d{2}).*$/, '$2/$3/$1')
 
       $scope.event.campaign_id = $scope.campaign ? $scope.campaign.id : 0
       Event.update(credentials, actions, $scope.event)
