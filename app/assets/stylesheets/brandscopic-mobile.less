@@ -1640,10 +1640,25 @@ ul.stats{
 	}
 }
 
+.sex{
+	position: relative;
+	margin: 15px 10px 0 !important;
+}
+
 .female, .male{
 	box-sizing: border-box;
 	position: relative;
 	padding-left: 15%;
+	&:before{
+		font-size: 60px;
+		position: absolute;
+		bottom: -9px;
+		left: 0;
+	}
+	.percent{
+		font-size: 34px;
+		font-weight: 300;
+	}
 }
 
 
