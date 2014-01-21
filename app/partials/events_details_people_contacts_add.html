@@ -9,7 +9,7 @@
 						<h5 class="txtAdjust">{{contact.full_name}}</h5>
 						<p class="small">{{contact.title}}</p>
 					</div>
-					<a class="btn-default btn-sm add pull-right" href="#">Add</a>
+					<button type="button" class="btn-default btn-sm add pull-right" ng-click="assignContact({{contact.id}}, '{{contact.type}}')">Add</button>
 				</div>
 			</li>
 		</ul>
