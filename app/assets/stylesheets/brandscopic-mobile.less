@@ -1384,12 +1384,18 @@ textarea{
 
 /*-- STYLE FOR THE SELECTS --*/
 
-select{
+select, input{
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	&.form-control{
 		box-shadow: none;
 		-webkit-box-shadow: none;
+		&.arrow{
+			background: url('../images/arrow.svg') no-repeat right !important;
+		}
+		&.arrows{
+			background: url('../images/arrows.svg') no-repeat right !important;
+		}
 		option{
 			&.choose{
 				color:@lightGrey;
@@ -1403,10 +1409,6 @@ select{
 			box-shadow:none;
 		}
 	}
-}
-
-select option[default] {
-    color: red;
 }
 
 /*-- ANIMATE FOR ANGULAR - STYLES --*/

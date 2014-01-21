@@ -8,7 +8,7 @@
 		  	<label>Campaign name</label>
 		  </div>
 		  <div class="col-xs-12">
-			<select ng-model="campaign" ng-options="c.name for c in campaigns" class="form-control"></select>
+			<select ng-model="campaign" ng-options="c.name for c in campaigns" class="form-control arrow"></select>
 		  	<!-- <span ng-show="event_error.campaign.id" ng-class="{error: event_error.campaign.id}" ng-model="event_error.campaign.id">{{event_error.campaign.join()}}</span> -->
 		  </div>
 		</div>
@@ -50,7 +50,7 @@
 		  </div>
 		  <div class="col-xs-12">
 		  	<!-- <input type="text"> -->
-        <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+        <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control arrow">
 		  	<!-- <span ng-show="event_error.place.id" ng-class="{error: event_error.place.id}" ng-model="event_error.place.id">{{event_error.place.join()}}</span> -->
 		  </div>
 		</div>
