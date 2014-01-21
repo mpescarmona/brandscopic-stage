@@ -384,7 +384,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                          console.log(event_error)
                       }
                     }
-      $scope.event.campaign_id = $scope.campaign.id
+      $scope.event.campaign_id = $scope.campaign ? $scope.campaign.id : 0
       Event.create(credentials, actions, $scope.event)
     }
     $scope.selected = undefined;
@@ -438,7 +438,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                       }
                     }
 
-      $scope.event.campaign_id = $scope.event.campaign.id
+      $scope.event.campaign_id = $scope.campaign ? $scope.campaign.id : 0
       Event.update(credentials, actions, $scope.event)
     }
 
@@ -608,7 +608,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleContactsAddController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'EventContact', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact) {
+  .controller('EventsPeopleContactsAddController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'EventContact', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -634,7 +634,29 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                                   angular.extend(UserInterface, ui)
                                                                   $scope.UserInterface = UserInterface
                                                                   $scope.eventId = $stateParams.eventId
-                                                                  // $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/edit"
+
+                                                                  $scope.assignContact = function(contactId, contactType) {
+                                                                    var
+                                                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId, contactable_id: contactId, contactable_type: contactType }
+                                                                      , actions = { success: function (contact) {
+                                                                                      // workaround for remove the non 'Active' events
+                                                                                      for(var i = 0, item; item = $scope.contacts[i++];) {
+                                                                                        if (item.id == contactId) {
+                                                                                          $scope.contacts.splice(i-1, 1)
+                                                                                        }
+                                                                                      }
+
+                                                                                      $location.path("/home/events/" + $scope.event.id + "/people/contacts/add")
+                                                                                    }
+                                                                                  , error: function (event_error) {
+                                                                                      $scope.event_error = event_error
+                                                                                       console.log(event_error)
+                                                                                    }
+                                                                                  }
+
+                                                                    EventContact.create(credentials, actions, $scope.event)
+                                                                  }
+
                                                              }
                                       }
                                     EventContact.contacts(credentials, actions)
