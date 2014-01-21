@@ -1627,15 +1627,39 @@ ul.stats{
 		margin: 10px auto;
 		.number{
 			color: @blue;
-			text-align: right;
-			width: 42%;
 			line-height: 14px;
 			font-size: 14px;
+			margin-right: 10px;
 		}
 		.category{
 			font-size: 11px;
-			text-align: left;
-			width: 55%;
+		}
+		.number, .category{
+			display: inline-block;
+			text-align: center;
+			width: auto;
+		}
+		div.col-xs-6{
+			&:first-child{
+				box-sizing:border-box;
+				text-align: right;
+				padding-right:5px;
+			}
+			&:last-child{
+				text-align: left;
+				box-sizing:border-box;
+				padding-left: 5px;
+			}
+		}
+		.progress{
+			display: inline-block;
+			height: 11px;
+			width: 100px;
+		}
+	}
+	&.simple{
+		.number{
+			margin-right: 0;
 		}
 	}
 }
