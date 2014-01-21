@@ -8,7 +8,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
   }])
 
   .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
-    $scope.user = {'email': 'mpescarmona@gmail.com', 'password': 'Mario123'};
+    $scope.user = {'email': '', 'password': ''};
 
     $scope.wrongUser = null;
     $scope.validateApiUser = function() {
