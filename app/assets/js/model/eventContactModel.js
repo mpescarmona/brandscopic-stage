@@ -4,12 +4,12 @@ angular.module('model.eventContact', ['persistence.eventContact'])
     var
        company_id
       , collection
-      , event
+      , contact
 
       , contacts = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
-            if (event && event.id  == credentials.event_id)
-              actions.success(angular.copy(event))
+            if (contact && contact.id  == credentials.event_id)
+              actions.success(angular.copy(contact))
             else
               eventContactClient.contacts(credentials, contactsResponse(actions))
           else
@@ -18,8 +18,8 @@ angular.module('model.eventContact', ['persistence.eventContact'])
       }
       , contactsResponse = function (actions) {
            return function(resp){
-             event = resp
-             actions.success(angular.copy(event))
+             contact = resp
+             actions.success(angular.copy(contact))
            }
       }
       , create = function (credentials, actions, attributes) {
@@ -34,8 +34,10 @@ angular.module('model.eventContact', ['persistence.eventContact'])
       , createResponse = function (action) {
         return function (resp) {
           if ('id' in resp) {
-            event = resp
-            collection.push(event)
+            contact = resp
+            collection.push(contact)
+          } else {
+            collection = undefined
           }
 
           var answer = resp.id ? resp : resp.data
@@ -46,7 +48,7 @@ angular.module('model.eventContact', ['persistence.eventContact'])
       , all = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions) {
             if (collection && company_id == credentials.company_id)
-              actions.success(collection, filters)
+              actions.success(collection)
             else {
               company_id = credentials.company_id
               eventContactClient.all(credentials, allResponse(actions))
@@ -58,7 +60,8 @@ angular.module('model.eventContact', ['persistence.eventContact'])
       , allResponse = function (actions) {
           return function(resp){
             if (resp.length) {
-              collection = resp.results
+              // collection = resp.results
+              collection = resp
 
               actions.success(angular.copy(collection))
             }

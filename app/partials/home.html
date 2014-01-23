@@ -38,6 +38,7 @@
         <input type="file" class="upload" accept="image/*"/>
       </div>
       <button class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" ng-click="UserInterface.actionSave">Save</button>
+      <button class="btn btn-danger" ng-show="UserInterface.hasEditIcon" redirect-to="{{UserInterface.EditIconUrl}}">Edit</button>
       <button class="btn btn-cancel" ng-show="UserInterface.hasCancelIcon">Cancel</button>
       <button class="noButton delete" ng-show="UserInterface.hasCloseIcon" redirect-to-state="{{UserInterface.CloseState}}"></button>
       <button class="btn btn-danger hidden">Post</button>

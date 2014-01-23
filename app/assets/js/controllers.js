@@ -229,7 +229,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "about"}
+        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "about"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
                                     $scope.event = event
@@ -506,8 +506,8 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     };
 
     var
+        // ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, noData: false, eventSubNav: "people"}
         ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
-
       , eventTeamData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -531,6 +531,13 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.showPeople = "team"
                                     $scope.showPeopleType = function(type) {
                                       $scope.showPeople = type
+                                      // $scope.UserInterface.noData = false
+                                      // if (type == "team" && $scope.eventTeamItems.length == 0) {
+                                      //   $scope.UserInterface.noData = true
+                                      // }
+                                      // if (type == "contacts" && $scope.eventContactItems.length == 0) {
+                                      //   $scope.UserInterface.noData = true
+                                      // }
                                     };
                                     // if ($scope.showPeople =="team") {
                                     //   $scope.UserInterface.AddIconState = "home.events.details.people.team.add";
@@ -573,49 +580,44 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleContactsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventsRestClient) {
+  .controller('EventsPeopleContactsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'EventContact', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
     snapRemote.close()
 
-    // $scope.gotToState = function(newState) {
-    //   $state.go(newState);
-    //   return;
-    // };
-
     var
-        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
-
-      , eventResultsData = []
-      , eventResults = new EventsRestClient.getEventContactsById(authToken, companyId, eventId)
-      , promiseResults = eventResults.getEventContactsById().$promise
-
+        ui = {title: 'Contact info', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasEditIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
                                     $scope.event = event;
 
                                     // Options for User Interface in home partial
-                                    ui.title = event.campaign ? event.campaign.name : "People"
                                     angular.extend(UserInterface, ui)
                                     $scope.eventId = $stateParams.eventId
+                                    $scope.contactId = $stateParams.contactId
                                     $scope.UserInterface = UserInterface
 
+                                    var
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                      , actions = { success: function (contacts) {
+                                                      // workaround for remove the non 'Active' events
+                                                      for(var i = 0, item; item = contacts[i++];) {
+                                                        if (item.id == $stateParams.contactId) {
+                                                          $scope.contact = item
+                                                          break
+                                                        }
+                                                      }
+                                                      // $location.path("/home/events/" + $scope.event.id + "/people/contacts/edit")
+                                                    }
+                                                  , error: function (event_error) {
+                                                      $scope.event_error = event_error
+                                                       console.log(event_error)
+                                                    }
+                                                  }
 
-                                    promiseResults.then(function(responseResults) {
-                                     if (responseResults.status == 200) {
-                                      if (responseResults.data != null) {
-                                          eventResultsData = responseResults.data;
-                                          $scope.eventResultsItems = eventResultsData;
-                                      }
-                                     } else {
-                                        $scope.eventResultsItems = {};
-                                     }
-                                    });
-                                    promiseResults.catch(function(responseResults) {
-                                      $scope.eventResultsItems = {};
-                                    });
+                                    EventContact.all(credentials, actions)
 
                                     // $scope.showPeople = ($scope.showPeople == "") ? "team" : $scope.showPeople;
                                     $scope.showPeople = "team";
@@ -626,7 +628,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     // if ($scope.showPeople =="team") {
                                     //   $scope.UserInterface.AddIconState = "home.events.details.people.team.add";
                                     // } else {
-                                      $scope.UserInterface.AddIconState = "home.events.details.people.contacts.add";
+                                    $scope.UserInterface.EditIconUrl = "#/home/events/" + $scope.event.id + "/people/contacts/" + $stateParams.contactId + "/edit";
                     }
        }
 
@@ -641,7 +643,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {title: "Contacts", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false}
+        ui = {title: "Contacts", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: true, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event) {
                                     $scope.event = event;
@@ -685,15 +687,13 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                              }
                                       }
                                     EventContact.contacts(credentials, actions)
-
-
                     }
         }
 
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleEditController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'Event', function($scope, $state, snapRemote, UserService, UserInterface, Event) {
+  .controller('EventsPeopleContactsEditController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'Event', function($scope, $state, snapRemote, UserService, UserInterface, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -701,7 +701,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {title: "Edit contact", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false}
+        ui = {title: "Edit contact", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasEditIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false}
 
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
