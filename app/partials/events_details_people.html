@@ -8,6 +8,7 @@
 		</div>
 	</div>
 
+<!--	<div class="box-container np" ng-show="(showPeople=='team') && UserInterface.noData==false"> -->
 	<div class="box-container np" ng-show="showPeople=='team'">
 		<ul class="eventsPeople swipe-list" go-to>
 			<li ng-repeat="team in eventTeamItems">
@@ -27,6 +28,7 @@
 			</li>
 		</ul>
     <!-- No Event team -->
+ <!--   <div class="empty people" ng-show="(showPeople=='team') && UserInterface.noData"> -->
     <div class="empty people">
       <span class="no-event-team"></span>
       <h4>No Event team</h4>
@@ -38,6 +40,7 @@
 
 	<!-- CONTACT SECTION INSIDE EVENTS PEOPLE -->
 
+<!--	<div class="box-container np" ng-show="showPeople=='contacts' && UserInterface.noData==false"> -->
 	<div class="box-container np" ng-show="showPeople=='contacts'">
 		<ul class="eventsPeople" go-to>
 			<li ng-repeat="contact in eventContactItems">
@@ -58,6 +61,7 @@
 			</li>
 		</ul>
     <!-- No Contacts -->
+<!--    <div class="empty people" ng-show="showPeople=='contacts' && UserInterface.noData==true"> -->
     <div class="empty people">
       <span class="no-contacts"></span>
       <h4>No Contacts</h4>
