@@ -287,7 +287,7 @@ body{
 .comments{
 	.comment-user{
 		float: left;
-		margin-bottom: 6px;
+		margin-bottom: 2px;
 		width:70%;
 	}
 	.comment-date{
@@ -1082,58 +1082,48 @@ input[type="text"], input[type="number"], input[type="search"], input[type="date
 
 /*-- RATING STARS FOR COMMENTS --*/
 
-.rating {
-    float:left;
-    label{
-    	clear:none;
-    	margin: 5px 0;
-    }
+#hide {
+    display:none;
 }
 
-/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
-   follow these rules. Every browser that supports :checked also supports :not(), so
-   it doesn’t make the test unnecessarily selective */
-.rating:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
-    clip:rect(0,0,0,0);
+.rating{
+	height: 23px;
 }
-
-.rating:not(:checked) > label {
-    float:right;
-    width:1.2em;
-    padding:0 .1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:85%;
-    line-height:1.2;
-    color:#ddd;
+ 
+.rating input {
+  position:absolute;
+  filter:alpha(opacity=0);
+  -moz-opacity:0;
+  -khtml-opacity:0;
+  opacity:0;
+  cursor:pointer;
+  height: 17px;
+  width:17px;
 }
-
-.rating:not(:checked) > label:before {
-    content: '★ ';
+.rating span:before{
+  width:24px;
+  height:16px;
+  line-height:16px;
+  content: "\e623";
+  font-size: 15px;
+  font-family: 'icons';
+  color: @gold;
 }
-
-.rating > input:checked ~ label {
-    color: #f70;
+ 
+/* Change span immediately following the checked radio */
+ 
+.rating input:checked + span:before {
+  color: @gold;
 }
-
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-    color: gold;
-}
-
-.rating > input:checked + label:hover,
-.rating > input:checked + label:hover ~ label,
-.rating > input:checked ~ label:hover,
-.rating > input:checked ~ label:hover ~ label,
-.rating > label:hover ~ input:checked ~ label {
-    color: #ea0;
-}
-
-.rating > label:active {
-    position:relative;
+ 
+/* Reset all remaining stars back to default background.
+   This supersedes the above due to its ordering. */
+ 
+.rating input:checked + span ~ span:before {
+  content: "\e623";
+  font-size: 15px;
+  font-family: 'icons';
+  color: @lightGrey;
 }
 
 
@@ -1289,7 +1279,7 @@ textarea{
 		text-align: center;
 		.score-number{
 			font-size: 26px;
-			font-weight: 100;
+			font-weight: 300;
 		}
 		p{
 			font-size: 9px;
@@ -1627,23 +1617,63 @@ ul.stats{
 		margin: 10px auto;
 		.number{
 			color: @blue;
-			text-align: right;
-			width: 42%;
 			line-height: 14px;
 			font-size: 14px;
+			margin-right: 10px;
 		}
 		.category{
 			font-size: 11px;
-			text-align: left;
-			width: 55%;
+		}
+		.number, .category{
+			display: inline-block;
+			text-align: center;
+			width: auto;
+		}
+		div{
+			&:first-child{
+				box-sizing:border-box;
+				text-align: right;
+				padding-right:5px;
+			}
+			&:last-child{
+				text-align: left;
+				box-sizing:border-box;
+				padding-left: 5px;
+			}
+		}
+		.progress{
+			display: inline-block;
+			height: 11px;
+			width: 100px;
+			padding-left: 0 !important;
 		}
 	}
+	&.simple{
+		.number{
+			margin-right: 0;
+		}
+	}
+}
+
+.sex{
+	position: relative;
+	margin: 15px 10px 0 !important;
 }
 
 .female, .male{
 	box-sizing: border-box;
 	position: relative;
-	padding-left: 15%;
+	padding-left: 10%;
+	&:before{
+		font-size: 60px;
+		position: absolute;
+		bottom: -9px;
+	}
+	.percent{
+		font-size: 34px;
+		font-weight: 400;
+		line-height: 43px;
+	}
 }
 
 
