@@ -5,7 +5,7 @@ angular.module('persistence.eventContact', ['ngResource', 'util.jsonToFormData']
 
   return $resource('//stage.brandscopic.com/api/v1/events/:event_id/contacts.:format', {auth_token: '@token', format: 'json', company_id: '@company_id'},
   {
-        'all'     : { method: 'GET' }
+        'all'     : { method: 'GET', isArray: true }
 
       , 'contacts': { method: 'GET'
                       , isArray: true 

@@ -50,7 +50,8 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.showEventSubNav = true;
   this.showVenueSubNav = true;
   this.hasCustomHomeClass = false;
-  // this.noData = false;
+  this.EditIconUrl = "";
+  this.noData = false;
 })
 
 .service('SessionRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {

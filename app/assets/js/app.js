@@ -113,6 +113,10 @@ config(function($stateProvider, $urlRouterProvider) {
     })
     .state('home.events.details.people.contacts', {
       url: "/contacts",
+      abstract: true
+    })
+    .state('home.events.details.people.contacts.view', {
+      url: "/:contactId/view",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts.html",
                               controller: 'EventsPeopleContactsController'
                             }
@@ -128,7 +132,7 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.details.people.contacts.edit', {
       url: "/:contactId/edit",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_edit.html",
-                              controller: 'EventsPeopleEditController'
+                              controller: 'EventsPeopleContactsEditController'
                             }
             }
     })

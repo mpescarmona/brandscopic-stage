@@ -44,7 +44,7 @@
 	<div class="box-container np" ng-show="showPeople=='contacts'">
 		<ul class="eventsPeople" go-to>
 			<li ng-repeat="contact in eventContactItems">
-        <div class="row" ng-click="'#/home/events/{{eventId}}/people/contacts/{{contact.id}}/edit'">
+        <div class="row" ng-click="goTo('#/home/events/{{eventId}}/people/contacts/{{contact.id}}/view')">
           <div class="col-xs-12" ng-class="{team_member: contact.type=='user', team: contact.type=='contact'}">
             <!-- show if is a contact -->
             <h5 class="txtAdjust" ng-show="'{{contact.type}}'=='contact'">{{contact.full_name}}</h5>

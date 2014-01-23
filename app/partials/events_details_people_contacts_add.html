@@ -4,7 +4,7 @@
 	<div class="box-container np">
 		<ul class="eventsPeople add">
 			<li ng-repeat="contact in contacts">
-				<div class="row">
+				<div class="row" redirect-to="#/home/events/{{eventId}}/people/contacts/{{contact.id}}/view">
 					<div class="col-xs-7">
 						<h5 class="txtAdjust">{{contact.full_name}}</h5>
 						<p class="small">{{contact.title}}</p>

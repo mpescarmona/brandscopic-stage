@@ -2,18 +2,18 @@
 
 <div class="container">
 	<div class="box-container events contactDetails">
-		<h5>Susan Jones</h5>
-		<p class="small">Bar Manager</p>
+		<h5>{{contact.full_name}}</h5>
+		<p class="small">{{contact.title}}</p>
 		<div class="mail-data">
-			<a class="blue underline" href="#">sjones@domain.com</a>
+			<a class="blue underline" href="#">{{contact.email}}</a>
 		</div>
 		<div class="phone-data">
-			<a class="blue underline" href="#">+1 415 981 2854</a>
+			<a class="blue underline" href="#">{{contact.phone_number}}</a>
 		</div>
 		<div class="place-data">
-			431 Bush Street, floor 2 <br>
-			San Francisco, CA, 94321 <br>
-			United States
+			{{contact.street_address}}<br>
+			{{contact.city}}, {{contact.state}}, {{contact.zip_code}}<br>
+			{{contact.country}}
 		</div>
 	</div>
 </div>
