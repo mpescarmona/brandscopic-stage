@@ -141,6 +141,7 @@ body{
 	&.np{
 		padding: 0;
 	}
+
 	&.late{
 		background-color: @buttons;
 	}
@@ -623,6 +624,10 @@ body{
 	}
 }
 
+.approve {
+	border-left: 4px solid @approved;
+}
+
 .late {
 	border-left: 4px solid @late;
 }
@@ -665,6 +670,38 @@ body{
 
 .margin-expense{
 	margin: 8px 0;
+}
+
+/*-- NOTIFICATIONS --*/
+
+ul.notifications{
+	li{
+		width: 100%;
+		.row{
+			display: table;
+			height: 57px;
+			width: 100%;
+			div{
+				box-sizing: border-box;
+				float: none;
+				padding-left: 25px;
+				height: 40px;
+				display: table-cell;
+				position: relative;
+				vertical-align: middle;
+				p{
+					line-height: 16px;
+				}
+				&.commentIcon:before, &.eventIcon:before, &.tasksIcon:before{
+					color: @lightGrey;
+					font-size: 20px;
+					position: absolute;
+					left: -5px;
+					top: 14px;
+				}
+			}
+		}
+	}
 }
 
 /* -- STATUS BAR -- */
@@ -1384,7 +1421,6 @@ textarea{
 	}
 }
 
-
 /*-- STYLE FOR THE SELECTS --*/
 
 select, input{
@@ -1404,7 +1440,12 @@ select, input{
 				color:@lightGrey;
 			}
 		}
-
+		&.clean{
+			border: 0;
+			&:focus{
+				border: 0;
+			}
+		}
 		&:focus{
 			border-color:@lightGrey;
 			outline: 0;

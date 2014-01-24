@@ -319,6 +319,13 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.profile', {
+      url: "/profile",
+      views:{'details@home':{ templateUrl: "partials/edit_profile.html",
+                              controller: 'ProfileController'
+                            }
+            }
+    })
 })
 //enables CORS in angular
 .config(['$httpProvider', function($httpProvider) {
