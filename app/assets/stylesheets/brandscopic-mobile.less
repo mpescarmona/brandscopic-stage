@@ -674,36 +674,40 @@ body{
 
 /*-- NOTIFICATIONS --*/
 
-ul.notifications{
-	li{
-		width: 100%;
-		.row{
-			display: table;
-			height: 55px;
-			margin: 2px 3px;
+.notifications{
+	margin-top: 5px;
+	ul{
+		li{
 			width: 100%;
-			div{
-				box-sizing: border-box;
-				float: none;
-				padding-left: 37px;
-				padding-right: 10px;
-				height: 40px;
-				display: table-cell;
-				position: relative;
-				vertical-align: middle;
-				p{
-					line-height: 16px;
-				}
-				&.commentIcon:before, &.eventIcon:before, &.tasksIcon:before{
-					color: @lightGrey;
-					font-size: 20px;
-					position: absolute;
-					left: 8px;
-					top: 14px;
+			.row{
+				display: table;
+				height: 55px;
+				margin: 2px 3px;
+				width: 100%;
+				div{
+					box-sizing: border-box;
+					float: none;
+					padding-left: 37px;
+					padding-right: 10px;
+					height: 40px;
+					display: table-cell;
+					position: relative;
+					vertical-align: middle;
+					p{
+						line-height: 16px;
+					}
+					&.commentIcon:before, &.eventIcon:before, &.tasksIcon:before{
+						color: @lightGrey;
+						font-size: 20px;
+						position: absolute;
+						left: 8px;
+						top: 14px;
+					}
 				}
 			}
-		}
+		}		
 	}
+
 }
 
 /* -- STATUS BAR -- */
@@ -1377,6 +1381,9 @@ textarea{
 				font-size: 10px;
 				font-weight: 600;
 				line-height: 20px;
+			}
+			&.time-zone{
+				padding: 8px !important;
 			}
 		}
 		&:last-child{
