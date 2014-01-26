@@ -51,7 +51,7 @@ angular.module('model.contact', ['persistence.contact'])
       }
 
       , create = function (credentials, actions, attributes) {
-          if ('auth_token' in credentials && 'company_id' in credentials && 'contact_id' in credentials && 'success' in actions)
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions)
             if (Object.keys(attributes).length)
               contactClient.create(credentials
                                  , attributes
