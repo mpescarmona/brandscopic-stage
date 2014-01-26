@@ -161,7 +161,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                               {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#home/notifications'},
                               {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#home/dashboard'}];
 
-    $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#', 'click': ''},
+    $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#home/profile', 'click': ''},
                           {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#', 'click': 'logout()'}];
   }])
 

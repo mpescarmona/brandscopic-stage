@@ -141,6 +141,7 @@ body{
 	&.np{
 		padding: 0;
 	}
+
 	&.late{
 		background-color: @buttons;
 	}
@@ -623,6 +624,10 @@ body{
 	}
 }
 
+.approve {
+	border-left: 4px solid @approved;
+}
+
 .late {
 	border-left: 4px solid @late;
 }
@@ -635,9 +640,25 @@ body{
 	box-sizing: border-box;
 	height: 45px;
 	padding: 8px;
-	input[type="search"]{
-		height: 28px;
-		width: 90%;
+	input[type="text"]{
+		.border-bottom-radius(4px);
+		.border-top-radius(4px);
+		background: white url('../images/magnifier.svg') no-repeat left !important;
+		border:0;
+		height: 29px;
+		padding: 0 10px 0 30px;
+		width: 100%;
+	}
+	.row{
+		margin:0;
+	}
+	.btn.btn-grey{
+		.border-bottom-radius(4px);
+		.border-top-radius(4px);
+		font-size: 13px;
+		height: 29px;
+		padding: 0;
+		width: 60px;
 	}
 }
 
@@ -649,6 +670,44 @@ body{
 
 .margin-expense{
 	margin: 8px 0;
+}
+
+/*-- NOTIFICATIONS --*/
+
+.notifications{
+	margin-top: 5px;
+	ul{
+		li{
+			width: 100%;
+			.row{
+				display: table;
+				height: 55px;
+				margin: 2px 3px;
+				width: 100%;
+				div{
+					box-sizing: border-box;
+					float: none;
+					padding-left: 37px;
+					padding-right: 10px;
+					height: 40px;
+					display: table-cell;
+					position: relative;
+					vertical-align: middle;
+					p{
+						line-height: 16px;
+					}
+					&.commentIcon:before, &.eventIcon:before, &.tasksIcon:before{
+						color: @lightGrey;
+						font-size: 20px;
+						position: absolute;
+						left: 8px;
+						top: 14px;
+					}
+				}
+			}
+		}		
+	}
+
 }
 
 /* -- STATUS BAR -- */
@@ -801,6 +860,20 @@ body{
 	}
 }
 
+.navHeader{
+	.btn{
+		&.btn-danger, &.btn-grey{
+			.border-bottom-radius(4px);
+			.border-top-radius(4px);
+			font-size: 13px;
+			height: 29px;
+			padding: 0;
+			margin-top: 6px;
+			width: 60px;
+		}
+	}
+}
+
 .btn-danger{
 	background-color: @buttons;
 	border: 0;
@@ -810,9 +883,10 @@ body{
 	}
 }
 
-.btn-cancel{
+.btn-grey{
 	background-color: @brand;
 	border: 0;
+	color: white;
 	&:hover{
 		background-color: @brand;
 	}
@@ -1308,6 +1382,9 @@ textarea{
 				font-weight: 600;
 				line-height: 20px;
 			}
+			&.time-zone{
+				padding: 8px !important;
+			}
 		}
 		&:last-child{
 			border-bottom: 0;
@@ -1353,7 +1430,6 @@ textarea{
 	}
 }
 
-
 /*-- STYLE FOR THE SELECTS --*/
 
 select, input{
@@ -1373,7 +1449,12 @@ select, input{
 				color:@lightGrey;
 			}
 		}
-
+		&.clean{
+			border: 0;
+			&:focus{
+				border: 0;
+			}
+		}
 		&:focus{
 			border-color:@lightGrey;
 			outline: 0;
