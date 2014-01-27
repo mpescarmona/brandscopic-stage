@@ -2,13 +2,13 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.contact', 'model.country'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
   }])
 
   .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
-    $scope.user = {'email': '', 'password': ''};
+    $scope.user = {'email': 'mpescarmona@gmail.com', 'password': 'Mario123'};
 
     $scope.wrongUser = null;
     $scope.validateApiUser = function() {
@@ -506,8 +506,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     };
 
     var
-        // ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, noData: false, eventSubNav: "people"}
-        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
+        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasEditIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
       , eventTeamData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -531,14 +530,8 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.showPeople = "team"
                                     $scope.showPeopleType = function(type) {
                                       $scope.showPeople = type
-                                      // $scope.UserInterface.noData = false
-                                      // if (type == "team" && $scope.eventTeamItems.length == 0) {
-                                      //   $scope.UserInterface.noData = true
-                                      // }
-                                      // if (type == "contacts" && $scope.eventContactItems.length == 0) {
-                                      //   $scope.UserInterface.noData = true
-                                      // }
-                                    };
+                                    }
+
                                     // if ($scope.showPeople =="team") {
                                     //   $scope.UserInterface.AddIconState = "home.events.details.people.team.add";
                                     // } else {
@@ -580,7 +573,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleContactsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'EventContact', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact) {
+  .controller('EventsPeopleContactsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Contact', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Contact) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -601,47 +594,13 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.contact = []
 
                                     var
-                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                      , actions = { success: function (contacts) {
-                                                      // workaround to find the needed contact from contacts list
-                                                      for(var i = 0, item; item = contacts[i++];) {
-                                                        if (item.id == $stateParams.contactId) {
-                                                          $scope.contact = item
-                                                          break
-                                                        }
-                                                      }
-
-                                                      // if the contact didn't found, means that is not assigned yet.
-                                                      // So, we need to find it in assignable contact list
-                                                      if ($scope.contact.length == 0) {
-                                                        var assignableActions = { success: function (assignableContacts) {
-                                                                // workaround to find the needed contact from contacts list
-                                                                for(var i = 0, item; item = assignableContacts[i++];) {
-                                                                  if (item.id == $stateParams.contactId) {
-                                                                    $scope.contact = item
-                                                                    break
-                                                                  }
-                                                                }
-                                                              }
-                                                        }
-                                                        EventContact.contacts(credentials, assignableActions)
-                                                      }
-
-                                                      // $location.path("/home/events/" + $scope.event.id + "/people/contacts/edit")
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, contact_id: $stateParams.contactId }
+                                      , actions = { success: function (contact) {
+                                                      $scope.contact = contact
                                                     }
                                                   }
+                                    Contact.find(credentials, actions)
 
-                                    EventContact.all(credentials, actions)
-
-                                    // $scope.showPeople = ($scope.showPeople == "") ? "team" : $scope.showPeople;
-                                    $scope.showPeople = "team";
-
-                                    $scope.showPeopleType = function(type) {
-                                      $scope.showPeople = type;
-                                    };
-                                    // if ($scope.showPeople =="team") {
-                                    //   $scope.UserInterface.AddIconState = "home.events.details.people.team.add";
-                                    // } else {
                                     $scope.UserInterface.EditIconUrl = "#/home/events/" + $scope.event.id + "/people/contacts/" + $stateParams.contactId + "/edit";
                     }
        }
@@ -657,7 +616,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {title: "Contacts", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: true, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false}
+        ui = {title: "Contacts", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasEditIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: false, hasCustomHomeClass: false, searching: false, eventSubNav: "people", AddIconState: "home.events.details.people.contacts.new"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event) {
                                     $scope.event = event;
@@ -697,7 +656,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
                                                                     EventContact.create(credentials, actions, $scope.event)
                                                                   }
-
                                                              }
                                       }
                                     EventContact.contacts(credentials, actions)
@@ -707,18 +665,157 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleContactsEditController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'Event', function($scope, $state, snapRemote, UserService, UserInterface, Event) {
+  .controller('EventsPeopleContactsEditController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Contact', 'Country', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Contact, Country) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
     snapRemote.close()
 
+    $scope.getCountries = function() {
+      var
+          countries = []
+        , credentials = { auth_token: UserService.currentUser.auth_token }
+        , actions = { success: function (countries) {
+                        $scope.countries = countries
+                      }
+                    }
+      Country.all(credentials, actions)
+    }
+
+    $scope.getStates = function(countryId) {
+      var
+          states = []
+        , credentials = { auth_token: UserService.currentUser.auth_token, country_id: countryId }
+        , actions = { success: function (states) {
+                        $scope.states = states
+                      }
+                    }
+      Country.states(credentials, actions)
+    }
+
+    $scope.getStatesForCountry = function() {
+      var
+          countryCode = $scope.contact.country
+      $scope.getStates(countryCode)
+    }
+
     var
         ui = {title: "Edit contact", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasEditIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+      , actions = { success: function(event) {
+                                    $scope.event = event;
+                                    $scope.eventId = $stateParams.eventId
+                                    $scope.contactId = $stateParams.contactId
+                                    $scope.contact = []
+                                    $scope.countries = []
+                                    $scope.states = []
+                                    $scope.countryCode = ""
 
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
+                                    // Options for User Interface in home partial
+                                    angular.extend(UserInterface, ui)
+                                    $scope.UserInterface = UserInterface
+
+                                    var
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, contact_id: $stateParams.contactId }
+                                      , actions = { success: function (contact) {
+                                                      $scope.contact = contact
+
+                                                      $scope.getCountries()
+
+                                                      for(var i = 0, item; item = $scope.countries[i++];) {
+                                                        if (item.name == contact.country) {
+                                                          $scope.countryCode = item.id
+                                                          break
+                                                        }
+                                                      }
+
+                                                      $scope.getStates($scope.countryCode)
+                                                      console.log($scope.getStates($scope.countryCode))
+                                                    }
+                                                  }
+                                    Contact.find(credentials, actions)
+                    }
+       }
+
+    Event.find(credentials, actions)
+
+    $scope.updateContact = function() {
+      var
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, contact_id: $stateParams.contactId }
+        , actions = { success: function (contact) {
+                            $scope.contact = contact
+                            $location.path("/home/events/" + $scope.event.id + "/people")
+                      }
+                    , error: function (contact_error) {
+                        $scope.contact_error = contact_error
+                      }
+                    }
+      Contact.update(credentials, actions, $scope.contact)
+    }
+
+  }])
+
+  .controller('EventsPeopleContactsNewController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Contact', 'Country', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Contact, Country) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    $scope.getCountries = function() {
+      var
+          countries = []
+        , credentials = { auth_token: UserService.currentUser.auth_token }
+        , actions = { success: function (countries) {
+                        $scope.countries = countries
+                      }
+                    }
+      Country.all(credentials, actions)
+    }
+
+    $scope.getStates = function(countryId) {
+      var
+          states = []
+        , credentials = { auth_token: UserService.currentUser.auth_token, country_id: countryId }
+        , actions = { success: function (states) {
+                        $scope.states = states
+                      }
+                    }
+      Country.states(credentials, actions)
+    }
+
+    $scope.getStatesForCountry = function() {
+      var
+          countryCode = $scope.contact.country
+      $scope.getStates(countryCode)
+    }
+
+    $scope.contact = {}
+    $scope.countryCode = "US"
+    $scope.getCountries()
+
+    var
+        ui = {title: "Contact", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasEditIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: false, hasCustomHomeClass: false, searching: false}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+
+    angular.extend(UserInterface, ui)
+    $scope.UserInterface = UserInterface
+
+    $scope.createContact = function() {
+      var
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
+        , actions = { success: function (contact) {
+                            $scope.contact = contact
+                            $location.path("/home/events/" + $scope.event.id + "/people")
+                      }
+                    , error: function (contact_error) {
+                        $scope.contact_error = contact_error
+                      }
+                    }
+      Contact.create(credentials, actions, $scope.contact)
+    }
+
   }])
 
   .controller('EventsDataController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventsRestClient) {

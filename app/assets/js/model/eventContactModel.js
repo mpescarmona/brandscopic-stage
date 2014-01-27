@@ -66,7 +66,7 @@ angular.module('model.eventContact', ['persistence.eventContact'])
               actions.success(angular.copy(collection))
             }
             else
-              throw 'results missing on respons'
+              throw 'results missing on response'
 
           }
       }

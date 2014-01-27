@@ -88,7 +88,7 @@ angular.module('model.event', ['persistence.event'])
               actions.success(angular.copy(collection), angular.copy(filters))
             }
             else
-              throw 'facets or results missing on respons'
+              throw 'facets or results missing on response'
 
           }
       }

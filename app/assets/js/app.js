@@ -136,6 +136,13 @@ config(function($stateProvider, $urlRouterProvider) {
                             }
             }
     })
+    .state('home.events.details.people.contacts.new', {
+      url: "/new",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_new.html",
+                              controller: 'EventsPeopleContactsNewController'
+                            }
+            }
+    })
     .state('home.events.details.people.team', {
       url: "/team",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team.html",
