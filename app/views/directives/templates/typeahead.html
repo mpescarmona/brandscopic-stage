@@ -1,0 +1,8 @@
+<input type="text" 
+	   ng-model="searchModel" 
+	   typeahead="item for item in itemsToShow | filter:$viewValue | limitTo:8" 
+	   typeahead-loading="loadingLocations" 
+	   class="form-control arrow">
+<i ng-show="loadingLocations" 
+   class="glyphicon glyphicon-refresh">
+</i>
