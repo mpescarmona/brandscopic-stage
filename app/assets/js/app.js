@@ -145,22 +145,12 @@ config(function($stateProvider, $urlRouterProvider) {
     })
     .state('home.events.details.people.team', {
       url: "/team",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team.html",
-                              controller: 'EventsPeopleTeamController'
-                            }
-            }
+      abstract: true
     })
     .state('home.events.details.people.team.add', {
       url: "/add",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team_add.html",
-                              controller: 'EventsTeamAddController'
-                            }
-            }
-    })
-    .state('home.events.details.people.team.edit', {
-      url: "/:teamId/edit",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team_edit.html",
-                              controller: 'EventsPeopleController'
+                              controller: 'EventsPeopleTeamAddController'
                             }
             }
     })
