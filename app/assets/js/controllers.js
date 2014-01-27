@@ -219,6 +219,24 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     $scope.filterStatus = function(status) {
       $scope.event_status = ($scope.event_status == status) ? false : status;
     }
+
+    $scope.deleteEvent = function() {
+      var
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function (event) {
+                            $scope.event = event
+                            // $location.path("/home/events/" + event.id + "/about")
+                      }
+                    , error: function (event_error) {
+                        $scope.event_error = event_error
+                         console.log(event_error)
+                      }
+                    }
+
+      $scope.event.active = false
+      Event.update(credentials, actions, $scope.event)
+    }
+    
   }])
 
   .controller('EventsAboutController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {

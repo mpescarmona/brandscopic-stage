@@ -31,8 +31,10 @@
             </div>
           </div>
           <div class="editpanel actions-panel">
-            <a href="#" class="edit" stop-event='click'></a>
-            <a href="#" class="deactivate" stop-event='click'></a>
+            <!-- <a href="#" class="edit" stop-event='click' redirect-to="#home/events/{{event1.id}}/edit"></a> -->
+            <!-- <a href="#" class="deactivate" stop-event='click' ng-click="deleteEvent(event)"></a> -->
+            <button type="button" class="edit" redirect-to="#home/events/{{event1.id}}/edit"></button>
+            <button type="button" class="deactivate" ng-click="deleteEvent(event)"></button>
           </div>
         </div>
       </li>
