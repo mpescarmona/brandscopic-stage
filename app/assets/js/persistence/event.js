@@ -18,5 +18,7 @@ angular.module('persistence.event', ['ngResource', 'util.jsonToFormData'])
                      , headers: contentType
                      , transformRequest: jsonToFormDataFor('event')
                     }
+
+      , 'search'     : { method: 'GET', params: {action:'autocomplete'} }
   });
 }]);

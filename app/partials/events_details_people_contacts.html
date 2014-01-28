@@ -2,18 +2,21 @@
 
 <div class="container">
 	<div class="box-container events contactDetails">
-		<h5>{{contact.full_name}}</h5>
-		<p class="small">{{contact.title}}</p>
+		<div class="contact">
+			<h5>{{contact.full_name}}</h5>
+			<p class="small">{{contact.title}}</p>
+		</div>
 		<div class="mail-data">
-			<a class="blue underline" href="#">{{contact.email}}</a>
+			<a class="blue" href="#">{{contact.email}}</a>
 		</div>
 		<div class="phone-data">
-			<a class="blue underline" href="#">{{contact.phone_number}}</a>
+			<a class="blue" href="tel:{{contact.phone_number}}">{{contact.phone_number}}</a>
 		</div>
 		<div class="place-data">
-			{{contact.street_address}}<br>
-			{{contact.city}}, {{contact.state}}, {{contact.zip_code}}<br>
-			{{contact.country}}
+			<div class="address">{{contact.street_address}}</div>
+			<div class="city">{{contact.city}}, {{contact.state}}</div>
+			<div class="zip_code">{{contact.zip_code}}</div>
+			<div class="country">{{contact.country}}</div>
 		</div>
 	</div>
 </div>

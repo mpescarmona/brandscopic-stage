@@ -49,9 +49,10 @@
 		  	<label>Place</label>
 		  </div>
 		  <div class="col-xs-12">
-		  	<!-- <input type="text"> -->
-        <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control arrow">
-		  	<!-- <span ng-show="event_error.place.id" ng-class="{error: event_error.place.id}" ng-model="event_error.place.id">{{event_error.place.join()}}</span> -->
+	  	 	<scopic-typeahead 
+	  	 		data-type="scopic.consts.typeahead_types.PLACES"
+	  	 		data-isCustom="false">				
+	  	 	</scopic-typeahead>
 		  </div>
 		</div>
 		<div class="row">

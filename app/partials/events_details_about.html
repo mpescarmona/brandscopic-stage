@@ -24,10 +24,9 @@
 			{{event.start_time}} - {{event.end_time}}
 		</div>
 		<div class="place-data">
-			<a href="#" class="blue">{{event.place.name}}</a><br>
-			{{event.place.formatted_address}}
-			<br>
-			{{event.place.state_name}}, {{event.place.state}}, {{event.place.zipcode}}
+			<a href="#" class="blue">{{event.place.name}}</a>
+			<div class="address">{{event.place.formatted_address}}</div>
+			<div class="state">{{event.place.state_name}}, {{event.place.state}}, {{event.place.zipcode}}</div>
 		</div>
 		<button type="button" class="btn-default btn-sm edit" redirect-to="{{editUrl}}"></button>
 		<button type="button" class="btn-default btn-sm deactivate" ng-click="deleteEvent(event)"></button>

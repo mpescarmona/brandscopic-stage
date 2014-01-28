@@ -814,6 +814,9 @@ body.appLayout .container {
 .box-container ul.eventsPeople.add .row {
   padding: 13px;
 }
+.box-container ul.list:last-of-type li {
+  border-bottom: 0;
+}
 .box-container ul.list .row {
   margin: 3px 0 3px 2px;
   height: 54px;
