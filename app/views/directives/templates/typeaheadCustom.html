@@ -1,0 +1,12 @@
+<table>
+	<th>
+		<td><a>{{ match.label }}</a></td>
+	</th>
+    <tr>
+        <td>
+        	<div ng-repeat="item in items" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)">
+                <a>{{ match.item.label }}</a>
+            </div>
+        </td>
+    </tr>
+</table>
