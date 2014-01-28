@@ -17,7 +17,7 @@
 	<div class="box-container np">
     <!--invoke directive go-to when implement taks details in the following ul-->
 		<ul class="events list tasks swipe-list">
-			<li>
+			<li class="lastItem">
 				<div class="row action-buttons dual-button" ng-class="{late: task_status=='Late', Unassigned: task_status=='Unassigned', Incomplete: task_status=='Incomplete'}" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'"> 
           <div class="row-content">
             <div class="col-xs-12 checkbox-selector">
@@ -31,8 +31,8 @@
             </div>
           </div>
 				<div class="editpanel actions-panel">
-				 	<a href="#" class="edit"></a>
-					<a href="#" class="deactivate"></a>
+				 	<button class="noButton edit"></button>
+					<button class="noButton deactivate"></button>
 				</div>
 			</li>
 		</ul>

@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="box-container np">
 		<ul class="comments">
-			<li ng-repeat="comment in comments" class="expandible-comment" ng-class="{'expanded': expand, 'collapsed': !expand}">
+			<li ng-repeat="comment in comments" class="expandible-comment" ng-class="{'expanded': expand, 'collapsed': !expand, lastItem: $last}">
 				<div class="margin-data">
 					<p class="comment-user">Craig Williams</p>
 					<p class="comment-date small">{{comment.created_at}}</p>
