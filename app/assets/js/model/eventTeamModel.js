@@ -1,31 +1,31 @@
-angular.module('model.eventContact', ['persistence.eventContact'])
+angular.module('model.eventTeam', ['persistence.eventTeam'])
 
-  .service('EventContact', ['eventContactClient', function (eventContactClient) {
+  .service('EventTeam', ['eventTeamClient', function (eventTeamClient) {
     var
        company_id
       , collection
-      , contact
+      , team
 
-      , contacts = function (credentials, actions) {
+      , members = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
-            if (contact && contact.id  == credentials.event_id)
-              actions.success(angular.copy(contact))
+            if (team && team.id  == credentials.event_id)
+              actions.success(angular.copy(team))
             else
-              eventContactClient.contacts(credentials, contactsResponse(actions))
+              eventTeamClient.members(credentials, membersResponse(actions))
           else
             throw 'Wrong set of credentials'
 
       }
-      , contactsResponse = function (actions) {
+      , membersResponse = function (actions) {
            return function(resp){
-             contact = resp
-             actions.success(angular.copy(contact))
+             team = resp
+             actions.success(angular.copy(team))
            }
       }
       , create = function (credentials, actions, attributes) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
             if (Object.keys(attributes).length)
-              eventContactClient.create(credentials
+              eventTeamClient.create(credentials
                                  , attributes
                                  , createResponse(actions.success)
                                  , createResponse(actions.error)
@@ -34,8 +34,8 @@ angular.module('model.eventContact', ['persistence.eventContact'])
       , createResponse = function (action) {
         return function (resp) {
           if ('id' in resp) {
-            contact = resp
-            collection.push(contact)
+            team = resp
+            collection.push(team)
           } else {
             collection = undefined
           }
@@ -51,7 +51,7 @@ angular.module('model.eventContact', ['persistence.eventContact'])
               actions.success(collection)
             else {
               company_id = credentials.company_id
-              eventContactClient.all(credentials, allResponse(actions))
+              eventTeamClient.all(credentials, allResponse(actions))
             }
           } else
             throw 'Wrong set of credentials'
@@ -73,7 +73,7 @@ angular.module('model.eventContact', ['persistence.eventContact'])
 
       return {
           all: all
-        , contacts: contacts
+        , members: members
         , create: create
       }
   }])

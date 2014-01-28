@@ -1,42 +1,15 @@
-<!-- ESTA ES LA VISTA DE ADD -->
+<!-- THIS IS THE ADD VIEW OF TEAMS -->
 
 <div class="container">
 	<div class="box-container np">
 		<ul class="eventsPeople">
-			<li>
+			<li ng-repeat="team in teams">
 				<div class="row">
 					<div class="col-xs-7">
-						<h5 class="txtAdjust">Amber Smith Amber Smith Amber Smith</h5>
-						<p class="small">Bar Manager</p>
+						<h5 class="txtAdjust">{{team.name}}</h5>
+						<p class="small">{{team.description}}</p>
 					</div>
-					<a class="btn-default btn-sm add pull-right" href="#">Add</a>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-7">
-						<h5 class="txtAdjust">Amy Jones</h5>
-						<p class="small">Bar Manager</p>
-					</div>
-					<a class="btn-default btn-sm add pull-right" href="#">Add</a>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-7">
-						<h5 class="txtAdjust">Amber Smith Amber Smith Amber Smith</h5>
-						<p class="small">Bar Manager</p>
-					</div>
-					<a class="btn-default btn-sm add pull-right" href="#">Add</a>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-7">
-						<h5 class="txtAdjust">Amy Jones</h5>
-						<p class="small">Restaurant Manager</p>
-					</div>
-					<a class="btn-default btn-sm add pull-right" href="#">Add</a>
+					<button type="button" class="btn-default btn-sm add pull-right" ng-click="assignTeam({{team.id}}, '{{team.type}}')">Add</button>
 				</div>
 			</li>
 		</ul>

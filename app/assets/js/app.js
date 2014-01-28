@@ -137,24 +137,21 @@ angular.module('brandscopicApp', [
                             }
             }
     })
-    .state('home.events.details.people.team', {
-      url: "/team",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team.html",
-                              controller: 'EventsPeopleTeamController'
+    .state('home.events.details.people.contacts.new', {
+      url: "/new",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_new.html",
+                              controller: 'EventsPeopleContactsNewController'
                             }
             }
+    })
+    .state('home.events.details.people.team', {
+      url: "/team",
+      abstract: true
     })
     .state('home.events.details.people.team.add', {
       url: "/add",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team_add.html",
-                              controller: 'EventsTeamAddController'
-                            }
-            }
-    })
-    .state('home.events.details.people.team.edit', {
-      url: "/:teamId/edit",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team_edit.html",
-                              controller: 'EventsPeopleController'
+                              controller: 'EventsPeopleTeamAddController'
                             }
             }
     })
