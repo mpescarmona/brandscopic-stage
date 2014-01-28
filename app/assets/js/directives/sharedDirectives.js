@@ -7,13 +7,12 @@ angular.module('brandscopicApp.sharedDirectives', [])
 		    $scope.itemsToShow = []
 		    $scope.customTemplate = ""
 		    var typeahead_type = undefined;
-		    console.log($scope.$eval($attrs.isCustom))
-		    $scope.isCustom = $scope.$eval($attrs.isCustom)
+		    //$scope.isCustom = $scope.$eval($attrs.isCustom)
 
 		    var _getSearch = function (value) {
-		        var 
+		        var
 		          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, term: value }
-		        , actions = { 
+		        , actions = {
 		        	success: function (items) {
 								if(typeahead_type === scopic.consts.typeahead_types.PLACES) {
 	                                angular.forEach(items, function (item) {
@@ -26,7 +25,7 @@ angular.module('brandscopicApp.sharedDirectives', [])
 	                                  		$scope.itemsToShow.push(item.label)
 	                                	}
 	                                });
-	        
+
                                 }
 		                      }
                      , error: function (event_error) {
