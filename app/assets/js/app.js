@@ -1,6 +1,5 @@
 'use strict';
 
-
 // Declare app level module which depends on filters, and services
 angular.module('brandscopicApp', [
   'ui.router',
@@ -14,10 +13,12 @@ angular.module('brandscopicApp', [
   'brandscopicApp.directives',
   'brandscopicApp.controllers',
   'brandscopicApp.animations',
+  'brandscopicApp.debounce',
+  'brandscopicApp.sharedDirectives',
   'ui.bootstrap',
   'ngMap'
-]).
-config(function($stateProvider, $urlRouterProvider) {
+])
+.config(function($stateProvider, $urlRouterProvider) {
   //
   // For any unmatched url, redirect to /login
   $urlRouterProvider.otherwise("/login");
@@ -32,7 +33,7 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home', {
       url: "/home",
       templateUrl: "partials/home.html",
-      controller: "HomeController"
+      controller: "homeCtrl"
     })
     .state('home.companies', {
       url: "/companies",
@@ -72,7 +73,7 @@ config(function($stateProvider, $urlRouterProvider) {
     .state('home.events.add', {
       url: "/add",
       views:{'details@home':{ templateUrl: "partials/events_add.html",
-                              controller: 'EventsAddController'
+                              controller: 'eventsAddCtrl'
                             }
             }
     })
@@ -329,4 +330,22 @@ config(function($stateProvider, $urlRouterProvider) {
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }
-]);
+])
+.run(["$rootScope", function ($rootScope) {
+        $rootScope.alert = function (text) {
+            alert(text);
+        };
+        /**
+         * Use 'injectConst' which provides a place to inject relevant bits of the scopic
+         * into all child controller $scopes by attaching as a reference
+         * on the application's over-arching parent scope
+         * so that they may be accessed by ALL child $scope objects.
+         * We do this instead of just simply assigning adaptv_api
+         * in order to suppress any lingering memory concerns.
+         *
+         * This makes scopic.consts directly accessible through the views for directives like ng-show and ng-disabled etc.
+         * This also makes it transparent for developers to write custom component directives as well.
+         */
+        scopic.injectConst($rootScope);
+
+}]);

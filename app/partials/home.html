@@ -29,15 +29,31 @@
       <h1 class="txtAdjust">{{UserInterface.title}}</h1>
     </div>
     <div class="right">
-      <button class="noButton magnifierIcon out pull-right"
-            ng-show="UserInterface.hasMagnifierIcon"
-            ng-swipe-left="UserInterface.searching=true">
-      </button>
-      <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon" redirect-to-state="{{UserInterface.AddIconState}}" ng-animate=" ' animate' "></button>
+      <span ng-show="showSearchField" class="pull-right">
+          <button class="btn btn-grey pull-right" ng-click="showSearchEvent(false)" style="margin-left:5px;">Cancel</button>
+          <div class="pull-right">
+              <scopic-typeahead 
+                  data-type="scopic.consts.typeahead_types.EVENTS">
+              </scopic-typeahead>
+          </div>
+      </span>
+      <span ng-hide="showSearchField">
+          <button class="noButton magnifierIcon out pull-right"
+                ng-click="showSearchEvent(true)"
+                ng-show="UserInterface.hasMagnifierIcon"
+                ng-swipe-left="UserInterface.searching=true">
+          </button>
+          <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon" redirect-to-state="{{UserInterface.AddIconState}}" ng-animate=" ' animate' "></button>
+      </span>
+
       <div class="noButton addIcon pull-right fileUpload hidden">
         <input type="file" class="upload" accept="image/*"/>
       </div>
+
+      
       <button class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" ng-click="UserInterface.actionSave">Save</button>
+
+
       <button class="btn btn-grey" ng-show="UserInterface.hasEditIcon" redirect-to="{{UserInterface.EditIconUrl}}">Edit</button>
       <button class="btn btn-grey" ng-show="UserInterface.hasCancelIcon">Cancel</button>
       <button class="noButton delete" ng-show="UserInterface.hasCloseIcon" redirect-to-state="{{UserInterface.CloseState}}"></button>
