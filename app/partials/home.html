@@ -32,9 +32,8 @@
       <span ng-show="showSearchField" class="pull-right">
           <button class="btn btn-grey pull-right" ng-click="showSearchEvent(false)" style="margin-left:5px;">Cancel</button>
           <div class="pull-right">
-              <scopic-typeahead 
-                  data-type="scopic.consts.typeahead_types.EVENTS"
-                  data-isCustom="true">
+              <scopic-typeahead
+                  data-type="scopic.consts.typeahead_types.EVENTS">
               </scopic-typeahead>
           </div>
       </span>
@@ -51,7 +50,7 @@
         <input type="file" class="upload" accept="image/*"/>
       </div>
 
-      
+
       <button class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" ng-click="UserInterface.actionSave">Save</button>
 
 
