@@ -201,6 +201,9 @@ body{
 				.company{
 					padding-top: 5px;
 				}
+				&:last-child{
+					border-bottom: 0;
+				}
 			}
 			.col-xs-2{
 				display: hidden;
@@ -222,6 +225,7 @@ body{
 			}
 		}
 		&.eventsPeople{
+			margin-top: 5px;
 			li{
 				height: 60px;
 			}
@@ -277,6 +281,19 @@ body{
 	text-transform: uppercase;
 	&.big{
 		padding: 7px 0;
+	}
+}
+
+.contacts_search{
+	background-color: @lightGrey;
+	height:44px;
+	width: 100%;
+	input[type="text"].search{
+		margin-top: 7px;
+		position: relative;
+		left: 0;
+		top: 0;
+		width: 100%;
 	}
 }
 
@@ -639,33 +656,6 @@ body{
 	border-left: 4px solid @submitted;
 }
 
-.searchBar{
-	background-color: @header;
-	box-sizing: border-box;
-	height: 45px;
-	padding: 8px;
-	input[type="text"]{
-		.border-bottom-radius(4px);
-		.border-top-radius(4px);
-		background: white url('../images/magnifier.svg') no-repeat left !important;
-		border:0;
-		height: 29px;
-		padding: 0 10px 0 30px;
-		width: 100%;
-	}
-	.row{
-		margin:0;
-	}
-	.btn.btn-grey{
-		.border-bottom-radius(4px);
-		.border-top-radius(4px);
-		font-size: 13px;
-		height: 29px;
-		padding: 0;
-		width: 60px;
-	}
-}
-
 .margin-data{
 	float: left;
 	width: 100%;
@@ -876,6 +866,19 @@ body{
 			width: 60px;
 		}
 	}
+	ul.dropdown-menu{
+		box-shadow: none;
+		-webkit-box-shadow: none;
+		width: 90%;
+		li{
+			color: @brand;
+			text-align: left;
+		}
+		&> .active > a{
+			background-color: @brand;
+			color: white;
+		}
+	}
 }
 
 .btn-danger{
@@ -995,6 +998,18 @@ input[type="text"], input[type="number"], input[type="search"], input[type="date
 		.border-top-radius(0px);
 		border: 0;
 		margin-bottom: 10px;
+	}
+	&.search{
+		.border-bottom-radius(4px);
+		.border-top-radius(4px);
+		background: white url('../images/magnifier.svg') no-repeat left !important;
+		border:0;
+		height: 29px;
+		padding: 0 10px 0 30px;
+		position: absolute;
+		left: 10px;
+		top: 8px;
+		width: 72%;
 	}
 	&.event_start_date, &.event_end_date{
 		background: url('../images/calendar.svg') no-repeat left !important;
@@ -1771,6 +1786,9 @@ ul.stats{
 	}
 }
 
+.lastItem{
+	border-bottom: 0 !important;
+}
 
 
 
