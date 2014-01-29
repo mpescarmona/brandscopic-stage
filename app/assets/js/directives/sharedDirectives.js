@@ -6,8 +6,8 @@ angular.module('brandscopicApp.sharedDirectives', [])
         	$scope.searchModel = ""
 		    $scope.itemsToShow = []
 		    $scope.customTemplate = ""
+
 		    var typeahead_type = undefined;
-		    console.log($scope.$eval($attrs.isCustom))
 		    $scope.isCustom = $scope.$eval($attrs.isCustom)
 
 		    var _getSearch = function (value) {
@@ -21,12 +21,10 @@ angular.module('brandscopicApp.sharedDirectives', [])
 	                                });
                                 }
                                 if(typeahead_type === scopic.consts.typeahead_types.EVENTS) {
+                                	$scope.itemsToShow = []
 	                                angular.forEach(items.facets, function (item) {
-	                                	if($scope.itemsToShow.indexOf(item.label) < 0) {
-	                                  		$scope.itemsToShow.push(item.label)
-	                                	}
+	                                	$scope.itemsToShow.push(item)
 	                                });
-	        
                                 }
 		                      }
                      , error: function (event_error) {
