@@ -475,7 +475,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleContactsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Contact', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Contact) {
+  .controller('EventsPeopleContactsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'EventContact', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -496,12 +496,34 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.contact = []
 
                                     var
-                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, contact_id: $stateParams.contactId }
-                                      , actions = { success: function (contact) {
-                                                      $scope.contact = contact
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                      , actions = { success: function (contacts) {
+                                                      // workaround to find the needed contact from contacts list
+                                                      for(var i = 0, item; item = contacts[i++];) {
+                                                        if (item.id == $stateParams.contactId) {
+                                                          $scope.contact = item
+                                                          break
+                                                        }
+                                                      }
+
+                                                      // if the contact didn't found, means that is not assigned yet.
+                                                      // So, we need to find it in assignable contact list
+                                                      if ($scope.contact.length == 0) {
+                                                        var assignableActions = { success: function (assignableContacts) {
+                                                                // workaround to find the needed contact from contacts list
+                                                                for(var i = 0, item; item = assignableContacts[i++];) {
+                                                                  if (item.id == $stateParams.contactId) {
+                                                                    $scope.contact = item
+                                                                    break
+                                                                  }
+                                                                }
+                                                              }
+                                                        }
+                                                        EventContact.contacts(credentials, assignableActions)
+                                                      }
                                                     }
                                                   }
-                                    Contact.find(credentials, actions)
+                                    EventContact.all(credentials, actions)
 
                                     $scope.UserInterface.EditIconUrl = "#/home/events/" + $scope.event.id + "/people/contacts/" + $stateParams.contactId + "/edit";
                     }
@@ -532,7 +554,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                       , actions = { success: function(contacts) {
                                                                   $scope.contacts = contacts
-                                                                // Options for User Interface in home partial
+                                                                  // Options for User Interface in home partial
                                                                   angular.extend(UserInterface, ui)
                                                                   $scope.UserInterface = UserInterface
                                                                   $scope.eventId = $stateParams.eventId
@@ -541,7 +563,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                                     var
                                                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId, contactable_id: contactId, contactable_type: contactType }
                                                                       , actions = { success: function (contact) {
-                                                                                      // workaround for remove the non 'Active' events
+                                                                                      // remove the assigned contact from assignable contacts list
                                                                                       for(var i = 0, item; item = $scope.contacts[i++];) {
                                                                                         if (item.id == contactId) {
                                                                                           $scope.contacts.splice(i-1, 1)
@@ -555,7 +577,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                                                        console.log(event_error)
                                                                                     }
                                                                                   }
-
                                                                     EventContact.create(credentials, actions, $scope.event)
                                                                   }
                                                              }
@@ -567,7 +588,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleContactsEditController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Contact', 'Country', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Contact, Country) {
+  .controller('EventsPeopleContactsEditController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'EventContact', 'Country', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact, Country) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -619,24 +640,45 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.UserInterface = UserInterface
 
                                     var
-                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, contact_id: $stateParams.contactId }
-                                      , actions = { success: function (contact) {
-                                                      $scope.contact = contact
-
-                                                      $scope.getCountries()
-
-                                                      for(var i = 0, item; item = $scope.countries[i++];) {
-                                                        if (item.name == contact.country) {
-                                                          $scope.countryCode = item.id
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                      , actions = { success: function (contacts) {
+                                                      // workaround to find the needed contact from contacts list
+                                                      for(var i = 0, item; item = contacts[i++];) {
+                                                        if (item.id == $stateParams.contactId) {
+                                                          $scope.contact = item
                                                           break
                                                         }
                                                       }
 
-                                                      $scope.getStates($scope.countryCode)
-                                                      console.log($scope.getStates($scope.countryCode))
+                                                      // if the contact didn't found, means that is not assigned yet.
+                                                      // So, we need to find it in assignable contact list
+                                                      if (!$scope.contact.id) {
+                                                        var assignableActions = { success: function (assignableContacts) {
+                                                                // workaround to find the needed contact from contacts list
+                                                                for(var i = 0, item; item = assignableContacts[i++];) {
+                                                                  if (item.id == $stateParams.contactId) {
+                                                                    $scope.contact = item
+                                                                    break
+                                                                  }
+                                                                }
+                                                              }
+                                                        }
+                                                        EventContact.contacts(credentials, assignableActions)
+                                                      }
+                                                      if ($scope.contact.id) {
+                                                        $scope.getCountries()
+
+                                                        for(var i = 0, item; item = $scope.countries[i++];) {
+                                                          if (item.name == $scope.contact.country) {
+                                                            $scope.countryCode = item.id
+                                                            break
+                                                          }
+                                                        }
+                                                        $scope.getStates($scope.countryCode)
+                                                      }
                                                     }
                                                   }
-                                    Contact.find(credentials, actions)
+                                    EventContact.all(credentials, actions)
                     }
        }
 
