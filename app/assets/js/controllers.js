@@ -532,7 +532,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                       , actions = { success: function(contacts) {
                                                                   $scope.contacts = contacts
-                                                                // Options for User Interface in home partial
+                                                                  // Options for User Interface in home partial
                                                                   angular.extend(UserInterface, ui)
                                                                   $scope.UserInterface = UserInterface
                                                                   $scope.eventId = $stateParams.eventId
@@ -541,7 +541,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                                     var
                                                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId, contactable_id: contactId, contactable_type: contactType }
                                                                       , actions = { success: function (contact) {
-                                                                                      // workaround for remove the non 'Active' events
+                                                                                      // remove the assigned contact from assignable contacts list
                                                                                       for(var i = 0, item; item = $scope.contacts[i++];) {
                                                                                         if (item.id == contactId) {
                                                                                           $scope.contacts.splice(i-1, 1)
@@ -555,7 +555,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                                                        console.log(event_error)
                                                                                     }
                                                                                   }
-
                                                                     EventContact.create(credentials, actions, $scope.event)
                                                                   }
                                                              }

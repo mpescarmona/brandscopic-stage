@@ -2,15 +2,15 @@
 
 <div class="contacts_search">
 	<div class="container">
-		<input type="text" class="search" placeholder="Search">
+		<input type="text" class="search" placeholder="Search" ng-model="search">
 	</div>
 </div>
 
 <div class="container">
 	<div class="box-container np">
 		<ul class="eventsPeople add">
-			<li ng-repeat="contact in contacts">
-				<div class="row" redirect-to="#/home/events/{{eventId}}/people/contacts/{{contact.id}}/view">
+			<li ng-repeat="contact in contacts | filter:search" go-to>
+				<div class="row" ng-click="goTo('#/home/events/{{eventId}}/people/contacts/{{contact.id}}/view')">
 					<div class="col-xs-7">
 						<h5 class="txtAdjust">{{contact.full_name}}</h5>
 						<p class="small">{{contact.title}}</p>
