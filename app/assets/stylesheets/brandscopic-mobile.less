@@ -557,8 +557,16 @@ body{
 			margin-bottom: 2px;
 		}
 	}
+	label{
+		&.medium{
+			font-weight: bold;
+		}
+	}
 	.row{
 		margin: 0;
+	}
+	select{
+		margin-bottom: 10px;
 	}
 	&.surveys{
 		label.short{
@@ -1359,6 +1367,9 @@ textarea{
 .tasks{
 	.date-data:before{
 		margin-left: -25px;
+	}
+	.checkbox-selector input[type=checkbox] + label{
+		float: left;
 	}
 }
 
