@@ -32,7 +32,7 @@ angular.module('brandscopicApp', [
     })
     .state('home', {
       url: "/home",
-      templateUrl: "partials/home.html",
+      templateUrl: "views/home.html",
       controller: "homeCtrl"
     })
     .state('home.companies', {
@@ -65,14 +65,14 @@ angular.module('brandscopicApp', [
     })
     .state('home.events', {
       url: "/events",
-      views:{'details@home':{ templateUrl: "partials/events.html",
-                              controller: 'EventsController'
+      views:{'details@home':{ templateUrl: "views/events/events.html",
+                              controller: 'eventsCtrl'
                             }
             }
     })
     .state('home.events.add', {
       url: "/add",
-      views:{'details@home':{ templateUrl: "partials/events_add.html",
+      views:{'details@home':{ templateUrl: "views/events/events_add.html",
                               controller: 'eventsAddCtrl'
                             }
             }

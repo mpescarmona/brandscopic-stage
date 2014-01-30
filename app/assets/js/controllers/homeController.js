@@ -1,4 +1,4 @@
-function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient) {
+function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event) {
 
 	if( !UserService.isLogged() ) {
       $state.go('login');
@@ -59,6 +59,52 @@ function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, Compan
     $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#home/profile', 'click': ''},
                           {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#', 'click': 'logout()'}];
 
+
+
+    function createEvent () {
+      var
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
+        , actions = { success: function (event) {
+                            $scope.event = event
+                            $location.path("/home/events/" + event.id + "/about")
+                      }
+                    , error: function (event_error) {
+                        $scope.event_error = event_error
+                         console.log(event_error)
+                      }
+                    }
+        , sm1 = $scope.event.start_date.indexOf('-')
+        , sm2 = $scope.event.start_date.indexOf('/')
+        , em1 = $scope.event.end_date.indexOf('-')
+        , em2 = $scope.event.end_date.indexOf('/')
+      if (sm1 == 4)
+        $scope.event.start_date = $scope.event.start_date.replace(/^(\d{4})\-(\d{2})\-(\d{2}).*$/, '$2/$3/$1')
+      if (sm2 == 4)
+        $scope.event.start_date = $scope.event.start_date.replace(/^(\d{4})\/(\d{2})\/(\d{2}).*$/, '$2/$3/$1')
+      if (em1 == 4)
+        $scope.event.end_date = $scope.event.end_date.replace(/^(\d{4})\-(\d{2})\-(\d{2}).*$/, '$2/$3/$1')
+      if (em2 == 4)
+        $scope.event.end_date = $scope.event.end_date.replace(/^(\d{4})\/(\d{2})\/(\d{2}).*$/, '$2/$3/$1')
+
+      $scope.event.campaign_id = $scope.campaign ? $scope.campaign.id : 0
+      alert("intenta crear!");
+      Event.create(credentials, actions, $scope.event)
+    }
+
+    $scope.CreateEventView = function () {
+        alert("intenta crear el evento")
+        if($scope.event) {
+          createEvent();
+        } else {
+          alert("error esta completo el model");
+        }
+    }
+
+    $scope.$on('CREATE_EVENT', function (eventT, eventObj) {
+        $scope.event = eventObj;
+        event.processed = true;
+    });
+
 }
 
 homeCtrl.$inject = [
@@ -68,5 +114,6 @@ homeCtrl.$inject = [
     "UserService",
     "UserInterface",
     "CompanyService",
-    "SessionRestClient"
+    "SessionRestClient",
+    "Event"
 ];

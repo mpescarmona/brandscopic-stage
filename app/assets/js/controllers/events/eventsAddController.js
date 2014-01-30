@@ -21,7 +21,7 @@ function eventsAddCtrl($scope, $state, $stateParams, $location, snapRemote, User
 
     $scope.editUrl = "#/home/events/add"
 
-    $scope.createEvent = function() {
+    $scope.createEventOLD = function() {
       var
           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
         , actions = { success: function (event) {
@@ -47,8 +47,15 @@ function eventsAddCtrl($scope, $state, $stateParams, $location, snapRemote, User
         $scope.event.end_date = $scope.event.end_date.replace(/^(\d{4})\/(\d{2})\/(\d{2}).*$/, '$2/$3/$1')
 
       $scope.event.campaign_id = $scope.campaign ? $scope.campaign.id : 0
+
+
       Event.create(credentials, actions, $scope.event)
     }
+
+    $scope.$watch('event', function (eventObj) {
+        $scope.$emit('CREATE_EVENT', eventObj)
+    }, true);
+
 }
 
 eventsAddCtrl.$inject = [
