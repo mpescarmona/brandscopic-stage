@@ -129,6 +129,78 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                              {'id': 6, 'name': 'Royal Salute FY14', 'today': '25%', 'progress': '30%'}];
   }])
 
+  .controller('EventsAboutController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    var
+        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "about"}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+      , actions = { success: function(event){
+                                    $scope.event = event
+
+                                    // Options for User Interface in home partial
+                                    ui.title = event.campaign ? event.campaign.name : "Event"
+                                    $scope.UserInterface = UserInterface
+                                    $scope.eventId = $stateParams.eventId
+                                    $scope.editUrl = "#home/events/" + $stateParams.eventId + "/edit"
+                                    angular.extend(UserInterface, ui)
+                              }
+       }
+
+    Event.find(credentials, actions)
+
+    $scope.map_styles = [
+                {
+                        stylers: [
+                                { hue: "#00ffe6" },
+                                { saturation: -100 },
+                                { gamma: 0.8 }
+                        ]
+                },{
+                        featureType: "road",
+                        elementType: "geometry",
+                        stylers: [
+                                { lightness: 100 },
+                                { visibility: "simplified" }
+                        ]
+                },{
+                        featureType: "road",
+                        elementType: "labels",
+                        stylers: [
+                                { visibility: "off" }
+                        ]
+                },{
+                        featureType: "road.arterial",
+                        elementType: "geometry",
+                        stylers: [
+                                { color: "#BABABA" }
+                        ]
+                }
+        ]
+
+    $scope.deleteEvent = function() {
+      var
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function (event) {
+                            $scope.event = event
+                            // $location.path("/home/events/" + event.id + "/about")
+                      }
+                    , error: function (event_error) {
+                        $scope.event_error = event_error
+                         console.log(event_error)
+                      }
+                    }
+
+      $scope.event.active = false
+      Event.update(credentials, actions, $scope.event)
+    }
+
+  }])
+
   .controller('EventsAboutMapController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
