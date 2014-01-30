@@ -289,10 +289,14 @@ body{
 	height:44px;
 	width: 100%;
 	input[type="text"].search{
-		margin-top: 7px;
+		background: white url('../images/magnifier.svg') no-repeat left !important;
+		margin-top: 8px;
+		padding-left: 30px;
 		position: relative;
 		left: 0;
 		top: 0;
+		height: 28px;
+		border: 0;
 		width: 100%;
 	}
 }
@@ -875,6 +879,18 @@ body{
 			width: 60px;
 		}
 	}
+	.search{
+		.border-bottom-radius(4px);
+		.border-top-radius(4px);
+		background: white url('../images/magnifier.svg') no-repeat left !important;
+		border:0;
+		height: 29px;
+		padding: 0 10px 0 30px;
+		position: absolute;
+		left: 10px;
+		top: 8px;
+		width: 72%;
+	}
 	ul.dropdown-menu{
 		box-shadow: none;
 		-webkit-box-shadow: none;
@@ -1007,18 +1023,6 @@ input[type="text"], input[type="number"], input[type="search"], input[type="date
 		.border-top-radius(0px);
 		border: 0;
 		margin-bottom: 10px;
-	}
-	&.search{
-		.border-bottom-radius(4px);
-		.border-top-radius(4px);
-		background: white url('../images/magnifier.svg') no-repeat left !important;
-		border:0;
-		height: 29px;
-		padding: 0 10px 0 30px;
-		position: absolute;
-		left: 10px;
-		top: 8px;
-		width: 72%;
 	}
 	&.event_start_date, &.event_end_date{
 		background: url('../images/calendar.svg') no-repeat left !important;

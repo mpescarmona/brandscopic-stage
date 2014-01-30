@@ -9,6 +9,10 @@ scopic.consts = Object.freeze({
     typeahead_types: {
         PLACES: 'PLACES',
         EVENTS: 'EVENTS'
+    },
+    booleans: {
+        TRUE: true,
+        FALSE: false
     }
 });
 

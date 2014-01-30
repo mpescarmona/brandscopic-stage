@@ -32,8 +32,9 @@
       <span ng-show="showSearchField" class="pull-right">
           <button class="btn btn-grey pull-right" ng-click="showSearchEvent(false)" style="margin-left:5px;">Cancel</button>
           <div class="pull-right">
-              <scopic-typeahead
-                  data-type="scopic.consts.typeahead_types.EVENTS">
+              <scopic-typeahead 
+                  data-type="scopic.consts.typeahead_types.EVENTS"
+                  data-is-custom="scopic.consts.booleans.TRUE">
               </scopic-typeahead>
           </div>
       </span>
@@ -51,7 +52,7 @@
       </div>
 
 
-      <button class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" ng-click="UserInterface.actionSave">Save</button>
+      <button class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" ng-click="CreateEventView()">Save</button>
 
 
       <button class="btn btn-grey" ng-show="UserInterface.hasEditIcon" redirect-to="{{UserInterface.EditIconUrl}}">Edit</button>

@@ -4,28 +4,33 @@ angular.module('brandscopicApp.sharedDirectives', [])
 
         var controller = function ($scope, $attrs) {
         	$scope.searchModel = ""
-		    $scope.itemsToShow = []
+		    //$scope.itemsToShow = []
 		    $scope.customTemplate = ""
+
 		    var typeahead_type = undefined;
-		    //$scope.isCustom = $scope.$eval($attrs.isCustom)
+		    $scope.isCustom = $scope.$eval($attrs.isCustom)
+		    $scope.place = $scope.$eval($attrs.model)
+
+		    console.log($scope.place)
 
 		    var _getSearch = function (value) {
-		        var
+		        var 
 		          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, term: value }
-		        , actions = {
+		        , actions = { 
 		        	success: function (items) {
 								if(typeahead_type === scopic.consts.typeahead_types.PLACES) {
+									$scope.itemsToShow = []
 	                                angular.forEach(items, function (item) {
 	                                  	$scope.itemsToShow.push(item.label)
 	                                });
                                 }
                                 if(typeahead_type === scopic.consts.typeahead_types.EVENTS) {
+                                	$scope.itemsToShow = []
 	                                angular.forEach(items.facets, function (item) {
-	                                	if($scope.itemsToShow.indexOf(item.label) < 0) {
-	                                  		$scope.itemsToShow.push(item.label)
+	                                	if(item.items.length > 0) {
+	                                		$scope.itemsToShow.push(item)
 	                                	}
 	                                });
-
                                 }
 		                      }
                      , error: function (event_error) {
@@ -61,4 +66,3 @@ angular.module('brandscopicApp.sharedDirectives', [])
             templateUrl: 'views/directives/templates/typeahead.html'
         };
     }]);
-

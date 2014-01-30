@@ -1,12 +1,21 @@
-<table>
-	<th>
-		<td><a>{{ match.label }}</a></td>
-	</th>
-    <tr>
-        <td>
-        	<div ng-repeat="item in items" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)">
-                <a>{{ match.item.label }}</a>
-            </div>
-        </td>
-    </tr>
-</table>
+<!--<table>
+    <tbody ng-repeat="obj in match">
+        <th style="background-color:black;">
+            <td><a>{{ obj.label }}</a></td>
+        </th>
+        <tr ng-repeat="item in obj.items">
+            <td><a>{{ item.label }}</a></td>
+        </tr>
+    </tbody>
+</table>-->
+
+<ul>
+    <li ng-repeat="obj in match">
+        <a>{{ obj.label }}</a>
+        <ul>
+            <li ng-repeat="item in obj.items"><a>
+                {{ item.label }}</a>
+            </li>
+        </ul>
+    </li>
+</ul>
