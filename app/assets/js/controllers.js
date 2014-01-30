@@ -129,7 +129,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                              {'id': 6, 'name': 'Royal Salute FY14', 'today': '25%', 'progress': '30%'}];
   }])
 
-  .controller('EventsController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event',  function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, Event) {
+  .controller('EventsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event',  function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -163,12 +163,17 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       $scope.event_status = ($scope.event_status == status) ? false : status;
     }
 
-    $scope.deleteEvent = function() {
+    $scope.deleteEvent = function(event) {
       var
-          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: event.id }
         , actions = { success: function (event) {
                             $scope.event = event
-                            // $location.path("/home/events/" + event.id + "/about")
+                            // remove the non 'Active' event
+                            for(var i = 0, evt; evt = $scope.eventsItems[i++];) {
+                              if (evt.id == event.id) {
+                                $scope.eventsItems.splice(i - 1, 1)
+                              }
+                            }
                       }
                     , error: function (event_error) {
                         $scope.event_error = event_error
@@ -176,8 +181,8 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                       }
                     }
 
-      $scope.event.active = false
-      Event.update(credentials, actions, $scope.event)
+      event.active = false
+      Event.update(credentials, actions, event)
     }
     
   }])
@@ -707,6 +712,10 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
     snapRemote.close()
 
+    $scope.contact = {}
+    $scope.contact_error = {}
+    $scope.countries = []
+    $scope.states = []
     $scope.getCountries = function() {
       var
           countries = []
@@ -735,7 +744,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       $scope.getStates(countryCode)
     }
 
-    $scope.contact = {}
     $scope.countryCode = "US"
     $scope.getCountries()
 
@@ -746,12 +754,12 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     angular.extend(UserInterface, ui)
     $scope.UserInterface = UserInterface
 
-    $scope.createContact = function() {
+    $scope.createContact = function(contact) {
       var
           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
         , actions = { success: function (contact) {
                             $scope.contact = contact
-                            $location.path("/home/events/" + $scope.event.id + "/people")
+                            $location.path("/home/events/" + $scope.event.id + "/people/contacts/add")
                       }
                     , error: function (contact_error) {
                         $scope.contact_error = contact_error

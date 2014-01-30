@@ -8,9 +8,9 @@ angular.module('model.eventContact', ['persistence.eventContact'])
 
       , contacts = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
-            if (contact && contact.id  == credentials.event_id)
-              actions.success(angular.copy(contact))
-            else
+            // if (contact && contact.id  == credentials.event_id)
+            //   actions.success(angular.copy(contact))
+            // else
               eventContactClient.contacts(credentials, contactsResponse(actions))
           else
             throw 'Wrong set of credentials'

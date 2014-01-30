@@ -8,14 +8,14 @@
 
 <div class="container">
 	<div class="box-container np">
-		<ul class="eventsPeople add">
-			<li ng-repeat="contact in contacts | filter:search" go-to>
+		<ul class="eventsPeople add" go-to>
+			<li ng-repeat="contact in contacts | filter:search">
 				<div class="row" ng-click="goTo('#/home/events/{{eventId}}/people/contacts/{{contact.id}}/view')">
 					<div class="col-xs-7">
 						<h5 class="txtAdjust">{{contact.full_name}}</h5>
 						<p class="small">{{contact.title}}</p>
 					</div>
-					<button type="button" class="btn-default btn-sm add pull-right" ng-click="assignContact({{contact.id}}, '{{contact.type}}')">Add</button>
+					<button type="button" class="btn-default btn-sm add pull-right" stop-event="click" ng-click="assignContact({{contact.id}}, '{{contact.type}}')">Add</button>
 				</div> 
 			</li>
 		</ul>

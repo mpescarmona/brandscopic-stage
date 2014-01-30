@@ -54,7 +54,7 @@
             <p class="small txtAdjust" ng-show="'{{contact.type}}'=='user'">{{contact.role_name}}</p>
           </div>
           <div class="editpanel actions-panel">
-            <button class="noButton edit" ng-click="goTo('#home/events/{{eventId}}/people/contacts/{{contact.id}}/edit')"></button>
+            <button class="noButton edit" stop-event="click" ng-click="goTo('#home/events/{{eventId}}/people/contacts/{{contact.id}}/edit')"></button>
             <button class="noButton deactivate"></button>
           </div>
         </div>
