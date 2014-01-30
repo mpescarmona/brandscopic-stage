@@ -29,14 +29,16 @@
       <h1 class="txtAdjust">{{UserInterface.title}}</h1>
     </div>
     <div class="right">
-      <span ng-show="showSearchField" class="pull-right">
+      <span ng-show="showSearchField" class="events_search">
+        <div class="typeahead">
+            <scopic-typeahead 
+                data-type="scopic.consts.typeahead_types.EVENTS"
+                data-is-custom="scopic.consts.booleans.TRUE">
+            </scopic-typeahead>
+        </div>
+        <div class="button">
           <button class="btn btn-grey pull-right" ng-click="showSearchEvent(false)" style="margin-left:5px;">Cancel</button>
-          <div class="pull-right">
-              <scopic-typeahead 
-                  data-type="scopic.consts.typeahead_types.EVENTS"
-                  data-is-custom="scopic.consts.booleans.TRUE">
-              </scopic-typeahead>
-          </div>
+        </div>
       </span>
       <span ng-hide="showSearchField">
           <button class="noButton magnifierIcon out pull-right"

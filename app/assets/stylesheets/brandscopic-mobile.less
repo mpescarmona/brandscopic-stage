@@ -305,6 +305,24 @@ body{
 	}
 }
 
+.events_search{
+	position: absolute;
+	height: 45px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	.typeahead{
+		height: 45px;
+		width: 77%;
+	}
+	.button{
+		float: right;
+		height: 45px;
+		text-align: center;
+		width: 23%;
+	}
+}
+
 /*-- COMMENTS - EVENTS AND VENUES --*/
 
 .comments{
@@ -898,10 +916,15 @@ body{
 	ul.dropdown-menu{
 		box-shadow: none;
 		-webkit-box-shadow: none;
-		width: 90%;
+		width: 72%;
 		li{
 			color: @brand;
+			padding-left: 8px;
 			text-align: left;
+			list-style: none;
+			ul{
+				padding-left: 8px;
+			}
 		}
 		&> .active > a{
 			background-color: @brand;
