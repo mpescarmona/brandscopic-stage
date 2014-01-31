@@ -343,7 +343,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventsRestClient) {
+  .controller('EventsPeopleController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'EventsRestClient', 'EventContact', 'EventTeam', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventsRestClient, EventContact, EventTeam) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -354,6 +354,51 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       $state.go(newState);
       return;
     };
+
+
+    $scope.deleteTeam = function(teamId, teamType) {
+      var
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId, memberable_id: teamId, memberable_type: teamType }
+        , actions = { success: function (contact) {
+                        // workaround for remove the non 'Active' events
+                        for(var i = 0, item; item = $scope.eventTeamItems[i++];) {
+                          if (item.id == teamId) {
+                            $scope.eventTeamItems.splice(i-1, 1)
+                          }
+                        }
+
+                        // $location.path("/home/events/" + $scope.event.id + "/people/team/add")
+                      }
+                    , error: function (team_error) {
+                        $scope.team_error = team_error
+                         console.log(team_error)
+                      }
+                    }
+
+      EventTeam.delete(credentials, actions, $scope.event)
+    }
+
+    $scope.deleteContact = function(contactId, contactType) {
+      var
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId, contactable_id: contactId, contactable_type: contactType }
+        , actions = { success: function (contact) {
+                        // remove the assigned contact from assignable contacts list
+                        for(var i = 0, item; item = $scope.eventContactItems[i++];) {
+                          if (item.id == contactId) {
+                            $scope.eventContactItems.splice(i-1, 1)
+                          }
+                        }
+
+                        // $location.path("/home/events/" + $scope.event.id + "/people/contacts/add")
+                      }
+                    , error: function (event_error) {
+                        $scope.event_error = event_error
+                         console.log(event_error)
+                      }
+                    }
+      EventContact.delete(credentials, actions, $scope.event)
+    }
+
 
     var
         ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasEditIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
@@ -652,12 +697,21 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       $state.go('login');
       return;
     }
+    console.log("***** entering EventsPeopleContactsNewController")
     snapRemote.close()
 
+    console.log("***** defining scope vars")
+    console.log("***** " + angular.isUndefined(contact_error))
+    console.log("***** " + angular.isUndefined(contact_error.first_name))
     $scope.contact = {}
-    $scope.contact_error = {}
+    $scope.contact_error = undefined
     $scope.countries = []
     $scope.states = []
+    $scope.countryCode = "US"
+
+    console.log("***** defining scope functions")
+    console.log("***** " + angular.isUndefined(contact_error))
+    console.log("***** " + angular.isUndefined(contact_error.first_name))
     $scope.getCountries = function() {
       var
           countries = []
@@ -686,7 +740,9 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       $scope.getStates(countryCode)
     }
 
-    $scope.countryCode = "US"
+    console.log("***** calling getCountries")
+    console.log("***** " + angular.isUndefined(contact_error))
+    console.log("***** " + angular.isUndefined(contact_error.first_name))
     $scope.getCountries()
 
     var
@@ -697,6 +753,9 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     $scope.UserInterface = UserInterface
 
     $scope.createContact = function(contact) {
+    console.log("***** entering createContact function")
+    console.log("***** " + angular.isUndefined(contact_error))
+    console.log("***** " + angular.isUndefined(contact_error.first_name))
       var
           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
         , actions = { success: function (contact) {
