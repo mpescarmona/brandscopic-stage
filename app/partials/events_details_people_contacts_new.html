@@ -7,7 +7,7 @@
 			  <div class="col-xs-12">
 			  	<label class="medium">First name</label>
 			  	<input type="text" ng-model="contact.first_name">
-			  	<span ng-show="contact_error.first_name" ng-class="{error: contact_error.first_name}" ng-model="contact_error.first_name">{{contact_error.first_name.join()}}</span>
+			  	<span ng-show="!angular.isUndefined(contact_error.first_name)" ng-class="{error: contact_error.first_name}" ng-model="contact_error.first_name">{{contact_error.first_name.join()}}</span>
 			  	<label class="medium">Last name</label>
 			  	<input type="text" ng-model="contact.last_name">
 			  	<span ng-show="contact_error.last_name" ng-class="{error: contact_error.last_name}" ng-model="contact_error.last_name">{{contact_error.last_name.join()}}</span>

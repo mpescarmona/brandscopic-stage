@@ -477,7 +477,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     var
         ui = {title: 'Contact info', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasEditIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event){
+      , actions = { success: function(event) {
                                     $scope.event = event;
 
                                     // Options for User Interface in home partial
@@ -488,7 +488,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.contact = []
 
                                     var
-                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId, force: true }
                                       , actions = { success: function (contacts) {
                                                       // workaround to find the needed contact from contacts list
                                                       for(var i = 0, item; item = contacts[i++];) {
@@ -501,7 +501,8 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                       // if the contact didn't found, means that is not assigned yet.
                                                       // So, we need to find it in assignable contact list
                                                       if ($scope.contact.length == 0) {
-                                                        var assignableActions = { success: function (assignableContacts) {
+                                                        var assignableCredentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId, force: true }
+                                                          , assignableActions = { success: function (assignableContacts) {
                                                                 // workaround to find the needed contact from contacts list
                                                                 for(var i = 0, item; item = assignableContacts[i++];) {
                                                                   if (item.id == $stateParams.contactId) {
@@ -511,7 +512,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                                 }
                                                               }
                                                         }
-                                                        EventContact.contacts(credentials, assignableActions)
+                                                        EventContact.contacts(assignableCredentials, assignableActions)
                                                       }
                                                     }
                                                   }
@@ -701,8 +702,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     console.log("***** defining scope vars")
-    console.log("***** " + angular.isUndefined(contact_error))
-    console.log("***** " + angular.isUndefined(contact_error.first_name))
     $scope.contact = {}
     $scope.contact_error = undefined
     $scope.countries = []
@@ -710,8 +709,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     $scope.countryCode = "US"
 
     console.log("***** defining scope functions")
-    console.log("***** " + angular.isUndefined(contact_error))
-    console.log("***** " + angular.isUndefined(contact_error.first_name))
+    console.log("***** " + angular.isUndefined($scope.contact_error))
     $scope.getCountries = function() {
       var
           countries = []
@@ -741,8 +739,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
 
     console.log("***** calling getCountries")
-    console.log("***** " + angular.isUndefined(contact_error))
-    console.log("***** " + angular.isUndefined(contact_error.first_name))
+    console.log("***** " + angular.isUndefined($scope.contact_error))
     $scope.getCountries()
 
     var
@@ -754,8 +751,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
     $scope.createContact = function(contact) {
     console.log("***** entering createContact function")
-    console.log("***** " + angular.isUndefined(contact_error))
-    console.log("***** " + angular.isUndefined(contact_error.first_name))
+    console.log("***** " + angular.isUndefined($scope.contact_error))
       var
           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
         , actions = { success: function (contact) {

@@ -8,10 +8,13 @@ angular.module('model.eventContact', ['persistence.eventContact'])
 
       , contacts = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
-            // if (contact && contact.id  == credentials.event_id)
-            //   actions.success(angular.copy(contact))
-            // else
+            if ('force' in credentials && credentials.force) 
               eventContactClient.contacts(credentials, contactsResponse(actions))
+            else
+              if (contact && contact.id  == credentials.event_id)
+                actions.success(angular.copy(contact))
+              else
+                eventContactClient.contacts(credentials, contactsResponse(actions))
           else
             throw 'Wrong set of credentials'
 
@@ -66,12 +69,17 @@ angular.module('model.eventContact', ['persistence.eventContact'])
       }
       , all = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions) {
-            if (collection && company_id == credentials.company_id)
-              actions.success(collection)
-            else {
+            if ('force' in credentials && credentials.force) {
               company_id = credentials.company_id
               eventContactClient.all(credentials, allResponse(actions))
             }
+            else
+              if (collection && company_id == credentials.company_id)
+                actions.success(collection)
+              else {
+                company_id = credentials.company_id
+                eventContactClient.all(credentials, allResponse(actions))
+              }
           } else
             throw 'Wrong set of credentials'
 
