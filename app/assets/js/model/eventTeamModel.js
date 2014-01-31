@@ -45,6 +45,25 @@ angular.module('model.eventTeam', ['persistence.eventTeam'])
           if (action) action(angular.copy(answer))
         }
       }
+      , remove = function (credentials, actions, attributes) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
+            if (Object.keys(attributes).length)
+              eventTeamClient.delete(credentials
+                                 , attributes
+                                 , deleteResponse(actions.success)
+                                 , deleteResponse(actions.error)
+                                )
+      }
+      , deleteResponse = function (action) {
+        return function (resp) {
+          team = resp
+          collection = undefined
+
+          var answer = resp.id ? resp : resp.data
+
+          if (action) action(angular.copy(answer))
+        }
+      }
       , all = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions) {
             if (collection && company_id == credentials.company_id)
@@ -75,5 +94,6 @@ angular.module('model.eventTeam', ['persistence.eventTeam'])
           all: all
         , members: members
         , create: create
+        , delete: remove
       }
   }])
