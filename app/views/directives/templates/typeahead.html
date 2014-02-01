@@ -1,22 +1,24 @@
 <span ng-show="isCustom">
-	<input type="text" 
-		   ng-model="searchModel" 
-		   typeahead="item as item.label for item in itemsToShow | filter:{label:$viewValue}" 
-		   typeahead-loading="loadingLocations" 
-		   class="form-control arrow"
-		   typeahead-template-url="views/directives/templates/typeaheadCustom.html">
-	<i ng-show="loadingLocations" 
-	   class="glyphicon glyphicon-refresh">
-	</i>
+    <input type="text" 
+           ng-model="searchModel" 
+           typeahead="item as item.label for item in itemsToShow | filter:{label:$viewValue}" 
+           typeahead-loading="loadingLocations" 
+           class="form-control search"
+           typeahead-template-url="views/directives/templates/typeaheadCustom.html">
+    <i ng-show="loadingLocations" 
+       class="glyphicon glyphicon-refresh">
+    </i>
+
+</span>
+ 
+<span ng-hide="isCustom">
+    <input type="text" 
+           ng-model="searchModel" 
+           typeahead="item for item in itemsToShow | filter:$viewValue | limitTo:8" 
+           typeahead-loading="loadingLocations" 
+           class="form-control search">
+    <i ng-show="loadingLocations" 
+       class="glyphicon glyphicon-refresh">
+    </i>
 </span>
 
-<span ng-hide="isCustom">
-	<input type="text" 
-		   ng-model="searchModel" 
-		   typeahead="item for item in itemsToShow | filter:$viewValue | limitTo:8" 
-		   typeahead-loading="loadingLocations" 
-		   class="form-control arrow">
-	<i ng-show="loadingLocations" 
-	   class="glyphicon glyphicon-refresh">
-	</i>
-</span>

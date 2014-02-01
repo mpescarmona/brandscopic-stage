@@ -201,6 +201,9 @@ body{
 				.company{
 					padding-top: 5px;
 				}
+				&:last-child{
+					border-bottom: 0;
+				}
 			}
 			.col-xs-2{
 				display: hidden;
@@ -222,6 +225,7 @@ body{
 			}
 		}
 		&.eventsPeople{
+			margin-top: 5px;
 			li{
 				height: 60px;
 			}
@@ -277,6 +281,46 @@ body{
 	text-transform: uppercase;
 	&.big{
 		padding: 7px 0;
+	}
+}
+
+.contacts_search{
+	background-color: @lightGrey;
+	height:44px;
+	width: 100%;
+	.container{
+		padding-left: 10px !important;
+		padding-right: 10px !important;
+	}
+	input[type="text"].search{
+		background: white url('../images/magnifier.svg') no-repeat left !important;
+		margin-top: 8px;
+		padding-left: 30px;
+		position: relative;
+		left: 0;
+		top: 0;
+		height: 28px;
+		border: 0;
+		width: 100%;
+	}
+}
+
+.events_search{
+	position: absolute;
+	height: 45px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	.typeahead{
+		float: left;
+		height: 45px;
+		width: 77%;
+	}
+	.button{
+		float: right;
+		height: 45px;
+		text-align: center;
+		width: 23%;
 	}
 }
 
@@ -540,8 +584,16 @@ body{
 			margin-bottom: 2px;
 		}
 	}
+	label{
+		&.medium{
+			font-weight: bold;
+		}
+	}
 	.row{
 		margin: 0;
+	}
+	select{
+		margin-bottom: 10px;
 	}
 	&.surveys{
 		label.short{
@@ -637,33 +689,6 @@ body{
 }
 .submitted {
 	border-left: 4px solid @submitted;
-}
-
-.searchBar{
-	background-color: @header;
-	box-sizing: border-box;
-	height: 45px;
-	padding: 8px;
-	input[type="text"]{
-		.border-bottom-radius(4px);
-		.border-top-radius(4px);
-		background: white url('../images/magnifier.svg') no-repeat left !important;
-		border:0;
-		height: 29px;
-		padding: 0 10px 0 30px;
-		width: 100%;
-	}
-	.row{
-		margin:0;
-	}
-	.btn.btn-grey{
-		.border-bottom-radius(4px);
-		.border-top-radius(4px);
-		font-size: 13px;
-		height: 29px;
-		padding: 0;
-		width: 60px;
-	}
 }
 
 .margin-data{
@@ -869,11 +894,81 @@ body{
 		&.btn-danger, &.btn-grey{
 			.border-bottom-radius(4px);
 			.border-top-radius(4px);
+			color: white;
 			font-size: 13px;
 			height: 29px;
 			padding: 0;
 			margin-top: 6px;
 			width: 60px;
+		}
+	}
+	.search{
+		.border-bottom-radius(4px);
+		.border-top-radius(4px);
+		background: white url('../images/magnifier.svg') no-repeat left !important;
+		border:0;
+		height: 29px;
+		padding: 0 10px 0 30px;
+		position: absolute;
+		left: 10px;
+		top: 8px;
+		width: 72%;
+	}
+	ul.dropdown-menu{
+		border-bottom: 0;
+		box-shadow: none;
+		padding-bottom: 0;
+		-webkit-box-shadow: none;
+		width: 72%;
+		>li{
+			border-bottom: 1px solid @listHover;
+			ul{
+				&:first-of-type{
+					padding-left: 0;
+					li{
+						border-top: 1px solid @listHover;
+						&:first-of-type{
+							border-top: 0;
+							display: none;
+						}
+						&:nth-child(2){
+							border-top: 0;
+							text-align: left;
+						}
+					}
+				}
+				a.category{
+					color: #3e9ccf;
+					font-size: 10px;
+					text-transform: uppercase;
+					display: block;
+					margin: 7px 0 7px 20px;
+				}
+				ul.category-items{
+					border-top: 1px solid @listHover;
+					padding-left: 0;
+					text-align: left;
+					list-style: none;
+					li{
+						border-bottom: 0;
+						display: table;
+						height: 34px;
+						width: 100%;
+						a{
+							color: @lightGrey;
+							display: table-cell;
+							vertical-align: middle;
+							padding-left: 20px;
+						}
+						&:hover{
+							background-color: @brand;
+							a{
+								color: white;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -1344,6 +1439,9 @@ textarea{
 	.date-data:before{
 		margin-left: -25px;
 	}
+	.checkbox-selector input[type=checkbox] + label{
+		float: left;
+	}
 }
 
 /*-- VENUES STYLES --*/
@@ -1526,6 +1624,29 @@ select, input{
    color: @lightTxt;
    font-weight: 400;
 }
+
+/*-- Search Placeholder --*/
+
+.search::-webkit-input-placeholder {
+   color: @lightGrey;
+   font-weight: 400;
+}
+
+.search:-moz-placeholder { /* Firefox 18- */
+   color: @lightGrey;
+   font-weight: 400;
+}
+
+.search::-moz-placeholder {  /* Firefox 19+ */
+   color: @lightGrey;
+   font-weight: 400;
+}
+
+.search:-ms-input-placeholder {
+   color: @lightGrey;
+   font-weight: 400;
+}
+
 
 /*-- Input type Reset --*/
 
@@ -1771,6 +1892,9 @@ ul.stats{
 	}
 }
 
+.lastItem{
+	border-bottom: 0 !important;
+}
 
 
 

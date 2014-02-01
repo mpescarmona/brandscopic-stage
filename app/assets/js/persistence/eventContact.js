@@ -17,5 +17,10 @@ angular.module('persistence.eventContact', ['ngResource', 'util.jsonToFormData']
                      , transformRequest: jsonToFormDataFor('contact')
                     }
 
+      , 'delete'  : { method: 'DELETE'
+                     , headers: contentType
+                     , transformRequest: jsonToFormDataFor('contact')
+                    }
+
   });
 }]);

@@ -47,7 +47,7 @@
 						EMAIL
 					</div>
 					<div class="col-xs-8 txtAdjust">
-					  	<input type="text" class="clean" ng-model="contact.email">
+					  	<input type="email" class="clean" ng-model="contact.email">
               <span ng-show="contact_error.email" ng-class="{error: contact_error.email}" ng-model="contact_error.email">{{contact_error.email.join()}}</span>
 					</div>
 				</li>
@@ -56,7 +56,7 @@
 						PHONE NUMBER
 					</div>
 					<div class="col-xs-8">
-					  	<input type="text" class="clean" ng-model="contact.phone_number">
+					  	<input type="number" class="clean" ng-model="contact.phone_number">
 					  	<span ng-show="contact_error.phone_number" ng-class="{error: contact_error.phone_number}" ng-model="contact_error.phone_number">{{contact_error.phone_number.join()}}</span>
 					</div>
 				</li>
@@ -88,7 +88,7 @@
 						COUNTRY
 					</div>
 					<div class="col-xs-8 np">
-              <select ng-model="contact.country" ng-selected="{{countryCode}}" ng-options="country.id as country.name for country in countries" ng-change="getStatesForCountry()" class="form-control clean arrows"></select>
+              <select ng-model="contact.country" ng-selected="{{countryCode}}" ng-options="country.id as country.name for country in countries" ng-change="getStatesForCountry()" class="form-control clean arrow"></select>
 					  	<span ng-show="contact_error.country" ng-class="{error: contact_error.country}" ng-model="contact_error.country">{{contact_error.country.join()}}</span>
 					</div>				
 				</li>
@@ -106,7 +106,7 @@
 						STATE
 					</div>
 					<div class="col-xs-8 np">
-              <select ng-model="contact.state" ng-selected="{{contact.state}}" ng-options="state.id as state.name for state in states" class="form-control clean arrows"></select>
+              <select ng-model="contact.state" ng-selected="{{contact.state}}" ng-options="state.id as state.name for state in states" class="form-control clean arrow"></select>
 					  	<span ng-show="contact_error.state" ng-class="{error: contact_error.state}" ng-model="contact_error.state">{{contact_error.state.join()}}</span>
 					</div>
 				</li>

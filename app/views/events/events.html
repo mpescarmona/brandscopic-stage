@@ -33,8 +33,8 @@
           <div class="editpanel actions-panel">
             <!-- <a href="#" class="edit" stop-event='click' redirect-to="#home/events/{{event1.id}}/edit"></a> -->
             <!-- <a href="#" class="deactivate" stop-event='click' ng-click="deleteEvent(event)"></a> -->
-            <button type="button" class="noButton edit" redirect-to="#home/events/{{event1.id}}/edit"></button>
-            <button type="button" class="noButton deactivate" ng-click="deleteEvent(event)"></button>
+            <button type="button" class="noButton edit" stop-event='click' ng-click="goTo('#home/events/{{event1.id}}/edit')"></button>
+            <button type="button" class="noButton deactivate" stop-event='click' ng-click="deleteEvent(event)"></button>
           </div>
         </div>
       </li>
@@ -42,18 +42,6 @@
 	</div>
 </div>
 
-<div class="searchBar">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-9">
-        <input type="text">
-      </div>
-      <div class="col-xs-3">
-        <button class="btn btn-grey pull-right">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <!-- No events 

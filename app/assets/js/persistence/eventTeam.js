@@ -17,5 +17,10 @@ angular.module('persistence.eventTeam', ['ngResource', 'util.jsonToFormData'])
                      , transformRequest: jsonToFormDataFor('team')
                     }
 
+      , 'delete'  : { method: 'DELETE'
+                     , headers: contentType
+                     , transformRequest: jsonToFormDataFor('team')
+                    }
+
   });
 }]);

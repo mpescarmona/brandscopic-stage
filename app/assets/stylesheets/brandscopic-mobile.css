@@ -239,6 +239,9 @@ p.small {
 p.xs {
   font-size: 10px;
 }
+.np {
+  padding: 0 !important;
+}
 p.second {
   color: #989898;
 }
@@ -339,16 +342,19 @@ h6 {
 .addIcon:before,
 .approved:before,
 .backIcon:before,
+.commentIcon:before,
 .dashboardIcon:before,
 .date-data:before,
 .deactivate:before,
 .delete:before,
 .edit:before,
 .eventIcon:before,
+.female:before,
 .fullscreen:before,
 .logoutIcon:before,
 .magnifierIcon:before,
 .mail-data:before,
+.male:before,
 .menuIcon:before,
 .nextIcon:before,
 .notificationIcon:before,
@@ -391,6 +397,9 @@ h6 {
 .backIcon:before {
   content: "\e60e";
 }
+.commentIcon:before {
+  content: "\e600";
+}
 .dashboardIcon:before {
   content: "\e602";
 }
@@ -407,11 +416,19 @@ h6 {
 .eventIcon:before {
   content: "\e605";
 }
+.female:before {
+  content: "\e01b";
+  left: -9px;
+}
 .logoutIcon:before {
   content: "\e601";
 }
 .magnifierIcon:before {
   content: "\e60f";
+}
+.male:before {
+  content: "\e01a";
+  left: 0;
 }
 .menuIcon:before {
   content: "\e608";
@@ -449,6 +466,7 @@ h6 {
   height: 20px;
   position: absolute;
   left: 14px;
+  top: 14px;
 }
 .venuesIcon:before {
   content: "\e603";
@@ -461,7 +479,7 @@ h6 {
 .date-data:before {
   content: "\e60b";
   font-size: 17px;
-  margin-left: -28px;
+  margin-left: -25px;
 }
 .date-data.late {
   border: 0;
@@ -475,26 +493,24 @@ h6 {
 .mail-data:before {
   content: "\e617";
   font-size: 19px;
-  margin-left: -25px;
+  left: -25px;
 }
 .phone-data:before {
   content: "\e616";
   font-size: 17px;
-  margin-left: -25px;
+  left: -25px;
 }
 .place-data:before {
   content: "\e610";
-  font-size: 17px;
-  margin-left: -25px;
-}
-.time-data {
-  margin: 15px 5px 15px 28px !important;
+  font-size: 19px;
+  left: -21px;
+  top: 2px;
 }
 .time-data:before {
   content: "\e61a";
   float: left;
   font-size: 17px;
-  margin-left: -25px;
+  left: -25px;
   top: 2px;
 }
 .time-data ul {
@@ -519,7 +535,9 @@ h6 {
 .time-data,
 .user-data {
   line-height: 18px;
-  margin: 15px 28px;
+  margin: 15px 36px;
+  min-height: 15px;
+  position: relative;
 }
 .date-data:before,
 .place-data:before,
@@ -528,12 +546,11 @@ h6 {
 .time-data:before,
 .user-data:before {
   color: #c0c0c0;
-  position: relative;
+  position: absolute;
   speak: none;
   text-align: center;
   vertical-align: middle;
   -webkit-font-smoothing: antialiased;
-  margin-right: 6px;
 }
 /*-- CROSSBROWSER CORRECTIONS --*/
 ::-webkit-scrollbar {
@@ -759,10 +776,6 @@ body.appLayout .container {
 .box-container ul li .row {
   height: 100%;
 }
-.box-container ul li.lastItem,
-.box-container ul li:last-child {
-  border-bottom: 0;
-}
 .box-container ul.companies-list li {
   box-sizing: border-box;
   height: 60px;
@@ -773,6 +786,9 @@ body.appLayout .container {
 }
 .box-container ul.companies-list li .company {
   padding-top: 5px;
+}
+.box-container ul.companies-list li:last-child {
+  border-bottom: 0;
 }
 .box-container ul.companies-list .col-xs-2 {
   display: hidden;
@@ -790,6 +806,9 @@ body.appLayout .container {
   vertical-align: middle;
   -webkit-font-smoothing: antialiased;
 }
+.box-container ul.eventsPeople {
+  margin-top: 5px;
+}
 .box-container ul.eventsPeople li {
   height: 60px;
 }
@@ -799,7 +818,7 @@ body.appLayout .container {
 .box-container ul.eventsPeople .team,
 .box-container ul.eventsPeople .team_member {
   position: relative;
-  padding-left: 50px;
+  padding-left: 60px;
   padding-top: 10px;
   padding-right: 10px;
 }
@@ -813,9 +832,6 @@ body.appLayout .container {
 }
 .box-container ul.eventsPeople.add .row {
   padding: 13px;
-}
-.box-container ul.list:last-of-type li {
-  border-bottom: 0;
 }
 .box-container ul.list .row {
   margin: 3px 0 3px 2px;
@@ -848,7 +864,7 @@ body.appLayout .container {
 /*-- COMMENTS - EVENTS AND VENUES --*/
 .comments .comment-user {
   float: left;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
   width: 70%;
 }
 .comments .comment-date {
@@ -919,18 +935,18 @@ body.appLayout .container {
   padding: 13px 5px;
   position: relative;
 }
-.editpanel a,
-.deletepanel a {
+.editpanel button,
+.deletepanel button {
   color: white;
   text-align: center;
-  width: 50%;
+  width: 45%;
 }
-.editpanel a:before,
-.deletepanel a:before {
+.editpanel button:before,
+.deletepanel button:before {
   font-size: 25px;
 }
-.editpanel a:hover,
-.deletepanel a:hover {
+.editpanel button:hover,
+.deletepanel button:hover {
   text-decoration: none;
 }
 .deletepanel {
@@ -972,12 +988,18 @@ body.appLayout .container {
   margin-top: 7px;
   box-sizing: border-box;
   padding-left: 10px;
+  padding-right: 10px;
 }
 .events .eventDescription p {
   color: #989898;
 }
-.events.eventDetails div:first-of-type {
-  margin: 18px 28px 30px 28px;
+.events.eventDetails div.date-data {
+  margin-top: 18px;
+  margin-bottom: 30px;
+}
+.events.eventDetails div.place-data,
+.events.eventDetails div.date-data {
+  margin-left: 25px;
 }
 .events.expenses {
   margin-bottom: 20px;
@@ -1045,11 +1067,13 @@ body.appLayout .container {
   font-size: 22px;
   text-align: right;
 }
-.events.contactDetails div:first-of-type {
-  margin-top: 35px;
+.events.contactDetails .contact {
+  margin: 10px 0 35px 12px;
 }
-.events.contactDetails .place-data:before {
-  margin-left: -22px;
+.events.contactDetails .mail-data,
+.events.contactDetails .phone-data,
+.events.contactDetails .place-data {
+  position: relative;
 }
 .events.data .clearfix:first-of-type {
   margin-top: 15px;
@@ -1076,6 +1100,9 @@ body.appLayout .container {
 }
 .events li h5 {
   margin-bottom: 2px;
+}
+.events .row {
+  margin: 0;
 }
 .events.surveys label.short {
   float: left;
@@ -1149,20 +1176,14 @@ body.appLayout .container {
   position: absolute;
   z-index: -10;
 }
+.approve {
+  border-left: 4px solid #90bf43;
+}
 .late {
   border-left: 4px solid #de4d43;
 }
 .submitted {
   border-left: 4px solid #3e9ccf;
-}
-.searchBar {
-  background-color: #c0c0c0;
-  box-sizing: border-box;
-  height: 45px;
-  padding: 8px;
-}
-.searchBar input {
-  height: 28px;
 }
 .margin-data {
   float: left;
@@ -1171,6 +1192,41 @@ body.appLayout .container {
 }
 .margin-expense {
   margin: 8px 0;
+}
+/*-- NOTIFICATIONS --*/
+.notifications {
+  margin-top: 5px;
+}
+.notifications ul li {
+  width: 100%;
+}
+.notifications ul li .row {
+  display: table;
+  height: 55px;
+  margin: 2px 3px;
+  width: 100%;
+}
+.notifications ul li .row div {
+  box-sizing: border-box;
+  float: none;
+  padding-left: 37px;
+  padding-right: 10px;
+  height: 40px;
+  display: table-cell;
+  position: relative;
+  vertical-align: middle;
+}
+.notifications ul li .row div p {
+  line-height: 16px;
+}
+.notifications ul li .row div.commentIcon:before,
+.notifications ul li .row div.eventIcon:before,
+.notifications ul li .row div.tasksIcon:before {
+  color: #c0c0c0;
+  font-size: 20px;
+  position: absolute;
+  left: 8px;
+  top: 14px;
 }
 /* -- STATUS BAR -- */
 .statusBar {
@@ -1326,6 +1382,31 @@ a.btn-default:hover {
   background-color: #c0c0c0;
   color: white;
 }
+.navHeader .btn.btn-danger,
+.navHeader .btn.btn-grey {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  font-size: 13px;
+  height: 29px;
+  padding: 0;
+  margin-top: 6px;
+  width: 60px;
+}
+.navHeader ul.dropdown-menu {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  width: 90%;
+}
+.navHeader ul.dropdown-menu li {
+  color: #989898;
+  text-align: left;
+}
+.navHeader ul.dropdown-menu > .active > a {
+  background-color: #989898;
+  color: white;
+}
 .btn-danger {
   background-color: #de4d43;
   border: 0;
@@ -1334,11 +1415,12 @@ a.btn-default:hover {
 .btn-danger:hover {
   background-color: #cc4137;
 }
-.btn-cancel {
+.btn-grey {
   background-color: #989898;
   border: 0;
+  color: white;
 }
-.btn-cancel:hover {
+.btn-grey:hover {
   background-color: #989898;
 }
 .btn-group {
@@ -1465,6 +1547,26 @@ input[type="password"].password {
   border-top-left-radius: 0px;
   border: 0;
   margin-bottom: 10px;
+}
+input[type="text"].search,
+input[type="number"].search,
+input[type="search"].search,
+input[type="date"].search,
+input[type="time"].search,
+input[type="email"].search,
+input[type="password"].search {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  background: #ffffff url('../images/magnifier.svg') no-repeat left !important;
+  border: 0;
+  height: 29px;
+  padding: 0 10px 0 30px;
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  width: 72%;
 }
 input[type="text"].event_start_date,
 input[type="number"].event_start_date,
@@ -1635,51 +1737,42 @@ input[type="password"].short {
   line-height: 21px;
 }
 /*-- RATING STARS FOR COMMENTS --*/
+#hide {
+  display: none;
+}
 .rating {
-  float: left;
+  height: 23px;
 }
-.rating label {
-  clear: none;
-  margin: 5px 0;
-}
-/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
-   follow these rules. Every browser that supports :checked also supports :not(), so
-   it doesn’t make the test unnecessarily selective */
-.rating:not(:checked) > input {
+.rating input {
   position: absolute;
-  top: -9999px;
-  clip: rect(0, 0, 0, 0);
-}
-.rating:not(:checked) > label {
-  float: right;
-  width: 1.2em;
-  padding: 0 .1em;
-  overflow: hidden;
-  white-space: nowrap;
+  filter: alpha(opacity=0);
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
   cursor: pointer;
-  font-size: 85%;
-  line-height: 1.2;
-  color: #ddd;
+  height: 17px;
+  width: 17px;
 }
-.rating:not(:checked) > label:before {
-  content: '★ ';
+.rating span:before {
+  width: 24px;
+  height: 16px;
+  line-height: 16px;
+  content: "\e623";
+  font-size: 15px;
+  font-family: 'icons';
+  color: #cfc53e;
 }
-.rating > input:checked ~ label {
-  color: #f70;
+/* Change span immediately following the checked radio */
+.rating input:checked + span:before {
+  color: #cfc53e;
 }
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-  color: gold;
-}
-.rating > input:checked + label:hover,
-.rating > input:checked + label:hover ~ label,
-.rating > input:checked ~ label:hover,
-.rating > input:checked ~ label:hover ~ label,
-.rating > label:hover ~ input:checked ~ label {
-  color: #ea0;
-}
-.rating > label:active {
-  position: relative;
+/* Reset all remaining stars back to default background.
+   This supersedes the above due to its ordering. */
+.rating input:checked + span ~ span:before {
+  content: "\e623";
+  font-size: 15px;
+  font-family: 'icons';
+  color: #c0c0c0;
 }
 select {
   width: 100%;
@@ -1802,12 +1895,16 @@ textarea {
   line-height: 40px;
   padding-left: 35px;
 }
+.venues .venuesDetails .time-data,
+.venues .venuesDetails .place-data {
+  margin-left: 25px;
+}
 .venues .score {
   text-align: center;
 }
 .venues .score .score-number {
   font-size: 26px;
-  font-weight: 100;
+  font-weight: 300;
 }
 .venues .score p {
   font-size: 9px;
@@ -1820,26 +1917,6 @@ textarea {
 .venues .score.big .score-number {
   font-size: 33px;
 }
-.venues ul.stats {
-  margin: 25px auto;
-}
-.venues ul.stats li {
-  border-bottom: 0;
-  text-align: center;
-  margin: 10px auto;
-}
-.venues ul.stats li .number {
-  color: #3e9ccf;
-  text-align: right;
-  width: 42%;
-  line-height: 14px;
-  font-size: 14px;
-}
-.venues ul.stats li .category {
-  font-size: 11px;
-  text-align: left;
-  width: 55%;
-}
 .edit-list h5 {
   color: #989898;
 }
@@ -1850,6 +1927,13 @@ textarea {
   font-size: 10px;
   font-weight: 600;
   line-height: 20px;
+}
+.edit-list li div.time-zone {
+  padding: 8px !important;
+}
+.edit-list li div select.form-control {
+  margin-top: 8px;
+  padding-left: 18px;
 }
 .edit-list li:last-child {
   border-bottom: 0;
@@ -1916,6 +2000,14 @@ input.form-control.arrows {
 select.form-control option.choose,
 input.form-control option.choose {
   color: #c0c0c0;
+}
+select.form-control.clean,
+input.form-control.clean {
+  border: 0;
+}
+select.form-control.clean:focus,
+input.form-control.clean:focus {
+  border: 0;
 }
 select.form-control:focus,
 input.form-control:focus {
@@ -2116,4 +2208,75 @@ html {
   content: "\e61b";
   font-size: 88px;
   left: 7px;
+}
+/*-- DEMOGRAPHICS --*/
+.age-graph {
+  height: 190px;
+}
+ul.stats {
+  margin: 25px auto;
+}
+ul.stats li {
+  border-bottom: 0;
+  text-align: center;
+  margin: 10px auto;
+}
+ul.stats li .number {
+  color: #3e9ccf;
+  line-height: 14px;
+  font-size: 14px;
+  margin-right: 10px;
+}
+ul.stats li .category {
+  font-size: 11px;
+}
+ul.stats li .number,
+ul.stats li .category {
+  display: inline-block;
+  text-align: center;
+  width: auto;
+}
+ul.stats li div:first-child {
+  box-sizing: border-box;
+  text-align: right;
+  padding-right: 5px;
+}
+ul.stats li div:last-child {
+  text-align: left;
+  box-sizing: border-box;
+  padding-left: 5px;
+}
+ul.stats li .progress {
+  display: inline-block;
+  height: 11px;
+  width: 100px;
+  padding-left: 0 !important;
+}
+ul.stats.simple .number {
+  margin-right: 0;
+}
+.sex {
+  position: relative;
+  margin: 15px 10px 0 !important;
+}
+.female,
+.male {
+  box-sizing: border-box;
+  position: relative;
+  padding-left: 10%;
+}
+.female:before,
+.male:before {
+  font-size: 60px;
+  position: absolute;
+  bottom: -9px;
+}
+.female .percent,
+.male .percent {
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 43px;
+}
+.lastItem {
+  border-bottom: 0 !important;
 }
