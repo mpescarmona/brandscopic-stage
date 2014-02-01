@@ -11,7 +11,6 @@ angular.module('model.country', ['persistence.country'])
             if (collection)
               actions.success(collection)
             else {
-              // country_id = credentials.country_id
               countryClient.all(credentials, allResponse(actions))
             }
           } else
