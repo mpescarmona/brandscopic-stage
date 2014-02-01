@@ -8,7 +8,7 @@ angular.module('model.eventContact', ['persistence.eventContact'])
 
       , contacts = function (credentials, actions, options) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
-            if ('force' in options && options.force) 
+            if (options && 'force' in options && options.force) 
               eventContactClient.contacts(credentials, contactsResponse(actions))
             else
               if (contact && contact.id  == credentials.event_id)
@@ -69,7 +69,7 @@ angular.module('model.eventContact', ['persistence.eventContact'])
       }
       , all = function (credentials, actions, options) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions) {
-            if ('force' in options && options.force) {
+            if (options && 'force' in options && options.force) {
               company_id = credentials.company_id
               eventContactClient.all(credentials, allResponse(actions))
             }

@@ -491,12 +491,16 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
                                     var
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                        options = { force: true }
+                                      , options = { force: true }
                                       , actions = { success: function (contacts) {
                                                       // workaround to find the needed contact from contacts list
                                                       for(var i = 0, item; item = contacts[i++];) {
                                                         if (item.id == $stateParams.contactId) {
                                                           $scope.contact = item
+
+                                                          ui.hasEditIcon = true
+                                                          angular.extend(UserInterface, ui)
+                                                          angular.extend($scope.UserInterface, ui)
                                                           break
                                                         }
                                                       }
@@ -511,6 +515,10 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                                 for(var i = 0, item; item = assignableContacts[i++];) {
                                                                   if (item.id == $stateParams.contactId) {
                                                                     $scope.contact = item
+
+                                                                    ui.hasEditIcon = false
+                                                                    angular.extend(UserInterface, ui)
+                                                                    angular.extend($scope.UserInterface, ui)
                                                                     break
                                                                   }
                                                                 }
