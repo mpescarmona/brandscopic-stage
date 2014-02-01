@@ -594,7 +594,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleContactsEditController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'EventContact', 'Country', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact, Country) {
+  .controller('EventsPeopleContactsEditController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'EventContact', 'Contact', 'Country', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact, Contact, Country) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
