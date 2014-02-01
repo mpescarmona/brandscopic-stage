@@ -915,24 +915,60 @@ body{
 		width: 72%;
 	}
 	ul.dropdown-menu{
+		border-bottom: 0;
 		box-shadow: none;
+		padding-bottom: 0;
 		-webkit-box-shadow: none;
 		width: 72%;
-		li{
-			color: @brand;
-			padding-left: 5px;
-			text-align: left;
-			list-style: none;
-			a{
-				padding-left: 5px;
-			}
+		>li{
+			border-bottom: 1px solid @listHover;
 			ul{
-				padding-left: 0;
+				&:first-of-type{
+					padding-left: 0;
+					li{
+						border-top: 1px solid @listHover;
+						&:first-of-type{
+							border-top: 0;
+							display: none;
+						}
+						&:nth-child(2){
+							border-top: 0;
+							text-align: left;
+						}
+					}
+				}
+				a.category{
+					color: #3e9ccf;
+					font-size: 10px;
+					text-transform: uppercase;
+					display: block;
+					margin: 7px 0 7px 20px;
+				}
+				ul.category-items{
+					border-top: 1px solid @listHover;
+					padding-left: 0;
+					text-align: left;
+					list-style: none;
+					li{
+						border-bottom: 0;
+						display: table;
+						height: 34px;
+						width: 100%;
+						a{
+							color: @lightGrey;
+							display: table-cell;
+							vertical-align: middle;
+							padding-left: 20px;
+						}
+						&:hover{
+							background-color: @brand;
+							a{
+								color: white;
+							}
+						}
+					}
+				}
 			}
-		}
-		&> .active > a{
-			background-color: @brand;
-			color: white;
 		}
 	}
 }
