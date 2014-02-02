@@ -17,8 +17,6 @@ function eventsCtrl($scope, $state, snapRemote, UserService, CompanyService, Use
                                   events.splice(i-1, 1)
                                 }
                               }
-                              console.log(events);
-                              console.log(filters);
                               $scope.eventsItems = events
                               $scope.filters = filters
                               angular.extend(UserInterface, ui)
