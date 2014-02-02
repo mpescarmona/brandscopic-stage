@@ -18,9 +18,8 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
 
 
     $scope.$watch('photoName', function (value){
-        console.log(value)
         var guid = (G() + G() + "-" + G() + "-" + G() + "-" + G() + "-" + G() + G() + G()).toUpperCase();
-        $scope.photoForm.key = "uploads/" + guid + "/" + "ale.jpg"
+        $scope.photoForm.key = "uploads/" + guid + "/" + value
         console.log($scope.photoForm)
     })
 
