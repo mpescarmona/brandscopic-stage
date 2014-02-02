@@ -542,6 +542,9 @@ body{
 		h5{
 			margin-bottom: 5px;
 		}
+		textarea.summary{
+			color: @txt;
+		}
 	}
 	ul.dropdown-menu{
 		box-shadow:none;
@@ -1635,22 +1638,22 @@ select, input{
 
 /*-- Search Placeholder --*/
 
-.search::-webkit-input-placeholder {
+.placeholder-light::-webkit-input-placeholder{
    color: @lightGrey;
    font-weight: 400;
 }
 
-.search:-moz-placeholder { /* Firefox 18- */
+.placeholder-light:-moz-placeholder{ /* Firefox 18- */
    color: @lightGrey;
    font-weight: 400;
 }
 
-.search::-moz-placeholder {  /* Firefox 19+ */
+.placeholder-light::-moz-placeholder {  /* Firefox 19+ */
    color: @lightGrey;
    font-weight: 400;
 }
 
-.search:-ms-input-placeholder {
+.placeholder-light:-ms-input-placeholder{
    color: @lightGrey;
    font-weight: 400;
 }
