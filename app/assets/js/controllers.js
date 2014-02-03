@@ -477,7 +477,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {title: 'Contact info', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasEditIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
+        ui = {title: 'Contact info', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasEditIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event) {
                                     $scope.event = event;
@@ -498,7 +498,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                         if (item.id == $stateParams.contactId) {
                                                           $scope.contact = item
 
-                                                          ui.hasEditIcon = true
+                                                          ui.hasEditIcon = ((item.type == 'contact') ? true : false)
                                                           angular.extend(UserInterface, ui)
                                                           angular.extend($scope.UserInterface, ui)
                                                           break
