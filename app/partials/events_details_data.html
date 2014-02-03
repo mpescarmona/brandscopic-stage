@@ -19,13 +19,13 @@
  
 	<div class="dividersBar big">DEMOGRAPHICS</div>
 	<div class="box-container events data">
-		<div class="category">
-	<!--		
+		<div class="category" ng-repeat="results in eventResultsItems | orderBy:['ordering']">
 			<h6>{{results.name}}</h6>
 			<p class="small">{{results.description}}</p>
 			<div class="clearfix m25" ng-repeat="segment in results.segments" id="{{segment.id}}">
 				<div class="input-group">
-			  		<input type="number" class="form-control" value="{{segment.value}}" ng-show="'{{results.field_type}}'!='count'">
+			  		<input type="{{results.options.capture_mechanism}}" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'=='count'">
+			  		<input type="text" class="form-control" value="{{segment.value}}" ng-show="'{{results.field_type}}'!='count'">
 			  		<span class="input-group-addon" ng-show="'{{results.options.capture_mechanism}}'!='radio'">%</span>
 				</div>
 				<label class="data">{{segment.text}}</label>
@@ -33,19 +33,18 @@
  
 			<div class="clearfix m25" ng-show="'{{results.field_type}}'!='count' || '{{results.field_type}}'!='percentaje'" id="{{results.id}}">
 				<div class="input-group">
-			  		<input type="number" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'!='count'">
-			  		<span class="input-group-addon">%</span>
+			  		<input type="text" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'!='count'">
+			  		<span class="input-group-addon">{{results.value}}</span>
 				</div>
 				<label class="data">{{results.text}}</label>
 			</div>
 		</div>
--->
-		
+	</div>		
 		<!-- DEMOGRAPHICS BY SIL -->
-
-		<h6>Gender</h6>
+ 
+<!-- 		<h6>Gender</h6>
 		<p class="small">{{results.description}}</p>
-
+ 
 		<div class="clearfix m25">
 			<div class="input-group">
 	  		<input type="number" class="form-control">
@@ -53,7 +52,7 @@
 			</div>
 			<label class="data">Male</label>
 		</div>
-
+ 
 		<div class="clearfix m25">
 			<div class="input-group">
 	  		<input type="number" class="form-control">
@@ -61,10 +60,10 @@
 			</div>
 			<label class="data">Female</label>
 		</div>
-
+ 
 		<h6>Race/Ethnicity</h6>
 		<p class="small">{{results.description}}</p>
-
+ 
 		<div class="clearfix m25">
 			<div class="input-group">
 	  		<input type="number" class="form-control">
@@ -72,7 +71,7 @@
 			</div>
 			<label class="data">African</label>
 		</div>
-
+ 
 		<div class="clearfix m25">
 			<div class="input-group">
 	  		<input type="number" class="form-control">
@@ -80,10 +79,10 @@
 			</div>
 			<label class="data">Asia</label>
 		</div>
-
+ 
 		<h6>Age</h6>
 		<p class="small">{{results.description}}</p>
-
+ 
 		<div class="clearfix m25">
 			<div class="input-group">
 	  		<input type="number" class="form-control">
@@ -91,7 +90,7 @@
 			</div>
 			<label class="data">18</label>
 		</div>
-
+ 
 		<div class="clearfix m25">
 			<div class="input-group">
 	  		<input type="number" class="form-control">
@@ -99,20 +98,20 @@
 			</div>
 			<label class="data">19 - 24</label>
 		</div>
-
+ 
 		<!-- END PERMANENT ELEMENTS -->
-
-		<h6>Not permanent</h6>
-		<p class="small">{{results.description}}</p>
-
+ 
+<!-- 		<h6>Not permanent</h6>
+		<p class="small">{{results.description}}</p> -->
+ 
 		<!--If it is a single input -->
-		<div class="clearfix m25">
+<!-- 		<div class="clearfix m25">
 			<label class="medium">Single Input Example</label>
 			<input type="number"></input>
-		</div>
-
+		</div> -->
+ 
 		<!--If it is a radio button -->
-		<div class="clearfix m25">
+<!-- 		<div class="clearfix m25">
 			<div class="radio-selector">
 				<div class="radio clearfix">  
 		    	<input id="yes" type="radio" name="gender" value="yes">  
@@ -123,17 +122,14 @@
 		    	<label for="no">No</label> 
 				</div>
 			</div>
-		</div>
-
+		</div> -->
+ 
 		<!-- I it's a select -->
-		<div class="clearfix m25">
+<!--		<div class="clearfix m25">
 			<select class="form-control arrow">
 				<option>Option one</option>
 				<option>Option two</option>
 			</select>
-		</div>
-
-
-	</div>
+		</div> -->
 	</form>
 </div>
