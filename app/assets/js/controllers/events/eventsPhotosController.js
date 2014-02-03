@@ -25,11 +25,10 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
 
     var
         isPhoto = true
-      , ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "photos"}
+      , ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "photos", hasAddPhoto: true}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
                                     $scope.event = event;
-
                                     // Options for User Interface in home partial
                                     ui.title = event.campaign ? event.campaign.name : "Photos"
                                     angular.extend(UserInterface, ui)
@@ -39,11 +38,13 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
        }
 
       , actionsPhoto = { success: function(response){
+                                  $scope.$emit("ADD_PHOTO", response)
                                   $scope.photoForm.key = $scope.photoName;
                                   $scope.photoForm.AWSAccessKeyId = response.fields.AWSAccessKeyId;
                                   $scope.photoForm.policy = response.fields.policy
                                   $scope.photoForm.signature = response.fields.signature;
-                                  console.log($scope.photoForm);
+                                  $scope.photoForm.postUrl = response.url;
+                                  //$("#photoForm").attr("action", response.url)
                               }
        }
 

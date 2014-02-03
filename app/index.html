@@ -21,7 +21,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   </head>
   <body ng-controller="MainController" ng-class="{loginLayout: !UserService.isLogged(), appLayout: UserService.isLogged()}">
-
+      
+      
       <div ui-view window-resize-thingy></div>
 
       <!-- Le Javascript -->
@@ -88,6 +89,7 @@
       <script src="assets/js/shared/const.js"></script>
       <script src="assets/js/shared/util.js"></script>
       <!-- brandscopic shared -->
+      <script src="assets/js/controllers/navbarController.js"></script>
       <script src="assets/js/controllers/homeController.js"></script>
       <script src="assets/js/controllers/events/eventsController.js"></script>
       <script src="assets/js/controllers/events/eventsAddController.js"></script>

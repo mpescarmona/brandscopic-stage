@@ -52,6 +52,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.hasCustomHomeClass = false;
   this.EditIconUrl = "";
   this.noData = false;
+  this.hasAddPhoto = false;
 })
 
 .service('SessionRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {

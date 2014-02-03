@@ -8,7 +8,7 @@ function eventsCtrl($scope, $state, snapRemote, UserService, CompanyService, Use
   // Options for User Interface in home partial
   $scope.UserInterface = UserInterface;
   var
-      ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add"}
+      ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add",hasAddPhoto: false}
     , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
     , actions = { success: function(events, filters){
                               // workaround for remove the non 'Active' events

@@ -6,12 +6,9 @@ angular.module('brandscopicApp.sharedDirectives', [])
         	$scope.searchModel = ""
 		    //$scope.itemsToShow = []
 		    $scope.customTemplate = ""
-
+		    //$scope.placeId = ""
 		    var typeahead_type = undefined;
 		    $scope.isCustom = $scope.$eval($attrs.isCustom)
-		    $scope.place = $scope.$eval($attrs.model)
-
-		    console.log($scope.place)
 
 		    var _getSearch = function (value) {
 		        var 
@@ -21,17 +18,24 @@ angular.module('brandscopicApp.sharedDirectives', [])
 								if(typeahead_type === scopic.consts.typeahead_types.PLACES) {
 									$scope.itemsToShow = []
 	                                angular.forEach(items, function (item) {
-	                                  	$scope.itemsToShow.push(item.label)
+	                                  	$scope.itemsToShow.push({ label: item.label, id: item.id })
 	                                });
                                 }
                                 if(typeahead_type === scopic.consts.typeahead_types.EVENTS) {
                                 	$scope.itemsToShow = []
 	                                angular.forEach(items.facets, function (item) {
+	                                	angular.forEach(item.items, function (subItem) {
+		                                		$scope.itemsToShow.push({ category: subItem.name, event: subItem.label, id: subItem.id })
+		                                	});
+	                                	});
+
+	                                /*$scope.itemsToShow = []
+	                                angular.forEach(items.facets, function (item) {
 	                                	if(item.items.length > 0) {
 	                                		$scope.itemsToShow.push(item)
 	                                	}
-	                                });
-                                }
+	                                });*/
+	                            }
 		                      }
                      , error: function (event_error) {
 	                            $scope.event_error = event_error
@@ -52,6 +56,7 @@ angular.module('brandscopicApp.sharedDirectives', [])
 		    }
 		    // When searchModel change make api call to get search result
 		    $scope.$watch('searchModel', function (value) {
+		    	$scope.placeId = value.id
 		        getDebouncedPlaces(value)
 		    });
 		    // Makes a debounced watch of the model to avoid calling multiple times to the API

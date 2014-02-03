@@ -1,59 +1,16 @@
-function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location) {
+function navbarCtrl($scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location) {
 
-	if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
     $scope.showSearchField = false; 
     // Disable right snap. Works with 'snap-options' option of tag snap-content.
     $scope.snapOptions = {
       disable: 'right'
     };
 
-    var
-      authToken = UserService.currentUser.auth_token
-
     $scope.currentCompany = CompanyService.currentCompany;
     // Options for User Interface in home partial
     $scope.UserInterface = UserInterface;
     $scope.UserInterface.title = "Home";
     $scope.isEventCompleted = true
-    $scope.place_reference = ""
-
-    $scope.logout = function() {
-      var
-          session = new SessionRestClient.logout(authToken)
-        , promise = session.logout().$promise
-
-      promise.then(function(response) {
-        if (response.status == 200) {
-          UserService.currentUser.auth_token = "";
-          UserService.currentUser.isLogged = false;
-          UserService.currentUser.email = "";
-          $state.go('login');
-          return;
-        } else {
-          // $state.go('login');
-          $scope.wrongUser = true;
-          UserService.currentUser.auth_token = "";
-          UserService.currentUser.isLogged = false;
-          UserService.currentUser.email = "";
-        }
-      });
-      promise.catch(function(response) {
-        $scope.wrongUser = true;
-        UserService.currentUser.auth_token = "";
-        UserService.currentUser.isLogged = false;
-        UserService.currentUser.email = "";
-      });
-    };
-
-  $scope.photoForm = { 
-      key: "",
-      AWSAccessKeyId: "",
-      policy: "",
-      signature: ""
-  };
 
 	$scope.showSearchEvent = function(isShowing) {
 		$scope.showSearchField = isShowing;
@@ -67,8 +24,6 @@ function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, Compan
 
     $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#home/profile', 'click': ''},
                           {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#', 'click': 'logout()'}];
-
-
 
     function createEvent () {
       var
@@ -95,62 +50,30 @@ function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, Compan
       if (em2 == 4)
         $scope.event.end_date = $scope.event.end_date.replace(/^(\d{4})\/(\d{2})\/(\d{2}).*$/, '$2/$3/$1')
 
+      //$scope.event.campaign_id = $scope.campaign ? $scope.campaign.id : 0
+      alert("intenta crear!");
       Event.create(credentials, actions, $scope.event)
     }
 
     $scope.CreateEventView = function () {
-        $scope.isEventCompleted = true
+        alert("intenta crear el evento")
         if($scope.event) {
           createEvent();
+        } else {
+          alert("error esta completo el model");
         }
     }
 
     $scope.$on('CREATE_EVENT', function (eventT, eventObj) {
-        if ( eventObj.campaign_id && eventObj.end_date  &&  eventObj.end_time && eventObj.start_date && eventObj.start_time) {
+        if ( eventObj.campaign_id >= 0 && eventObj.end_date  &&  eventObj.end_time && eventObj.start_date && eventObj.start_time ) {
             $scope.isEventCompleted = false
             $scope.event = eventObj;
         }
         event.processed = true;
     });
-
-    function G() {
-        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
-    }
-
-    $scope.$watch('photoName', function (value){
-        var guid = (G() + G() + "-" + G() + "-" + G() + "-" + G() + "-" + G() + G() + G()).toUpperCase();
-        $scope.photoForm.key = "uploads/" + guid + "/" + value
-        sentForm()
-    })
-
-  function sentForm() {
-      var url = $scope.photoForm.url; // El script a dónde se realizará la petición.
-      var formData = {key:$scope.photoForm.key, AWSAccessKeyId: $scope.photoForm.AWSAccessKeyId, policy: $scope.photoForm.policy, signature: $scope.photoForm.signature};
-      $.ajax({
-            type: "POST",
-             url: $scope.photoForm.url,
-             data: formData, // Adjuntar los campos del formulario enviado.
-              success: function(data, textStatus, jqXHR) {
-                   console.log(data)
-               },
-              error: function (jqXHR, textStatus, errorThrown) {
-                  console.log(textStatus)
-                  console.log(errorThrown)
-              }
-           });
-      }
-
-    $scope.$on('ADD_PHOTO', function (eventT, authForm) {
-        //$scope.photoForm.key = authForm.fields.key
-        $scope.photoForm.AWSAccessKeyId = authForm.fields.AWSAccessKeyId
-        $scope.photoForm.policy = authForm.fields.policy
-        $scope.photoForm.signature = authForm.fields.signature
-        $scope.photoForm.url = authForm.url
-    })
-
 }
 
-homeCtrl.$inject = [
+navbarCtrl.$inject = [
     "$scope",
     "$state",
     "snapRemote",
