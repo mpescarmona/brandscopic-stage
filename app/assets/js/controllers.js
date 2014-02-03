@@ -876,26 +876,32 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event) {
-                                    $scope.event = event;
+                                    $scope.event = event
 
                                     // Options for User Interface in home partial
                                     ui.title = event.campaign ? event.campaign.name : "Data"
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface
 
-                                    promiseResults.then(function(responseResults) {
-                                     if (responseResults.status == 200) {
-                                      if (responseResults.data != null) {
-                                          eventResultsData = responseResults.data;
-                                          $scope.eventResultsItems = eventResultsData;
+                                    var
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                      , actions = { success: function(results) {
+                                                                $scope.eventResultsItems = results
+                                                                $scope.impressions = {}
+                                                                $scope.interactions = {}
+                                                                $scope.samples = {}
+                                                                for(var i = 0, item; item = results[i++];) {
+                                                                  if (item.name=='Impressions')
+                                                                    $scope.impressions = item
+                                                                  if (item.name=='Interactions')
+                                                                    $scope.interactions = item
+                                                                  if (item.name=='Samples')
+                                                                    $scope.samples = item
+                                                                }
+
+                                                             }
                                       }
-                                     } else {
-                                        $scope.eventResultsItems = {};
-                                     }
-                                    });
-                                    promiseResults.catch(function(responseResults) {
-                                      $scope.eventResultsItems = {};
-                                    });
+                                    Event.results(credentials, actions)
                     }
         }
    Event.find(credentials, actions)
