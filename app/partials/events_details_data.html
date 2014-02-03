@@ -40,57 +40,11 @@
 			</div>
 		</div>
 	</div>		
-		<!-- DEMOGRAPHICS BY SIL -->
- 
-<!-- 		<h6>Gender</h6>
-		<p class="small">{{results.description}}</p>
- 
-		<div class="clearfix m25">
-			<div class="input-group">
-	  		<input type="number" class="form-control">
-	  		<span class="input-group-addon">%</span>
-			</div>
-			<label class="data">Male</label>
-		</div>
- 
-		<div class="clearfix m25">
-			<div class="input-group">
-	  		<input type="number" class="form-control">
-	  		<span class="input-group-addon">%</span>
-			</div>
-			<label class="data">Female</label>
-		</div>
- 
-		<h6>Race/Ethnicity</h6>
-		<p class="small">{{results.description}}</p>
- 
-		<div class="clearfix m25">
-			<div class="input-group">
-	  		<input type="number" class="form-control">
-	  		<span class="input-group-addon">%</span>
-			</div>
-			<label class="data">African</label>
-		</div>
- 
-		<div class="clearfix m25">
-			<div class="input-group">
-	  		<input type="number" class="form-control">
-	  		<span class="input-group-addon">%</span>
-			</div>
-			<label class="data">Asia</label>
-		</div>
- 
-		<h6>Age</h6>
-		<p class="small">{{results.description}}</p>
- 
-		<div class="clearfix m25">
-			<div class="input-group">
-	  		<input type="number" class="form-control">
-	  		<span class="input-group-addon">%</span>
-			</div>
-			<label class="data">18</label>
-		</div>
- 
+	
+
+	<!-- IFS -->
+
+		<!--If it is a field type percentage -->
 		<div class="clearfix m25">
 			<div class="input-group">
 	  		<input type="number" class="form-control">
@@ -99,37 +53,42 @@
 			<label class="data">19 - 24</label>
 		</div>
  
-		<!-- END PERMANENT ELEMENTS -->
- 
-<!-- 		<h6>Not permanent</h6>
-		<p class="small">{{results.description}}</p> -->
- 
-		<!--If it is a single input -->
-<!-- 		<div class="clearfix m25">
+		<!--If it is a field type number -->
+ 		<div class="clearfix m25">
 			<label class="medium">Single Input Example</label>
 			<input type="number"></input>
-		</div> -->
+		</div> 
  
-		<!--If it is a radio button -->
-<!-- 		<div class="clearfix m25">
-			<div class="radio-selector">
-				<div class="radio clearfix">  
-		    	<input id="yes" type="radio" name="gender" value="yes">  
-		    	<label for="yes">Yes</label>  
-				</div>  
-				<div class="radio clearfix">
-					<input id="no" type="radio" name="gender" value="no">  
-		    	<label for="no">No</label> 
+		<!--If it is a field type count -->
+
+			<!-- Capture mechanism: radio -->
+	 		<div class="clearfix m25">
+				<div class="radio-selector">
+					<div class="radio clearfix">  
+			    	<input id="yes" type="radio" name="gender" value="yes">  
+			    	<label for="yes">Yes</label>  
+					</div>  
+					<div class="radio clearfix">
+						<input id="no" type="radio" name="gender" value="no">  
+			    	<label for="no">No</label> 
+					</div>
 				</div>
-			</div>
-		</div> -->
- 
-		<!-- I it's a select -->
-<!--		<div class="clearfix m25">
-			<select class="form-control arrow">
-				<option>Option one</option>
-				<option>Option two</option>
-			</select>
-		</div> -->
+			</div> 
+
+			<!-- Capture mechanism: dropdown -->
+			<div class="clearfix m25">
+				<select class="form-control arrow">
+					<option>Option one</option>
+					<option>Option two</option>
+				</select>
+			</div> 
+
+			<!-- Capture mechanism: checkbox -->
+			<div class="clearfix m25 checkbox-selector">
+        <input type="checkbox" id="lala">
+        <label for="lala">Lala</label>
+        <input type="checkbox" id="lala2">
+        <label for="lala2">Lala2</label>
+      </div>
 	</form>
 </div>
