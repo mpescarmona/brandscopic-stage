@@ -20,5 +20,10 @@ angular.module('persistence.event', ['ngResource', 'util.jsonToFormData'])
                     }
 
       , 'search'     : { method: 'GET', params: {action:'autocomplete'} }
+
+      , 'results': { method: 'GET'
+                      , isArray: true 
+                      , url: '//stage.brandscopic.com/api/v1/events/:event_id/results.:format'
+                    }
   });
 }]);

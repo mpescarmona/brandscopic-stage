@@ -1,22 +1,22 @@
 <!-- Events - DATA VIEW (BEFORE) -->
-
+ 
 <div class="container">
-
+	<form novalidate>
 	<div class="dividersBar big">SUMMARY</div>
 	<div class="box-container events data">
 		<textarea rows="5" cols="30" class="placeholder-light" placeholder="Write a summary"></textarea>
 	</div>
-
+ 
 	<div class="dividersBar big">CONSUMER REACH</div>
 	<div class="box-container events">
 		<label class="medium">Impressions (optional)</label>
-		<input type="number"></input>
+		<input type="number" ng-model="impressions.value" id="{{impressions.id}}">
 		<label class="medium"># Consumer interactions</label>
-		<input type="number"></input>
+		<input type="number" ng-model="interactions.value" id="{{interactions.id}}">
 		<label class="medium">Consumer sampled</label>
-		<input type="number"></input>
+		<input type="number" ng-model="samples.value" id="{{samples.id}}">
 	</div>
-
+ 
 	<div class="dividersBar big">DEMOGRAPHICS</div>
 	<div class="box-container events data">
 		<div class="category" ng-repeat="results in eventResultsItems | orderBy:['ordering']">
@@ -29,7 +29,7 @@
 				</div>
 				<label class="data">{{segment.text}}</label>
 			</div>
-
+ 
 			<div class="clearfix m25" ng-show="'{{results.field_type}}'!='count' || '{{results.field_type}}'!='percentaje'" id="{{results.id}}">
 				<div class="input-group">
 			  		<input type="number" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'!='count'">
@@ -39,13 +39,13 @@
 			</div>
 		</div>
 		<!-- If it's a single input -->
-
-		<label class="medium">Single Input Example</label>
-		<input type="number"></input>
-
+ 
+<!-- 		<label class="medium">Single Input Example</label>
+		<input type="number"></input> -->
+		
 		<!-- If it's a radio button -->
-
-		<div class="radio-selector">
+ 
+<!-- 		<div class="radio-selector">
 			<div class="radio clearfix">  
 		    <input id="yes" type="radio" name="gender" value="yes">  
 		    <label for="yes">Yes</label>  
@@ -54,165 +54,16 @@
 				<input id="no" type="radio" name="gender" value="no">  
 		    <label for="no">No</label> 
 			</div> 
-		</div>
-
+		</div> -->
+ 
 		<!-- I it's a select -->
-
-		<div class="clearfix m25">
+ 
+<!--		<div class="clearfix m25">
 			<select class="form-control arrow">
 				<option>Option one</option>
 				<option>Option two</option>
 			</select>
-		</div>
+		</div> -->
 	</div>
-</div>
-
-<!-- Events - DATA VIEW-->
-
-<div class="container">
-	<div class="dividersBar big">SUMMARY</div>
-	<div class="box-container events">
-		<p class="small">The bar semed to be a little more low key by the time that we got there, but there were enough people that were interested in trying what we had. The managed said that it had been relly busy earlier bc of a Jazzz Festival that was going on. We decideded it may have been too crowded had we come then. The manager also filled us in on a large group of regulars that were whiskey drinkers, so thet were very excited to have a sample of Jameson, event that wasn’t their normal flavor. Its is an Irish Pub type bar, so we fit in really well and everyone loved that we had an usual way to try a shot. We ran into a few people that were a bit older and reserved and didn’t want to use the shot ski or take pictures because they were teachers and didn’t want anyone to see them drinking. Since there was a smaller amount of consumers in there at the time, we really took over the bar and were the center of attention for about the entire time we were there. Everyone really liked the Jameson complimented us on having such a good product to sample.</p>
-		<span class="blue full-comment" ng-click="expand = !expand" data-content-expanded="Collapse comment" data-content-collapsed="Show full comment"></span>
-		<br> 
-		<ul class="stats">
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">1,450</p>
-						<p class="category">IMPRESSIONS</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">1,450</p>
-						<p class="category">INFLUENCED</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">880</p>
-						<p class="category">SAMPLED</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">1,867</p>
-						<p class="category">SPENT</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">16</p>
-						<p class="category">PHOTOS</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">10</p>
-						<p class="category">SURVEYS</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-		</ul>
-		<ul class="stats simple mt20">
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">$1.29</p>
-					</div>
-					<div class="col-xs-6">
-						<p class="category">/IMPRESSION</p>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">$1.78</p>
-					</div>
-					<div class="col-xs-6">
-						<p class="category">/INFLUENCE</p>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">$2.12</p>
-					</div>
-					<div class="col-xs-6">
-						<p class="category">/SAMPLE</p>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</div>
-	<div class="dividersBar big">DEMOGRAPHICS</div>
-	<div class="box-container">
-		<div class="row sex">
-			<div class="col-xs-7 male blue">
-				<p class="percent">55%</p>
-				<h5 class="blue">MALE</h5>
-			</div>
-			<div class="col-xs-5 female blue">
-				<p class="percent">45%</p>
-				<h5 class="blue">FEMALE</h5>
-			</div>
-		</div>
-		<p>Here goes the age graph</p>
-		<div class="row highcharts-container">
-			<div class="age-graph"></div>
-		</div>
-		<p>Here goes the ethnicity graph</p>
-		<div class="row highcharts-container">
-			<div id="ethnicity-graph"></div>
-		</div>
-	</div>
+	</form>
 </div>
