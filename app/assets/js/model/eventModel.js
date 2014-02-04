@@ -92,6 +92,28 @@ angular.module('model.event', ['persistence.event'])
 
           }
       }
+      , results = function (credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
+            // if (collection && company_id == credentials.company_id)
+            //   actions.success(collection, filters)
+            // else {
+              company_id = credentials.company_id
+              eventClient.results(credentials, resultsResponse(actions))
+            // }
+          } else
+            throw 'Wrong set of credentials'
+
+      }
+      , resultsResponse = function (actions) {
+          return function(resp){
+            if (resp.length) {
+              actions.success(angular.copy(resp))
+            }
+            else
+              throw 'results missing on response'
+
+          }
+      }
       , parseFilters = function (facets) {
           var keyName = 'event status'
           for (var i = 0, facet; facet = facets[i++];)
@@ -124,5 +146,6 @@ angular.module('model.event', ['persistence.event'])
         , create: create
         , update: update
         , search: search
+        , results: results
       }
   }])
