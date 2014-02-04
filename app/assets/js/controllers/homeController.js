@@ -125,7 +125,19 @@ function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, Compan
 
   function sentForm() {
       var url = $scope.photoForm.url; // El script a dónde se realizará la petición.
-      var formData = {key:$scope.photoForm.key, AWSAccessKeyId: $scope.photoForm.AWSAccessKeyId, policy: $scope.photoForm.policy, signature: $scope.photoForm.signature};
+      var formData = { 
+                       key:$scope.photoForm.key, 
+                       AWSAccessKeyId: $scope.photoForm.AWSAccessKeyId, 
+                       acl: "public-read", 
+                       success_action_redirect: "http://localhost/", 
+                       policy: $scope.photoForm.policy, 
+                       signature: $scope.photoForm.signature, 
+                       ContentType: "image/jpeg" 
+                     };
+                     
+      console.log($scope.photoForm.url)
+      console.log(formData)
+
       $.ajax({
             type: "POST",
              url: $scope.photoForm.url,

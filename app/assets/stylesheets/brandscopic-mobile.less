@@ -305,25 +305,6 @@ body{
 	}
 }
 
-.events_search{
-	position: absolute;
-	height: 45px;
-	top: 0;
-	left: 0;
-	width: 100%;
-	.typeahead{
-		float: left;
-		height: 45px;
-		width: 77%;
-	}
-	.button{
-		float: right;
-		height: 45px;
-		text-align: center;
-		width: 23%;
-	}
-}
-
 /*-- COMMENTS - EVENTS AND VENUES --*/
 
 .comments{
@@ -558,8 +539,24 @@ body{
 				margin-top:15px;
 			}
 		}
-		h5{
-			margin-bottom: 5px;
+		.checkbox-selector input[type=checkbox] + label {
+			display: block !important;
+			margin: 0;
+			padding-left: 38px;
+		}
+		.checkbox-selector input[type=checkbox] + label:before{
+			left:0;
+		}
+		h6{
+			font-size: 14px;
+			font-weight: bold;
+		}
+		textarea{
+			color: @txt;
+			border: 1px solid @lightGrey;
+			&.clean{
+				border: 0;
+			}
 		}
 	}
 	ul.dropdown-menu{
@@ -902,6 +899,27 @@ body{
 			width: 60px;
 		}
 	}
+	.events_search{
+		position: absolute;
+		height: 45px;
+		top: 0;
+		left: 0;
+		width: 100%;
+		.typeahead{
+			float: left;
+			height: 45px;
+			width: 77%;
+		}
+		.btn-cancel{
+			float: right;
+			height: 45px;
+			text-align: center !important;
+			width: 23%;
+			.btn.btn-grey{
+				margin-top: 8px !important;
+			}
+		}
+	}
 	.search{
 		.border-bottom-radius(4px);
 		.border-top-radius(4px);
@@ -912,7 +930,7 @@ body{
 		position: absolute;
 		left: 10px;
 		top: 8px;
-		width: 72%;
+		width: 75%;
 	}
 	ul.dropdown-menu{
 		border-bottom: 0;
@@ -1492,9 +1510,15 @@ textarea{
 			&.time-zone{
 				padding: 8px !important;
 			}
+			.error{
+				position: absolute;
+				top: 34px;
+				font-size: 10px;
+				left: 18px;
+			}
 			select.form-control{
-				margin-top: 8px;
-				padding-left: 18px;
+				margin-top: 6px;
+				padding-left: 14px;
 			}
 		}
 		&:last-child{
@@ -1627,22 +1651,22 @@ select, input{
 
 /*-- Search Placeholder --*/
 
-.search::-webkit-input-placeholder {
+.placeholder-light::-webkit-input-placeholder{
    color: @lightGrey;
    font-weight: 400;
 }
 
-.search:-moz-placeholder { /* Firefox 18- */
+.placeholder-light:-moz-placeholder{ /* Firefox 18- */
    color: @lightGrey;
    font-weight: 400;
 }
 
-.search::-moz-placeholder {  /* Firefox 19+ */
+.placeholder-light::-moz-placeholder {  /* Firefox 19+ */
    color: @lightGrey;
    font-weight: 400;
 }
 
-.search:-ms-input-placeholder {
+.placeholder-light:-ms-input-placeholder{
    color: @lightGrey;
    font-weight: 400;
 }
@@ -1895,7 +1919,6 @@ ul.stats{
 .lastItem{
 	border-bottom: 0 !important;
 }
-
 
 
 

@@ -5,26 +5,8 @@
     <meta charset="utf-8">
     <title>Brandscopic Mobile App</title>
 
-<!--
-    <script type="text/javascript">
-        less = {
-            env: "development", // or "production"
-            async: false,       // load imports async
-            fileAsync: false,   // load imports async when in a page under
-                                // a file protocol
-            poll: 1000,         // when in watch mode, time in ms between polls
-            functions: {},      // user functions, keyed by name
-            dumpLineNumbers: "comments", // or "mediaQuery" or "all"
-            relativeUrls: false,// whether to adjust url's to be relative
-                                // if false, url's are already relative to the
-                                // entry less file
-            rootpath: ":/a.com/"// a path to add on to the start of every url
-                                //resource
-        };
-    </script>
--->
-
     <!-- Stylesheets -->
+<<<<<<< HEAD
     <link rel="stylesheet/less" type="text/css" href="assets/stylesheets/photoslider.css" />
     <link rel="stylesheet/less" type="text/css" href="assets/stylesheets/animations.css" />
 
@@ -32,6 +14,13 @@
 
     <link rel="stylesheet/less" type="text/css" href="assets/stylesheets/brandscopic-mobile.less" />
     <link rel="stylesheet/less" type="text/css" href="assets/stylesheets/responsive.less" />
+=======
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/animations.css" />
+
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap/dist/css/bootstrap.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/brandscopic-mobile.css" />
+>>>>>>> 26f030b919fccee9917e36dfac06363589def63c
 
     <!-- Scripts -->
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
