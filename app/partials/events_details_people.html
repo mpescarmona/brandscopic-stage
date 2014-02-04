@@ -45,7 +45,7 @@
     <ul class="eventsPeople" go-to>
       <li ng-repeat="contact in eventContactItems">
         <div class="row action-buttons dual-button" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="goTo('#/home/events/{{eventId}}/people/contacts/{{contact.id}}/view')">
-          <div class="row-content" ng-class="{team_member: contact.type=='user', teams: contact.type=='contact'}">
+          <div class="row-content" ng-class="{team_member: contact.type=='user', team: contact.type=='contact'}">
             <!-- show if is a contact -->
             <h5 class="txtAdjust" ng-show="'{{contact.type}}'=='contact'">{{contact.full_name}}</h5>
             <p class="small txtAdjust" ng-show="'{{contact.type}}'=='contact'">{{contact.title}}</p>
