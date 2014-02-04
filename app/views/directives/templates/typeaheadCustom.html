@@ -1,10 +1,9 @@
-
 <ul>
     <li ng-repeat="obj in match">
-        <a class="category">{{ obj.label }}</a>
+        <a class="category">{{ obj.event }}</a>
         <ul class="category-items">
             <li ng-repeat="item in obj.items"><a>
-                {{ item.label }}</a>
+                {{ item.event }}</a>
             </li>
         </ul>
     </li>

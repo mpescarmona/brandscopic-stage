@@ -16,7 +16,10 @@ angular.module('brandscopicApp', [
   'brandscopicApp.debounce',
   'brandscopicApp.sharedDirectives',
   'ui.bootstrap',
-  'ngMap'
+  'ngMap',
+
+  'model.photos',
+  'persistence.photos'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
   //
@@ -199,8 +202,8 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.photos', {
       url: "/photos",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_photos.html",
-                              controller: 'EventsPhotosController'
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_photos.html",
+                              controller: 'eventsPhotosCtrl'
                             }
             }
     })

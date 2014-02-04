@@ -18,7 +18,7 @@
   </div>
 </snap-drawer>
 <snap-content snap-options="snapOptions" data-snap-ignore="true">
-  <!-- Default header -->
+  <!-- Default header  -->
   <div class="navHeader" ng-class="{gallery: UserInterface.hasCustomHomeClass}" ng-show="!UserInterface.searching">
     <div class="left">
       <button snap-toggle class="noButton menuIcon pull-left" ng-show="UserInterface.hasMenuIcon"></button>
@@ -46,7 +46,21 @@
                 ng-show="UserInterface.hasMagnifierIcon"
                 ng-swipe-left="UserInterface.searching=true">
           </button>
+
           <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon" redirect-to-state="{{UserInterface.AddIconState}}" ng-animate=" ' animate' "></button>
+      
+          <span ng-show="UserInterface.hasAddPhoto" class="noButton addIcon pull-right fileUpload">
+              <input name="file" type="file" accept="image/*" ng-model="photoName" class="upload"> 
+              <!--<form id="photoForm" action="" method="post" enctype="multipart/form-data">
+                  <input type="hidden" name="key" value="{{ photoForm.key }}">
+                  <input type="hidden" name="AWSAccessKeyId" value="{{ photoForm.AWSAccessKeyId }}"> 
+                  <input type="hidden" name="acl" value="public-read"> 
+                  <input type="hidden" name="success_action_redirect" value="http://localhost/">
+                  <input type="hidden" name="policy" value="{{ photoForm.policy }}">
+                  <input type="hidden" name="signature" value="{{ photoForm.signature }}">
+                  <input type="hidden" name="Content-Type" value="image/jpeg">
+              </form> -->
+          </span>
       </span>
 
       <div class="noButton addIcon pull-right fileUpload hidden">
@@ -54,7 +68,7 @@
       </div>
 
 
-      <button class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" ng-click="CreateEventView()">Save</button>
+      <button id="buttonSave" class="btn btn-danger" ng-disabled="isEventCompleted" ng-show="UserInterface.hasSaveIcon" ng-click="CreateEventView()">Save</button>
 
 
       <button class="btn btn-grey" ng-show="UserInterface.hasEditIcon" redirect-to="{{UserInterface.EditIconUrl}}">Edit</button>
@@ -62,8 +76,9 @@
       <button class="noButton delete" ng-show="UserInterface.hasCloseIcon" redirect-to-state="{{UserInterface.CloseState}}"></button>
       <button class="btn btn-danger hidden">Post</button>
     </div>
-  </div>
-
+  </div> 
+ <!-- <div ng-include="'views/navbar.html'"></div> -->
+  
   <!-- Search header 
 
     <div class="navHeader" ng-show="UserIterface.searching" ng-swipe-left="UserInterface.searching=false">
