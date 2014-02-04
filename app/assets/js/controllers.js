@@ -887,17 +887,17 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                       , actions = { success: function(results) {
                                                                 $scope.eventResultsItems = results
-                                                                $scope.impressions = {}
-                                                                $scope.interactions = {}
-                                                                $scope.samples = {}
-                                                                for(var i = 0, item; item = results[i++];) {
-                                                                  if (item.name=='Impressions')
-                                                                    $scope.impressions = item
-                                                                  if (item.name=='Interactions')
-                                                                    $scope.interactions = item
-                                                                  if (item.name=='Samples')
-                                                                    $scope.samples = item
-                                                                }
+                                                                // $scope.impressions = {}
+                                                                // $scope.interactions = {}
+                                                                // $scope.samples = {}
+                                                                // for(var i = 0, item; item = results[i++];) {
+                                                                //   if (item.name=='Impressions')
+                                                                //     $scope.impressions = item
+                                                                //   if (item.name=='Interactions')
+                                                                //     $scope.interactions = item
+                                                                //   if (item.name=='Samples')
+                                                                //     $scope.samples = item
+                                                                // }
 
                                                              }
                                       }
