@@ -8,8 +8,11 @@
 		  	<label>Campaign name</label>
 		  </div>
 		  <div class="col-xs-12">
-			<select ng-model="event.campaign" ng-options="c.name for c in campaigns" class="form-control arrow"></select>
-		  	<!-- <span ng-show="event_error.campaign.id" ng-class="{error: event_error.campaign.id}" ng-model="event_error.campaign.id">{{event_error.campaign.join()}}</span> -->
+			<select ng-model="event.campaign_id" 
+					ng-options="item.id as item.name for item in campaingsDrop"
+					class="form-control arrow">
+			</select>
+		  	<span ng-show="event_error.campaign.id" ng-class="{error: event_error.campaign.id}" ng-model="event_error.campaign.id">{{event_error.campaign.join()}}</span>
 		  </div>
 		</div>
 		<div class="row eventDate">
@@ -49,18 +52,23 @@
 		  	<label>Place</label>
 		  </div>
 		  <div class="col-xs-12">
-	  	 	<scopic-typeahead
-	  	 		ng-model="event.place"
+		  	<div class="field-block" input-reset>
+		      	<input  type="text"
+			            id="eventPlace"
+			            ng-model="place_reference" 
+			            typeahead="item as item.label for item in itemsToShowPlaces | filter:{label:$viewValue}" 
+			            typeahead-loading="loadingLocations" 
+			            class="form-control search"
+			            typeahead-template-url="views/directives/templates/typeaheadCustomPlaces.html" />
+		      	<a href="#" class="type-reset hidden"></a>
+		      	<i ng-show="loadingLocations" 
+		         	class="glyphicon glyphicon-refresh">
+		      	</i>
+		      <input type="hidden" id="placeId" ng-model="event.place_reference" />
+			</div>
+	  	 	<!-- <scopic-typeahead
 	  	 		data-type="scopic.consts.typeahead_types.PLACES">
-	  	 	</scopic-typeahead>
-		  </div>
-		</div>
-		<div class="row">
-		  <div class="col-xs-12 mt20">
-		  	<label>Save</label>
-		  </div>
-		  <div class="col-xs-12">
-	          <input type="submit" value="save" class="btn btn-danger" ng-click="createEvent(event)">
+	  	 	</scopic-typeahead> value="{{ event.place_reference }}"-->
 		  </div>
 		</div>
 	</form>

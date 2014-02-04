@@ -52,6 +52,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.hasCustomHomeClass = false;
   this.EditIconUrl = "";
   this.noData = false;
+  this.hasAddPhoto = false;
 })
 
 .service('SessionRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
@@ -155,11 +156,11 @@ angular.module('brandscopicApp.services', ['ngResource'])
                                 isArray: true,
                                 interceptor: {
                                                 response: function (data) {
-                                                    console.log('response in interceptor', data);
+                                                    //console.log('response in interceptor', data);
                                                     return data;
                                                 },
                                                 responseError: function (data) {
-                                                    console.log('error in interceptor', data);
+                                                    //console.log('error in interceptor', data);
                                                     return data;
                                                 }
                                               },
