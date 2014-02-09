@@ -904,10 +904,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                          console.log(event_error)
                       }
                     }
-        // , results_attributes = {}
         , results_attributes = []
-        // , idx = 0
-        // , eventResults = []
 
       for(var i = 0, result; result = results[i++];) {
         for(var j = 0, field; field = result.fields[j++];) {
@@ -946,29 +943,14 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         }
       }
 
-      // var testData = {
-      //               "event": {
-      //                 "summary": "Test Summary",
-      //                 "results_attributes": [
-      //                   {"id": "67816", "value": "750"}
-      //                 ]
-      //               }
-      //             }
-
       var data = {
                     "event": {
                       "summary": $scope.event.summary,
                       "results_attributes": results_attributes
                     }
-                  }
-
-
-      // Event.updateResults(credentials, actions, testData)
+                 }
       Event.updateResults(credentials, actions, data)
     }
-
-
-
   }])
 
   .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Comment', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Comment) {
