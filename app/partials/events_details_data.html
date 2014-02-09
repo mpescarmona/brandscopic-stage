@@ -4,7 +4,7 @@
 	<form novalidate>
 	<div class="dividersBar big">SUMMARY</div>
 	<div class="box-container events data">
-		<textarea rows="5" cols="30" class="placeholder-light" placeholder="Write a summary"></textarea>
+		<textarea rows="5" cols="30" class="placeholder-light" placeholder="Write a summary" ng-model="event.summary"></textarea>
 	</div>
  
 	<div class="dividersBar big">CONSUMER REACH</div>
@@ -13,8 +13,9 @@
 				<!-- <label class="medium">{{results.label}}</label> -->
 			<div ng-repeat="field in results.fields">
 				<div ng-switch on="field.field_type">
-					<div ng-switch-when="percentaje">
+					<div ng-switch-when="percentage">
 						<label class="medium">{{field.name}}</label>
+						<p>{{field.description}}</p>
 						<div class="clearfix m25" ng-repeat="segment in field.segments">
 							<div class="input-group">
 						  		<input type="number" ng-model="segment.value" class="form-control" id="{{segment.id}}">
@@ -26,23 +27,45 @@
 					<div ng-switch-when="number">
 				 		<div class="clearfix m25">
 							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
 							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
 						</div> 
 					</div>
 					<div ng-switch-when="text">
 				 		<div class="clearfix m25">
 							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
 							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
 						</div> 
 					</div>
 					<div ng-switch-when="count">
-						<label class="medium">{{field.name}}</label>
-						<div class="clearfix m25" ng-repeat="segment in field.segments">
-							<div class="radio-selector">
-								<div class="radio clearfix">  
-							    	<input id="{{segment.id}}" type="radio" name="gender" value="yes">  
-							    	<label for="{{segment.id}}">{{segment.text}}</label>
-								</div>  
+						<div ng-switch on="field.options.capture_mechanism">
+							<div ng-switch-when="radio">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25">
+									<div class="radio-selector" ng-repeat="segment in field.segments">
+										<div class="radio clearfix">  
+									    	<input id="{{segment.id}}" type="radio" name="{{segment.id}}" value="{{segment.value}}">  
+									    	<label for="{{segment.id}}">{{segment.text}}</label>
+										</div>  
+									</div>
+								</div>
+							</div>
+							<div ng-switch-when="dropdown">
+								<label class="medium">{{field.name}}</label>
+								<div class="clearfix m25">
+									<select class="form-control arrow" ng-repeat="segment in field.segments">
+								    	<option id="{{segment.id}}">{{segment.text}}</option>
+									</select>
+								</div>
+							</div>
+							<div ng-switch-when="checkbox">
+								<label class="medium">{{field.name}}</label>
+								<div class="clearfix m25 checkbox-selector" ng-repeat="segment in field.segments">
+							        <input type="checkbox" id="{{segment.id}}">
+							        <label for="{{segment.id}}">{{segment.text}}</label>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -57,8 +80,9 @@
 				<!-- <label class="medium">{{results.label}}</label> -->
 			<div ng-repeat="field in results.fields">
 				<div ng-switch on="field.field_type">
-					<div ng-switch-when="percentaje">
+					<div ng-switch-when="percentage">
 						<label class="medium">{{field.name}}</label>
+						<p>{{field.description}}</p>
 						<div class="clearfix m25" ng-repeat="segment in field.segments">
 							<div class="input-group">
 						  		<input type="number" ng-model="segment.value" class="form-control" id="{{segment.id}}">
@@ -70,23 +94,47 @@
 					<div ng-switch-when="number">
 				 		<div class="clearfix m25">
 							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
 							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
 						</div> 
 					</div>
 					<div ng-switch-when="text">
 				 		<div class="clearfix m25">
 							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
 							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
 						</div> 
 					</div>
 					<div ng-switch-when="count">
-						<label class="medium">{{field.name}}</label>
-						<div class="clearfix m25" ng-repeat="segment in field.segments">
-							<div class="radio-selector">
-								<div class="radio clearfix">  
-							    	<input id="{{segment.id}}" type="radio" name="gender" value="yes">  
-							    	<label for="{{segment.id}}">{{segment.text}}</label>
-								</div>  
+						<div ng-switch on="field.options.capture_mechanism">
+							<div ng-switch-when="radio">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25">
+									<div class="radio-selector" ng-repeat="segment in field.segments">
+										<div class="radio clearfix">  
+									    	<input id="{{segment.id}}" type="radio" name="{{segment.id}}" value="{{segment.value}}">  
+									    	<label for="{{segment.id}}">{{segment.text}}</label>
+										</div>  
+									</div>
+								</div>
+							</div>
+							<div ng-switch-when="dropdown">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25">
+									<select class="form-control arrow" ng-repeat="segment in field.segments">
+								    	<option id="{{segment.id}}">{{segment.text}}</option>
+									</select>
+								</div>
+							</div>
+							<div ng-switch-when="checkbox">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25 checkbox-selector" ng-repeat="segment in field.segments">
+							        <input type="checkbox" id="{{segment.id}}">
+							        <label for="{{segment.id}}">{{segment.text}}</label>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -94,6 +142,85 @@
 			</div>			
 		</div>
 	</div>
+
+	<div class="dividersBar big"></div>
+	<div class="box-container events">
+		<div class="category" ng-repeat="results in eventResultsItems | filter:{module: 'custom'}| orderBy:['ordering']">
+				<!-- <label class="medium">{{results.label}}</label> -->
+			<div ng-repeat="field in results.fields">
+				<div ng-switch on="field.field_type">
+					<div ng-switch-when="percentage">
+						<label class="medium">{{field.name}}</label>
+						<p>{{field.description}}</p>
+						<div class="clearfix m25" ng-repeat="segment in field.segments">
+							<div class="input-group">
+						  		<input type="number" ng-model="segment.value" class="form-control" id="{{segment.id}}">
+						  		<span class="input-group-addon">%</span>
+							</div>
+							<label class="data">{{segment.text}}</label>
+						</div>
+					</div>
+					<div ng-switch-when="number">
+				 		<div class="clearfix m25">
+							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
+							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
+						</div> 
+					</div>
+					<div ng-switch-when="text">
+				 		<div class="clearfix m25">
+							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
+							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
+						</div> 
+					</div>
+					<div ng-switch-when="count">
+						<div ng-switch on="field.options.capture_mechanism">
+							<div ng-switch-when="radio">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25">
+									<div class="radio-selector" ng-repeat="segment in field.segments">
+										<div class="radio clearfix">  
+									    	<input id="{{segment.id}}" type="radio" name="{{segment.id}}" value="{{segment.value}}">  
+									    	<label for="{{segment.id}}">{{segment.text}}</label>
+										</div>  
+									</div>
+								</div>
+							</div>
+							<div ng-switch-when="dropdown">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25">
+									<select class="form-control arrow" ng-repeat="segment in field.segments">
+								    	<option id="{{segment.id}}">{{segment.text}}</option>
+									</select>
+								</div>
+							</div>
+							<div ng-switch-when="checkbox">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25 checkbox-selector" ng-repeat="segment in field.segments">
+							        <input type="checkbox" id="{{segment.id}}">
+							        <label for="{{segment.id}}">{{segment.text}}</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+
+	<div class="row">
+	  <div class="col-xs-12 mt20">
+	  	<label>Save</label>
+	  </div>
+	  <div class="col-xs-12">
+          <input type="submit" value="save" class="btn btn-danger" ng-click="updateEventData(eventResultsItems)">
+	  </div>
+	</div>
+
 
 	<!-- IFS -->
 
