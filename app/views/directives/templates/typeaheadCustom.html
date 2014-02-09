@@ -1,5 +1,18 @@
 <ul>
     <li ng-repeat="obj in match">
+        <a class="category">{{ obj.category }}</a>
+        <ul class="category-items">
+            <li ng-repeat="item in obj.events"><a>
+                {{ item.label }}</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<!--
+
+<ul>
+    <li ng-repeat="obj in match">
         <a class="category">{{ obj.event }}</a>
         <ul class="category-items">
             <li ng-repeat="item in obj.items"><a>
@@ -8,3 +21,5 @@
         </ul>
     </li>
 </ul>
+
+-->
