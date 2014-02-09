@@ -13,30 +13,6 @@ angular.module('brandscopicApp.sharedDirectives', [])
               });*/
 
             	scope.searchModel = "";
-
-              var _getEventSearch = function (value) {
-                  var defer = $q.defer();
-                  var 
-                    credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, term: value }
-                  , actions = { 
-                      success: function (items) {
-                                      scope.searchResult = [];
-                                      angular.forEach(items.facets, function (item) {
-                                          angular.forEach(item.items, function (subItem) {
-                                                  scope.searchResult.push({ category: subItem.name, label: subItem.label, id: subItem.id });
-                                              });
-                                          });
-                                      defer.resolve(scope.searchResult)
-                                }
-                       , error: function (event_error) {
-                                  scope.event_error = event_error
-                                  defer.reject()
-                          }
-                      }
-
-                  Event.search(credentials, actions)
-                  return defer.promise;
-              } 
             
             $.widget( "custom.catcomplete", $.ui.autocomplete, {
                   _renderMenu: function( ul, items ) {
@@ -65,9 +41,6 @@ angular.module('brandscopicApp.sharedDirectives', [])
         return {
             link: link,
             restrict: 'E',
-            scope: {
-              sourceEvent: "="
-            },
             templateUrl: 'views/directives/templates/typeahead.html'
         };
     }]);
