@@ -1,11 +1,11 @@
 
 <!-- PHOTOS SECTION -->
 <div>
-	<!--<form id="photoForm" action="https://brandscopic-stage.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
-	    <
+<!--<div scopicImage></div>
+	<form id="photoForm" action="https://brandscopic-stage.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
 	    <input type="hidden" name="key" value="{{ photoForm.key }}">
 	    <input type="hidden" name="AWSAccessKeyId" value="{{ photoForm.AWSAccessKeyId }}"> 
-	    <input type="hidden" name="acl" value="public-read"> 
+	    <input type="hidden" name="acl" value="private">
 	    <input type="hidden" name="success_action_redirect" value="http://localhost/">
 	    <input type="hidden" name="policy" value="{{ photoForm.policy }}">
 	    <input type="hidden" name="signature" value="{{ photoForm.signature }}">
@@ -15,11 +15,13 @@
 	    <input name="file" type="file" ng-model="photoName"> 
 	    <br> 
 	    <input type="submit" value="Upload File to S3"> 
-	</form>-->
+	</form>
 </div>
 <div class="noButton addIcon pull-right fileUpload hidden">
 	<input type="file" class="upload" accept="image/*"/>
-</div>
+</div><div ng-include="views/directives/autoComplete.html"></div> -->
+
+
 
 <div class="container">
 	<div class="box-container photos">

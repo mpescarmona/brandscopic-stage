@@ -5,7 +5,7 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
     }
     snapRemote.close()
 
-    /*$scope.photoForm = { 
+    $scope.photoForm = { 
         key: "",
         AWSAccessKeyId: "",
         policy: "",
@@ -18,9 +18,12 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
 
 
     $scope.$watch('photoName', function (value){
-        var guid = (G() + G() + "-" + G() + "-" + G() + "-" + G() + "-" + G() + G() + G()).toUpperCase();
-        $scope.photoForm.key = "uploads/" + guid + "/" + value
-    })*/
+        if(value) {
+          var guid = (G() + G() + "-" + G() + "-" + G() + "-" + G() + "-" + G() + G() + G()).toUpperCase();
+          $scope.photoForm.key = "uploads/" + guid + "/" + value.split(/(\\|\/)/g).pop()
+          console.log($scope.photoForm);
+        }
+    })
 
     var
         isPhoto = true
@@ -43,7 +46,7 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
                                   $scope.photoForm.policy = response.fields.policy
                                   $scope.photoForm.signature = response.fields.signature;
                                   $scope.photoForm.postUrl = response.url;
-                                  //$("#photoForm").attr("action", response.url)
+                                  $("#photoForm").attr("action", response.url)
                               }
        }
 

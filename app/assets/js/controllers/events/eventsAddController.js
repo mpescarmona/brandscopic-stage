@@ -39,7 +39,7 @@ function eventsAddCtrl($scope, $state, $stateParams, $location, snapRemote, User
                           $scope.event_error = event_error
                     }
                 }
-        console.log($scope.itemsToShowPlaces)
+                
         Venue.search(credentials, actions)
     }
 
