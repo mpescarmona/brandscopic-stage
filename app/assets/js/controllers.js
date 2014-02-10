@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
     
@@ -953,6 +953,104 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
   }])
 
+  .controller('EventsDataViewController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    var
+        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data"}
+
+      , authToken = UserService.currentUser.auth_token
+      , companyId = CompanyService.getCompanyId()
+      , eventId = $stateParams.eventId
+      , eventResultsData = []
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+      , actions = { success: function(event) {
+                                    $scope.event = event
+
+                                    // Options for User Interface in home partial
+                                    ui.title = event.campaign ? event.campaign.name : "Data"
+                                    angular.extend(UserInterface, ui)
+                                    $scope.UserInterface = UserInterface
+
+                                    var
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                      , actions = { success: function(results) {
+                                                                // $scope.eventResultsItems = results
+                                                        var dataCategories = []
+                                                          , dataSource = []
+
+                                                        for(var i = 0, result; result = results[i++];) {
+                                                          if (result.module == 'consumer_reach') {
+                                                            for(var j = 0, field; field = result.fields[j++];) {
+                                                              dataCategories.push(field.name)
+                                                              dataSource.push(field.value)
+                                                            }
+                                                          }
+                                                        }
+
+
+                                                        $scope.impressionsChartConfig = {
+                                                            plotOptions: {
+                                                                bar: {
+                                                                    dataLabels: {
+                                                                        enabled: false
+                                                                    }
+                                                                }
+                                                                // },
+                                                            //     series: {
+                                                            //         stacking: 'percent',
+                                                            //         enableMouseTracking: false,
+                                                            //         pointPadding: 0,
+                                                            //         groupPadding: 0,
+                                                            //         borderWidth: 0,
+                                                            //         pointPadding: 0,
+                                                            //         pointWidth: 15,
+                                                            //         dataLabels: {
+                                                            //             color: '#3E9CCF',
+                                                            //             style: { fontSize: '11px' }
+                                                            //         }
+                                                            //     }
+                                                            },
+
+                                                            options: {
+                                                                chart: {
+                                                                    type: 'bar'
+                                                                }
+                                                            },
+                                                            // categories: ["21 - 24","25 - 34","35 - 44","45 - 54","55 - 64"],
+                                                            categories: dataCategories,
+                                                            series: [{
+                                                                // data: [10, 15, 12, 8, 7]
+                                                                data: dataSource
+                                                            }],
+                                                            title: {
+                                                                enabled: false,
+                                                                text: null
+                                                            },
+
+                                                            loading: false,
+                                                            legend: {enabled: false},
+                                                            credits: {enabled: false}
+                                                        }
+
+
+
+
+
+                                                  }
+                                      }
+                                    Event.results(credentials, actions)
+                    }
+        }
+  Event.find(credentials, actions)
+
+
+  }])
+
   .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Comment', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Comment) {
     if( !UserService.isLogged() ) {
       $state.go('login');
@@ -974,12 +1072,12 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
                                     var
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                      , pepe = { success: function(comments) {
+                                      , action = { success: function(comments) {
                                                                   $scope.comments = comments
                                                              }
                                                 }
 
-                                    Comment.all(credentials, pepe)
+                                    Comment.all(credentials, action)
                               }
        }
     Event.find(credentials, actions)
