@@ -4,7 +4,7 @@
 	<form novalidate>
 	<div class="dividersBar big">SUMMARY</div>
 	<div class="box-container events data">
-		<textarea rows="5" cols="30" class="placeholder-light" placeholder="Write a summary" ng-model="event.summary"></textarea>
+		<textarea rows="5" cols="30" class="placeholder-light clean" placeholder="Write a summary" ng-model="event.summary"></textarea>
 	</div>
  
 	<div class="dividersBar big">CONSUMER REACH</div>
@@ -25,7 +25,7 @@
 						</div>
 					</div>
 					<div ng-switch-when="number">
-				 		<div class="clearfix m25">
+				 		<div class="clearfix">
 							<label class="medium">{{field.name}}</label>
 							<p>{{field.description}}</p>
 							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
