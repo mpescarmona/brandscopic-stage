@@ -15,7 +15,7 @@
 				<div ng-switch on="field.field_type">
 					<div ng-switch-when="percentage">
 						<label class="medium">{{field.name}}</label>
-						<p>{{field.description}}</p>
+						<p class="medium">{{field.description}}</p>
 						<div class="clearfix m25" ng-repeat="segment in field.segments">
 							<div class="input-group">
 						  		<input type="number" ng-model="segment.value" class="form-control" id="{{segment.id}}">
@@ -27,7 +27,7 @@
 					<div ng-switch-when="number">
 				 		<div class="clearfix">
 							<label class="medium">{{field.name}}</label>
-							<p>{{field.description}}</p>
+							<p class="medium">{{field.description}}</p>
 							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
 						</div> 
 					</div>
@@ -42,7 +42,7 @@
 						<div ng-switch on="field.options.capture_mechanism">
 							<div ng-switch-when="radio">
 								<label class="medium">{{field.name}}</label>
-								<p>{{field.description}}</p>
+								<p class="medium">{{field.description}}</p>
 								<div class="clearfix m25">
 									<div class="radio-selector" ng-repeat="segment in field.segments">
 										<div class="radio clearfix">  
@@ -82,7 +82,7 @@
 				<div ng-switch on="field.field_type">
 					<div ng-switch-when="percentage">
 						<label class="medium">{{field.name}}</label>
-						<p>{{field.description}}</p>
+						<p class="medium">{{field.description}}</p>
 						<div class="clearfix m25" ng-repeat="segment in field.segments">
 							<div class="input-group">
 						  		<input type="number" ng-model="segment.value" class="form-control" id="{{segment.id}}">
@@ -94,14 +94,14 @@
 					<div ng-switch-when="number">
 				 		<div class="clearfix m25">
 							<label class="medium">{{field.name}}</label>
-							<p>{{field.description}}</p>
+							<p class="medium">{{field.description}}</p>
 							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
 						</div> 
 					</div>
 					<div ng-switch-when="text">
 				 		<div class="clearfix m25">
 							<label class="medium">{{field.name}}</label>
-							<p>{{field.description}}</p>
+							<p class="medium">{{field.description}}</p>
 							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
 						</div> 
 					</div>
@@ -109,7 +109,7 @@
 						<div ng-switch on="field.options.capture_mechanism">
 							<div ng-switch-when="radio">
 								<label class="medium">{{field.name}}</label>
-								<p>{{field.description}}</p>
+								<p class="medium">{{field.description}}</p>
 								<div class="clearfix m25">
 									<div class="radio-selector" ng-repeat="segment in field.segments">
 										<div class="radio clearfix">  
@@ -121,7 +121,7 @@
 							</div>
 							<div ng-switch-when="dropdown">
 								<label class="medium">{{field.name}}</label>
-								<p>{{field.description}}</p>
+								<p class="medium">{{field.description}}</p>
 								<div class="clearfix m25">
 									<select class="form-control arrow" ng-repeat="segment in field.segments">
 								    	<option id="{{segment.id}}">{{segment.text}}</option>
@@ -151,7 +151,7 @@
 				<div ng-switch on="field.field_type">
 					<div ng-switch-when="percentage">
 						<label class="medium">{{field.name}}</label>
-						<p>{{field.description}}</p>
+						<p class="medium">{{field.description}}</p>
 						<div class="clearfix m25" ng-repeat="segment in field.segments">
 							<div class="input-group">
 						  		<input type="number" ng-model="segment.value" class="form-control" id="{{segment.id}}">
@@ -163,14 +163,14 @@
 					<div ng-switch-when="number">
 				 		<div class="clearfix m25">
 							<label class="medium">{{field.name}}</label>
-							<p>{{field.description}}</p>
+							<p class="medium">{{field.description}}</p>
 							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
 						</div> 
 					</div>
 					<div ng-switch-when="text">
 				 		<div class="clearfix m25">
 							<label class="medium">{{field.name}}</label>
-							<p>{{field.description}}</p>
+							<p class="medium">{{field.description}}</p>
 							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
 						</div> 
 					</div>
@@ -178,7 +178,7 @@
 						<div ng-switch on="field.options.capture_mechanism">
 							<div ng-switch-when="radio">
 								<label class="medium">{{field.name}}</label>
-								<p>{{field.description}}</p>
+								<p class="medium">{{field.description}}</p>
 								<div class="clearfix m25">
 									<div class="radio-selector" ng-repeat="segment in field.segments">
 										<div class="radio clearfix">  
@@ -190,7 +190,7 @@
 							</div>
 							<div ng-switch-when="dropdown">
 								<label class="medium">{{field.name}}</label>
-								<p>{{field.description}}</p>
+								<p class="medium">{{field.description}}</p>
 								<div class="clearfix m25">
 									<select class="form-control arrow" ng-repeat="segment in field.segments">
 								    	<option id="{{segment.id}}">{{segment.text}}</option>
@@ -199,7 +199,7 @@
 							</div>
 							<div ng-switch-when="checkbox">
 								<label class="medium">{{field.name}}</label>
-								<p>{{field.description}}</p>
+								<p class="medium">{{field.description}}</p>
 								<div class="clearfix m25 checkbox-selector" ng-repeat="segment in field.segments">
 							        <input type="checkbox" id="{{segment.id}}">
 							        <label for="{{segment.id}}">{{segment.text}}</label>
