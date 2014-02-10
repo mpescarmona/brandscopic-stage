@@ -1,4 +1,4 @@
-function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location) {
+function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http) {
 
 	if( !UserService.isLogged() ) {
       $state.go('login');
@@ -118,9 +118,12 @@ function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, Compan
     }
 
     $scope.$watch('photoName', function (value){
-        var guid = (G() + G() + "-" + G() + "-" + G() + "-" + G() + "-" + G() + G() + G()).toUpperCase();
-        $scope.photoForm.key = "uploads/" + guid + "/" + value
-        sentForm()
+        if(value) {
+          console.log(value)
+          var guid = (G() + G() + "-" + G() + "-" + G() + "-" + G() + "-" + G() + G() + G()).toUpperCase();
+          $scope.photoForm.key = "uploads/" + guid + "/" + value.split(/(\\|\/)/g).pop()
+          sentForm()
+        }
     })
 
   function sentForm() {
@@ -128,15 +131,12 @@ function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, Compan
       var formData = { 
                        key:$scope.photoForm.key, 
                        AWSAccessKeyId: $scope.photoForm.AWSAccessKeyId, 
-                       acl: "public-read", 
+                       acl: "private", 
                        success_action_redirect: "http://localhost/", 
                        policy: $scope.photoForm.policy, 
                        signature: $scope.photoForm.signature, 
                        ContentType: "image/jpeg" 
                      };
-                     
-      console.log($scope.photoForm.url)
-      console.log(formData)
 
       $.ajax({
             type: "POST",
@@ -153,16 +153,15 @@ function homeCtrl($scope, $state, snapRemote, UserService, UserInterface, Compan
       }
 
     $scope.$on('ADD_PHOTO', function (eventT, authForm) {
-        //$scope.photoForm.key = authForm.fields.key
         $scope.photoForm.AWSAccessKeyId = authForm.fields.AWSAccessKeyId
         $scope.photoForm.policy = authForm.fields.policy
         $scope.photoForm.signature = authForm.fields.signature
         $scope.photoForm.url = authForm.url
     })
-
 }
 
 homeCtrl.$inject = [
+    "$q",
     "$scope",
     "$state",
     "snapRemote",
@@ -171,5 +170,6 @@ homeCtrl.$inject = [
     "CompanyService",
     "SessionRestClient",
     "Event",
-    "$location"
+    "$location",
+    "$http"
 ];

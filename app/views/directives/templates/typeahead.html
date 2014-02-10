@@ -1,32 +1,4 @@
 
-<div class="field-block" input-reset ng-show="isCustom">
-    <input type="text" 
-           id="eventPlace"
-           ng-model="searchModel" 
-           typeahead="item as item.event for item in itemsToShow | orderBy:item.category | filter:{event:$viewValue}" 
-           typeahead-loading="loadingLocations" 
-           class="form-control search"
-           typeahead-template-url="views/directives/templates/typeaheadCustom.html" />
-    <a href="#" class="type-reset hidden"></a>
-    <i ng-show="loadingLocations" 
-       class="glyphicon glyphicon-refresh">
-    </i>
+<div class="field-block" input-reset>
+    <input ng-model="searchModel" id="searchEvent"/>
 </div>
-
-<!-- Lo tuve q mover porque no hay tiempo y no podia grabar un event
-<div class="field-block" input-reset ng-hide="isCustom">
-      <input type="text"
-             id="eventPlace"
-             ng-model="searchModel" 
-             value="{{ placeId }}"
-             typeahead="item as item.label for item in itemsToShow | filter:{label:$viewValue}" 
-             typeahead-loading="loadingLocations" 
-             class="form-control search"
-             typeahead-template-url="views/directives/templates/typeaheadCustomPlaces.html" />
-      <a href="#" class="type-reset hidden"></a>
-      <i ng-show="loadingLocations" 
-         class="glyphicon glyphicon-refresh">
-      </i>
-      <input type="hidden" id="placeId" value="{{ searchModel.id }}" />
-</div>
--->

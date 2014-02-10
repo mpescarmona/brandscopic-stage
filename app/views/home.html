@@ -31,10 +31,7 @@
     <div class="right">
       <span ng-show="showSearchField" class="events_search">
         <div class="typeahead">
-            <scopic-typeahead 
-                data-type="scopic.consts.typeahead_types.EVENTS"
-                data-is-custom="scopic.consts.booleans.TRUE">
-            </scopic-typeahead>
+            <scopic-typeahead> </scopic-typeahead>
         </div>
         <div class="btn-cancel">
           <button class="btn btn-grey" ng-click="showSearchEvent(false)" style="margin-left:5px;">Cancel</button>
@@ -49,27 +46,16 @@
 
           <button class="noButton addIcon pull-right" ng-show="UserInterface.hasAddIcon" redirect-to-state="{{UserInterface.AddIconState}}" ng-animate=" ' animate' "></button>
       
-          <span ng-show="UserInterface.hasAddPhoto" class="noButton addIcon pull-right fileUpload">
-              <input name="file" type="file" accept="image/*" ng-model="photoName" class="upload"> 
-              <!--<form id="photoForm" action="" method="post" enctype="multipart/form-data">
-                  <input type="hidden" name="key" value="{{ photoForm.key }}">
-                  <input type="hidden" name="AWSAccessKeyId" value="{{ photoForm.AWSAccessKeyId }}"> 
-                  <input type="hidden" name="acl" value="public-read"> 
-                  <input type="hidden" name="success_action_redirect" value="http://localhost/">
-                  <input type="hidden" name="policy" value="{{ photoForm.policy }}">
-                  <input type="hidden" name="signature" value="{{ photoForm.signature }}">
-                  <input type="hidden" name="Content-Type" value="image/jpeg">
-              </form> -->
-          </span>
+        <span ng-show="UserInterface.hasAddPhoto" class="noButton addIcon pull-right fileUpload">
+            <input name="file" type="file" accept="image/*" ng-model="photoName" class="upload">         
+        </span>
       </span>
 
       <div class="noButton addIcon pull-right fileUpload hidden">
         <input type="file" class="upload" accept="image/*"/>
       </div>
 
-
       <button id="buttonSave" class="btn btn-danger" ng-disabled="isEventCompleted" ng-show="UserInterface.hasSaveIcon" ng-click="CreateEventView()">Save</button>
-
 
       <button class="btn btn-grey" ng-show="UserInterface.hasEditIcon" redirect-to="{{UserInterface.EditIconUrl}}">Edit</button>
       <button class="btn btn-grey" ng-show="UserInterface.hasCancelIcon">Cancel</button>
