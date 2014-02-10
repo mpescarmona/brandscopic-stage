@@ -119,6 +119,9 @@ body{
 	}
 
 	&.events{
+		input#eventPlace{
+			padding: 0 41px 0 10px;
+		}
 		ul.dropdown-menu{
 			top: 38px;
 			>li{
@@ -908,6 +911,47 @@ body{
 	}
 }
 
+.ui-widget-content{
+	height: 150px !important;
+	overflow: scroll !important;
+	padding: 0;
+	li{
+		border-bottom: 1px solid @lightGrey;
+		padding: 10px 0;
+		a{
+			border-radius: 0;
+			color: @lightGrey;
+			font-weight: 11px !important;
+			padding: 10px 0;
+			&:hover{
+				background-color: @brand !important;
+				background-image: none !important;
+				border:0 !important;
+				color: white;
+			}
+		}
+		&:hover{
+			border-radius: 0;
+			background-color: white !important;
+			background-image: none !important;
+		}
+		&.ui-autocomplete-category{
+			font-size: 10px !important;
+			text-transform: uppercase;
+			a{
+				color: @blue !important;
+				&:hover{
+					background-color: white !important;
+					background-image: none !important;
+				}
+				strong{
+					font-weight: 300 !important;
+				}
+			}
+		}
+	}
+}
+
 .navHeader{
 	.btn{
 		&.btn-danger, &.btn-grey{
@@ -928,9 +972,17 @@ body{
 		left: 0;
 		width: 100%;
 		.typeahead{
+			background-color:@header; 
 			float: left;
 			height: 45px;
+			padding: 7px 0 0 15px;
 			width: 77%;
+			input{
+				background: white url('../images/magnifier.svg') no-repeat left !important;
+				height: 30px;
+				padding-left: 30px;
+				box-sizing:border-box;
+			}
 		}
 		.btn-cancel{
 			float: right;
@@ -941,18 +993,6 @@ body{
 				margin-top: 8px !important;
 			}
 		}
-	}
-	.search{
-		.border-bottom-radius(4px);
-		.border-top-radius(4px);
-		background: white url('../images/magnifier.svg') no-repeat left !important;
-		border:0;
-		height: 29px;
-		padding: 0 10px 0 30px;
-		position: absolute;
-		left: 10px;
-		top: 8px;
-		width: 75%;
 	}
 	ul.dropdown-menu{
 		border-bottom: 0;
