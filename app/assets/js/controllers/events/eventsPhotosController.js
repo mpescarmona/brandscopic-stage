@@ -1,11 +1,11 @@
-function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Photos) {
+function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Photos, photosService) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
     snapRemote.close()
-
-    $scope.photoForm = { 
+    $scope.photosList = {}
+    $scope.photoForm = {
         key: "",
         AWSAccessKeyId: "",
         policy: "",
@@ -39,19 +39,20 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
                               }
        }
 
-      , actionsPhoto = { success: function(response){
-                                  $scope.$emit("ADD_PHOTO", response)
-                                  $scope.photoForm.key = $scope.photoName;
-                                  $scope.photoForm.AWSAccessKeyId = response.fields.AWSAccessKeyId;
-                                  $scope.photoForm.policy = response.fields.policy
-                                  $scope.photoForm.signature = response.fields.signature;
-                                  $scope.photoForm.postUrl = response.url;
-                                  $("#photoForm").attr("action", response.url)
-                              }
-       }
-
     Event.find(credentials, actions)
-    Photos.form(credentials, actionsPhoto)
+
+    photosService.getPhotoAmazonAuth().then( function (response) {
+        $scope.$emit("ADD_PHOTO", response)
+        $scope.photoForm.key = $scope.photoName;
+        $scope.photoForm.AWSAccessKeyId = response.fields.AWSAccessKeyId;
+        $scope.photoForm.policy = response.fields.policy
+        $scope.photoForm.signature = response.fields.signature;
+        $scope.photoForm.postUrl = response.url;
+        $("#photoForm").attr("action", response.url)
+    })
+    photosService.getPhotosList().then( function (response) {
+        console.log(response)
+    })
 }
 
 eventsPhotosCtrl.$inject = [
@@ -63,5 +64,6 @@ eventsPhotosCtrl.$inject = [
   	"CompanyService",
   	"UserInterface",
   	"Event",
-    "Photos"
+    "Photos",
+    "photosService"
 ];
