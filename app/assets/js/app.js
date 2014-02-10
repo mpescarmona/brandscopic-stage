@@ -16,6 +16,7 @@ angular.module('brandscopicApp', [
   'brandscopicApp.debounce',
   'brandscopicApp.sharedDirectives',
   'brandscopicApp.eventService',
+  'brandscopicApp.photosService',
   'ui.bootstrap',
   'ngMap',
   'model.photos',

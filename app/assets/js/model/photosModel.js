@@ -23,7 +23,45 @@ angular.module('model.photos', ['persistence.photos'])
           }
         }
 
+      , all = function(credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
+            company_id = credentials.company_id
+            photosClient.all(credentials, allResponse(actions))
+          } else
+              throw 'Wrong set of credentials'
+        }
+
+        , allResponse = function (actions) {
+          return function (resp) {
+            if (resp) {
+              actions.success(angular.copy(resp))
+            }
+            else
+              throw 'results missing on response'
+          }
+        }
+
+      , add = function(credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
+            company_id = credentials.company_id
+            photosClient.add(credentials, addResponse(actions))
+          } else
+              throw 'Wrong set of credentials'
+        }
+
+        , addResponse = function (actions) {
+          return function (resp) {
+            if (resp) {
+              actions.success(angular.copy(resp))
+            }
+            else
+              throw 'results missing on response'
+          }
+        }
+
       return {
+          all: all,
+          add: add,
           form: form
       }
   }])
