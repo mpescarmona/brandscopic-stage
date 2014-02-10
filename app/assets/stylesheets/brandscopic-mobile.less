@@ -911,45 +911,55 @@ body{
 	}
 }
 
+.ui-menu{
+	padding:0 !important;
+	.ui-menu-item{
+		border-bottom: 1px solid @lightGrey;
+		&:first-of-type{
+			a:hover{
+				border-top: 1px solid white !important;
+			}
+		}
+		&:last-of-type{
+			border-bottom: 1px solid white !important;
+			a:hover{
+				border-bottom: 1px solid white !important;
+			}
+		}
+		a{
+			font-size: 12px !important;
+			color:@lightGrey;
+			padding: 5px 10px 5px 20px !important;
+			&.category{
+				color: @blue !important;
+				font-size: 10px !important;
+				text-transform: uppercase;;
+				strong{
+					font-weight: 300 !important;
+				}
+				&:hover{
+					background-color: white !important;
+					border-radius: 0;
+					border-left: 0;
+					border-right:0;
+					border-bottom: 1px solid @lightGrey;
+					border-top: 1px solid @lightGrey;
+					padding: 5px 10px 5px 21px !important;
+				}
+			}
+			&:hover{
+				background-color: @brand;
+				background-image: none !important;
+				color: white;
+				border-radius: 0;
+			}
+		}
+	}
+}
 .ui-widget-content{
 	height: 150px !important;
 	overflow: scroll !important;
 	padding: 0;
-	li{
-		border-bottom: 1px solid @lightGrey;
-		padding: 10px 0;
-		a{
-			border-radius: 0;
-			color: @lightGrey;
-			font-weight: 11px !important;
-			padding: 10px 0;
-			&:hover{
-				background-color: @brand !important;
-				background-image: none !important;
-				border:0 !important;
-				color: white;
-			}
-		}
-		&:hover{
-			border-radius: 0;
-			background-color: white !important;
-			background-image: none !important;
-		}
-		&.ui-autocomplete-category{
-			font-size: 10px !important;
-			text-transform: uppercase;
-			a{
-				color: @blue !important;
-				&:hover{
-					background-color: white !important;
-					background-image: none !important;
-				}
-				strong{
-					font-weight: 300 !important;
-				}
-			}
-		}
-	}
 }
 
 .navHeader{
