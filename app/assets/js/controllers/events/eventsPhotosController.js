@@ -51,7 +51,9 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
         $("#photoForm").attr("action", response.url)
     })
     photosService.getPhotosList().then( function (response) {
-        console.log(response)
+        $scope.photos = response.results;
+        $scope.photosCount = response.results.length;
+        console.log($scope.photos)
     })
 }
 
