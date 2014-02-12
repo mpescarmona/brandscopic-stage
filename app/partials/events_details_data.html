@@ -4,132 +4,286 @@
 	<form novalidate>
 	<div class="dividersBar big">SUMMARY</div>
 	<div class="box-container events data">
-		<textarea rows="5" cols="30" class="placeholder-light" placeholder="Write a summary"></textarea>
+		<textarea rows="5" cols="30" class="placeholder-light" placeholder="Write a summary" ng-model="event.summary"></textarea>
 	</div>
  
 	<div class="dividersBar big">CONSUMER REACH</div>
 	<div class="box-container events">
-		<label class="medium">Impressions (optional)</label>
-		<input type="number" ng-model="impressions.value" id="{{impressions.id}}">
-		<label class="medium"># Consumer interactions</label>
-		<input type="number" ng-model="interactions.value" id="{{interactions.id}}">
-		<label class="medium">Consumer sampled</label>
-		<input type="number" ng-model="samples.value" id="{{samples.id}}">
+		<div class="category" ng-repeat="results in eventResultsItems | filter:{module: 'consumer_reach'}| orderBy:['ordering']">
+				<!-- <label class="medium">{{results.label}}</label> -->
+			<div ng-repeat="field in results.fields">
+				<div ng-switch on="field.field_type">
+					<div ng-switch-when="percentage">
+						<label class="medium">{{field.name}}</label>
+						<p>{{field.description}}</p>
+						<div class="clearfix m25" ng-repeat="segment in field.segments">
+							<div class="input-group">
+						  		<input type="number" ng-model="segment.value" class="form-control" id="{{segment.id}}">
+						  		<span class="input-group-addon">%</span>
+							</div>
+							<label class="data">{{segment.text}}</label>
+						</div>
+					</div>
+					<div ng-switch-when="number">
+				 		<div class="clearfix m25">
+							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
+							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
+						</div> 
+					</div>
+					<div ng-switch-when="text">
+				 		<div class="clearfix m25">
+							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
+							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
+						</div> 
+					</div>
+					<div ng-switch-when="count">
+						<div ng-switch on="field.options.capture_mechanism">
+							<div ng-switch-when="radio">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25">
+									<div class="radio-selector" ng-repeat="segment in field.segments">
+										<div class="radio clearfix">  
+									    	<input id="{{segment.id}}" type="radio" name="{{segment.id}}" value="{{segment.value}}">  
+									    	<label for="{{segment.id}}">{{segment.text}}</label>
+										</div>  
+									</div>
+								</div>
+							</div>
+							<div ng-switch-when="dropdown">
+								<label class="medium">{{field.name}}</label>
+								<div class="clearfix m25">
+									<select class="form-control arrow" ng-repeat="segment in field.segments">
+								    	<option id="{{segment.id}}">{{segment.text}}</option>
+									</select>
+								</div>
+							</div>
+							<div ng-switch-when="checkbox">
+								<label class="medium">{{field.name}}</label>
+								<div class="clearfix m25 checkbox-selector" ng-repeat="segment in field.segments">
+							        <input type="checkbox" id="{{segment.id}}">
+							        <label for="{{segment.id}}">{{segment.text}}</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
 	</div>
  
 	<div class="dividersBar big">DEMOGRAPHICS</div>
-	<div class="box-container events data">
-		<div class="category" ng-repeat="results in eventResultsItems | orderBy:['ordering']">
-			<h6>{{results.name}}</h6>
-			<p class="small">{{results.description}}</p>
-			<div class="clearfix m25" ng-repeat="segment in results.segments" id="{{segment.id}}">
-				<div class="input-group">
-			  		<input type="{{results.options.capture_mechanism}}" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'=='count'">
-			  		<input type="text" class="form-control" value="{{segment.value}}" ng-show="'{{results.field_type}}'!='count'">
-			  		<span class="input-group-addon" ng-show="'{{results.options.capture_mechanism}}'!='radio'">%</span>
+	<div class="box-container events">
+		<div class="category" ng-repeat="results in eventResultsItems | filter:{module: 'demographics'}| orderBy:['ordering']">
+				<!-- <label class="medium">{{results.label}}</label> -->
+			<div ng-repeat="field in results.fields">
+				<div ng-switch on="field.field_type">
+					<div ng-switch-when="percentage">
+						<label class="medium">{{field.name}}</label>
+						<p>{{field.description}}</p>
+						<div class="clearfix m25" ng-repeat="segment in field.segments">
+							<div class="input-group">
+						  		<input type="number" ng-model="segment.value" class="form-control" id="{{segment.id}}">
+						  		<span class="input-group-addon">%</span>
+							</div>
+							<label class="data">{{segment.text}}</label>
+						</div>
+					</div>
+					<div ng-switch-when="number">
+				 		<div class="clearfix m25">
+							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
+							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
+						</div> 
+					</div>
+					<div ng-switch-when="text">
+				 		<div class="clearfix m25">
+							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
+							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
+						</div> 
+					</div>
+					<div ng-switch-when="count">
+						<div ng-switch on="field.options.capture_mechanism">
+							<div ng-switch-when="radio">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25">
+									<div class="radio-selector" ng-repeat="segment in field.segments">
+										<div class="radio clearfix">  
+									    	<input id="{{segment.id}}" type="radio" name="{{segment.id}}" value="{{segment.value}}">  
+									    	<label for="{{segment.id}}">{{segment.text}}</label>
+										</div>  
+									</div>
+								</div>
+							</div>
+							<div ng-switch-when="dropdown">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25">
+									<select class="form-control arrow" ng-repeat="segment in field.segments">
+								    	<option id="{{segment.id}}">{{segment.text}}</option>
+									</select>
+								</div>
+							</div>
+							<div ng-switch-when="checkbox">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25 checkbox-selector" ng-repeat="segment in field.segments">
+							        <input type="checkbox" id="{{segment.id}}">
+							        <label for="{{segment.id}}">{{segment.text}}</label>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<label class="data">{{segment.text}}</label>
-			</div>
+			</div>			
+		</div>
+	</div>
 
-			<div class="clearfix m25" ng-show="'{{results.field_type}}'!='count' || '{{results.field_type}}'!='percentaje'" id="{{results.id}}">
-				<div class="input-group">
-			  		<input type="text" value="{{results.value}}" class="form-control" ng-show="'{{results.field_type}}'!='count'">
-			  		<span class="input-group-addon">{{results.value}}</span>
+	<div class="dividersBar big"></div>
+	<div class="box-container events">
+		<div class="category" ng-repeat="results in eventResultsItems | filter:{module: 'custom'}| orderBy:['ordering']">
+				<!-- <label class="medium">{{results.label}}</label> -->
+			<div ng-repeat="field in results.fields">
+				<div ng-switch on="field.field_type">
+					<div ng-switch-when="percentage">
+						<label class="medium">{{field.name}}</label>
+						<p>{{field.description}}</p>
+						<div class="clearfix m25" ng-repeat="segment in field.segments">
+							<div class="input-group">
+						  		<input type="number" ng-model="segment.value" class="form-control" id="{{segment.id}}">
+						  		<span class="input-group-addon">%</span>
+							</div>
+							<label class="data">{{segment.text}}</label>
+						</div>
+					</div>
+					<div ng-switch-when="number">
+				 		<div class="clearfix m25">
+							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
+							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
+						</div> 
+					</div>
+					<div ng-switch-when="text">
+				 		<div class="clearfix m25">
+							<label class="medium">{{field.name}}</label>
+							<p>{{field.description}}</p>
+							<input type="number" ng-model="field.value" id="{{field.id}}"></input>
+						</div> 
+					</div>
+					<div ng-switch-when="count">
+						<div ng-switch on="field.options.capture_mechanism">
+							<div ng-switch-when="radio">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25">
+									<div class="radio-selector" ng-repeat="segment in field.segments">
+										<div class="radio clearfix">  
+									    	<input id="{{segment.id}}" type="radio" name="{{segment.id}}" value="{{segment.value}}">  
+									    	<label for="{{segment.id}}">{{segment.text}}</label>
+										</div>  
+									</div>
+								</div>
+							</div>
+							<div ng-switch-when="dropdown">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25">
+									<select class="form-control arrow" ng-repeat="segment in field.segments">
+								    	<option id="{{segment.id}}">{{segment.text}}</option>
+									</select>
+								</div>
+							</div>
+							<div ng-switch-when="checkbox">
+								<label class="medium">{{field.name}}</label>
+								<p>{{field.description}}</p>
+								<div class="clearfix m25 checkbox-selector" ng-repeat="segment in field.segments">
+							        <input type="checkbox" id="{{segment.id}}">
+							        <label for="{{segment.id}}">{{segment.text}}</label>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<label class="data">{{results.text}}</label>
-			</div>
+			</div>			
 		</div>
-	</div>		
-		<!-- DEMOGRAPHICS BY SIL -->
+	</div>
 
-<!-- 		<h6>Gender</h6>
-		<p class="small">{{results.description}}</p>
+	<div class="row">
+	  <div class="col-xs-12 mt20">
+	  	<label>Save</label>
+	  </div>
+	  <div class="col-xs-12">
+          <input type="submit" value="save" class="btn btn-danger" ng-click="updateEventData(eventResultsItems)">
+	  </div>
+	</div>
 
-		<div class="clearfix m25">
-			<div class="input-group">
-	  		<input type="number" class="form-control">
-	  		<span class="input-group-addon">%</span>
-			</div>
-			<label class="data">Male</label>
-		</div>
 
-		<div class="clearfix m25">
-			<div class="input-group">
-	  		<input type="number" class="form-control">
-	  		<span class="input-group-addon">%</span>
-			</div>
-			<label class="data">Female</label>
-		</div>
+	<!-- IFS -->
 
-		<h6>Race/Ethnicity</h6>
-		<p class="small">{{results.description}}</p>
+		<!--If it is a field type PERCENTAGE -->
 
-		<div class="clearfix m25">
-			<div class="input-group">
-	  		<input type="number" class="form-control">
-	  		<span class="input-group-addon">%</span>
-			</div>
-			<label class="data">African</label>
-		</div>
-
-		<div class="clearfix m25">
-			<div class="input-group">
-	  		<input type="number" class="form-control">
-	  		<span class="input-group-addon">%</span>
-			</div>
-			<label class="data">Asia</label>
-		</div>
-
-		<h6>Age</h6>
-		<p class="small">{{results.description}}</p>
-
-		<div class="clearfix m25">
-			<div class="input-group">
-	  		<input type="number" class="form-control">
-	  		<span class="input-group-addon">%</span>
-			</div>
-			<label class="data">18</label>
-		</div>
-
-		<div class="clearfix m25">
+<!-- 		<div class="clearfix m25">
 			<div class="input-group">
 	  		<input type="number" class="form-control">
 	  		<span class="input-group-addon">%</span>
 			</div>
 			<label class="data">19 - 24</label>
-		</div>
+		</div> -->
+ 
+		<!--If it is a field type NUMBER OR CURRENCY-->
 
-		<!-- END PERMANENT ELEMENTS -->
-
-<!-- 		<h6>Not permanent</h6>
-		<p class="small">{{results.description}}</p> -->
-
-		<!--If it is a single input -->
-<!-- 		<div class="clearfix m25">
+ 		<!-- <div class="clearfix m25">
 			<label class="medium">Single Input Example</label>
 			<input type="number"></input>
-		</div> -->
+		</div>  -->
 
-		<!--If it is a radio button -->
-<!-- 		<div class="clearfix m25">
-			<div class="radio-selector">
-				<div class="radio clearfix">  
-		    	<input id="yes" type="radio" name="gender" value="yes">  
-		    	<label for="yes">Yes</label>  
-				</div>  
-				<div class="radio clearfix">
-					<input id="no" type="radio" name="gender" value="no">  
-		    	<label for="no">No</label> 
+		<!--If it is a field type TEXT -->
+
+<!--  		<div class="clearfix m25">
+			<label class="medium">Single Input Example</label>
+			<input type="number"></input>
+		</div>  -->
+
+		<!--If it is a field type TEXTAREA -->
+
+<!--  		<div class="clearfix m25">
+			<textarea></textarea>
+		</div> 
+ --> 
+		<!--If it is a field type COUNT -->
+
+			<!-- Capture mechanism: radio -->
+<!-- 	 		<div class="clearfix m25">
+				<div class="radio-selector">
+					<div class="radio clearfix">  
+			    	<input id="yes" type="radio" name="gender" value="yes">  
+			    	<label for="yes">Yes</label>  
+					</div>  
+					<div class="radio clearfix">
+						<input id="no" type="radio" name="gender" value="no">  
+			    	<label for="no">No</label> 
+					</div>
 				</div>
-			</div>
-		</div> -->
-
-		<!-- I it's a select -->
-<!--		<div class="clearfix m25">
-			<select class="form-control arrow">
-				<option>Option one</option>
-				<option>Option two</option>
-			</select>
-		</div> -->
+			</div> 
+ -->
+			<!-- Capture mechanism: dropdown -->
+<!-- 			<div class="clearfix m25">
+				<select class="form-control arrow">
+					<option>Option one</option>
+					<option>Option two</option>
+				</select>
+			</div> 
+ -->
+			<!-- Capture mechanism: checkbox -->
+<!-- 			<div class="clearfix m25 checkbox-selector">
+        <input type="checkbox" id="lala">
+        <label for="lala">Lala</label>
+        <input type="checkbox" id="lala2">
+        <label for="lala2">Lala2</label>
+      </div> -->
 	</form>
 </div>

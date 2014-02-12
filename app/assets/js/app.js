@@ -166,6 +166,13 @@ angular.module('brandscopicApp', [
                             }
             }
     })
+    .state('home.events.details.data.view', {
+      url: "/view",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_data_view.html",
+                              controller: 'EventsDataViewController'
+                            }
+            }
+    })
     .state('home.events.details.comments', {
       url: "/comments",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_comments.html",

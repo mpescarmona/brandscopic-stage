@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
     
@@ -858,7 +858,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsDataController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'EventsRestClient', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventsRestClient) {
+  .controller('EventsDataController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -872,9 +872,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
       , eventResultsData = []
-      , eventResults = new EventsRestClient.getEventResultsById(authToken, companyId, eventId)
-      , promiseResults = eventResults.getEventResultsById().$promise
-
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event) {
                                     $scope.event = event
@@ -888,24 +885,169 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                       , actions = { success: function(results) {
                                                                 $scope.eventResultsItems = results
-                                                                $scope.impressions = {}
-                                                                $scope.interactions = {}
-                                                                $scope.samples = {}
-                                                                for(var i = 0, item; item = results[i++];) {
-                                                                  if (item.name=='Impressions')
-                                                                    $scope.impressions = item
-                                                                  if (item.name=='Interactions')
-                                                                    $scope.interactions = item
-                                                                  if (item.name=='Samples')
-                                                                    $scope.samples = item
-                                                                }
-
                                                              }
                                       }
                                     Event.results(credentials, actions)
                     }
         }
    Event.find(credentials, actions)
+
+    $scope.updateEventData = function(results) {
+      var
+          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function (event) {
+                            $scope.event = event
+                            $location.path("/home/events/" + event.id + "/data/view")
+                      }
+                    , error: function (event_error) {
+                        $scope.event_error = event_error
+                         console.log(event_error)
+                      }
+                    }
+        , results_attributes = []
+
+      for(var i = 0, result; result = results[i++];) {
+        for(var j = 0, field; field = result.fields[j++];) {
+          if (field.field_type == 'percentage') {
+            for(var k = 0, segment; segment = field.segments[k++];) {
+              if (segment.value !== null)
+                results_attributes.push({'id': segment.id, 'value': segment.value})
+            }
+          }
+          if (field.field_type == 'number') {
+            if (field.value !== null)
+              results_attributes.push({'id': field.id, 'value': field.value})
+          }
+          if (field.field_type == 'text') {
+            if (field.value !== null)
+              results_attributes.push({'id': field.id, 'value': field.value})
+          }
+          if (field.field_type == 'count') {
+            if (field.options.capture_mechanism == "checkbox") {
+              var segmentIds = []
+              for(var k = 0, segment; segment = field.segments[k++];) {
+                if (segment.value !== null)
+                  segmentIds.push(segment.id)
+              }
+              if (segmentIds.length > 0)
+                results_attributes.push({'id': field.id, 'value': segmentIds})
+            } else {
+              for(var k = 0, segment; segment = field.segments[k++];) {
+                if (segment.value !== null) {
+                  results_attributes.push({'id': field.id, 'value': segment.id})
+                  break                        
+                }
+              }
+            }
+          }
+        }
+      }
+
+      var data = {
+                    "event": {
+                      "summary": $scope.event.summary,
+                      "results_attributes": results_attributes
+                    }
+                 }
+      Event.updateResults(credentials, actions, data)
+    }
+  }])
+
+  .controller('EventsDataViewController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    var
+        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data"}
+
+      , authToken = UserService.currentUser.auth_token
+      , companyId = CompanyService.getCompanyId()
+      , eventId = $stateParams.eventId
+      , eventResultsData = []
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+      , actions = { success: function(event) {
+                                    $scope.event = event
+
+                                    // Options for User Interface in home partial
+                                    ui.title = event.campaign ? event.campaign.name : "Data"
+                                    angular.extend(UserInterface, ui)
+                                    $scope.UserInterface = UserInterface
+
+                                    var
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                      , actions = { success: function(results) {
+                                                                // $scope.eventResultsItems = results
+                                                        var dataCategories = []
+                                                          , dataSource = []
+
+                                                        for(var i = 0, result; result = results[i++];) {
+                                                          if (result.module == 'consumer_reach') {
+                                                            for(var j = 0, field; field = result.fields[j++];) {
+                                                              dataCategories.push(field.name)
+                                                              dataSource.push(field.value)
+                                                            }
+                                                          }
+                                                        }
+
+
+                                                        $scope.impressionsChartConfig = {
+                                                            plotOptions: {
+                                                                bar: {
+                                                                    dataLabels: {
+                                                                        enabled: false
+                                                                    }
+                                                                }
+                                                                // },
+                                                            //     series: {
+                                                            //         stacking: 'percent',
+                                                            //         enableMouseTracking: false,
+                                                            //         pointPadding: 0,
+                                                            //         groupPadding: 0,
+                                                            //         borderWidth: 0,
+                                                            //         pointPadding: 0,
+                                                            //         pointWidth: 15,
+                                                            //         dataLabels: {
+                                                            //             color: '#3E9CCF',
+                                                            //             style: { fontSize: '11px' }
+                                                            //         }
+                                                            //     }
+                                                            },
+
+                                                            options: {
+                                                                chart: {
+                                                                    type: 'bar'
+                                                                }
+                                                            },
+                                                            // categories: ["21 - 24","25 - 34","35 - 44","45 - 54","55 - 64"],
+                                                            categories: dataCategories,
+                                                            series: [{
+                                                                // data: [10, 15, 12, 8, 7]
+                                                                data: dataSource
+                                                            }],
+                                                            title: {
+                                                                enabled: false,
+                                                                text: null
+                                                            },
+
+                                                            loading: false,
+                                                            legend: {enabled: false},
+                                                            credits: {enabled: false}
+                                                        }
+
+
+
+
+
+                                                  }
+                                      }
+                                    Event.results(credentials, actions)
+                    }
+        }
+  Event.find(credentials, actions)
+
 
   }])
 
@@ -930,12 +1072,12 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
                                     var
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                      , pepe = { success: function(comments) {
+                                      , action = { success: function(comments) {
                                                                   $scope.comments = comments
                                                              }
                                                 }
 
-                                    Comment.all(credentials, pepe)
+                                    Comment.all(credentials, action)
                               }
        }
     Event.find(credentials, actions)

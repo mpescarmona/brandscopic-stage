@@ -67,6 +67,28 @@ angular.module('model.event', ['persistence.event'])
           if (action) action(angular.copy(answer))
         }
       }
+      , updateResults = function (credentials, actions, attributes) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
+            if (Object.keys(attributes).length)
+              eventClient.updateResults(credentials
+                                 , attributes
+                                 , updateResultsResponse(actions.success)
+                                 , updateResultsResponse(actions.error)
+                                )
+      }
+      , updateResultsResponse = function (action) {
+        return function (resp) {
+          if (resp.status == 'Active')
+            if (! event || event && event.id == resp.id ) {
+              event = resp
+              collection = undefined
+            }
+
+          var answer = resp.id ? resp : resp.data
+
+          if (action) action(angular.copy(answer))
+        }
+      }
       , all = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
             if (collection && company_id == credentials.company_id)
@@ -145,6 +167,7 @@ angular.module('model.event', ['persistence.event'])
         , find: find
         , create: create
         , update: update
+        , updateResults: updateResults
         , search: search
         , results: results
       }

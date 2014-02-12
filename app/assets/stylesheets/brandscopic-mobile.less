@@ -118,6 +118,28 @@ body{
 		}
 	}
 
+	&.events{
+		ul.dropdown-menu{
+			top: 38px;
+			>li{
+				padding: 2px 8px;
+			  &:last-of-type{
+					border-bottom:0 !important;
+				}
+				&:hover{
+					background-color: @brand;
+					color: white;
+				}
+				a{
+					margin-left: 15px;
+				}
+				ul li{
+					border: 0;
+				}
+			}
+		}
+	}
+
 	&.event-description{
 		left:2%;
 		right: 2%;
