@@ -42,6 +42,7 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
     Event.find(credentials, actions)
 
     photosService.getPhotoAmazonAuth().then( function (response) {
+        debugger
         $scope.$emit("ADD_PHOTO", response)
         $scope.photoForm.key = $scope.photoName;
         $scope.photoForm.AWSAccessKeyId = response.fields.AWSAccessKeyId;
