@@ -55,6 +55,7 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
         $scope.photosCount = response.results.length;
         console.log($scope.photos)
     })
+    window['uploadNow'].bind({auth_token: UserService.currentUser.auth_token, company_id: CompanyService.getCompanyId(), event_id: $stateParams.eventId, url: 'http://stage.brandscopic.com/api/v1/events/'+ $stateParams.eventId +'/photos/form.json?'})
 }
 
 eventsPhotosCtrl.$inject = [

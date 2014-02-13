@@ -12,7 +12,7 @@
 	    <input type="hidden" name="Content-Type" value="image/jpeg">
 
 	    File to upload to S3: 
-	    <input name="file" type="file" ng-model="photoName"> 
+	    <input name="file" type="file" ng-model="photoName" data-aws=true> 
 	    <br> 
 	    <input type="submit" value="Upload File to S3"> 
 	</form>
@@ -24,14 +24,14 @@
 
 <div class="container">
 	<div class="box-container photos">
-		<div class="gallery">
+		<div class="gallery" id="event-gallery">
 			<ul>
 				<li ng-repeat="photo in photos">
 					<a href="#home/events/{{eventId}}/photos/slider"><img ng-src="{{ photo.file_medium }}"></a>
 				</li>
 			</ul>
 		</div>
-		<div class="dividersBar">{{ photosCount }}/div>
+		<div class="dividersBar">{{ photosCount }}</div>
 	</div>
 </div>
 
