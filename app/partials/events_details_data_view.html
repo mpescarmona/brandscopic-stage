@@ -5,99 +5,24 @@
 	<div class="box-container events">
 		<p class="small">{{event.summary}}</p>
 		<span class="blue full-comment" ng-click="expand = !expand" data-content-expanded="Collapse comment" data-content-collapsed="Show full comment"></span>
-
-        <div class="row">
-            <highchart id="impressionsChart" config="impressionsChartConfig" class="span10"></highchart>
-        </div>
-
-
-<!-- 		<br> 
+ 		<br> 
 		<ul class="stats">
-			<li>
+			<li ng-repeat="item in progressBarData">
 				<div class="row">
 					<div class="col-xs-6">
-						<p class="number">1,450</p>
-						<p class="category">IMPRESSIONS</p>
+						<p class="number">{{item.value}}</p>
+						<p class="category">{{item.name}}</p>
 					</div>
 					<div class="col-xs-6">
 						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
+						  <div class="progress-bar" role="progressbar" aria-valuenow="{{item.percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{item.percentage}}%;">
 						  </div>
 						</div>
 					</div>
 				</div>
 			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">1,450</p>
-						<p class="category">INFLUENCED</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">880</p>
-						<p class="category">SAMPLED</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">1,867</p>
-						<p class="category">SPENT</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">16</p>
-						<p class="category">PHOTOS</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-6">
-						<p class="number">10</p>
-						<p class="category">SURVEYS</p>
-					</div>
-					<div class="col-xs-6">
-						<div class="progress">
-						  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
-						  </div>
-						</div>
-					</div>
-				</div>
-			</li>
-		</ul> -->
+		</ul>
+
 		<ul class="stats simple mt20">
 			<li>
 				<div class="row">
@@ -135,21 +60,19 @@
 	<div class="box-container">
 		<div class="row sex">
 			<div class="col-xs-7 male blue">
-				<p class="percent">55%</p>
+				<p class="percent">{{Male}}%</p>
 				<h5 class="blue">MALE</h5>
 			</div>
 			<div class="col-xs-5 female blue">
-				<p class="percent">45%</p>
+				<p class="percent">{{Female}}%</p>
 				<h5 class="blue">FEMALE</h5>
 			</div>
 		</div>
-		<p>Here goes the age graph</p>
 		<div class="row highcharts-container">
-			<div class="age-graph"></div>
+            <highchart id="ageChart" config="ageChart" class="span10"></highchart>
 		</div>
-		<p>Here goes the ethnicity graph</p>
 		<div class="row highcharts-container">
-			<div id="ethnicity-graph"></div>
+            <highchart id="ethnicityChart" config="ethnicityChart" class="span10"></highchart>
 		</div>
 	</div>
 </div>
