@@ -34,7 +34,7 @@ var uploadNow = (function () {
         img.src = uri
         a.appendChild(img)
         li.appendChild(a)
-        document.body.getElementById(injectOn).appendChild(li)
+        document.getElementById(injectOn).appendChild(li)
         console.log('result of upload: ', uri);
     }
     , callback = function (blob, fileName) {
