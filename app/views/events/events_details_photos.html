@@ -1,31 +1,10 @@
 
 <!-- PHOTOS SECTION -->
 <div>
-<div scopicImage></div>
-	<form id="photoForm" action="https://brandscopic-stage.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
-	    <input type="hidden" name="key" value="{{ photoForm.key }}">
-	    <input type="hidden" name="AWSAccessKeyId" value="{{ photoForm.AWSAccessKeyId }}"> 
-	    <input type="hidden" name="acl" value="private">
-	    <input type="hidden" name="success_action_redirect" value="http://localhost/">
-	    <input type="hidden" name="policy" value="{{ photoForm.policy }}">
-	    <input type="hidden" name="signature" value="{{ photoForm.signature }}">
-	    <input type="hidden" name="Content-Type" value="image/jpeg">
-
-	    File to upload to S3: 
-	    <input name="file" type="file" ng-model="photoName" data-aws=true> 
-	    <br> 
-	    <input type="submit" value="Upload File to S3"> 
-	</form>
-</div>
-<div class="noButton addIcon pull-right fileUpload hidden">
-	<input type="file" class="upload" accept="image/*"/>
-</div>
-
-
 <div class="container">
 	<div class="box-container photos">
-		<div class="gallery" id="event-gallery">
-			<ul>
+		<div class="gallery">
+			<ul id="event-gallery">
 				<li ng-repeat="photo in photos">
 					<a href="#home/events/{{eventId}}/photos/slider"><img ng-src="{{ photo.file_medium }}"></a>
 				</li>
