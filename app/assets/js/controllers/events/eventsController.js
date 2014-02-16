@@ -1,4 +1,4 @@
-function eventsCtrl($scope, $state, snapRemote, UserService, CompanyService, UserInterface, Event) {
+function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
   if( !UserService.isLogged() ) {
     $state.go('login');
     return;
@@ -51,6 +51,7 @@ function eventsCtrl($scope, $state, snapRemote, UserService, CompanyService, Use
 eventsCtrl.$inject = [
   '$scope', 
   '$state', 
+  '$stateParams',
   'snapRemote', 
   'UserService', 
   'CompanyService',
