@@ -37,8 +37,32 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
     photosService.getPhotosList().then( function (response) {
         $scope.photos = response.results;
         $scope.photosCount = response.results.length;
+        $scope.hasPhotos =  (response.results.length && response.results.length > 0) ? true : false
         console.log($scope.photos)
     })
+    //slider
+    $scope.direction = 'left';
+    $scope.currentIndex = 0;
+
+    $scope.setCurrentSlideIndex = function (index) {
+        $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
+        $scope.currentIndex = index;
+    };
+
+    $scope.isCurrentSlideIndex = function (index) {
+        return $scope.currentIndex === index;
+    };
+
+    $scope.prevSlide = function () {
+        $scope.direction = 'left';
+        $scope.currentIndex = ($scope.currentIndex < $scope.photos.length - 1) ? ++$scope.currentIndex : 0;
+    };
+
+    $scope.nextSlide = function () {
+        $scope.direction = 'right';
+        $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.photos.length - 1;
+    };
+    //end slider
     window['uploadNow'].bind({auth_token: UserService.currentUser.auth_token, company_id: CompanyService.getCompanyId(), event_id: $stateParams.eventId, url: 'http://stage.brandscopic.com/api/v1/events/'+ $stateParams.eventId +'/photos/form.json?'})
 }
 
