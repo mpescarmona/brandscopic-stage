@@ -367,7 +367,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                         // workaround for remove the non 'Active' events
                         for(var i = 0, item; item = $scope.eventTeamItems[i++];) {
                           if (item.id == teamId) {
-                            $scope.eventTeamItems.splice(i-1, 1)
+                            $scope.eventTeamItems.splice(i - 1, 1)
                           }
                         }
 
