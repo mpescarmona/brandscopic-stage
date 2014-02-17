@@ -169,6 +169,15 @@ angular.module('model.event', ['persistence.event'])
               return false
             }
         }
+        , getAllowedActions = function () {
+            canDo = {}
+            if ('actions' in event) {
+               for (var i = 0, action; action = event.actions[i++];){
+                  canDo['can_' + action.replace(/ /g, '_')] = true
+              }
+            }
+            return canDo
+        }
 
       return {
           all: all
@@ -179,5 +188,6 @@ angular.module('model.event', ['persistence.event'])
         , search: search
         , results: results
         , can : can
+        , getAllowedActions : getAllowedActions
       }
   }])

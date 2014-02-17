@@ -30,7 +30,6 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
     Event.find(credentials, actions)
 
     $scope.$on('createPhoto', function (e, data) {
-      debugger
       Photos.create(credentials, actions, data)
     })
 

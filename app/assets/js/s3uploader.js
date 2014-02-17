@@ -60,7 +60,6 @@ var uploadNow = (function () {
             , xhr = new XMLHttpRequest()
 
           response.fields.key = [ 'uploads/', GUID(), '/', fileName ].join('')
-          debugger
           for (key in response.fields) {
             formData.append(key, response.fields[key])
           }

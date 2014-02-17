@@ -338,11 +338,11 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     // Options for User Interface in home partial
                                     ui.title = event.campaign ? event.campaign.name : "Event"
                                     angular.extend(UserInterface, ui)
+                                    angular.extend(UserInterface, Event.getAllowedActions())
                                     $scope.eventId = $stateParams.eventId
                                     $scope.UserInterface = UserInterface
                     }
         }
-        
 
    Event.find(credentials, actions)
   }])
