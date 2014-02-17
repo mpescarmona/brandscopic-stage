@@ -342,6 +342,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     $scope.UserInterface = UserInterface
                     }
         }
+        
 
    Event.find(credentials, actions)
   }])
@@ -1165,6 +1166,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
                                     // Options for User Interface in home partial
                                     ui.title = event.campaign ? event.campaign.name : "Comments"
+                                    ui.hasAddIcon = Event.can('gather comments')
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface;
 
@@ -1228,7 +1230,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"}
+        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasAddPhoto: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
                                     $scope.event = event;
