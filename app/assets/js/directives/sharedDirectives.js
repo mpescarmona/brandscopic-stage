@@ -50,4 +50,10 @@ angular.module('brandscopicApp.sharedDirectives', [])
             },
             templateUrl: 'views/directives/templates/typeahead.html'
         };
-    }]);
+    }])
+    
+    //.directive('whichTabs', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function ($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+        //"use strict";
+        //var whichTabs = $stateParams.actions
+        //console.log(wichTabs)
+    //}]);

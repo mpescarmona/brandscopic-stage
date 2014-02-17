@@ -5,7 +5,9 @@
 angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
-    
+    $scope.trigger = function (event, payload) {
+      $scope.$broadcast(event, payload);
+    }
   }])
 
   .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
@@ -197,9 +199,9 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                     }
 
       $scope.event.active = false
+      $scope.upload_photos = /upload photos/.test($scope.event.actions.join())
       Event.update(credentials, actions, $scope.event)
     }
-
   }])
 
   .controller('EventsAboutMapController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {

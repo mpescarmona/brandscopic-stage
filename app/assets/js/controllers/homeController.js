@@ -113,19 +113,6 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
         event.processed = true;
     });
 
-    function G() {
-        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
-    }
-
-    $scope.$watch('photoName', function (value){
-        if(value) {
-          console.log(value)
-          var guid = (G() + G() + "-" + G() + "-" + G() + "-" + G() + "-" + G() + G() + G()).toUpperCase();
-          $scope.photoForm.key = "uploads/" + guid + "/" + value.split(/(\\|\/)/g).pop()
-          sentForm()
-        }
-    })
-
   function sentForm() {
       var url = $scope.photoForm.url; // El script a dónde se realizará la petición.
       var formData = { 
