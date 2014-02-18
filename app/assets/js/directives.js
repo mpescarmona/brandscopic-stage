@@ -58,6 +58,17 @@ angular.module('brandscopicApp.directives', [])
     };
   })
 
+  .directive('headerSaveAction', function () {
+    return {
+      restrict: 'A',
+      link: function (scope, $el, attr) {
+        $el.on('click', function (e) {
+          $('[data-trigger-on-header=save]').first().click()
+        });
+      }
+    };
+  })
+
   .directive('redirectTo', function ($window) {
     return function (scope, el, attrs, ctrl) {
       el.on('click', function (e) {
