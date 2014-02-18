@@ -56,6 +56,7 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     $scope.event.active = false
     Event.update(credentials, actions, $scope.event)
   }
+
 }
 
 eventsCtrl.$inject = [

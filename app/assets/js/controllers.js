@@ -5,7 +5,9 @@
 angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
-    
+    $scope.trigger = function (event, payload) {
+      $scope.$broadcast(event, payload);
+    }
   }])
 
   .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
@@ -197,9 +199,9 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                     }
 
       $scope.event.active = false
+      $scope.upload_photos = /upload photos/.test($scope.event.actions.join())
       Event.update(credentials, actions, $scope.event)
     }
-
   }])
 
   .controller('EventsAboutMapController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
@@ -336,6 +338,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     // Options for User Interface in home partial
                                     ui.title = event.campaign ? event.campaign.name : "Event"
                                     angular.extend(UserInterface, ui)
+                                    angular.extend(UserInterface, Event.getAllowedActions())
                                     $scope.eventId = $stateParams.eventId
                                     $scope.UserInterface = UserInterface
                     }
@@ -402,7 +405,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
 
     var
-        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasEditIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
+        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasEditIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people", hasAddPhoto: false}
       , eventTeamData = []
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
@@ -1155,7 +1158,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: "home.events.details.comments.add"}
+        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: "home.events.details.comments.add", hasAddPhoto: false}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event) {
                                     $scope.event = event;
@@ -1163,6 +1166,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
                                     // Options for User Interface in home partial
                                     ui.title = event.campaign ? event.campaign.name : "Comments"
+                                    ui.hasAddIcon = Event.can('gather comments')
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface;
 
@@ -1226,7 +1230,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"}
+        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasAddPhoto: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
                                     $scope.event = event;
@@ -1376,60 +1380,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
        }
 
     Event.find(credentials, actions)
-
-  }])
-
-  .controller('EventsPhotoSliderController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
-
-    var
-        ui = {title: "", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: true, showEventSubNav: false, hasCustomHomeClass: true, CloseState: "home.events.details.photos", searching: false, eventSubNav: "photos"}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event){
-                                    $scope.event = event;
-
-                                    // Options for User Interface in home partial
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface;
-                                    $scope.eventId = $stateParams.eventId;
-
-                                    $scope.slides = [
-                                        {image: 'assets/images/img00.jpg', description: 'Image 00'},
-                                        {image: 'assets/images/img01.jpg', description: 'Image 01'},
-                                        {image: 'assets/images/img02.jpg', description: 'Image 02'},
-                                        {image: 'assets/images/img03.jpg', description: 'Image 03'},
-                                        {image: 'assets/images/img04.jpg', description: 'Image 04'}
-                                    ];
-
-                                    $scope.direction = 'left';
-                                    $scope.currentIndex = 0;
-
-                                    $scope.setCurrentSlideIndex = function (index) {
-                                        $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
-                                        $scope.currentIndex = index;
-                                    };
-
-                                    $scope.isCurrentSlideIndex = function (index) {
-                                        return $scope.currentIndex === index;
-                                    };
-
-                                    $scope.prevSlide = function () {
-                                        $scope.direction = 'left';
-                                        $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
-                                    };
-
-                                    $scope.nextSlide = function () {
-                                        $scope.direction = 'right';
-                                        $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
-                                    };
-                              }
-       }
-
-   Event.find(credentials, actions)
 
   }])
 

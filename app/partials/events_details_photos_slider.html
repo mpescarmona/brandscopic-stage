@@ -3,18 +3,18 @@
 <div class="gallery_fullscreen">
 <!-- <div class="container slider"> -->
   <div class="container slider">
-    <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage"
+    <img ng-repeat="photo in photos" class="slide slide-animation nonDraggableImage"
          ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
-         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
+         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{ photo.file_medium }}">
   </div>
   <!-- Container for the description of the photo -->
-  <div class="container description">
-    <h5>Mama Walker's MBN FY14</h5>
-    <p class="small mt5">
-      Fox and Hound Pub & Grill<br>
-      505 University Drive, College State, TX, United States
-    </p>
-    <hr>
-    <a href="#" class="deactivate"></a>
-  </div>
+  <!--<div class="container description">-->
+    <!--<h5>Mama Walker's MBN FY14</h5>-->
+    <!--<p class="small mt5">-->
+      <!--Fox and Hound Pub & Grill<br>-->
+      <!--505 University Drive, College State, TX, United States-->
+    <!--</p>-->
+    <!--<hr>-->
+    <!--<a href="#" class="deactivate"></a>-->
+  <!--</div>-->
 </div>
