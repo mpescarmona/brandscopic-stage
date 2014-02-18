@@ -2,240 +2,251 @@
 
 <div class="container">
 	<div class="box-container events surveys">
-		<h5>Demographics</h5>
-		<p class="mt20">Gender</p>
+		<form>
+			<h5>Demographics</h5>
 
-		<div class="radio-selector">
-			<div class="radio clearfix">  
-		    <input id="male" type="radio" name="gender" value="male">  
-		    <label for="male">Male</label>  
-			</div>  
-			<div class="radio clearfix">
-				<input id="female" type="radio" name="gender" value="female">  
-		    <label for="female">Female</label> 
-			</div> 
-		</div>
+			<p class="mt20">Gender</p>
 
-		<p class="mt25">Race/Ethnicity</p>
+			<!-- TODO: Make it work with ng-repeat. 
+				<div class="radio-selector">
+				<div class="radio clearfix" ng-repeat="gender in gendersList">  
+			    	<input id="{{ gender.key }}" type="radio" ng-model="genderSelected" value="{{ gender.key }}">  
+			    	<label for="{{ gender.key }}">{{ gender.value }}</label>  
+				</div>  
+			</div>-->
 
-		<div class="radio-selector">
-			<div class="radio clearfix">  
-		    <input id="african" type="radio" name="race" value="african">  
-		    <label for="african">African American</label>  
-			</div>  
-			<div class="radio clearfix">
-				<input id="asian" type="radio" name="race" value="asian">  
-		    <label for="asian">Asian</label> 
-			</div> 
-			<div class="radio clearfix">
-				<input id="hispanic" type="radio" name="race" value="hispanic">  
-		    <label for="hispanic">Hispanic Latino</label> 
-			</div> 
-			<div class="radio clearfix">
-				<input id="native" type="radio" name="race" value="native">  
-		    <label for="native">Native Americans</label> 
-			</div> 
-			<div class="radio clearfix">
-				<input id="white" type="radio" name="race" value="white">  
-		    <label for="white">White</label> 
-			</div> 
-		</div>
-
-		<p class="mt25">Age</p>
-
-		<div class="radio-selector">
-			<div class="radio clearfix">  
-		    <input id="18" type="radio" name="age" value="18">  
-		    <label for="18"><18</label>  
-			</div>  
-			<div class="radio clearfix">
-				<input id="19" type="radio" name="age" value="19">  
-		    <label for="19">19-24</label> 
-			</div> 
-			<div class="radio clearfix">
-				<input id="25" type="radio" name="age" value="25">  
-		    <label for="25">25-34</label> 
-			</div> 
-			<div class="radio clearfix">
-				<input id="35" type="radio" name="age" value="35">  
-		    <label for="35">35-44</label> 
-			</div> 
-			<div class="radio clearfix">
-				<input id="45" type="radio" name="age" value="45">  
-		    <label for="45">45-54</label> 
-			</div> 
-			<div class="radio clearfix">
-				<input id="55" type="radio" name="age" value="55">  
-		    <label for="55">55-64</label> 
-			</div> 
-			<div class="radio clearfix">
-				<input id="65" type="radio" name="age" value="65">  
-		    <label for="65">65+</label> 
-			</div> 
-		</div>
-
-		<p class="mt25">Home Zip Code</p>
-		<input type="number" name="zipcode" class="short m10">
-
-		<h5 class="mt48">Competitive awarenes & Usage</h5>
-		<p class="medium m10">For each of the following brands, please let us know if you have purchased the product in the last 12 montsh, are aware of the product, or are unaware of the product.</p>
-
-		<ul class="radio-selector table">
-			<li>
-				<div class="row fl">
-					<div class="col-xs-3"></div>
-					<div class="col-xs-3">PURCHASED</div>
-					<div class="col-xs-3">AWARE</div>
-					<div class="col-xs-3">UNAWARE</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-3 txtAdjust">Absolut</div>
-					<div class="col-xs-3">
-						<input id="purchased" type="radio" name="absolut" value="purchased">  
-		    		<label for="purchased">Purchased</label> 
-					</div>
-					<div class="col-xs-3">
-						<input id="aware" type="radio" name="absolut" value="aware">  
-		    		<label for="aware">Aware</label> 
-					</div>
-					<div class="col-xs-3">
-						<input id="unaware" type="radio" name="absolut" value="unaware">  
-		    		<label for="unaware">Unaware</label> 
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-3 txtAdjust">Ballantines</div>
-					<div class="col-xs-3">
-						<input id="purchased" type="radio" name="purchased" value="purchased">  
-		    		<label for="purchased">Purchased</label> 
-					</div>
-					<div class="col-xs-3">
-						<input id="aware" type="radio" name="aware" value="aware">  
-		    		<label for="aware">Aware</label> 
-					</div>
-					<div class="col-xs-3">
-						<input id="unaware" type="radio" name="unaware" value="unaware">  
-		    		<label for="unaware">Unaware</label> 
-					</div>
-				</div>
-			</li>
-			<li>
-				<div class="row">
-					<div class="col-xs-3 txtAdjust">Chivas Regal</div>
-					<div class="col-xs-3">
-						<input id="purchased" type="radio" name="purchased" value="purchased">  
-		    		<label for="purchased">Purchased</label> 
-					</div>
-					<div class="col-xs-3">
-						<input id="aware" type="radio" name="aware" value="aware">  
-		    		<label for="aware">Aware</label> 
-					</div>
-					<div class="col-xs-3">
-						<input id="unaware" type="radio" name="unaware" value="unaware">  
-		    		<label for="unaware">Unaware</label> 
-					</div>
-				</div>
-			</li>
-		</ul>
-
-		<p class="medium mt25">For each brand you have used, approximately how much do you spend each month?</p>
-
-		<div class="mt25 clearfix">
-			<label class="short txtAdjust">Absolut</label>
-			<div class="input-group">
-			  <span class="input-group-addon">$</span>
-			  <input type="number" class="form-control" placeholder="0.00">
+			<div class="radio-selector">
+				<div class="radio clearfix">  
+			    	<input id="male" type="radio" ng-model="genderSelected" name="genderMale" value="{{ scopic.consts.surveys_question_gender.MALE }}">  
+			    	<label for="male">Male</label>  
+				</div>  
+				<div class="radio clearfix">
+					<input id="female" type="radio" ng-model="genderSelected" name="genderFemale" value="{{ scopic.consts.surveys_question_gender.FEMALE }}">  
+			    	<label for="female">Female</label> 
+				</div> 
 			</div>
-		</div>
-		<div class="mt25 clearfix">
-			<label class="short txtAdjust">Chivas Regal</label>
-			<div class="input-group">
-			  <span class="input-group-addon">$</span>
-			  <input type="number" class="form-control" placeholder="0.00">
+
+			<p class="mt25">Race/Ethnicity</p>
+
+			<!--<div class="radio-selector">
+				<div class="radio clearfix" ng-repeat="race in racesList">  
+			    	<input id="{{ race.key }}" type="radio" ng-model="raceSelected" value="{{ race.key }}">  
+			    	<label for="{{ race.key }}">{{ race.value }}</label>  
+				</div>  
+			</div>-->
+
+			<div class="radio-selector">
+				<div class="radio clearfix">  
+			    	<input id="african" type="radio" ng-model="raceSelected" value="{{ scopic.consts.surveys_question_race.ASIAN }}">  
+			    	<label for="african">African American</label>  
+				</div>  
+				<div class="radio clearfix">
+					<input id="asian" type="radio" ng-model="raceSelected" value="{{ scopic.consts.surveys_question_race.BLACK }}">  
+			    	<label for="asian">Asian</label> 
+				</div> 
+				<div class="radio clearfix">
+					<input id="hispanic" type="radio" ng-model="raceSelected" value="{{ scopic.consts.surveys_question_race.LATINO }}">  
+			    	<label for="hispanic">Hispanic Latino</label> 
+				</div> 
+				<div class="radio clearfix">
+					<input id="native" type="radio" ng-model="raceSelected" value="{{ scopic.consts.surveys_question_race.AMERICAN }}">  
+			    	<label for="native">Native Americans</label> 
+				</div> 
+				<div class="radio clearfix">
+					<input id="white" type="radio" ng-model="raceSelected" value="{{ scopic.consts.surveys_question_race.WHITE }}">  
+			    	<label for="white">White</label> 
+				</div> 
 			</div>
-		</div>
 
-		<!-- CONVERSION LIKEHOOD -->
+			<p class="mt25">Age</p>
 
-		<h5 class="clearfix mt48">Conversion likehood</h5>
-		<p class="medium m10">For each of the following brands, please let us know how likely you are to purchase the brand in the next 12 months.</p>
+			<!--<div class="radio-selector">
+				<div class="radio clearfix" ng-repeat="age in agesList">  
+			    	<input id="{{ age.key }}" type="radio" ng-model="age" value="{{ age.key }}">  
+			    	<label for="{{ age.key }}">{{ age.value }}</label>  
+				</div>
+			</div>-->
 
-		<div class="mt25">
-			<label class="short txtAdjust">Absolut</label>
-			<select class="form-control arrows">
-				<option value="" disabled selected>Choose option</option>
-	      <option>1 - VERY UNLIKELY</option>
-	      <option>2</option>
-				<option>3</option>
-	      <option>4</option>
-	      <option>5 - VERY LIKELY</option>
-	    </select>
-  	</div>
+			<div class="radio-selector">
+				<div class="radio clearfix">  
+			    	<input id="0" type="radio" ng-model="ageSelected" value="{{ scopic.consts.surveys_question_age.LESS12 }}">  
+			    	<label for="0"><12</label>  
+				</div>  
+				<div class="radio clearfix">  
+			    	<input id="12" type="radio" ng-model="ageSelected" value="{{ scopic.consts.surveys_question_age.BETWEEN_12_17}}">  
+			    	<label for="12">12-17</label>  
+				</div>  
+				<div class="radio clearfix">
+					<input id="18" type="radio" ng-model="ageSelected" value="{{ scopic.consts.surveys_question_age.BETWEEN_18_20 }}">  
+			    	<label for="18">18-20</label> 
+				</div> 
+				<div class="radio clearfix">
+					<input id="21" type="radio" ng-model="ageSelected" value="{{ scopic.consts.surveys_question_age.BETWEEN_21_24 }}">  
+			    	<label for="21">21-24</label> 
+				</div> 
+				<div class="radio clearfix">
+					<input id="25" type="radio" ng-model="ageSelected" value="{{ scopic.consts.surveys_question_age.BETWEEN_25_34 }}">  
+			    	<label for="25">25-34</label> 
+				</div> 
+				<div class="radio clearfix">
+					<input id="35" type="radio" ng-model="ageSelected" value="{{ scopic.consts.surveys_question_age.BETWEEN_35_44 }}">  
+			    	<label for="35">35-44</label> 
+				</div> 
+				<div class="radio clearfix">
+					<input id="45" type="radio" ng-model="ageSelected" value="{{ scopic.consts.surveys_question_age.BETWEEN_45_54 }}">  
+			    	<label for="45">45-54</label> 
+				</div> 
+				<div class="radio clearfix">
+					<input id="55" type="radio" ng-model="ageSelected" value="{{ scopic.consts.surveys_question_age.BETWEEN_55_64 }}">  
+			    	<label for="55">55-64</label> 
+				</div> 
+				<div class="radio clearfix">
+					<input id="65" type="radio" ng-model="ageSelected" value="{{ scopic.consts.surveys_question_age.MORE_65 }}">  
+			    	<label for="65">65+</label> 
+				</div> 
+			</div> 
 
-  	<div class="mt25">
-			<label class="short txtAdjust">Ballantines</label>
-			<select class="form-control arrows">
-				<option value="" disabled selected>Choose option</option>
-	      <option>1 - VERY UNLIKELY</option>
-	      <option>2</option>
-				<option>3</option>
-	      <option>4</option>
-	      <option>5 - VERY LIKELY</option>
-	    </select>
-	  </div>
+			<p class="mt25">Home Zip Code</p>
+			<input type="number" name="zipcode" class="short m10">
 
-	  <div class="mt25">
-			<label class="short txtAdjust">Chivas Regal</label>
-			<select class="form-control arrows">
-				<option value="" disabled selected>Choose option</option>
-	      <option>1 - VERY UNLIKELY</option>
-	      <option>2</option>
-				<option>3</option>
-	      <option>4</option>
-	      <option>5 - VERY LIKELY</option>
-	    </select>
-	  </div>
+			<h5 class="mt48">Competitive awarenes & Usage</h5>
+			<p class="medium m10">For each of the following brands, please let us know if you have purchased the product in the last 12 montsh, are aware of the product, or are unaware of the product.</p>
 
-		<p class="medium mt25">How likely are you to recommend the brand to a friend?</p>
+			<ul class="radio-selector table">
+				<li>
+					<div class="row fl">
+						<div class="col-xs-3"></div>
+						<div class="col-xs-3">PURCHASED</div>
+						<div class="col-xs-3">AWARE</div>
+						<div class="col-xs-3">UNAWARE</div>
+					</div>
+				</li>
+				<li>
+					<div class="row">
+						<div class="col-xs-3 txtAdjust">Absolut</div>
+						<div class="col-xs-3">
+							<input id="brand1Purchased" type="radio" ng-model="answerQuestion1Brand1" value="purchased">
+			    			<label for="brand1Purchased">Purchased</label>
+						</div>
+						<div class="col-xs-3">
+							<input id="brand1Aware" type="radio" ng-model="answerQuestion1Brand1" value="aware">
+			    			<label for="brand1Aware">Aware</label>
+						</div>
+						<div class="col-xs-3">
+							<input  id="brand1Unaware" type="radio" ng-model="answerQuestion1Brand1" value="unaware">
+			    			<label for="brand1Unaware">Unaware</label> 
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="row">
+						<div class="col-xs-3 txtAdjust">Ballantines</div>
+						<div class="col-xs-3">
+							<input id="brand2Purchased" type="radio" ng-model="answerQuestion1Brand2" value="purchased">  
+			    			<label for="brand2Purchased">Purchased</label> 
+						</div>
+						<div class="col-xs-3">
+							<input id="brand2Aware" type="radio" ng-model="answerQuestion1Brand2" value="aware">  
+			    			<label for="brand2Aware">Aware</label> 
+						</div>
+						<div class="col-xs-3">
+							<input id="brand2Unaware" type="radio" ng-model="answerQuestion1Brand2" value="unaware">  
+			    			<label for="brand2Unaware">Unaware</label> 
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="row">
+						<div class="col-xs-3 txtAdjust">Chivas Regal</div>
+						<div class="col-xs-3">
+							<input id="brand3Purchased" type="radio" ng-model="answerQuestion1Brand3" value="purchased">  
+			    			<label for="brand3Purchased">Purchased</label> 
+						</div>
+						<div class="col-xs-3">
+							<input id="brand3Aware" type="radio" ng-model="answerQuestion1Brand3" value="aware">  
+			    			<label for="bran3Aware">Aware</label> 
+						</div>
+						<div class="col-xs-3">
+							<input id="brand3Unaware" type="radio" ng-model="answerQuestion1Brand3" value="unaware">  
+			    			<label for="brand3Unaware">Unaware</label> 
+						</div>
+					</div>
+				</li>
+			</ul>
 
-		<div class="mt25">
-			<label class="short txtAdjust">Absolut</label>
-			<select class="form-control arrows">
-				<option value="" disabled selected>Choose option</option>
-	      <option>1 - VERY UNLIKELY</option>
-	      <option>2</option>
-				<option>3</option>
-	      <option>4</option>
-	      <option>5 - VERY LIKELY</option>
-	    </select>
-  	</div>
+			<p class="medium mt25">For each brand you have used, approximately how much do you spend each month?</p>
 
-    <div class="mt25">
-			<label class="short txtAdjust">Ballantines</label>
-			<select class="form-control arrows">
-				<option value="" disabled selected>Choose option</option>
-	      <option>1 - VERY UNLIKELY</option>
-	      <option>2</option>
-				<option>3</option>
-	      <option>4</option>
-	      <option>5 - VERY LIKELY</option>
-	    </select>
-  	</div>
+			<div class="mt25 clearfix">
+				<label class="short txtAdjust">Absolut</label>
+				<div class="input-group">
+				    <span class="input-group-addon">$</span>
+				    <input type="number" class="form-control" placeholder="0.00" ng-model="answerQuestion2Brand1">
+				</div>
+			</div>
 
-    <div class="mt25">
-			<label class="short txtAdjust">Chivas Regal</label>
-			<select class="form-control arrows">
-				<option value="" disabled selected>Choose option</option>
-	      <option>1 - VERY UNLIKELY</option>
-	      <option>2</option>
-				<option>3</option>
-	      <option>4</option>
-	      <option>5 - VERY LIKELY</option>
-	    </select>
-	  </div>
+			<div class="mt25 clearfix">
+				<label class="short txtAdjust">Chivas Regal</label>
+				<div class="input-group">
+				    <span class="input-group-addon">$</span>
+				    <input type="number" class="form-control" placeholder="0.00" g-model="answerQuestion2Brand2">
+				</div>
+			</div>
+
+			<!-- CONVERSION LIKEHOOD -->
+
+			<h5 class="clearfix mt48">Conversion likehood</h5>
+			<p class="medium m10">For each of the following brands, please let us know how likely you are to purchase the brand in the next 12 months.</p>
+
+			<div class="mt25">
+				<label class="short txtAdjust">Absolut</label>
+				<select class="form-control arrows"
+						ng-model="answerQuestion3Brand1"
+					    ng-options="likehood.key as likehood.value for likehood in likehoodList">
+		    	</select>
+		  	</div>
+
+		  	<div class="mt25">
+				<label class="short txtAdjust">Ballantines</label>
+				<select class="form-control arrows"
+						ng-model="answerQuestion3Brand2"
+					    ng-options="likehood.key as likehood.value for likehood in likehoodList">
+		    	</select>
+			</div>
+
+			<div class="mt25">
+				<label class="short txtAdjust">Chivas Regal</label>
+				<select class="form-control arrows"
+						ng-model="answerQuestion3Brand3"
+					    ng-options="likehood.key as likehood.value for likehood in likehoodList">
+		    	</select>
+			</div>
+
+			<p class="medium mt25">How likely are you to recommend the brand to a friend?</p>
+
+			<div class="mt25">
+				<label class="short txtAdjust">Absolut</label>
+				<select class="form-control arrows"
+						ng-model="answerQuestion4Brand1"
+					    ng-options="likehood.key as likehood.value for likehood in likehoodList">
+		    	</select>
+			</div>
+
+		    <div class="mt25">
+				<label class="short txtAdjust">Ballantines</label>
+				<select class="form-control arrows"
+						ng-model="answerQuestion4Brand2"
+					    ng-options="likehood.key as likehood.value for likehood in likehoodList">
+		    	</select>
+		  	</div>
+
+		    <div class="mt25">
+				<label class="short txtAdjust">Chivas Regal</label>
+				<select class="form-control arrows"
+						ng-model="answerQuestion4Brand3"
+					    ng-options="likehood.key as likehood.value for likehood in likehoodList">
+		    	</select>
+			</div>
+			<button id="buttonSave" class="btn btn-danger" ng-click="createSurvey()">Save</button>
+		</form>
 	</div>
 </div>

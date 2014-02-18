@@ -1,4 +1,4 @@
-function eventsSurveysAddController($scope, $state, $stateParams, snapRemote, UserService, UserInterface, Event) {
+function eventsSurveysController($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, surveysService, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -6,12 +6,14 @@ function eventsSurveysAddController($scope, $state, $stateParams, snapRemote, Us
     snapRemote.close()
 
     var
-        ui = {title: "Survey", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, searching: false, eventSubNav: "expenses", AddIconState: ""}
+        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "surveys",  AddIconState: "home.events.details.surveys.add"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
+                                    console.log(event)
                                     $scope.event = event;
 
                                     // Options for User Interface in home partial
+                                    ui.title = event.campaign ? event.campaign.name : "Surveys"
                                     angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface;
                                     $scope.eventId = $stateParams.eventId;
@@ -19,14 +21,20 @@ function eventsSurveysAddController($scope, $state, $stateParams, snapRemote, Us
        }
 
     Event.find(credentials, actions)
+
+    surveysService.getSurveysList().then( function (response){
+        console.log(response);
+    });
 }
 
-eventsSurveysAddController.$inject = [
+eventsSurveysController.$inject = [
   '$scope', 
   '$state', 
   '$stateParams', 
   'snapRemote', 
   'UserService', 
+  'CompanyService', 
   'UserInterface', 
+  'surveysService',
   'Event'
 ];

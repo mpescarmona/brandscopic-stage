@@ -21,7 +21,9 @@ angular.module('brandscopicApp', [
   'ui.bootstrap',
   'ngMap',
   'model.photos',
-  'persistence.photos'
+  'persistence.photos',
+  'model.surveys',
+  'persistence.surveys'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
   //
