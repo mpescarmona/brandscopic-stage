@@ -143,6 +143,15 @@ body{
 		}
 	}
 
+	&.events-list{
+		border-bottom: 1px solid red;
+		border-radius: 0;
+		margin: 0;
+		&:last-child{
+			border: 0;
+		}
+	}
+
 	&.event-description{
 		left:2%;
 		right: 2%;
@@ -341,6 +350,7 @@ body{
 	.comment-date{
 		color: @brand;
 		float: right;
+		margin-bottom: 5px;
 		text-align: right;
 		width: 30%;
 	}
@@ -773,7 +783,24 @@ body{
 			}
 		}		
 	}
+}
 
+/*-- Events list --*/
+
+.box-container.events-list{
+	&:first-of-type{
+		.border-top-radius(6px);		
+	}
+	&:last-of-type{
+	  .border-bottom-radius(6px);		
+	}
+}
+
+.box-container.events-list, .dividersBar.ng-hide + .box-container.events-list{
+	border-top: 1px solid @borders;
+}
+.dividersBar + .box-container.events-list{
+	border-top: 0px solid @borders;
 }
 
 /* -- STATUS BAR -- */
