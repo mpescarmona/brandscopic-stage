@@ -89,14 +89,17 @@ angular.module('model.event', ['persistence.event'])
           if (action) action(angular.copy(answer))
         }
       }
-      , all = function (credentials, actions) {
+      , all = function (credentials, actions, options) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
-            if (collection && company_id == credentials.company_id)
-              actions.success(collection, filters)
-            else {
-              company_id = credentials.company_id
+            if (options && 'force' in options && options.force) 
               eventClient.all(credentials, allResponse(actions))
-            }
+            else
+              if (collection && company_id == credentials.company_id)
+                actions.success(collection, filters)
+              else {
+                company_id = credentials.company_id
+                eventClient.all(credentials, allResponse(actions))
+              }
           } else
             throw 'Wrong set of credentials'
 
@@ -152,15 +155,32 @@ angular.module('model.event', ['persistence.event'])
         }
 
         , searchResponse = function (actions) {
-          return function (resp) {
-            if (resp) {
-              actions.success(angular.copy(resp))
-            }
-            else
-              throw 'results missing on response'
+            return function (resp) {
+              if (resp) {
+                actions.success(angular.copy(resp))
+              }
+              else
+                throw 'results missing on response'
 
-          }
+            }
       }
+        ,  can = function (can) {
+            if ('actions' in event) {
+              for (var i = 0, action; action = event.actions[i++];){
+                if (can == action) return true
+              }
+              return false
+            }
+        }
+        , getAllowedActions = function () {
+            canDo = {}
+            if ('actions' in event) {
+               for (var i = 0, action; action = event.actions[i++];){
+                  canDo['can_' + action.replace(/ /g, '_')] = true
+              }
+            }
+            return canDo
+        }
 
       return {
           all: all
@@ -170,5 +190,7 @@ angular.module('model.event', ['persistence.event'])
         , updateResults: updateResults
         , search: search
         , results: results
+        , can : can
+        , getAllowedActions : getAllowedActions
       }
   }])

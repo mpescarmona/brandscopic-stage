@@ -1,8 +1,7 @@
   <div class="navHeader" ng-controller="navbarCtrl" ng-class="{gallery: UserInterface.hasCustomHomeClass}">
     <div class="left">
       <button snap-toggle class="noButton menuIcon pull-left" ng-show="UserInterface.hasMenuIcon"></button>
-      <button snap-toggle class="noButton delete pull-left" ng-show="UserInterface.hasDeleteIcon"></button>
-      <button snap-toggle class="noButton backIcon pull-left" ng-show="UserInterface.hasBackIcon"></button>
+      <button class="noButton pull-left" ng-class="{delete: UserInterface.hasDeleteIcon, backIcon: UserInterface.hasBackIcon}" ng-show="UserInterface.hasDeleteIcon"></button>
     </div>
     <div class="center">
       <h1 class="txtAdjust">{{UserInterface.title}}</h1>
