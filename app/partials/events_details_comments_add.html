@@ -8,11 +8,8 @@
       <span ng-show="comment_error.content" ng-class="{error: comment_error.content}" ng-model="comment_error.content">{{comment_error.content.join()}}</span>        
     </div>
     <div class="row">
-      <div class="col-xs-12 mt20">
-        <label>Save</label>
-      </div>
       <div class="col-xs-12">
-        <input type="submit" value="save" class="btn btn-danger" ng-click="createComment(comment)">
+        <input type="submit" value="save" class="hide" data-trigger-on-header='save' class="btn btn-danger" ng-click="createComment(comment)">
       </div>
     </div>
   </form>

@@ -55,7 +55,7 @@
         <input type="file" class="upload" accept="image/*"/>
       </div>
 
-      <button id="buttonSave" class="btn btn-danger" ng-disabled="isEventCompleted" ng-show="UserInterface.hasSaveIcon" ng-click="CreateEventView()">Save</button>
+      <button id="buttonSave" class="btn btn-danger" ng-show="UserInterface.hasSaveIcon" header-save-action>Save</button>
 
       <button class="btn btn-grey" ng-show="UserInterface.hasEditIcon" redirect-to="{{UserInterface.EditIconUrl}}">Edit</button>
       <button class="btn btn-grey" ng-show="UserInterface.hasCancelIcon">Cancel</button>
