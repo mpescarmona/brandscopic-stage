@@ -771,6 +771,24 @@ body{
 
 /*-- Events list --*/
 
+.container.events-list{
+	.dividersBar{
+		height: 26px;
+		line-height: 33px;
+		margin-top: -6px;
+		&:before{
+			border-radius: 0 0 6px 6px;
+		  display:block;
+		  height: 6px;
+		  width: 100%;
+		  content: " ";
+		  background: #fff;
+		  position: absolute;
+		  //z-index: 9999999999999999999;
+		}
+	}
+}
+
 .box-container.events-list{
 	.eventDescription{
 		margin-top: 11px;
@@ -783,23 +801,9 @@ body{
 	font-weight: 400;
 	text-align: center;
 	text-transform: uppercase;
-	margin-top: -6px;
   position: relative;
   display: block;
   background: #ebeae6;
-	height: 26px;
-	line-height: 33px;
-}
-
-.dividersBar:before{
-	border-radius: 0 0 6px 6px;
-  display:block;
-  height: 6px;
-  width: 100%;
-  content: " ";
-  background: #fff;
-  position: absolute;
-  //z-index: 9999999999999999999;
 }
 
 .dividersBar.big{
