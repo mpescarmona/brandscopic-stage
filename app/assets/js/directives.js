@@ -69,6 +69,17 @@ angular.module('brandscopicApp.directives', [])
     };
   })
 
+  .directive('headerBackAction', function ($window) {
+    return {
+      restrict: 'A',
+      link: function (scope, $el, attr) {
+        $el.on('click', function (e) {
+          $window.history.back()
+        });
+      }
+    };
+  })
+
   .directive('redirectTo', function ($window) {
     return function (scope, el, attrs, ctrl) {
       el.on('click', function (e) {

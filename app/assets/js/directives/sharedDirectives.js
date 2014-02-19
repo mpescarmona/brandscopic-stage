@@ -50,4 +50,5 @@ angular.module('brandscopicApp.sharedDirectives', [])
             },
             templateUrl: 'views/directives/templates/typeahead.html'
         };
-    }]);
+    }])
+
