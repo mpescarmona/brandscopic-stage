@@ -871,640 +871,640 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     var
         ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data", hasAddPhoto: false}
 
-      , authToken = UserService.currentUser.auth_token
-      , companyId = CompanyService.getCompanyId()
-      , eventId = $stateParams.eventId
-      , eventResultsData = []
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event) {
-                                    $scope.event = event
+        , authToken = UserService.currentUser.auth_token
+        , companyId = CompanyService.getCompanyId()
+        , eventId = $stateParams.eventId
+        , eventResultsData = []
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event) {
+                                      $scope.event = event
 
-                                    // Options for User Interface in home partial
-                                    ui.title = event.campaign ? event.campaign.name : "Data"
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface
+                                      // Options for User Interface in home partial
+                                      ui.title = event.campaign ? event.campaign.name : "Data"
+                                      angular.extend(UserInterface, ui)
+                                      $scope.UserInterface = UserInterface
 
-                                    var
-                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                      , actions = { success: function(results) {
-                                                                $scope.eventResultsItems = results
-                                                             }
-                                      }
-                                    Event.results(credentials, actions)
-                    }
-        }
-   Event.find(credentials, actions)
-
-    $scope.updateEventData = function(results) {
-      var
-          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-        , actions = { success: function (event) {
-                            $scope.event = event
-                            $location.path("/home/events/" + event.id + "/data/view")
+                                      var
+                                          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                        , actions = { success: function(results) {
+                                                                  $scope.eventResultsItems = results
+                                                               }
+                                        }
+                                      Event.results(credentials, actions)
                       }
-                    , error: function (event_error) {
-                        $scope.event_error = event_error
-                         console.log(event_error)
-                      }
-                    }
-        , results_attributes = []
+          }
+     Event.find(credentials, actions)
 
-      for(var i = 0, result; result = results[i++];) {
-        for(var j = 0, field; field = result.fields[j++];) {
-          if (field.field_type == 'percentage') {
-            for(var k = 0, segment; segment = field.segments[k++];) {
-              if (segment.value !== null)
-                results_attributes.push({'id': segment.id, 'value': segment.value})
-            }
-          }
-          if (field.field_type == 'number') {
-            if (field.value !== null)
-              results_attributes.push({'id': field.id, 'value': field.value})
-          }
-          if (field.field_type == 'text') {
-            if (field.value !== null)
-              results_attributes.push({'id': field.id, 'value': field.value})
-          }
-          if (field.field_type == 'count') {
-            if (field.options.capture_mechanism == "checkbox") {
-              var segmentIds = []
+      $scope.updateEventData = function(results) {
+        var
+            credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+          , actions = { success: function (event) {
+                              $scope.event = event
+                              $location.path("/home/events/" + event.id + "/data/view")
+                        }
+                      , error: function (event_error) {
+                          $scope.event_error = event_error
+                           console.log(event_error)
+                        }
+                      }
+          , results_attributes = []
+
+        for(var i = 0, result; result = results[i++];) {
+          for(var j = 0, field; field = result.fields[j++];) {
+            if (field.field_type == 'percentage') {
               for(var k = 0, segment; segment = field.segments[k++];) {
                 if (segment.value !== null)
-                  segmentIds.push(segment.id)
+                  results_attributes.push({'id': segment.id, 'value': segment.value})
               }
-              if (segmentIds.length > 0)
-                results_attributes.push({'id': field.id, 'value': segmentIds})
-            } else {
-              for(var k = 0, segment; segment = field.segments[k++];) {
-                if (segment.value !== null) {
-                  results_attributes.push({'id': field.id, 'value': segment.id})
-                  break                        
+            }
+            if (field.field_type == 'number') {
+              if (field.value !== null)
+                results_attributes.push({'id': field.id, 'value': field.value})
+            }
+            if (field.field_type == 'text') {
+              if (field.value !== null)
+                results_attributes.push({'id': field.id, 'value': field.value})
+            }
+            if (field.field_type == 'count') {
+              if (field.options.capture_mechanism == "checkbox") {
+                var segmentIds = []
+                for(var k = 0, segment; segment = field.segments[k++];) {
+                  if (segment.value !== null)
+                    segmentIds.push(segment.id)
+                }
+                if (segmentIds.length > 0)
+                  results_attributes.push({'id': field.id, 'value': segmentIds})
+              } else {
+                for(var k = 0, segment; segment = field.segments[k++];) {
+                  if (segment.value !== null) {
+                    results_attributes.push({'id': field.id, 'value': segment.id})
+                    break                        
+                  }
                 }
               }
             }
           }
         }
+
+        var data = {
+                      "event": {
+                        "summary": $scope.event.summary,
+                        "results_attributes": results_attributes
+                      }
+                   }
+        Event.updateResults(credentials, actions, data)
       }
+    }])
 
-      var data = {
-                    "event": {
-                      "summary": $scope.event.summary,
-                      "results_attributes": results_attributes
-                    }
-                 }
-      Event.updateResults(credentials, actions, data)
-    }
-  }])
+    .controller('EventsDataViewController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
+      snapRemote.close()
 
-  .controller('EventsDataViewController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
+      var
+          ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data"}
 
-    var
-        ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data"}
+        , authToken = UserService.currentUser.auth_token
+        , companyId = CompanyService.getCompanyId()
+        , eventId = $stateParams.eventId
+        , eventResultsData = []
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event) {
+                                      $scope.event = event
 
-      , authToken = UserService.currentUser.auth_token
-      , companyId = CompanyService.getCompanyId()
-      , eventId = $stateParams.eventId
-      , eventResultsData = []
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event) {
-                                    $scope.event = event
+                                      // Options for User Interface in home partial
+                                      ui.title = event.campaign ? event.campaign.name : "Data"
+                                      angular.extend(UserInterface, ui)
+                                      $scope.UserInterface = UserInterface
 
-                                    // Options for User Interface in home partial
-                                    ui.title = event.campaign ? event.campaign.name : "Data"
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface
-
-                                    var
-                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                      , actions = { success: function(results) {
-                                                        var dataAgeCategories = []
-                                                          , dataAgeSource = []
-                                                          , gapAgeValue = []
-                                                          , progressBarData = []
-                                                          , ethnicData = []
-                                                          , male = 0
-                                                          , female = 0
-
-                                                        for(var i = 0, result; result = results[i++];) {
-                                                          // Get consumer reach values
-                                                          if (result.module == 'consumer_reach') {
-                                                            for(var j = 0, field; field = result.fields[j++];) {
-                                                              if (field.goal && field.goal !== null) {
-                                                                progressBarData.push( {value: field.value, name: field.name, percentage: (field.value * 100 / parseInt(field.goal))} )
-                                                              }
-                                                            }
-                                                          }
-                                                          if (result.module == 'demographics') {
-                                                            for(var j = 0, field; field = result.fields[j++];) {
-                                                              // Get Male and Female percentages
-                                                              if (field.name == 'Gender') {
-                                                                for(var k = 0, segment; segment = field.segments[k++];) {
-                                                                  if (segment.text == 'Male')
-                                                                    male = segment.value
-                                                                  if (segment.text == 'Female')
-                                                                    female = segment.value
-                                                                }
-                                                              }
-                                                              // Get Age values
-                                                              if (field.name == 'Age') {
-                                                                for(var k = 0, segment; segment = field.segments[k++];) {
-                                                                  dataAgeCategories.push(segment.text)
-                                                                  dataAgeSource.push((segment.value) ? segment.value : 0)
-                                                                  gapAgeValue.push(100 - ((segment.value) ? segment.value : 0))
-                                                                }
-                                                              }
-                                                              // Get Ethnicity values
-                                                              if (field.name == 'Ethnicity/Race') {
-                                                                for(var k = 0, segment, item; segment = field.segments[k++];) {
-                                                                  item = []
-                                                                  item.push(segment.text)
-                                                                  item.push(((segment.value) ? segment.value : 0))
-                                                                  ethnicData.push(item)
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-
-                                                        $scope.progressBarData = progressBarData
-                                                        $scope.Male = male
-                                                        $scope.Female = female
-
-                                                        $scope.ageChart = {
-                                                                          plotOptions: {
-                                                                              bar: {
-                                                                                  dataLabels: { enabled: false }
-                                                                              },
-                                                                              series: {
-                                                                                  stacking: 'percent',
-                                                                                  enableMouseTracking: false,
-                                                                                  pointPadding: 0,
-                                                                                  groupPadding: 0,
-                                                                                  borderWidth: 0,
-                                                                                  pointWidth: 15,
-                                                                                  dataLabels: {
-                                                                                      color: '#3E9CCF',
-                                                                                      style: { fontSize: '11px' }
-                                                                                  }
-                                                                              }
-                                                                          },
-                                                                          options: {
-                                                                            chart: { type: 'bar' },
-                                                                            legend: { enabled: false },
-                                                                            plotOptions: {
-                                                                              series: { stacking: 'percent' }
-                                                                            },
-                                                                            tooltip: { enabled: false }
-                                                                          },
-                                                                          series: [
-                                                                            {
-                                                                              data: gapAgeValue,
-                                                                              id: 'Serie1',
-                                                                              name: 'Fill in',
-                                                                              color: '#DFDFDF'
-                                                                            },
-                                                                            {
-                                                                              data: dataAgeSource,
-                                                                              id: 'Serie2',
-                                                                              name: 'Values',
-                                                                              color: '#3E9CCF',
-                                                                              dataLabels: {
-                                                                                      enabled: true,
-                                                                                      format: '{y}%',
-                                                                                      color: '#3E9CCF',
-                                                                                      align: 'right',
-                                                                                      x: 30,
-                                                                                      y: -2,
-                                                                                      style: { color: '#3E9CCF' }
-                                                                                  }
-                                                                            }
-                                                                          ],
-                                                                          title: { text: "" },
-                                                                          xAxis: {
-                                                                            currentMin: null,
-                                                                            currentMax: null,
-                                                                            categories: dataAgeCategories,
-                                                                            title: { enabled: false },
-                                                                            labels: {
-                                                                              style: { color: '#3E9CCF', fontSize: '13px' }
-                                                                            },
-                                                                            tickLength: 0,
-                                                                            lineWidth: 0
-                                                                          },
-                                                                          yAxis: {
-                                                                            max: 100,
-                                                                            labels: { enabled: false },
-                                                                            title: { text: false },
-                                                                            gridLineColor: 'transparent',
-                                                                            enabled: false
-                                                                          },
-                                                                          credits: { enabled: false },
-                                                                          loading: false
-                                                                        }
-
-                                                        $scope.ethnicityChart = {
-                                                                plotOptions: {
-                                                                    pie: { shadow: false },
-                                                                    series: {
-                                                                      enableMouseTracking: false,
-                                                                      dataLabels: {
-                                                                        connectorColor: '#C0C0C0',
-                                                                        softConnector: false
-                                                                      }
-                                                                    }
-                                                                },
-                                                                options: {
-                                                                  chart: { type: 'pie' },
-                                                                  colors: ['#347a99','#218ebf', '#41AAD8', '#6ebde7', '#94d6ed'],
-                                                                  title: { text: null },
-                                                                  credits: { enabled: false },
-                                                                  yAxis: { title: { text: null } },
-                                                                  tooltip: { enabled: false }
-                                                                },
-                                                                series: [{
-                                                                    name: 'Ethnicity',
-                                                                    data: ethnicData,
-                                                                    size: '60%',
-                                                                    innerSize: '30%',
-                                                                    distance: -10,
-                                                                    dataLabels: {
-                                                                        crop: false,
-                                                                        formatter: function() {
-                                                                            // display only if larger than 1
-                                                                            return '<span style="font-size:16px;">'+ this.y +'%' +'</span><br /><div style="width: 50px;font-size:11px;">'+ this.point.name+'</div>';
-                                                                        },
-                                                                        color: '#3E9CCF',
-                                                                    }
-                                                                }]
-                                                        }
-                                                  }
-                                      }
-                                    Event.results(credentials, actions)
-                    }
-        }
-  Event.find(credentials, actions)
-  }])
-
-  .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Comment', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Comment) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
-
-    var
-        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: "home.events.details.comments.add", hasAddPhoto: false}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event) {
-                                    $scope.event = event;
-                                    $scope.eventId = $stateParams.eventId;
-
-                                    // Options for User Interface in home partial
-                                    ui.title = event.campaign ? event.campaign.name : "Comments"
-                                    ui.hasAddIcon = Event.can('gather comments')
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface;
-
-                                    var
-                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                      , action = { success: function(comments) {
-                                                                  $scope.comments = comments
-                                                             }
-                                                }
-
-                                    Comment.all(credentials, action)
-                              }
-       }
-    Event.find(credentials, actions)
-
-  }])
-
-  .controller('EventsCommentsAddController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Comment', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Comment) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
-
-    var
-        ui = {title: "Comment", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: ""}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event) {
-                                    $scope.event = event;
-                                    $scope.eventId = $stateParams.eventId;
-                                    // Options for User Interface in home partial
-                                    angular.extend(UserInterface, ui);
-                                    $scope.UserInterface = UserInterface;
-
-                                    $scope.createComment = function() {
                                       var
                                           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                        , actions = { success: function (comment) {
-                                                            $scope.comment = comment
-                                                            $location.path("/home/events/" + event.id + "/comments")
-                                                      }
-                                                    , error: function (comment_error) {
-                                                        $scope.comment_error = comment_error
-                                                         console.log(comment_error)
-                                                      }
-                                                    }
-                                      Comment.create(credentials, actions, $scope.comment)
-                                    }
-                             }
-        }
+                                        , actions = { success: function(results) {
+                                                          var dataAgeCategories = []
+                                                            , dataAgeSource = []
+                                                            , gapAgeValue = []
+                                                            , progressBarData = []
+                                                            , ethnicData = []
+                                                            , male = 0
+                                                            , female = 0
 
-    Event.find(credentials, actions)
-
- }])
-
-  .controller('EventsTasksController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
-
-    var
-        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasAddPhoto: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event){
-                                    $scope.event = event;
-
-                                    // Options for User Interface in home partial
-                                    ui.title = event.campaign ? event.campaign.name : "Tasks"
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface;
-                                    // $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/edit";
-
-
-                                    $scope.eventId = $stateParams.eventId;
-                                    $scope.eventTaskItems = [{'id': 1, 'assigned': 'Chris Jaskot', 'Task': 'Pickup t-shirts from storage unit', 'date': '2013-12-13', 'task_status': 'Late'},
-                                                             {'id': 2, 'assigned': 'George Tan', 'Task': 'Confirm time and location of event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
-                                                             {'id': 3, 'assigned': '', 'Task': 'Hire models for event', 'date': '2013-12-13', 'task_status': 'Unassigned'},
-                                                             {'id': 4, 'assigned': 'George Tan', 'Task': 'Identify drink recipes for promotion', 'date': '2013-12-13', 'task_status': 'Late'},
-                                                             {'id': 5, 'assigned': 'Chris Jaskot', 'Task': 'Order ballons for the event', 'date': '2013-12-13', 'task_status': 'Late'},
-                                                             {'id': 6, 'assigned': 'Chris Jaskot', 'Task': 'Order ballons for the event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
-                                                             {'id': 7, 'assigned': '', 'Task': 'Identify catering provider', 'date': '2013-12-13', 'task_status': 'Unassigned'},
-                                                             {'id': 8, 'assigned': 'Chris Jaskot', 'Task': 'Select event presenter', 'date': '2013-12-13', 'task_status': 'Incomplete'}];
-
-                                    $scope.eventTaskFilters = [{'label': 'Late',
-                                                                'id': 'Late',
-                                                                'name': 'task_status',
-                                                                'count': 3,
-                                                                'selected': false
-                                                                },
-                                                                {
-                                                                'label': 'Unassigned',
-                                                                'id': 'Unassigned',
-                                                                'name': 'task_status',
-                                                                'count': 2,
-                                                                'selected': false
-                                                                },
-                                                                {
-                                                                'label': 'Assigned',
-                                                                'id': 'Assigned',
-                                                                'name': 'task_status',
-                                                                'count': 2,
-                                                                'selected': false
-                                                                },
-                                                                {
-                                                                'label': 'Incomplete',
-                                                                'id': 'Incomplete',
-                                                                'name': 'task_status',
-                                                                'count': 2,
-                                                                'selected': false
-                                                                },
-                                                                {
-                                                                'label': 'Complete',
-                                                                'id': 'Complete',
-                                                                'name': 'task_status',
-                                                                'count': 3,
-                                                                'selected': false
-                                                                }];
-
-                                    $scope.task_status = false;
-                                    $scope.filterTask = function(status) {
-                                      $scope.task_status = ($scope.task_status == status) ? false : status;
-                                    }
-                                    //$scope.goHere = function (hash) {
-                                      //$location.path(hash);
-                                    //};
-                                    // remember to inject $location
-
-                              }
-
-       }
-
-   Event.find(credentials, actions)
-   
-
-  }])
-
-  .controller('EventsTasksDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
-
-    var
-        ui = {title: "Task details", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event){
-                                    $scope.event = event;
-
-                                    // Options for User Interface in home partial
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface;
-                                    // $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/edit";
-                                    $scope.eventId = $stateParams.eventId;
-                                    $scope.taskId = $stateParams.taskId;
-                              }
-
-       }
-
-    Event.find(credentials, actions)
-
-  }])
-
-  .controller('EventsTasksEditController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
-
-    var
-        ui = {title: "Edit task", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event){
-                                    $scope.event = event;
-
-                                    // Options for User Interface in home partial
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface;
-                                    $scope.eventId = $stateParams.eventId;
-                                    $scope.taskId = $stateParams.taskId;
-                              }
-
-       }
-
-    Event.find(credentials, actions)
-
-  }])
-
-  .controller('EventsPhotosController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
-
-    var
-        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "photos"}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event){
-                                    $scope.event = event;
-
-                                    // Options for User Interface in home partial
-                                    ui.title = event.campaign ? event.campaign.name : "Photos"
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface;
-                                    $scope.eventId = $stateParams.eventId;
-                              }
-       }
-
-    Event.find(credentials, actions)
-
-  }])
-
-
-  .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
-
-    $scope.gotToState = function(newState) {
-      $state.go(newState);
-      return;
-    };
-
-    var
-        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: "home.events.details.expenses.add"}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event){
-                                    $scope.event = event
-                                    $scope.expenses = {}
-
-                                    // Options for User Interface in home partial
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface
-                                    $scope.eventId = $stateParams.eventId
-
-                                    var
-                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                      , actions = { success: function(expenses) {
-                                                                  $scope.expenses = expenses
-                                                                // Options for User Interface in home partial
-                                                                  ui.title = event.campaign ? event.campaign.name : "Expenses"
-                                                                  angular.extend(UserInterface, ui)
-                                                                  $scope.UserInterface = UserInterface
-                                                                  $scope.eventId = $stateParams.eventId
-
-                                                                  $scope.total = function() {
-                                                                      var total = 0
-
-                                                                      for(var i = 0, item; item = $scope.expenses[i++];) {
-                                                                        total += Number(item.amount)
-                                                                      }
-                                                                      return total
+                                                          for(var i = 0, result; result = results[i++];) {
+                                                            // Get consumer reach values
+                                                            if (result.module == 'consumer_reach') {
+                                                              for(var j = 0, field; field = result.fields[j++];) {
+                                                                if (field.goal && field.goal !== null) {
+                                                                  progressBarData.push( {value: field.value, name: field.name, percentage: (field.value * 100 / parseInt(field.goal))} )
+                                                                }
+                                                              }
+                                                            }
+                                                            if (result.module == 'demographics') {
+                                                              for(var j = 0, field; field = result.fields[j++];) {
+                                                                // Get Male and Female percentages
+                                                                if (field.name == 'Gender') {
+                                                                  for(var k = 0, segment; segment = field.segments[k++];) {
+                                                                    if (segment.text == 'Male')
+                                                                      male = segment.value
+                                                                    if (segment.text == 'Female')
+                                                                      female = segment.value
                                                                   }
-                                                             }
-                                      }
-                                    Expense.all(credentials, actions)
-                              }
-       }
+                                                                }
+                                                                // Get Age values
+                                                                if (field.name == 'Age') {
+                                                                  for(var k = 0, segment; segment = field.segments[k++];) {
+                                                                    dataAgeCategories.push(segment.text)
+                                                                    dataAgeSource.push((segment.value) ? segment.value : 0)
+                                                                    gapAgeValue.push(100 - ((segment.value) ? segment.value : 0))
+                                                                  }
+                                                                }
+                                                                // Get Ethnicity values
+                                                                if (field.name == 'Ethnicity/Race') {
+                                                                  for(var k = 0, segment, item; segment = field.segments[k++];) {
+                                                                    item = []
+                                                                    item.push(segment.text)
+                                                                    item.push(((segment.value) ? segment.value : 0))
+                                                                    ethnicData.push(item)
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
 
+                                                          $scope.progressBarData = progressBarData
+                                                          $scope.Male = male
+                                                          $scope.Female = female
+
+                                                          $scope.ageChart = {
+                                                                            plotOptions: {
+                                                                                bar: {
+                                                                                    dataLabels: { enabled: false }
+                                                                                },
+                                                                                series: {
+                                                                                    stacking: 'percent',
+                                                                                    enableMouseTracking: false,
+                                                                                    pointPadding: 0,
+                                                                                    groupPadding: 0,
+                                                                                    borderWidth: 0,
+                                                                                    pointWidth: 15,
+                                                                                    dataLabels: {
+                                                                                        color: '#3E9CCF',
+                                                                                        style: { fontSize: '11px' }
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            options: {
+                                                                              chart: { type: 'bar' },
+                                                                              legend: { enabled: false },
+                                                                              plotOptions: {
+                                                                                series: { stacking: 'percent' }
+                                                                              },
+                                                                              tooltip: { enabled: false }
+                                                                            },
+                                                                            series: [
+                                                                              {
+                                                                                data: gapAgeValue,
+                                                                                id: 'Serie1',
+                                                                                name: 'Fill in',
+                                                                                color: '#DFDFDF'
+                                                                              },
+                                                                              {
+                                                                                data: dataAgeSource,
+                                                                                id: 'Serie2',
+                                                                                name: 'Values',
+                                                                                color: '#3E9CCF',
+                                                                                dataLabels: {
+                                                                                        enabled: true,
+                                                                                        format: '{y}%',
+                                                                                        color: '#3E9CCF',
+                                                                                        align: 'right',
+                                                                                        x: 30,
+                                                                                        y: -2,
+                                                                                        style: { color: '#3E9CCF' }
+                                                                                    }
+                                                                              }
+                                                                            ],
+                                                                            title: { text: "" },
+                                                                            xAxis: {
+                                                                              currentMin: null,
+                                                                              currentMax: null,
+                                                                              categories: dataAgeCategories,
+                                                                              title: { enabled: false },
+                                                                              labels: {
+                                                                                style: { color: '#3E9CCF', fontSize: '13px' }
+                                                                              },
+                                                                              tickLength: 0,
+                                                                              lineWidth: 0
+                                                                            },
+                                                                            yAxis: {
+                                                                              max: 100,
+                                                                              labels: { enabled: false },
+                                                                              title: { text: false },
+                                                                              gridLineColor: 'transparent',
+                                                                              enabled: false
+                                                                            },
+                                                                            credits: { enabled: false },
+                                                                            loading: false
+                                                                          }
+
+                                                          $scope.ethnicityChart = {
+                                                                  plotOptions: {
+                                                                      pie: { shadow: false },
+                                                                      series: {
+                                                                        enableMouseTracking: false,
+                                                                        dataLabels: {
+                                                                          connectorColor: '#C0C0C0',
+                                                                          softConnector: false
+                                                                        }
+                                                                      }
+                                                                  },
+                                                                  options: {
+                                                                    chart: { type: 'pie' },
+                                                                    colors: ['#347a99','#218ebf', '#41AAD8', '#6ebde7', '#94d6ed'],
+                                                                    title: { text: null },
+                                                                    credits: { enabled: false },
+                                                                    yAxis: { title: { text: null } },
+                                                                    tooltip: { enabled: false }
+                                                                  },
+                                                                  series: [{
+                                                                      name: 'Ethnicity',
+                                                                      data: ethnicData,
+                                                                      size: '60%',
+                                                                      innerSize: '30%',
+                                                                      distance: -10,
+                                                                      dataLabels: {
+                                                                          crop: false,
+                                                                          formatter: function() {
+                                                                              // display only if larger than 1
+                                                                              return '<span style="font-size:16px;">'+ this.y +'%' +'</span><br /><div style="width: 50px;font-size:11px;">'+ this.point.name+'</div>';
+                                                                          },
+                                                                          color: '#3E9CCF',
+                                                                      }
+                                                                  }]
+                                                          }
+                                                    }
+                                        }
+                                      Event.results(credentials, actions)
+                      }
+          }
     Event.find(credentials, actions)
+    }])
 
-  }])
+    .controller('EventsCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', 'Comment', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Comment) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
+      snapRemote.close()
 
-  .controller('EventsExpensesAddController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
+      var
+          ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: "home.events.details.comments.add", hasAddPhoto: false}
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event) {
+                                      $scope.event = event;
+                                      $scope.eventId = $stateParams.eventId;
 
-    var
-        ui = {title: "Expense", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: ""}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event){
-                                    $scope.event = event;
+                                      // Options for User Interface in home partial
+                                      ui.title = event.campaign ? event.campaign.name : "Comments"
+                                      ui.hasAddIcon = Event.can('gather comments')
+                                      angular.extend(UserInterface, ui)
+                                      $scope.UserInterface = UserInterface;
 
-                                    // Options for User Interface in home partial
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface;
-                                    $scope.eventId = $stateParams.eventId;
-
-                                    $scope.createExpense = function() {
                                       var
                                           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                        , actions = { success: function (expense) {
-                                                            $scope.event_expense = expense
-                                                            $location.path("/home/events/" + event.id + "/expenses")
+                                        , action = { success: function(comments) {
+                                                                    $scope.comments = comments
+                                                               }
+                                                  }
+
+                                      Comment.all(credentials, action)
+                                }
+         }
+      Event.find(credentials, actions)
+
+    }])
+
+    .controller('EventsCommentsAddController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Comment', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Comment) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
+      snapRemote.close()
+
+      var
+          ui = {title: "Comment", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: ""}
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event) {
+                                      $scope.event = event;
+                                      $scope.eventId = $stateParams.eventId;
+                                      // Options for User Interface in home partial
+                                      angular.extend(UserInterface, ui);
+                                      $scope.UserInterface = UserInterface;
+
+                                      $scope.createComment = function() {
+                                        var
+                                            credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                          , actions = { success: function (comment) {
+                                                              $scope.comment = comment
+                                                              $location.path("/home/events/" + event.id + "/comments")
+                                                        }
+                                                      , error: function (comment_error) {
+                                                          $scope.comment_error = comment_error
+                                                           console.log(comment_error)
+                                                        }
                                                       }
-                                                    , error: function (expense_error) {
-                                                        $scope.expense_error = expense_error
-                                                         console.log(expense_error)
+                                        Comment.create(credentials, actions, $scope.comment)
+                                      }
+                               }
+          }
+
+      Event.find(credentials, actions)
+
+   }])
+
+    .controller('EventsTasksController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
+      snapRemote.close()
+
+      var
+          ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasAddPhoto: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"}
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event){
+                                      $scope.event = event;
+
+                                      // Options for User Interface in home partial
+                                      ui.title = event.campaign ? event.campaign.name : "Tasks"
+                                      angular.extend(UserInterface, ui)
+                                      $scope.UserInterface = UserInterface;
+                                      // $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/edit";
+
+
+                                      $scope.eventId = $stateParams.eventId;
+                                      $scope.eventTaskItems = [{'id': 1, 'assigned': 'Chris Jaskot', 'Task': 'Pickup t-shirts from storage unit', 'date': '2013-12-13', 'task_status': 'Late'},
+                                                               {'id': 2, 'assigned': 'George Tan', 'Task': 'Confirm time and location of event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
+                                                               {'id': 3, 'assigned': '', 'Task': 'Hire models for event', 'date': '2013-12-13', 'task_status': 'Unassigned'},
+                                                               {'id': 4, 'assigned': 'George Tan', 'Task': 'Identify drink recipes for promotion', 'date': '2013-12-13', 'task_status': 'Late'},
+                                                               {'id': 5, 'assigned': 'Chris Jaskot', 'Task': 'Order ballons for the event', 'date': '2013-12-13', 'task_status': 'Late'},
+                                                               {'id': 6, 'assigned': 'Chris Jaskot', 'Task': 'Order ballons for the event', 'date': '2013-12-13', 'task_status': 'Incomplete'},
+                                                               {'id': 7, 'assigned': '', 'Task': 'Identify catering provider', 'date': '2013-12-13', 'task_status': 'Unassigned'},
+                                                               {'id': 8, 'assigned': 'Chris Jaskot', 'Task': 'Select event presenter', 'date': '2013-12-13', 'task_status': 'Incomplete'}];
+
+                                      $scope.eventTaskFilters = [{'label': 'Late',
+                                                                  'id': 'Late',
+                                                                  'name': 'task_status',
+                                                                  'count': 3,
+                                                                  'selected': false
+                                                                  },
+                                                                  {
+                                                                  'label': 'Unassigned',
+                                                                  'id': 'Unassigned',
+                                                                  'name': 'task_status',
+                                                                  'count': 2,
+                                                                  'selected': false
+                                                                  },
+                                                                  {
+                                                                  'label': 'Assigned',
+                                                                  'id': 'Assigned',
+                                                                  'name': 'task_status',
+                                                                  'count': 2,
+                                                                  'selected': false
+                                                                  },
+                                                                  {
+                                                                  'label': 'Incomplete',
+                                                                  'id': 'Incomplete',
+                                                                  'name': 'task_status',
+                                                                  'count': 2,
+                                                                  'selected': false
+                                                                  },
+                                                                  {
+                                                                  'label': 'Complete',
+                                                                  'id': 'Complete',
+                                                                  'name': 'task_status',
+                                                                  'count': 3,
+                                                                  'selected': false
+                                                                  }];
+
+                                      $scope.task_status = false;
+                                      $scope.filterTask = function(status) {
+                                        $scope.task_status = ($scope.task_status == status) ? false : status;
+                                      }
+                                      //$scope.goHere = function (hash) {
+                                        //$location.path(hash);
+                                      //};
+                                      // remember to inject $location
+
+                                }
+
+         }
+
+     Event.find(credentials, actions)
+     
+
+    }])
+
+    .controller('EventsTasksDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
+      snapRemote.close()
+
+      var
+          ui = {title: "Task details", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"}
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event){
+                                      $scope.event = event;
+
+                                      // Options for User Interface in home partial
+                                      angular.extend(UserInterface, ui)
+                                      $scope.UserInterface = UserInterface;
+                                      // $scope.editUrl = "#/home/events/" + $stateParams.eventId + "/edit";
+                                      $scope.eventId = $stateParams.eventId;
+                                      $scope.taskId = $stateParams.taskId;
+                                }
+
+         }
+
+      Event.find(credentials, actions)
+
+    }])
+
+    .controller('EventsTasksEditController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
+      snapRemote.close()
+
+      var
+          ui = {title: "Edit task", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "tasks"}
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event){
+                                      $scope.event = event;
+
+                                      // Options for User Interface in home partial
+                                      angular.extend(UserInterface, ui)
+                                      $scope.UserInterface = UserInterface;
+                                      $scope.eventId = $stateParams.eventId;
+                                      $scope.taskId = $stateParams.taskId;
+                                }
+
+         }
+
+      Event.find(credentials, actions)
+
+    }])
+
+    .controller('EventsPhotosController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
+      snapRemote.close()
+
+      var
+          ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "photos"}
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event){
+                                      $scope.event = event;
+
+                                      // Options for User Interface in home partial
+                                      ui.title = event.campaign ? event.campaign.name : "Photos"
+                                      angular.extend(UserInterface, ui)
+                                      $scope.UserInterface = UserInterface;
+                                      $scope.eventId = $stateParams.eventId;
+                                }
+         }
+
+      Event.find(credentials, actions)
+
+    }])
+
+
+    .controller('EventsExpensesController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
+      snapRemote.close()
+
+      $scope.gotToState = function(newState) {
+        $state.go(newState);
+        return;
+      };
+
+      var
+          ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: "home.events.details.expenses.add"}
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event){
+                                      $scope.event = event
+                                      $scope.expenses = {}
+
+                                      // Options for User Interface in home partial
+                                      angular.extend(UserInterface, ui)
+                                      $scope.UserInterface = UserInterface
+                                      $scope.eventId = $stateParams.eventId
+
+                                      var
+                                          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                        , actions = { success: function(expenses) {
+                                                                    $scope.expenses = expenses
+                                                                  // Options for User Interface in home partial
+                                                                    ui.title = event.campaign ? event.campaign.name : "Expenses"
+                                                                    angular.extend(UserInterface, ui)
+                                                                    $scope.UserInterface = UserInterface
+                                                                    $scope.eventId = $stateParams.eventId
+
+                                                                    $scope.total = function() {
+                                                                        var total = 0
+
+                                                                        for(var i = 0, item; item = $scope.expenses[i++];) {
+                                                                          total += Number(item.amount)
+                                                                        }
+                                                                        return total
+                                                                    }
+                                                               }
+                                        }
+                                      Expense.all(credentials, actions)
+                                }
+         }
+
+      Event.find(credentials, actions)
+
+    }])
+
+    .controller('EventsExpensesAddController', ['$scope', '$state', '$stateParams', '$location', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
+      snapRemote.close()
+
+      var
+          ui = {title: "Expense", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: ""}
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event){
+                                      $scope.event = event;
+
+                                      // Options for User Interface in home partial
+                                      angular.extend(UserInterface, ui)
+                                      $scope.UserInterface = UserInterface;
+                                      $scope.eventId = $stateParams.eventId;
+
+                                      $scope.createExpense = function() {
+                                        var
+                                            credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                          , actions = { success: function (expense) {
+                                                              $scope.event_expense = expense
+                                                              $location.path("/home/events/" + event.id + "/expenses")
+                                                        }
+                                                      , error: function (expense_error) {
+                                                          $scope.expense_error = expense_error
+                                                           console.log(expense_error)
+                                                        }
                                                       }
-                                                    }
-                                      Expense.create(credentials, actions, $scope.event_expense)
-                                    }
-                              }
-       }
+                                        Expense.create(credentials, actions, $scope.event_expense)
+                                      }
+                                }
+         }
 
-    Event.find(credentials, actions)
+      Event.find(credentials, actions)
 
- }])
+   }])
 
-  .controller('EventsExpensesPhotoController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close()
+    .controller('EventsExpensesPhotoController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
+      snapRemote.close()
 
-    var
-        ui = {title: "", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: true, showEventSubNav: false, hasCustomHomeClass: true, CloseState: "home.events.details.expenses", searching: false, eventSubNav: "expenses"}
-      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-      , actions = { success: function(event){
-                                    $scope.event = event;
+      var
+          ui = {title: "", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: true, showEventSubNav: false, hasCustomHomeClass: true, CloseState: "home.events.details.expenses", searching: false, eventSubNav: "expenses"}
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event){
+                                      $scope.event = event;
 
-                                    // Options for User Interface in home partial
-                                    angular.extend(UserInterface, ui)
-                                    $scope.UserInterface = UserInterface;
-                                    $scope.eventId = $stateParams.eventId;
-                                    $scope.expenseId = $stateParams.expenseId;
-                              }
-       }
+                                      // Options for User Interface in home partial
+                                      angular.extend(UserInterface, ui)
+                                      $scope.UserInterface = UserInterface;
+                                      $scope.eventId = $stateParams.eventId;
+                                      $scope.expenseId = $stateParams.expenseId;
+                                }
+         }
 
-    Event.find(credentials, actions)
+      Event.find(credentials, actions)
 
- }])
+   }])
 
-  .controller('EventsSurveysController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
+    .controller('EventsSurveysController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+      if( !UserService.isLogged() ) {
+        $state.go('login');
+        return;
+      }
     snapRemote.close()
 
     var

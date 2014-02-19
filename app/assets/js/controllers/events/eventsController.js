@@ -23,7 +23,6 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
                                 startDate = new Date(events[i].start_date)
                                 endDate = new Date(events[i].end_date)
                                 if (events[i].status == 'Active' && (startDate >= today || endDate >= today)) {
-                                // if (events[i].status == 'Active') {
                                   evt.push(events[i])
                                 }
                               }
