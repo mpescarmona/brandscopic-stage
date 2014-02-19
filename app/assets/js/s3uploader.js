@@ -59,7 +59,7 @@ var uploadNow = (function () {
             , formData = new FormData()
             , xhr = new XMLHttpRequest()
 
-          response.fields.key = [ 'uploads/', GUID(), '/', fileName ].join('')
+          response.fields.key = [ 'uploads/', GUID(), '/', '${filename}'].join('')
           for (key in response.fields) {
             formData.append(key, response.fields[key])
           }
@@ -97,9 +97,10 @@ var uploadNow = (function () {
     }
     , handleFileSelect = function (evt) {
         var file = evt.target.files[0]
-        if (file){
+        if (file) {
           reader = new FileReader();
-          reader.onload = readIt(file.name, file.type);
+          //reader.onload = readIt(file.name, file.type);
+          reader.onload = ApiParameters(file, file.name, file.type)
           reader.readAsDataURL(file);
         }
 
