@@ -474,7 +474,9 @@ body{
 		}
 	}
 	&.expenses{
-		margin-bottom: 20px;
+		&.np{
+			margin-bottom: 20px;
+		}
 		.margin-expense{
 			div p{
 				color: @brand;
@@ -569,9 +571,10 @@ body{
 		p{
 			margin-bottom: 10px;
 		}
-		.number{
-			clearfix:first-of-type{
-				
+		.ng-scope{
+			margin-top: 10px;
+			&:first-of-type{
+				margin-top: 0;
 			}
 		}
 		.radio-selector{
@@ -1520,36 +1523,6 @@ textarea{
 		padding-top: 17px;
 		text-align: center;
 	}
-}
-
-/*-- MARGIN --*/
-
-.m10{
-	margin: 10px 0;
-}
-
-.mt15{
-	margin-top:15px;
-}
-
-.mt20{
-	margin-top: 20px;
-}
-
-.m25{
-	margin: 25px 0;
-}
-
-.mt5{
-	margin-top: 5px;
-}
-
-.mt25{
-	margin-top: 25px;
-}
-
-.mt48{
-	margin-top: 48px;
 }
 
 /*-- PROGRESS STYLES --*/
