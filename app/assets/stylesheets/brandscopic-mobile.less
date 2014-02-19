@@ -422,6 +422,7 @@ body{
 .editpanel{
 	padding: 13px 8px 13px 13px;
 	width: 99px;
+	z-index: 9999;
 	a{
 		margin: 0 7px 0 6px
 	}
@@ -798,7 +799,7 @@ body{
   content: " ";
   background: #fff;
   position: absolute;
-  z-index: 9999999999999999999;
+  //z-index: 9999999999999999999;
 }
 
 .dividersBar.big{
@@ -820,18 +821,40 @@ body{
 	line-height: 18px;
 	margin-top: 0;
 }
-.events-list:last-child .box-container {
-	border-radius: 0 0 6px 6px;
+.events-list:first-child .box-container {
+	.editpanel{
+		border-radius: 0 0 6px 0;
+	}
 }
 
+.events-list:last-child .box-container {
+	border-radius: 0 0 6px 6px;
+	.editpanel{
+		border-radius: 0 0 6px 0;
+	}
+}
 .box-container.events-list, .dividersBar.ng-hide + .box-container.events-list{
 	border-top: 1px solid @borders;
 	.border-top-radius(0px);	
 }
+
 .dividersBar + .box-container.events-list{
 	border-top: 0px solid @borders;
 	.border-top-radius(6px);	
 }
+
+.container.events-list:nth-child(2){
+	.editpanel{
+		border-radius:0 6px 0 0;	
+	}
+}
+
+.container.events-list:nth-child(3){
+	.editpanel{
+		border-radius:0 6px 0 0;	
+	}
+}
+
 
 /* -- STATUS BAR -- */
 
