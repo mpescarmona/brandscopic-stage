@@ -9,7 +9,10 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
     $scope.snapOptions = {
       disable: 'right'
     };
-
+    $scope.goBack = function(){
+        $state.go('home.events')
+        return
+    }
     var
       authToken = UserService.currentUser.auth_token
 

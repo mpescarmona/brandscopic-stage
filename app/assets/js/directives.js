@@ -74,7 +74,8 @@ angular.module('brandscopicApp.directives', [])
       restrict: 'A',
       link: function (scope, $el, attr) {
         $el.on('click', function (e) {
-          $window.history.back()
+          debugger
+          scope.goBack ? scope.goBack() : $window.history.back()
         });
       }
     };
