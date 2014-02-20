@@ -105,15 +105,21 @@ angular.module('model.event', ['persistence.event'])
 
       }
       , allResponse = function (actions) {
-          return function(resp){
-            if ('facets' in resp && 'results' in resp) {
-              filters    = parseFilters(resp.facets)
-              collection = resp.results
+          return function(resp) {
+            if ('results' in resp)
+              if ('page' in resp.results && resp.results.page > 1) {
+                collection = resp.results
+                actions.success(angular.copy(collection), angular.copy(filters))
+              }
+              else
+                if ('facets' in resp && 'results' in resp) {
+                  filters    = parseFilters(resp.facets)
+                  collection = resp.results
 
-              actions.success(angular.copy(collection), angular.copy(filters))
-            }
-            else
-              throw 'facets or results missing on response'
+                  actions.success(angular.copy(collection), angular.copy(filters))
+                }
+                else
+                  throw 'facets or results missing on response'
 
           }
       }
