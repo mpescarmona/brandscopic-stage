@@ -31,9 +31,9 @@ angular.module('brandscopicApp.directives', [])
       }
     };
   })
-  
+
   //goTo is used in list of elements to see item details
-  
+
   .directive('goTo', function ($window) {
     return {
       restrict: 'A',
@@ -46,7 +46,7 @@ angular.module('brandscopicApp.directives', [])
   })
 
   //stop propagation from stackoverflow.com/questions/14544741/angularjs-directive-to-stoppropagation
-  
+
   .directive('stopEvent', function () {
     return {
       restrict: 'A',
@@ -175,7 +175,9 @@ angular.module('brandscopicApp.directives', [])
     return function(scope, el, attr){
       el.on('keyup', function(e){
         var isEmpty = ! this.querySelector('input').value.length
-        this.querySelector('a').className = isEmpty ?  'type-reset hidden' : 'type-reset';
+        if( this.querySelector('a') != null) {
+            this.querySelector('a').className = isEmpty ?  'type-reset hidden' : 'type-reset';
+        }
       })
       el.on('keydown', function(e){
         if (e.keyCode == 27) {
@@ -190,7 +192,9 @@ angular.module('brandscopicApp.directives', [])
       })
       el.find('input').on('change', function(e){
         var isEmpty = ! this.value.length
-        this.parentElement.querySelector('a').className = isEmpty ?  'type-reset hidden' : 'type-reset';
+        if(this.parentElement.querySelector('a') != null) {
+          this.parentElement.querySelector('a').className = isEmpty ?  'type-reset hidden' : 'type-reset';
+        }
       })
 
     };

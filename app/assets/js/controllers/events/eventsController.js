@@ -14,7 +14,21 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future, 'status[]': 'Active' }
     , options = { force: true }
     , actions = { success: function(events, filters) {
-                              $scope.eventsItems = events
+                              // workaround for remove the non 'Active' and 'past' events
+                              var
+                                  evt = []
+                                , today = new Date()
+                                , startDate = null
+                                , endDate = null
+                              for (var i = 0, len = events.length; i < len; i++) {
+                                startDate = new Date(events[i].start_date)
+                                endDate = new Date(events[i].end_date)
+                                if (events[i].status == 'Active' && (startDate >= today || endDate >= today)) {
+                                // if (events[i].status == 'Active') {
+                                  evt.push(events[i])
+                                }
+                              }
+                              $scope.eventsItems = evt
                               $scope.filters = filters
                               $scope.page = events.page
                               angular.extend(UserInterface, ui)
@@ -65,15 +79,20 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     $scope.event.active = false
     Event.update(credentials, actions, $scope.event)
   }
+  $scope.filter = "";
+  $scope.$on("FILTER_EVENTS", function (event, filter) {
+      $scope.filter = filter;
+      $scope.$apply();
+  });
 
 }
 
 eventsCtrl.$inject = [
-  '$scope', 
-  '$state', 
+  '$scope',
+  '$state',
   '$stateParams',
-  'snapRemote', 
-  'UserService', 
+  'snapRemote',
+  'UserService',
   'CompanyService',
   'UserInterface',
   'Event'

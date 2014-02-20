@@ -10,17 +10,20 @@ angular.module('persistence.event', ['ngResource', 'util.jsonToFormData'])
 
       , 'find'          : { method: 'GET' }
 
-      , 'create'        : { method: 'POST'
+      , 'create'        : {
+                             method: 'POST'
                            , headers: contentType
                            , transformRequest: jsonToFormDataFor('event')
                           }
 
-      , 'update'        : { method: 'PUT'
+      , 'update'        : {
+                             method: 'PUT'
                            , headers: contentType
                            , transformRequest: jsonToFormDataFor('event')
                           }
 
-      , 'updateResults' : { method: 'PUT'
+      , 'updateResults' : {
+                             method: 'PUT'
                            , headers: contentTypeJson
                           }
 
@@ -30,7 +33,13 @@ angular.module('persistence.event', ['ngResource', 'util.jsonToFormData'])
                             url: '//stage.brandscopic.com/api/v1/events/autocomplete.:format', format: 'json', auth_token: '@token', company_id: '@company_id', q: '@q'
                           }
 
-      , 'results'       : { method: 'GET'
+      , 'filterEvents'        : {
+                            method: 'GET',
+                            url: '//stage.brandscopic.com/api/v1/events.:format', format: 'json', auth_token: '@token', company_id: '@company_id', campaign: '@campaign', place: '@place', user: '@user', brand: '@brand', event_status: '@event_status'
+                          }
+
+      , 'results'       : {
+                              method: 'GET'
                             , isArray: true
                             , url: '//stage.brandscopic.com/api/v1/events/:event_id/results.:format'
                           }
