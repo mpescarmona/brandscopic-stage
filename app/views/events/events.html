@@ -12,7 +12,7 @@
 	</div>
 </div>
 <!-- Events Container -->
-<div when-scrolled="nextPage()">
+<div when-scrolled="nextPage()" class="pages">
   <div class="container events-list" ng-repeat="event in eventsItems | orderBy:['start_date','start_time'] | groupBy:'start_date' | filter:event_status | filter:{status:'Active'}" ng-show="!UserInterface.searching">
     <div class="dividersBar" ng-show="event.start_date_CHANGED">{{event.start_date | eventDate}}</div>
     <div class="box-container events-list np" ng-show="!UserInterface.searching">
