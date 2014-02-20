@@ -29,7 +29,7 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     var
         today = (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear()
       , future = "12/31/" + (new Date().getFullYear() + 10)
-      , credentials = ($scope.event_status) ? { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future, 'status[]': 'Active', 'event_status[]': 'Late' } 
+      , credentials = ($scope.event_status) ? { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active', 'event_status[]': status } 
                                             : { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future, 'status[]': 'Active' }
       , options = { force: true }
       , actions = { success: function(events, filters) {
