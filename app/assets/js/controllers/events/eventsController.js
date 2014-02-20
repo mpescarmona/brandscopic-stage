@@ -16,31 +16,37 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     , actions = { success: function(events, filters) {
                               $scope.eventsItems = events
                               $scope.filters = filters
+                              $scope.page = events.page
                               angular.extend(UserInterface, ui)
                             }
       }
 
   Event.all(credentials, actions, options)
 
-  $scope.event_status = false;
+  $scope.event_status = false
   $scope.filterStatus = function(status) {
     $scope.event_status = ($scope.event_status == status) ? false : status;
 
     var
         today = (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear()
       , future = "12/31/" + (new Date().getFullYear() + 10)
-      , credentials = ($scope.event_status) ? { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future, 'status[]': 'Active', 'event_status[]': 'Late' } 
-                                            : { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future, 'status[]': 'Active' }
+      , credentials = ($scope.event_status) ? { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, page: $scope.page, 'status[]': 'Active', 'event_status[]': status } 
+                                            : { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future, page: $scope.page, 'status[]': 'Active' }
       , options = { force: true }
       , actions = { success: function(events, filters) {
                                 $scope.eventsItems = events
                                 $scope.filters = filters
+                                $scope.page = events.page
                                 angular.extend(UserInterface, ui)
                               }
         }
 
     Event.all(credentials, actions, options)
+  }
 
+  $scope.nextPage = function() {
+    $scope.page = $scope.page + 1
+    filterStatus($scope.event_status)
   }
 
   $scope.deleteEvent = function() {
