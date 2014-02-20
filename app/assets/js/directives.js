@@ -74,10 +74,23 @@ angular.module('brandscopicApp.directives', [])
       restrict: 'A',
       link: function (scope, $el, attr) {
         $el.on('click', function (e) {
-          $window.history.back()
+          debugger
+          scope.goBack ? scope.goBack() : $window.history.back()
         });
       }
     };
+  })
+
+  .directive('whenScrolled', function() {
+      return function(scope, elm, attr) {
+          var raw = elm[0];
+          
+          elm.bind('scroll', function() {
+              if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+                  scope.$apply(attr.whenScrolled);
+              }
+          });
+      };
   })
 
   .directive('redirectTo', function ($window) {

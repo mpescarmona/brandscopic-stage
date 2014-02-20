@@ -89,28 +89,37 @@ angular.module('model.event', ['persistence.event'])
           if (action) action(angular.copy(answer))
         }
       }
-      , all = function (credentials, actions) {
+      , all = function (credentials, actions, options) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
-            if (collection && company_id == credentials.company_id)
-              actions.success(collection, filters)
-            else {
-              company_id = credentials.company_id
+            if (options && 'force' in options && options.force) 
               eventClient.all(credentials, allResponse(actions))
-            }
+            else
+              if (collection && company_id == credentials.company_id)
+                actions.success(collection, filters)
+              else {
+                company_id = credentials.company_id
+                eventClient.all(credentials, allResponse(actions))
+              }
           } else
             throw 'Wrong set of credentials'
 
       }
       , allResponse = function (actions) {
-          return function(resp){
-            if ('facets' in resp && 'results' in resp) {
-              filters    = parseFilters(resp.facets)
-              collection = resp.results
+          return function(resp) {
+            if ('results' in resp)
+              if ('page' in resp.results && resp.results.page > 1) {
+                collection = resp.results
+                actions.success(angular.copy(collection), angular.copy(filters))
+              }
+              else
+                if ('facets' in resp && 'results' in resp) {
+                  filters    = parseFilters(resp.facets)
+                  collection = resp.results
 
-              actions.success(angular.copy(collection), angular.copy(filters))
-            }
-            else
-              throw 'facets or results missing on response'
+                  actions.success(angular.copy(collection), angular.copy(filters))
+                }
+                else
+                  throw 'facets or results missing on response'
 
           }
       }

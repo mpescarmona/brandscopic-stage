@@ -143,6 +143,11 @@ body{
 		}
 	}
 
+	&.events-list{
+		border-radius: 0;
+		margin: 0;
+	}
+
 	&.event-description{
 		left:2%;
 		right: 2%;
@@ -298,17 +303,6 @@ body{
 	}
 }
 
-.dividersBar{
-	color: @lightGrey;
-	font-size: 10px;
-	font-weight: 400;
-	text-align: center;
-	text-transform: uppercase;
-	&.big{
-		padding: 7px 0;
-	}
-}
-
 .contacts_search{
 	background-color: @lightGrey;
 	height:44px;
@@ -341,6 +335,7 @@ body{
 	.comment-date{
 		color: @brand;
 		float: right;
+		margin-bottom: 5px;
 		text-align: right;
 		width: 30%;
 	}
@@ -427,6 +422,7 @@ body{
 .editpanel{
 	padding: 13px 8px 13px 13px;
 	width: 99px;
+	z-index: 9999;
 	a{
 		margin: 0 7px 0 6px
 	}
@@ -479,7 +475,9 @@ body{
 		}
 	}
 	&.expenses{
-		margin-bottom: 20px;
+		&.np{
+			margin-bottom: 20px;
+		}
 		.margin-expense{
 			div p{
 				color: @brand;
@@ -559,11 +557,6 @@ body{
 		}
 	}
 	&.data{
-		.clearfix{
-			&:first-of-type{
-				margin-top:15px;
-			}
-		}
 		.checkbox-selector input[type=checkbox] + label {
 			display: block !important;
 			margin: 0;
@@ -579,9 +572,10 @@ body{
 		p{
 			margin-bottom: 10px;
 		}
-		.number{
-			clearfix:first-of-type{
-				
+		.ng-scope{
+			margin-top: 10px;
+			&:first-of-type{
+				margin-top: 0;
 			}
 		}
 		.radio-selector{
@@ -773,8 +767,96 @@ body{
 			}
 		}		
 	}
-
 }
+
+/*-- Events list --*/
+
+.container.events-list{
+	.dividersBar{
+		height: 28px;
+		line-height: 34px;
+		margin-top: -6px;
+		&:before{
+			border-radius: 0 0 6px 6px;
+		  display:block;
+		  height: 6px;
+		  width: 100%;
+		  content: " ";
+		  background: #fff;
+		  position: absolute;
+		  //z-index: 9999999999999999999;
+		}
+	}
+}
+
+.box-container.events-list{
+	.eventDescription{
+		margin-top: 11px;
+	}
+}
+
+.dividersBar{
+	color: @lightGrey;
+	font-size: 10px;
+	font-weight: 400;
+	text-align: center;
+	text-transform: uppercase;
+  position: relative;
+  display: block;
+  background: #ebeae6;
+}
+
+.dividersBar.big{
+	line-height: 26px;
+	margin-top: 0;
+	&:first-of-type{
+		margin-top: -3px;
+	}
+	&:before, &:after{
+		display: none;
+	}
+}
+
+.statusBar + .events-list .dividersBar:before{
+  display:none;
+}
+.statusBar + .pages .events-list:first-child .dividersBar{
+	height: 20px;
+	line-height: 18px;
+	margin-top: 0;
+	&:before{
+		background: transparent;
+	}
+}
+
+.events-list:last-child .box-container {
+	border-radius: 0 0 6px 6px;
+	.editpanel{
+		border-radius: 0 0 6px 0;
+	}
+}
+.box-container.events-list, .dividersBar.ng-hide + .box-container.events-list{
+	border-top: 1px solid @borders;
+	.border-top-radius(0px);	
+}
+
+.dividersBar + .box-container.events-list{
+	border-top: 0px solid @borders;
+	.border-top-radius(6px);	
+}
+
+.container.events-list:nth-child(2){
+	.editpanel{
+		border-radius:0 6px 0 0;	
+	}
+}
+
+.container.events-list:nth-child(3){
+	.editpanel{
+		border-radius:0 6px 0 0;	
+	}
+}
+
 
 /* -- STATUS BAR -- */
 
@@ -1466,36 +1548,6 @@ textarea{
 		padding-top: 17px;
 		text-align: center;
 	}
-}
-
-/*-- MARGIN --*/
-
-.m10{
-	margin: 10px 0;
-}
-
-.mt15{
-	margin-top:15px;
-}
-
-.mt20{
-	margin-top: 20px;
-}
-
-.m25{
-	margin: 25px 0;
-}
-
-.mt5{
-	margin-top: 5px;
-}
-
-.mt25{
-	margin-top: 25px;
-}
-
-.mt48{
-	margin-top: 48px;
 }
 
 /*-- PROGRESS STYLES --*/
