@@ -869,7 +869,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data", hasAddPhoto: false}
+        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasEditIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data", hasAddPhoto: false}
 
         , authToken = UserService.currentUser.auth_token
         , companyId = CompanyService.getCompanyId()
@@ -964,7 +964,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       snapRemote.close()
 
       var
-          ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data"}
+          ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditIcon: true, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data"}
 
         , authToken = UserService.currentUser.auth_token
         , companyId = CompanyService.getCompanyId()
@@ -973,6 +973,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = { success: function(event) {
                                       $scope.event = event
+                                      $scope.UserInterface.EditIconUrl = "#/home/events/" + $scope.event.id + "/data";
 
                                       // Options for User Interface in home partial
                                       ui.title = event.campaign ? event.campaign.name : "Data"

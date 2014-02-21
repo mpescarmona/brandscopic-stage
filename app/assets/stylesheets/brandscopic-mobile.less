@@ -433,7 +433,7 @@ body{
 .events{
 	.eventHour{
 		color: @txt;
-		margin-top: 9px;
+		margin-top: 12px;
 		p{
 			text-align: center;
 			&:first-child{
@@ -771,6 +771,24 @@ body{
 
 /*-- Events list --*/
 
+.container.events-list{
+	.dividersBar{
+		height: 28px;
+		line-height: 34px;
+		margin-top: -6px;
+		&:before{
+			border-radius: 0 0 6px 6px;
+		  display:block;
+		  height: 6px;
+		  width: 100%;
+		  content: " ";
+		  background: #fff;
+		  position: absolute;
+		  //z-index: 9999999999999999999;
+		}
+	}
+}
+
 .box-container.events-list{
 	.eventDescription{
 		margin-top: 11px;
@@ -783,23 +801,9 @@ body{
 	font-weight: 400;
 	text-align: center;
 	text-transform: uppercase;
-	margin-top: -6px;
   position: relative;
   display: block;
   background: #ebeae6;
-	height: 26px;
-	line-height: 33px;
-}
-
-.dividersBar:before{
-	border-radius: 0 0 6px 6px;
-  display:block;
-  height: 6px;
-  width: 100%;
-  content: " ";
-  background: #fff;
-  position: absolute;
-  //z-index: 9999999999999999999;
 }
 
 .dividersBar.big{
@@ -816,15 +820,30 @@ body{
 .statusBar + .events-list .dividersBar:before{
   display:none;
 }
-.statusBar + .events-list .dividersBar{
+.statusBar + .pages .events-list:first-child .dividersBar{
 	height: 20px;
 	line-height: 18px;
 	margin-top: 0;
-}
-.events-list:first-child .box-container {
-	.editpanel{
-		border-radius: 0 0 6px 0;
+	&:before{
+		background: transparent;
 	}
+}
+
+.dividersBar + .box-container.events-list{
+	border-top: 0px solid @borders;
+	.border-top-radius(6px);	
+}
+
+.dividersBar + .events-list .editpanel{
+	border-radius: 0 6px 0  0;
+}
+
+.dividersBar + .events-list:last-child .editpanel{
+	border-radius: 0 6px 0  0;
+}
+
+.dividersBar.ng-hide + .events-list .editpanel{
+	border-radius: 0px;
 }
 
 .events-list:last-child .box-container {
@@ -833,27 +852,12 @@ body{
 		border-radius: 0 0 6px 0;
 	}
 }
+
 .box-container.events-list, .dividersBar.ng-hide + .box-container.events-list{
 	border-top: 1px solid @borders;
 	.border-top-radius(0px);	
 }
 
-.dividersBar + .box-container.events-list{
-	border-top: 0px solid @borders;
-	.border-top-radius(6px);	
-}
-
-.container.events-list:nth-child(2){
-	.editpanel{
-		border-radius:0 6px 0 0;	
-	}
-}
-
-.container.events-list:nth-child(3){
-	.editpanel{
-		border-radius:0 6px 0 0;	
-	}
-}
 
 
 /* -- STATUS BAR -- */
