@@ -14,7 +14,7 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future }
     , actions = { success: function(events, filters) {
                               // workaround for remove the non 'Active' and 'past' events
-                              var 
+                              var
                                   evt = []
                                 , today = new Date()
                                 , startDate = null
@@ -56,15 +56,20 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     $scope.event.active = false
     Event.update(credentials, actions, $scope.event)
   }
+  $scope.filter = "";
+  $scope.$on("FILTER_EVENTS", function (event, filter) {
+      $scope.filter = filter;
+      $scope.$apply();
+  });
 
 }
 
 eventsCtrl.$inject = [
-  '$scope', 
-  '$state', 
+  '$scope',
+  '$state',
   '$stateParams',
-  'snapRemote', 
-  'UserService', 
+  'snapRemote',
+  'UserService',
   'CompanyService',
   'UserInterface',
   'Event'

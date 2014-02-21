@@ -3,6 +3,7 @@ angular.module('brandscopicApp.sharedDirectives', [])
         "use strict";
 
         var link = function (scope, element, attrs) {
+
             var searchResult = []
             $.widget( "custom.catcomplete", $.ui.autocomplete, {
                   _renderMenu: function( ul, items ) {
@@ -24,7 +25,11 @@ angular.module('brandscopicApp.sharedDirectives', [])
                       eventService.getEventSearch(request.term).then( function (data) {
                           response(data);
                       })
-                  }
+                    },
+              select: function(event, ui) {
+                      scope.$broadcast("FILTER_EVENTS", { id: ui.item.id, type: ui.item.category });
+                      return false;
+                    }
             });
         };
 

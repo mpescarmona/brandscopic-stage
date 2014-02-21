@@ -13,6 +13,12 @@ scopic.consts = Object.freeze({
     booleans: {
         TRUE: true,
         FALSE: false
+    },
+    events_typeahead_categories: {
+        CAMPAIGNS: "Campaigns",
+        BRANDS: "Brands",
+        PLACES: "Places",
+        USERS: "Users"
     }
 });
 

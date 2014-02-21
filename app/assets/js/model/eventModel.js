@@ -179,6 +179,24 @@ angular.module('model.event', ['persistence.event'])
             return canDo
         }
 
+      , filterEvents = function(credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
+            company_id = credentials.company_id
+            eventClient.filterEvents(credentials, filterEventsResponse(actions))
+          } else
+              throw 'Wrong set of credentials'
+        }
+
+        , filterEventsResponse = function (actions) {
+            return function (resp) {
+              if (resp) {
+                actions.success(angular.copy(resp))
+              }
+              else
+                throw 'results missing on response'
+
+            }
+      }
       return {
           all: all
         , find: find
@@ -189,5 +207,6 @@ angular.module('model.event', ['persistence.event'])
         , results: results
         , can : can
         , getAllowedActions : getAllowedActions
+        , filterEvents: filterEvents
       }
   }])
