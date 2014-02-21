@@ -199,7 +199,10 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                     }
 
       $scope.event.active = false
-      $scope.upload_photos = /upload photos/.test($scope.event.actions.join())
+      $scope.goBack = function(){
+          $state.go('home.events')
+          return
+      }
       Event.update(credentials, actions, $scope.event)
     }
   }])
@@ -328,7 +331,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       return;
     }
     snapRemote.close()
-
+    
     var
         ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasAddPhoto: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
@@ -341,6 +344,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     angular.extend(UserInterface, Event.getAllowedActions())
                                     $scope.eventId = $stateParams.eventId
                                     $scope.UserInterface = UserInterface
+                                    
                     }
         }
 
@@ -358,7 +362,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       $state.go(newState);
       return;
     };
-
 
     $scope.deleteTeam = function(teamId, teamType) {
       var
@@ -479,7 +482,10 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       return;
     }
     snapRemote.close()
-
+    $scope.goBack = function(){
+      $state.go('home.events')
+      return
+    }
     var
         ui = {title: 'Contact info', hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasAddPhoto: false, hasEditIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
