@@ -32,19 +32,8 @@ var uploadNow = (function () {
        angular.element('[ng-controller]:first').scope().trigger('createPhoto', { direct_upload_url: uri });
     }
     , render = function (uri, href) {
-        var li      = document.createElement('li')
-          , a       = document.createElement('a')
-          , img     = document.createElement('img')
-          , element = document.getElementById(injectOn)
+        angular.element('[ng-controller]:first').scope().trigger('createPhoto', { render: true, src: uri });
 
-        a.href = href
-        img.src = uri
-
-        a.appendChild(img)
-        li.appendChild(a)
-        element.appendChild(li)
-
-        console.log('result of upload: ', uri, href);
     }
     , callback = function (file) {
         return function (e) {
