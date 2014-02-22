@@ -49,9 +49,9 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     filterStatus($scope.event_status)
   }
 
-  $scope.deleteEvent = function() {
+  $scope.deleteEvent = function(deletedEvent) {
     var
-        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: deletedEvent.id }
       , actions = { success: function (event) {
                           $scope.event = event
                           // $location.path("/home/events/" + event.id + "/about")
@@ -62,8 +62,8 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
                     }
                   }
 
-    $scope.event.active = false
-    Event.update(credentials, actions, $scope.event)
+    deletedEvent.active = false
+    Event.update(credentials, actions, deletedEvent)
   }
 
 }
