@@ -319,7 +319,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       if (em2 == 4)
         $scope.event.end_date = $scope.event.end_date.replace(/^(\d{4})\/(\d{2})\/(\d{2}).*$/, '$2/$3/$1')
 
-      $scope.event.campaign_id = $scope.campaign ? $scope.campaign.id : 0
+      $scope.event.campaign_id = $scope.event.campaign.id ? $scope.event.campaign.id : 0
       Event.update(credentials, actions, $scope.event)
     }
 
