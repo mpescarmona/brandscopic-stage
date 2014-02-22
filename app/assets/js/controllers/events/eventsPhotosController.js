@@ -30,18 +30,20 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
     Event.find(credentials, actions)
 
     $scope.$on('createPhoto', function (e, data) {
-      Photos.create(credentials, actions, data)
+      if ( data.render )
+        $scope.photos.unshift({file_medium: data.src})
+      else
+        Photos.create(credentials, actions, data)
     })
 
     photosService.getPhotosList().then( function (response) {
         $scope.photos = response.results;
         $scope.photosCount = response.results.length;
         $scope.hasPhotos =  (response.results.length && response.results.length > 0) ? true : false
-        console.log($scope.photos)
     })
     //slider
     $scope.direction = 'left';
-    $scope.currentIndex = 0;
+    $scope.currentIndex = $stateParams.index || 0;
 
     $scope.setCurrentSlideIndex = function (index) {
         $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
