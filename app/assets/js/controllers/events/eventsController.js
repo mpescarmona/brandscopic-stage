@@ -14,7 +14,15 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future, 'status[]': 'Active' }
     , options = { force: true }
     , actions = { success: function(events, filters) {
-                              $scope.eventsItems = events
+                              // workaround for remove the non 'Active' and 'past' events
+                              var 
+                                  evt = []
+                              for (var i = 0, len = events.length; i < len; i++) {
+                                if (events[i].status == 'Active') {
+                                  evt.push(events[i])
+                                  }
+                                }
+                              $scope.eventsItems = evt
                               $scope.filters = filters
                               $scope.page = events.page
                               angular.extend(UserInterface, ui)
@@ -54,7 +62,16 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: deletedEvent.id }
       , actions = { success: function (event) {
                           $scope.event = event
-                          // $location.path("/home/events/" + event.id + "/about")
+                          // workaround for remove the non removed event from event list
+                          var 
+                              evt = []
+                          for (var i = 0, len = $scope.eventsItems.length; i < len; i++) {
+                            if ($scope.eventsItems[i].status == 'Active' && $scope.eventsItems[i].id != event.id) {
+                              evt.push($scope.eventsItems[i])
+                            } 
+                          }
+                          $scope.eventsItems = evt
+                          $state.go('home.events')
                     }
                   , error: function (event_error) {
                       $scope.event_error = event_error
