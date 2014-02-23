@@ -14,7 +14,7 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
 
     var
         isPhoto = true
-      , ui = {hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "photos"}
+      , ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "photos"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
                                     $scope.event = event;
@@ -30,8 +30,10 @@ function eventsPhotosCtrl($scope, $state, $stateParams, snapRemote, UserService,
     Event.find(credentials, actions)
 
     $scope.$on('createPhoto', function (e, data) {
-      if ( data.render )
+      if ( data.render ){
+        $scope.hasPhotos = true
         $scope.photos.unshift({file_medium: data.src})
+      }
       else
         Photos.create(credentials, actions, data)
     })
