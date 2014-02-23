@@ -15,18 +15,16 @@
   			</div>
   			<div class="col-xs-4 expenses-attach pull-right">
   				<div class="fileUpload">
+            <img class="receipt-img" ng-src="{{ event_expense.receipt.file_small }}">
   				  <p>Attach receipt</p>
-  				  <input type="file" class="upload" accept="image/*"/>
+  				  <input ng-model='image' type="file" class="upload" accept="image/*"/ data-aws>
   				</div>
   			</div>
   		</div>
   	</div>
     <div class="row">
-      <div class="col-xs-12 mt20">
-        <label>Save</label>
-      </div>
       <div class="col-xs-12">
-        <input type="submit" value="save" class="btn btn-danger" ng-click="createExpense(expense)">
+        <input type="submit" value="save" class="hide" data-trigger-on-header='save' ng-click="triggerExpense(expense)">
       </div>
     </div>
 	</form>

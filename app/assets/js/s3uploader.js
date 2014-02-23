@@ -5,13 +5,12 @@ var uploadNow = (function () {
     , event_id    = undefined
     , url         = undefined
     , urlOnUpdate = undefined
-    , injectOn    = 'event-gallery'
-
+    , bind        = true
     , readIt = function (e) {
         var uri  = e.target.result
           , href = '#home/events/'+ event_id +'/photos/slider'
 
-        render(uri, href)
+        triggerEvent('createPhoto', { render: true, src: uri })
     }
     , randomSegment = function (cant) {
         var cant = cant || 1
@@ -29,11 +28,7 @@ var uploadNow = (function () {
          , response = parser.parseFromString(e.target.response, 'text/xml')
          , uri      = response.querySelector('Location').textContent
 
-       angular.element('[ng-controller]:first').scope().trigger('createPhoto', { direct_upload_url: uri });
-    }
-    , render = function (uri, href) {
-        angular.element('[ng-controller]:first').scope().trigger('createPhoto', { render: true, src: uri });
-
+       triggerEvent('createPhoto', { direct_upload_url: uri })
     }
     , callback = function (file) {
         return function (e) {
@@ -63,14 +58,23 @@ var uploadNow = (function () {
         request.send()
     }
     , handleFileSelect = function (evt) {
-        var file   = evt.target.files[0]
-          , reader = new FileReader();
+        _trigger(evt.target)    
+    }
+    , _trigger = function (target) {
+       var target  = target || document.querySelector(input)
+         , file   = target.files[0]
+         , reader = new FileReader();
+
         if (file) {
           ApiParameters(file)
           reader.onload = readIt
           reader.readAsDataURL(file);
-        }
+        } 
+    } 
+    , triggerEvent = function (evt, payload) {
+        angular.element('[ng-controller]:first').scope().trigger(evt, payload)
     }
+
     , _bind = function (options) {
         var options = options || {}
 
@@ -80,15 +84,17 @@ var uploadNow = (function () {
         url         = options.url         || url
         urlOnUpdate = options.urlOnUpdate || urlOnUpdate
         input       = options.input       || 'input[type=file][data-aws]'
-        injectOn    = options.injectOn    || injectOn
-
+        bind        = !options.nobind
+        
       console.log(auth_token, company_id, url, event_id)
 
-      document.querySelector(input).addEventListener('change', handleFileSelect)
+      if (bind)
+        document.querySelector(input).addEventListener('change', handleFileSelect)
     }
 
     return {
       bind: _bind
+      , trigger: _trigger
     }
 
 }())

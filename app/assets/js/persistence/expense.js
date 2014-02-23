@@ -9,7 +9,7 @@ angular.module('persistence.expense', ['ngResource', 'util.jsonToFormData'])
 
       , 'create'  : { method: 'POST'
                      , headers: contentType
-                     , transformRequest: jsonToFormDataFor('event_expense')
+                     , transformRequest: jsonToFormDataFor('event_expense', true)
                     }
 
   });

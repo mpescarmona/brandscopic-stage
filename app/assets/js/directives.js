@@ -193,4 +193,6 @@ angular.module('brandscopicApp.directives', [])
       })
 
     };
-  });
+  })
+  
+  
