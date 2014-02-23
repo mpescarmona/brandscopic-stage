@@ -190,7 +190,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = { success: function (event) {
                             $scope.event = event
-                            // $location.path("/home/events/" + event.id + "/about")
+                            $state.go('home.events')
                       }
                     , error: function (event_error) {
                         $scope.event_error = event_error
@@ -299,7 +299,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = { success: function (event) {
                             $scope.event = event
-                            $location.path("/home/events/" + event.id + "/about")
+                            $state.go('home.events')
                       }
                     , error: function (event_error) {
                         $scope.event_error = event_error
