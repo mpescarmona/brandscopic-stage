@@ -32,7 +32,7 @@ scopic.consts = Object.freeze({
     	BETWEEN_21_24: 3,
     	BETWEEN_25_34: 4,
     	BETWEEN_35_44: 5,
-    	BETWEEN_45_44: 6,
+    	BETWEEN_45_54: 6,
     	BETWEEN_55_64: 7,
     	MORE_65: 8
     },
@@ -42,6 +42,11 @@ scopic.consts = Object.freeze({
         REGULAR: 3,
         LIKELY: 4,
         VERY_LIKELY: 5
+    },
+    question_one_options: {
+        PURCHASED: "purchased",
+        AWARE: "aware",
+        UNAWARE: "unaware"
     }
 });
 

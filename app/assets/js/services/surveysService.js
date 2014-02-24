@@ -2,6 +2,13 @@ angular.module('brandscopicApp.surveysService', []).
     factory('surveysService', ['$q', 'CompanyService', 'UserService', '$stateParams', 'Surveys', function ($q, CompanyService, UserService, $stateParams, Surveys) {
         'use strict';
 
+    var _question_one_options = Object.freeze([
+        {
+            PURCHASED: "PURCHASED",
+            AWARE: "AWARE",
+            UNAWARE: "UNAWARE"
+        }
+    ]);
  		var _genders = Object.freeze([
  			{
  				key: scopic.consts.surveys_question_gender.MALE,
@@ -76,10 +83,10 @@ angular.module('brandscopicApp.surveysService', []).
  		]);
 
   		var _likelihood= Object.freeze([
-  			{
-  				key: "Choose_option",
-  				value: "Choose option"
-  			},
+			{
+				key: "Choose_option",
+				value: "Choose option"
+			},
  			{
  				key: scopic.consts.surveys_question_likelihood.VERY_UNLIKELY,
  				value: "1 - VERY UNLIKELY"
@@ -105,7 +112,7 @@ angular.module('brandscopicApp.surveysService', []).
 		var _getSurveysList = function () {
 			var defer = $q.defer();
 			var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-			, actions = { 
+			, actions = {
 			  success: function (items) {
 			                defer.resolve(items)
 			            }
@@ -119,32 +126,48 @@ angular.module('brandscopicApp.surveysService', []).
 		}
 
 		var _createSurvey = function (survey) {
-			//console.log(survey.surveys_answers_attributes[10].answer);
 			var defer = $q.defer();
 			var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-			, actions = { 
+			, actions = {
 			  success: function (items) {
-			  				alert("success");
-			  				console.log(items);
-			                defer.resolve(items)
+			               defer.resolve(items)
 			            }
 			   , error: function (event_error) {
-			   				alert("error");
 			              defer.reject(event_error)
 			      }
 			  }
 
 			Surveys.create(credentials, actions, survey)
 			return defer.promise;
-		} 
+		}
+
+    var _getBrandslist = function () {
+        var defer = $q.defer();
+        var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = {
+          success: function (items) {
+                        console.log(items);
+                        defer.resolve(items)
+                    }
+           , error: function (event_error) {
+                        console.log(event_error);
+                        defer.reject(event_error)
+              }
+          }
+
+        Surveys.brands(credentials, actions)
+        return defer.promise;
+    }
 
         return {
-        	genders: _genders,
-        	races: _races,
-        	ages: _ages,
-        	likehood: _likelihood,
-        	getSurveysList: _getSurveysList,
-        	createSurvey: _createSurvey
+            ages: _ages,
+            getBrandslist: _getBrandslist,
+            createSurvey: _createSurvey,
+            genders: _genders,
+            getSurveysList: _getSurveysList,
+            likehood: _likelihood,
+            races: _races,
+            question_one_options: _question_one_options
         }
 
     }]);

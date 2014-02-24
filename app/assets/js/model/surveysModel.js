@@ -56,8 +56,35 @@ angular.module('model.surveys', ['persistence.surveys'])
         }
       }
 
+      , brands = function (credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions) {
+            if (collection && company_id == credentials.company_id && event_id == credentials.event_id)
+              actions.success(collection)
+            else {
+              company_id = credentials.company_id
+              event_id = credentials.event_id
+              surveysClient.brands(credentials, brandsResponse(actions))
+            }
+          } else
+            throw 'Wrong set of credentials'
+
+      }
+      , brandsResponse = function (actions) {
+          return function(resp){
+            if (resp.length) {
+              collection = resp
+
+              actions.success(angular.copy(collection))
+            }
+            else
+              throw 'results missing on response'
+
+          }
+      }
+
       return {
           all: all
+        , brands: brands
         , create: create
       }
   }])

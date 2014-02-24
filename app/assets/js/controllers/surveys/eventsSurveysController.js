@@ -11,7 +11,6 @@ function eventsSurveysController($scope, $state, $stateParams, snapRemote, UserS
       , actions = { success: function(event){
                                     console.log(event)
                                     $scope.event = event;
-
                                     // Options for User Interface in home partial
                                     ui.title = event.campaign ? event.campaign.name : "Surveys"
                                     angular.extend(UserInterface, ui)
@@ -21,20 +20,90 @@ function eventsSurveysController($scope, $state, $stateParams, snapRemote, UserS
        }
 
     Event.find(credentials, actions)
-
+    $scope.showSurveys = false;
     surveysService.getSurveysList().then( function (response){
-        console.log(response);
+        if(response.length > 0) {
+          $scope.showSurveys = true;
+        }
+        $scope.suveySumaryList = [];
+
+        angular.forEach(response, function (items) {
+          var _age = "", _race = "", _gender = "";
+          angular.forEach(items.surveys_answers, function (item) {
+            if(item.kpi_id != null) {
+                switch(item.kpi_id) {
+                  case 6:
+                    if(item.answer == "10") {
+                      _gender = "Male";
+                    } else {
+                      _gender = "Female";
+                    }
+                  break;
+                  case 7:
+                      switch(item.answer) {
+                        case "1"://scopic.consts.surveys_question_age.LESS12.toString():
+                          _age = "Less 12";
+                          break;
+                        case "2":// scopic.consts.surveys_question_age.BETWEEN_12_17.toString():
+                          _age = "12 - 17";
+                          break;
+                        case "387"://scopic.consts.surveys_question_age.BETWEEN_18_20.toString():
+                          _age = "18 - 20";
+                          break;
+                        case "3"://scopic.consts.surveys_question_age.BETWEEN_21_24.toString():
+                          _age = "21 - 24";
+                          break;
+                        case "4"://scopic.consts.surveys_question_age.BETWEEN_25_34.toString():
+                          _age = "25 - 34";
+                          break;
+                        case "5"://scopic.consts.surveys_question_age.BETWEEN_35_44.toString():
+                          _age = "35 - 44";
+                          break;
+                        case "6"://scopic.consts.surveys_question_age.BETWEEN_45_54.toString():
+                          _age = "45 - 54";
+                          break;
+                        case "7"://scopic.consts.surveys_question_age.BETWEEN_55_64.toString():
+                          _age = "55 - 64";
+                          break;
+                        case "8"://scopic.consts.surveys_question_age.MORE_65.toString():
+                          _age = "More than 65";
+                          break;
+                      }
+                  case 8:
+                      switch(item.answer) {
+                        case "11"://scopic.consts.surveys_question_age.ASIAN.toString():
+                          _race = "Asian";
+                          break;
+                        case "12"://scopic.consts.surveys_question_age.BLACK.toString():
+                          _racee = "Black / African American";
+                          break;
+                        case "13"://scopic.consts.surveys_question_age.LATINO.toString():
+                          _race = "Hispanic / Latino";
+                          break;
+                        case "14"://scopic.consts.surveys_question_age.AMERICAN.toString():
+                          _race = "Native American";
+                          break;
+                        case "15"://scopic.consts.surveys_question_age.WHITE.toString():
+                          _race = "White";
+                          break;
+                      }
+                }
+            }
+          })
+        $scope.suveySumaryList.push( { age: _age, race: _race, gender: _gender, create: items.created_at, update: items.updated_at } );
+        console.log($scope.suveySumaryList);
+      });
     });
 }
 
 eventsSurveysController.$inject = [
-  '$scope', 
-  '$state', 
-  '$stateParams', 
-  'snapRemote', 
-  'UserService', 
-  'CompanyService', 
-  'UserInterface', 
+  '$scope',
+  '$state',
+  '$stateParams',
+  'snapRemote',
+  'UserService',
+  'CompanyService',
+  'UserInterface',
   'surveysService',
   'Event'
 ];
