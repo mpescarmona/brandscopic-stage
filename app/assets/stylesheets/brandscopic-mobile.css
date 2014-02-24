@@ -576,7 +576,7 @@ h6 {
   margin: 25px 0;
 }
 .mt5 {
-  margin-top: 5px;
+  margin-top: 5px !important;
 }
 .mt25 {
   margin-top: 25px;
@@ -699,6 +699,9 @@ body.appLayout .container {
   margin-top: 2px;
   padding: 9px 12px;
   width: 100%;
+}
+.box-container.mt5 {
+  margin-top: 5px !important;
 }
 .box-container.dashboard {
   margin-bottom: 4px;
@@ -1029,7 +1032,7 @@ body.appLayout .container {
 /* -- EVENTS SECTION -- */
 .events .eventHour {
   color: #666666;
-  margin-top: 9px;
+  margin-top: 12px;
 }
 .events .eventHour p {
   text-align: center;
@@ -1075,6 +1078,9 @@ body.appLayout .container {
   font-size: 17px;
   line-height: 35px;
 }
+.events.expenses .row-content {
+  float: none;
+}
 .events.expenses .expenses-details {
   padding: 10px 0 5px 10px;
   box-sizing: border-box;
@@ -1108,11 +1114,16 @@ body.appLayout .container {
   content: "\e619";
   display: block;
 }
+.events.expenses .expenses-attach .fileUpload {
+  border: 0;
+  margin: 0;
+}
 .events.expenses ul li:last-child {
   border-bottom: 0;
 }
 .events.expenses ul li .title p {
   line-height: 52px;
+  padding-right: 20px;
 }
 .events.expenses ul li .expense-price {
   font-size: 14px;
@@ -1329,8 +1340,8 @@ body.appLayout .container {
 }
 /*-- Events list --*/
 .container.events-list .dividersBar {
-  height: 26px;
-  line-height: 33px;
+  height: 28px;
+  line-height: 34px;
   margin-top: -6px;
 }
 .container.events-list .dividersBar:before {
@@ -1356,7 +1367,8 @@ body.appLayout .container {
   background: #ebeae6;
 }
 .dividersBar.big {
-  line-height: 26px;
+  line-height: 28px;
+  height: 26px;
   margin-top: 0;
 }
 .dividersBar.big:first-of-type {
@@ -1369,13 +1381,27 @@ body.appLayout .container {
 .statusBar + .events-list .dividersBar:before {
   display: none;
 }
-.statusBar + .events-list .dividersBar {
+.statusBar + .pages .events-list:first-child .dividersBar {
   height: 20px;
   line-height: 18px;
   margin-top: 0;
 }
-.events-list:first-child .box-container .editpanel {
-  border-radius: 0 0 6px 0;
+.statusBar + .pages .events-list:first-child .dividersBar:before {
+  background: transparent;
+}
+.dividersBar + .box-container.events-list {
+  border-top: 0px solid #d3d3d3;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+.dividersBar + .events-list .editpanel {
+  border-radius: 0 6px 0  0;
+}
+.dividersBar + .events-list:last-child .editpanel {
+  border-radius: 0 6px 0  0;
+}
+.dividersBar.ng-hide + .events-list .editpanel {
+  border-radius: 0px;
 }
 .events-list:last-child .box-container {
   border-radius: 0 0 6px 6px;
@@ -1388,17 +1414,6 @@ body.appLayout .container {
   border-top: 1px solid #d3d3d3;
   border-top-right-radius: 0px;
   border-top-left-radius: 0px;
-}
-.dividersBar + .box-container.events-list {
-  border-top: 0px solid #d3d3d3;
-  border-top-right-radius: 6px;
-  border-top-left-radius: 6px;
-}
-.container.events-list:nth-child(2) .editpanel {
-  border-radius: 0 6px 0 0;
-}
-.container.events-list:nth-child(3) .editpanel {
-  border-radius: 0 6px 0 0;
 }
 /* -- STATUS BAR -- */
 .statusBar {
@@ -2361,6 +2376,8 @@ input.form-control:focus {
 .fileUpload {
   position: relative;
   overflow: hidden;
+  margin-top: 3px;
+  margin-right: 2px;
 }
 .fileUpload input.upload {
   position: absolute;
@@ -2374,6 +2391,14 @@ input.form-control:focus {
   cursor: pointer;
   opacity: 0;
   filter: alpha(opacity=0);
+  z-index: 2;
+}
+.receipt-img {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 html {
   min-height: 100%;
@@ -2383,9 +2408,8 @@ html {
 .empty {
   bottom: 0;
   color: #c0c0c0;
-  height: 100%;
   left: 0;
-  margin: 25% auto;
+  margin: 25% auto 5px auto;
   position: absolute;
   right: 0;
   text-align: center;
