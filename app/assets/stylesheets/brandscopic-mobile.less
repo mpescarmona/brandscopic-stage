@@ -81,6 +81,10 @@ body{
 	padding: 9px 12px;
 	width:100%;
 
+	&.mt5{
+		margin-top: 5px !important;
+	}
+
 	&.dashboard{
 		margin-bottom: 4px;
 		margin-top: 5px;
@@ -807,7 +811,8 @@ body{
 }
 
 .dividersBar.big{
-	line-height: 26px;
+	line-height: 28px;
+	height: 26px;
 	margin-top: 0;
 	&:first-of-type{
 		margin-top: -3px;
@@ -1838,6 +1843,8 @@ select, input{
 .fileUpload {
 	position: relative;
 	overflow: hidden;
+	margin-top: 3px;
+	margin-right: 2px;
 }
 .fileUpload input.upload {
 	position: absolute;
@@ -1869,9 +1876,8 @@ html{min-height:100%;position:relative}
 .empty{
 	bottom: 0;
 	color: #c0c0c0;
-	height: 100%;
 	left: 0;
-	margin: 25% auto;
+	margin: 25% auto 5px auto;
 	position: absolute;
 	right: 0;
 	text-align: center;
