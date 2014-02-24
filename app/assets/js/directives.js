@@ -195,4 +195,11 @@ angular.module('brandscopicApp.directives', [])
     };
   })
   
-  
+  .directive('showPhoto', function(){
+    return function(scope, el, attr){
+      el.find('#upload-recipit-input').on('change', function(e){
+        debugger
+        console.log('input change!')
+      })  
+    }
+  });
