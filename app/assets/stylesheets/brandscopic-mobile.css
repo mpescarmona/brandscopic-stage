@@ -1115,10 +1115,8 @@ body.appLayout .container {
   display: block;
 }
 .events.expenses .expenses-attach .fileUpload {
-  margin: 0;
-}
-.events.expenses .expenses-attach .fileUpload input[type="file"] {
   border: 0;
+  margin: 0;
 }
 .events.expenses ul li:last-child {
   border-bottom: 0;
