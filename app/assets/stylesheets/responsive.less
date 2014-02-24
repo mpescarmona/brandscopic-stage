@@ -19,7 +19,8 @@
 	}
 
 	.empty{
-		margin: 16% auto;
+		height: 100%;
+		margin: 16% auto 0 auto;
 		&.people{
 			margin: 20% auto;
 			h6:last-child{
@@ -30,6 +31,9 @@
 				margin-bottom: 0;
 				line-height: 21px;
 			}
+		}
+		h6:last-child{
+			margin-bottom: 15px;
 		}
 	}
 
@@ -62,13 +66,13 @@
 		z-index: 100;
 	}
 
+	.gallery ul li{
+		height: 200px;
+	}
+
 	.gallery_fullscreen{
 		height: 100%;
 		padding-top:0;
-		img {
-			max-height: 370px;
-			width: 100%;
-		}
 		&.expenses{
 			img{
 				max-height: none;

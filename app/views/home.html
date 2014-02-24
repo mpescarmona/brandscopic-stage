@@ -22,7 +22,7 @@
   <div class="navHeader" ng-class="{gallery: UserInterface.hasCustomHomeClass}" ng-show="!UserInterface.searching">
     <div class="left">
       <button snap-toggle class="noButton menuIcon pull-left" ng-show="UserInterface.hasMenuIcon"></button>
-      <button class="noButton pull-left" ng-class="{delete: UserInterface.hasDeleteIcon, backIcon: UserInterface.hasBackIcon}" ng-show="UserInterface.hasDeleteIcon" header-back-action></button>
+      <button class="noButton pull-left" ng-class="{delete: UserInterface.hasDeleteIcon, backIcon: UserInterface.hasBackIcon}" ng-show="UserInterface.hasDeleteIcon || UserInterface.hasBackIcon" header-back-action></button>
     </div>
     <div class="center">
       <h1 class="txtAdjust">{{UserInterface.title}}</h1>

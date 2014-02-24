@@ -7,6 +7,8 @@ body.appLayout .container.description{
 
 body.appLayout .container.slider{
   background-color: #252525;
+  margin-bottom: 25px;
+  text-align: center;
   width: 100%;
 }
 
@@ -23,9 +25,7 @@ body.appLayout .container.slider{
 
 .slider {
   width: 100%;
-  min-height: 200px;
   position: relative;
-  margin-bottom: 35%;
 }
 
 .slide {
@@ -51,12 +51,17 @@ body.appLayout .container.slider{
 .gallery ul li{
   border-bottom: 0 !important;
   float: left;
-  width: 33.33333333%
+  overflow: hidden;
+  height: 120px;
+  width: 33.33333333%;
+  position:relative;
 }
 
 .gallery ul li img{
+  position: absolute;
   display: block;
   margin: 1px 2px;
+  height: 100%;
   width: 100%;
 }
 
@@ -71,7 +76,7 @@ body.appLayout .container.slider{
   bottom:0;
   left:0;
   right:0;
-  overflow-y:scroll;
+  overflow-y:auto;
   overflow-x: hidden;
 }
 
@@ -92,8 +97,10 @@ body.appLayout .container.slider{
 }
 
 .gallery_fullscreen img{
-  max-height: 140%;
-  width: 100%;
+  margin: 0 auto;
+  max-height: auto;
+  position: relative;
+  width: 90%;
 }
 
 /*-- GALLERY FOR EXPENSES --*/

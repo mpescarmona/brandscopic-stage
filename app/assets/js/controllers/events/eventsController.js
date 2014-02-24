@@ -9,43 +9,69 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
   $scope.UserInterface = UserInterface;
   var
       ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add",hasAddPhoto: false}
-      today = (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear()
-      future = "12/31/" + (new Date().getFullYear() + 10)
-    , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future }
+    , today = (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear()
+    , future = "12/31/" + (new Date().getFullYear() + 10)
+    , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future, 'status[]': 'Active' }
+    , options = { force: true }
     , actions = { success: function(events, filters) {
                               // workaround for remove the non 'Active' and 'past' events
                               var
                                   evt = []
-                                , today = new Date()
-                                , startDate = null
-                                , endDate = null
                               for (var i = 0, len = events.length; i < len; i++) {
-                                startDate = new Date(events[i].start_date)
-                                endDate = new Date(events[i].end_date)
-                                if (events[i].status == 'Active' && (startDate >= today || endDate >= today)) {
-                                // if (events[i].status == 'Active') {
+                                if (events[i].status == 'Active') {
                                   evt.push(events[i])
+                                  }
                                 }
-                              }
                               $scope.eventsItems = evt
                               $scope.filters = filters
+                              $scope.page = events.page
                               angular.extend(UserInterface, ui)
                             }
       }
 
-  Event.all(credentials, actions)
+  Event.all(credentials, actions, options)
 
-  $scope.event_status = false;
+  $scope.event_status = false
   $scope.filterStatus = function(status) {
     $scope.event_status = ($scope.event_status == status) ? false : status;
+
+    var
+        today = (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear()
+      , future = "12/31/" + (new Date().getFullYear() + 10)
+      , credentials = ($scope.event_status) ? { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, page: $scope.page, 'status[]': 'Active', 'event_status[]': status } 
+                                            : { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future, page: $scope.page, 'status[]': 'Active' }
+      , options = { force: true }
+      , actions = { success: function(events, filters) {
+                                $scope.eventsItems = events
+                                $scope.filters = filters
+                                $scope.page = events.page
+                                angular.extend(UserInterface, ui)
+                              }
+        }
+
+    Event.all(credentials, actions, options)
   }
 
-  $scope.deleteEvent = function() {
+  $scope.nextPage = function() {
+    $scope.page = $scope.page + 1
+    filterStatus($scope.event_status)
+  }
+
+  $scope.deleteEvent = function(deletedEvent) {
     var
-        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: deletedEvent.id }
       , actions = { success: function (event) {
                           $scope.event = event
-                          // $location.path("/home/events/" + event.id + "/about")
+                          // workaround for remove the non removed event from event list
+                          var 
+                              evt = []
+                          for (var i = 0, len = $scope.eventsItems.length; i < len; i++) {
+                            if ($scope.eventsItems[i].status == 'Active' && $scope.eventsItems[i].id != event.id) {
+                              evt.push($scope.eventsItems[i])
+                            } 
+                          }
+                          $scope.eventsItems = evt
+                          $state.go('home.events')
                     }
                   , error: function (event_error) {
                       $scope.event_error = event_error
@@ -53,8 +79,8 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
                     }
                   }
 
-    $scope.event.active = false
-    Event.update(credentials, actions, $scope.event)
+    deletedEvent.active = false
+    Event.update(credentials, actions, deletedEvent)
   }
   $scope.filter = "";
   $scope.$on("FILTER_EVENTS", function (event, filter) {

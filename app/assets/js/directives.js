@@ -74,10 +74,22 @@ angular.module('brandscopicApp.directives', [])
       restrict: 'A',
       link: function (scope, $el, attr) {
         $el.on('click', function (e) {
-          $window.history.back()
+          scope.goBack ? scope.goBack() : $window.history.back()
         });
       }
     };
+  })
+
+  .directive('whenScrolled', function() {
+      return function(scope, elm, attr) {
+          var raw = elm[0];
+          
+          elm.bind('scroll', function() {
+              if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+                  scope.$apply(attr.whenScrolled);
+              }
+          });
+      };
   })
 
   .directive('redirectTo', function ($window) {
@@ -185,4 +197,16 @@ angular.module('brandscopicApp.directives', [])
       })
 
     };
+  })
+  
+  .directive('showPhoto', function(){
+    return function (scope, $el, attr) {
+     $el.on('change', function (e) {
+        var reader = new FileReader()
+        reader.onload = function (e) {
+          document.querySelector('.fileUpload img.show-preview').src = e.target.result
+        }
+        reader.readAsDataURL(e.target.files[0]);
+      })  
+    }
   });

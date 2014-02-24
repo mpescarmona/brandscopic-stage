@@ -5,12 +5,12 @@ var uploadNow = (function () {
     , event_id    = undefined
     , url         = undefined
     , urlOnUpdate = undefined
-    , injectOn    = 'event-gallery'
+    , bind        = true
+    , readIt = function (e) {
+        var uri  = e.target.result
+          , href = '#home/events/'+ event_id +'/photos/slider'
 
-    , readIt     = function (fileName) {
-        return function (e) {
-          var blob = e.target.result
-      }
+        triggerEvent('createPhoto', { render: true, src: uri })
     }
     , randomSegment = function (cant) {
         var cant = cant || 1
@@ -24,36 +24,13 @@ var uploadNow = (function () {
        return [ randomSegment(2), randomSegment(), randomSegment(), randomSegment(), randomSegment(3)  ].join('-')
     }
     , endUploading = function (e) {
-        var parser   = new DOMParser()
+        var parser  = new DOMParser()
          , response = parser.parseFromString(e.target.response, 'text/xml')
-         , uri = response.querySelector('Location').textContent
-         , href = '#home/events/'+ event_id +'/photos/slider'
+         , uri      = response.querySelector('Location').textContent
 
-       render(uri, href)
-       angular.element('[ng-controller]:first').scope().trigger('createPhoto', { direct_upload_url: uri });
+       triggerEvent('createPhoto', { direct_upload_url: uri })
     }
-    , updatePhotoList = function (uri) {
-        var xhr = new XMLHttpRequest()
-          , params  = ['auth_token=' + auth_token, 'company_id=' + company_id ].join('&')
-        xhr.append('')
-
-    }
-    , render = function (uri, href) {
-        var li      = document.createElement('li')
-          , a       = document.createElement('a')
-          , img     = document.createElement('img')
-          , element = document.getElementById(injectOn)
-
-        a.href = href
-        img.src = uri
-
-        a.appendChild(img)
-        li.appendChild(a)
-        element.appendChild(li)
-
-        console.log('result of upload: ', uri, href);
-    }
-    , callback = function (blob, fileName, fileType) {
+    , callback = function (file) {
         return function (e) {
           var response = JSON.parse(e.target.response)
             , formData = new FormData()
@@ -64,48 +41,40 @@ var uploadNow = (function () {
             formData.append(key, response.fields[key])
           }
 
-          formData.append('file', blob)
-          formData.append('Content-Type', fileType)
+          formData.append('file', file)
 
           xhr.open('POST', response.url)
           xhr.onload = endUploading
           xhr.send(formData)
         }
     }
-    , readIt = function (fileName, fileType) {
-        return function (e) {
-          var binary = atob(e.target.result.split(',')[1])
-            ,  array = []
-
-          for (var i = 0; i < binary.length; i++) {
-            array.push(binary.charCodeAt(i));
-          }
-
-          var blob = new Blob([new Uint8Array(array)], {type: fileType});
-
-          ApiParameters(blob, fileName, fileType)
-        }
-    }
-    , ApiParameters = function (blob, fileName, fileType) {
+    , ApiParameters = function (file) {
         var request = new XMLHttpRequest()
           , params  = ['auth_token=' + auth_token, 'company_id=' + company_id ].join('&')
 
         request.open('GET', url + params)
 
-        request.onload = callback(blob, fileName, fileType)
+        request.onload = callback(file)
         request.send()
     }
     , handleFileSelect = function (evt) {
-        var file = evt.target.files[0]
-        if (file) {
-          reader = new FileReader();
-          //reader.onload = readIt(file.name, file.type);
-          reader.onload = ApiParameters(file, file.name, file.type)
-          reader.readAsDataURL(file);
-        }
-
-
+        _trigger(evt.target)    
     }
+    , _trigger = function (target) {
+       var target  = target || document.querySelector(input)
+         , file   = target.files[0]
+         , reader = new FileReader();
+
+        if (file) {
+          ApiParameters(file)
+          reader.onload = readIt
+          reader.readAsDataURL(file);
+        } 
+    } 
+    , triggerEvent = function (evt, payload) {
+        angular.element('[ng-controller]:first').scope().trigger(evt, payload)
+    }
+
     , _bind = function (options) {
         var options = options || {}
 
@@ -115,15 +84,17 @@ var uploadNow = (function () {
         url         = options.url         || url
         urlOnUpdate = options.urlOnUpdate || urlOnUpdate
         input       = options.input       || 'input[type=file][data-aws]'
-        injectOn    = options.injectOn    || injectOn
-
+        bind        = !options.nobind
+        
       console.log(auth_token, company_id, url, event_id)
 
-      document.querySelector(input).addEventListener('change', handleFileSelect)
+      if (bind)
+        document.querySelector(input).addEventListener('change', handleFileSelect)
     }
 
     return {
       bind: _bind
+      , trigger: _trigger
     }
 
 }())

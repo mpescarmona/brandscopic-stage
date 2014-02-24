@@ -81,6 +81,10 @@ body{
 	padding: 9px 12px;
 	width:100%;
 
+	&.mt5{
+		margin-top: 5px !important;
+	}
+
 	&.dashboard{
 		margin-bottom: 4px;
 		margin-top: 5px;
@@ -141,6 +145,11 @@ body{
 				}
 			}
 		}
+	}
+
+	&.events-list{
+		border-radius: 0;
+		margin: 0;
 	}
 
 	&.event-description{
@@ -298,17 +307,6 @@ body{
 	}
 }
 
-.dividersBar{
-	color: @lightGrey;
-	font-size: 10px;
-	font-weight: 400;
-	text-align: center;
-	text-transform: uppercase;
-	&.big{
-		padding: 7px 0;
-	}
-}
-
 .contacts_search{
 	background-color: @lightGrey;
 	height:44px;
@@ -341,6 +339,7 @@ body{
 	.comment-date{
 		color: @brand;
 		float: right;
+		margin-bottom: 5px;
 		text-align: right;
 		width: 30%;
 	}
@@ -427,6 +426,7 @@ body{
 .editpanel{
 	padding: 13px 8px 13px 13px;
 	width: 99px;
+	z-index: 9999;
 	a{
 		margin: 0 7px 0 6px
 	}
@@ -437,7 +437,7 @@ body{
 .events{
 	.eventHour{
 		color: @txt;
-		margin-top: 9px;
+		margin-top: 12px;
 		p{
 			text-align: center;
 			&:first-child{
@@ -479,7 +479,9 @@ body{
 		}
 	}
 	&.expenses{
-		margin-bottom: 20px;
+		&.np{
+			margin-bottom: 20px;
+		}
 		.margin-expense{
 			div p{
 				color: @brand;
@@ -559,11 +561,6 @@ body{
 		}
 	}
 	&.data{
-		.clearfix{
-			&:first-of-type{
-				margin-top:15px;
-			}
-		}
 		.checkbox-selector input[type=checkbox] + label {
 			display: block !important;
 			margin: 0;
@@ -579,9 +576,10 @@ body{
 		p{
 			margin-bottom: 10px;
 		}
-		.number{
-			clearfix:first-of-type{
-				
+		.ng-scope{
+			margin-top: 10px;
+			&:first-of-type{
+				margin-top: 0;
 			}
 		}
 		.radio-selector{
@@ -773,8 +771,99 @@ body{
 			}
 		}		
 	}
-
 }
+
+/*-- Events list --*/
+
+.container.events-list{
+	.dividersBar{
+		height: 28px;
+		line-height: 34px;
+		margin-top: -6px;
+		&:before{
+			border-radius: 0 0 6px 6px;
+		  display:block;
+		  height: 6px;
+		  width: 100%;
+		  content: " ";
+		  background: #fff;
+		  position: absolute;
+		  //z-index: 9999999999999999999;
+		}
+	}
+}
+
+.box-container.events-list{
+	.eventDescription{
+		margin-top: 11px;
+	}
+}
+
+.dividersBar{
+	color: @lightGrey;
+	font-size: 10px;
+	font-weight: 400;
+	text-align: center;
+	text-transform: uppercase;
+  position: relative;
+  display: block;
+  background: #ebeae6;
+}
+
+.dividersBar.big{
+	line-height: 28px;
+	height: 26px;
+	margin-top: 0;
+	&:first-of-type{
+		margin-top: -3px;
+	}
+	&:before, &:after{
+		display: none;
+	}
+}
+
+.statusBar + .events-list .dividersBar:before{
+  display:none;
+}
+.statusBar + .pages .events-list:first-child .dividersBar{
+	height: 20px;
+	line-height: 18px;
+	margin-top: 0;
+	&:before{
+		background: transparent;
+	}
+}
+
+.dividersBar + .box-container.events-list{
+	border-top: 0px solid @borders;
+	.border-top-radius(6px);	
+}
+
+.dividersBar + .events-list .editpanel{
+	border-radius: 0 6px 0  0;
+}
+
+.dividersBar + .events-list:last-child .editpanel{
+	border-radius: 0 6px 0  0;
+}
+
+.dividersBar.ng-hide + .events-list .editpanel{
+	border-radius: 0px;
+}
+
+.events-list:last-child .box-container {
+	border-radius: 0 0 6px 6px;
+	.editpanel{
+		border-radius: 0 0 6px 0;
+	}
+}
+
+.box-container.events-list, .dividersBar.ng-hide + .box-container.events-list{
+	border-top: 1px solid @borders;
+	.border-top-radius(0px);	
+}
+
+
 
 /* -- STATUS BAR -- */
 
@@ -1468,36 +1557,6 @@ textarea{
 	}
 }
 
-/*-- MARGIN --*/
-
-.m10{
-	margin: 10px 0;
-}
-
-.mt15{
-	margin-top:15px;
-}
-
-.mt20{
-	margin-top: 20px;
-}
-
-.m25{
-	margin: 25px 0;
-}
-
-.mt5{
-	margin-top: 5px;
-}
-
-.mt25{
-	margin-top: 25px;
-}
-
-.mt48{
-	margin-top: 48px;
-}
-
 /*-- PROGRESS STYLES --*/
 
 .progress{
@@ -1784,6 +1843,8 @@ select, input{
 .fileUpload {
 	position: relative;
 	overflow: hidden;
+	margin-top: 3px;
+	margin-right: 2px;
 }
 .fileUpload input.upload {
 	position: absolute;
@@ -1797,6 +1858,14 @@ select, input{
 	cursor: pointer;
 	opacity: 0;
 	filter: alpha(opacity=0);
+  z-index: 2;
+}
+.receipt-img{
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 html{min-height:100%;position:relative}
@@ -1807,9 +1876,8 @@ html{min-height:100%;position:relative}
 .empty{
 	bottom: 0;
 	color: #c0c0c0;
-	height: 100%;
 	left: 0;
-	margin: 25% auto;
+	margin: 25% auto 5px auto;
 	position: absolute;
 	right: 0;
 	text-align: center;
