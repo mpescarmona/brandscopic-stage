@@ -196,10 +196,13 @@ angular.module('brandscopicApp.directives', [])
   })
   
   .directive('showPhoto', function(){
-    return function(scope, el, attr){
-      el.find('#upload-recipit-input').on('change', function(e){
-        debugger
-        console.log('input change!')
+    return function (scope, $el, attr) {
+     $el.on('change', function (e) {
+        var reader = new FileReader()
+        reader.onload = function (e) {
+          document.querySelector('.fileUpload img.show-preview').src = e.target.result
+        }
+        reader.readAsDataURL(e.target.files[0]);
       })  
     }
   });

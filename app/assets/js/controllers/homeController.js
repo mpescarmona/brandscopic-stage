@@ -9,20 +9,11 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
     disable: 'right'
   };
 
-	if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    $scope.showSearchField = false; 
-    // Disable right snap. Works with 'snap-options' option of tag snap-content.
-    $scope.snapOptions = {
-      disable: 'right'
-    };
-    $scope.goBack = function(){
-        $state.go('home.events')
-        return
-    }
-    var
+  $scope.goBack = function(){
+    $state.go('home.events')
+    return
+  }
+  var
       authToken = UserService.currentUser.auth_token
 
   $scope.currentCompany = CompanyService.currentCompany;

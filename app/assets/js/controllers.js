@@ -1449,6 +1449,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         return;
       }
       snapRemote.close()
+      $scope.event_expense = $scope.event_expense || {}
 
       var
           ui = {title: "Expense", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: "", hasAddPhoto: false}
@@ -1481,7 +1482,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
        
                                       }
                                       $scope.triggerExpense = function () {
-                                          debugger 
                                         if ($scope.image)
                                           window['uploadNow'].trigger(document.querySelector("[ng-model=image]"))      
                                         else{
@@ -1501,10 +1501,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                          })
 
      $scope.$on('createPhoto', function(e, data){
-       debugger
-       if (data.render) {
-         $scope.event_expense.receipt= { file_small: data.src }
-       }else{
+       if (!data.render) {
          $scope.event_expense.receipt_attributes = { direct_upload_url: data.direct_upload_url }
          $scope.createExpense()  
        }
