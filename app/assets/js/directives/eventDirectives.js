@@ -3,6 +3,13 @@ angular.module('brandscopicApp.eventDirectives', [])
         "use strict";
 
         var link = function (scope, element, attrs) {
+            /*scope.$on('ALL_EVENT', function (event, param) {
+                eventService.getAllEvent().then( function (response) {
+                    console.log(response);
+                    scope.eventsItems = response;
+                });
+            })*/
+
             scope.$watch("filter", function (value) {
                 var campaign = [], place = [], user = [], brand = [];
                 if(value !== "" || value !== undefined) {
@@ -31,7 +38,8 @@ angular.module('brandscopicApp.eventDirectives', [])
         return {
             link: link,
             scope: {
-              filter: "="
+              filter: "=",
+              eventsItems: "="
             },
             restrict: 'E',
             templateUrl: 'views/directives/templates/eventFilter.html'

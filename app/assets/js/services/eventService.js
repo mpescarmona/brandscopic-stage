@@ -1,3 +1,6 @@
+/**
+ * Debounce service to limit API calls, especially around search fields
+ */
 angular.module('brandscopicApp.eventService', []).
     factory('eventService', ['$q', 'CompanyService', 'UserService', 'Event', function ($q, CompanyService, UserService, Event) {
         'use strict';
@@ -6,6 +9,31 @@ angular.module('brandscopicApp.eventService', []).
         function htmlEntities(str) {
             return String(str).replace(/&/g, '').replace(/</g, '').replace(/>/g, '').replace(/"/g, '');
         }
+
+        /*var _getAllEvent = function (value) {
+            var defer = $q.defer();
+            var
+              credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
+            , actions = {
+                success: function (items) {
+                            var
+                                  evt = []
+                              for (var i = 0, len = events.length; i < len; i++) {
+                                if (events[i].status == 'Active') {
+                                  evt.push(events[i])
+                                  }
+                                }
+                              defer.resolve(evt)
+                          }
+                 , error: function (event_error) {
+                            scope.event_error = event_error
+                            defer.reject()
+                    }
+                }
+
+            Event.all(credentials, actions)
+            return defer.promise;
+        }*/
 
         var _getEventSearch = function (value) {
             var defer = $q.defer();
@@ -52,6 +80,7 @@ angular.module('brandscopicApp.eventService', []).
 
       return {
         getEventSearch: _getEventSearch,
-        getEventsByFilters: _getEventsByFilters
+        getEventsByFilters: _getEventsByFilters,
+        //getAllEvent: _getAllEvent
       }
 }]);

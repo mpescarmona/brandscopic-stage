@@ -10,20 +10,17 @@ angular.module('persistence.event', ['ngResource', 'util.jsonToFormData'])
 
       , 'find'          : { method: 'GET' }
 
-      , 'create'        : {
-                             method: 'POST'
+      , 'create'        : { method: 'POST'
                            , headers: contentType
                            , transformRequest: jsonToFormDataFor('event')
                           }
 
-      , 'update'        : {
-                             method: 'PUT'
+      , 'update'        : { method: 'PUT'
                            , headers: contentType
                            , transformRequest: jsonToFormDataFor('event')
                           }
 
-      , 'updateResults' : {
-                             method: 'PUT'
+      , 'updateResults' : { method: 'PUT'
                            , headers: contentTypeJson
                           }
 
