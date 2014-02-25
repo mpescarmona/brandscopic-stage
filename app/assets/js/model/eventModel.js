@@ -92,7 +92,7 @@ angular.module('model.event', ['persistence.event'])
       }
       , all = function (credentials, actions, options) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
-            if (options && 'force' in options && options.force) 
+            if (options && 'force' in options && options.force)
               eventClient.all(credentials, allResponse(actions))
             else
               if (collection && company_id == credentials.company_id)
@@ -171,6 +171,25 @@ angular.module('model.event', ['persistence.event'])
 
             }
       }
+
+      , brands = function(credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
+            company_id = credentials.company_id
+            eventClient.brands(credentials, brandsResponse(actions))
+          } else
+              throw 'Wrong set of credentials'
+        }
+
+        , brandsResponse = function (actions) {
+            return function (resp) {
+              if (resp) {
+                actions.success(angular.copy(resp))
+              }
+              else
+                throw 'results missing on response'
+
+            }
+      }
         ,  can = function (can) {
             if ('actions' in event) {
               for (var i = 0, action; action = event.actions[i++];){
@@ -214,6 +233,7 @@ angular.module('model.event', ['persistence.event'])
         , update: update
         , updateResults: updateResults
         , search: search
+        , brands: brands
         , results: results
         , can : can
         , getAllowedActions : getAllowedActions

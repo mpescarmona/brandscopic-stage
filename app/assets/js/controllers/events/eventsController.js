@@ -7,6 +7,7 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
 
   // Options for User Interface in home partial
   $scope.UserInterface = UserInterface;
+  $scope.showEvents = false;
   var
       ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add",hasAddPhoto: false}
     , today = (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear()
@@ -24,6 +25,9 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
                                 }
                               $scope.eventsItems = evt
                               $scope.filters = filters
+                              if($scope.eventsItems.length) {
+                                $scope.showEvents = true;
+                              }
                               $scope.page = events.page
                               angular.extend(UserInterface, ui)
                             }

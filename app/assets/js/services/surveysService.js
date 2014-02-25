@@ -1,5 +1,5 @@
 angular.module('brandscopicApp.surveysService', []).
-    factory('surveysService', ['$q', 'CompanyService', 'UserService', '$stateParams', 'Surveys', function ($q, CompanyService, UserService, $stateParams, Surveys) {
+    factory('surveysService', ['$q', 'CompanyService', 'UserService', '$stateParams', 'Surveys', 'Event', function ($q, CompanyService, UserService, $stateParams, Surveys, Event) {
         'use strict';
 
     var _question_one_options = Object.freeze([
@@ -155,7 +155,7 @@ angular.module('brandscopicApp.surveysService', []).
               }
           }
 
-        Surveys.brands(credentials, actions)
+        Event.brands(credentials, actions)
         return defer.promise;
     }
 
