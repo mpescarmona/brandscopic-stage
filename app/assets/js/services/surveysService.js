@@ -83,10 +83,6 @@ angular.module('brandscopicApp.surveysService', []).
  		]);
 
   		var _likelihood= Object.freeze([
-			{
-				key: "Choose_option",
-				value: "Choose option"
-			},
  			{
  				key: scopic.consts.surveys_question_likelihood.VERY_UNLIKELY,
  				value: "1 - VERY UNLIKELY"
@@ -146,7 +142,6 @@ angular.module('brandscopicApp.surveysService', []).
         var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = {
           success: function (items) {
-                        console.log(items);
                         defer.resolve(items)
                     }
            , error: function (event_error) {

@@ -6,16 +6,24 @@ function eventsSurveysController($scope, $state, $stateParams, snapRemote, UserS
     snapRemote.close()
 
     var
-        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "surveys",  AddIconState: "home.events.details.surveys.add"}
+        canCreateSurvey
+      , ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "surveys",  AddIconState: "home.events.details.surveys.add"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
-                                    console.log(event)
                                     $scope.event = event;
                                     // Options for User Interface in home partial
                                     ui.title = event.campaign ? event.campaign.name : "Surveys"
-                                    angular.extend(UserInterface, ui)
                                     $scope.UserInterface = UserInterface;
                                     $scope.eventId = $stateParams.eventId;
+                                    angular.extend(UserInterface, ui)
+
+                                    angular.forEach($scope.event.actions, function (item) {
+                                        canCreateSurvey = item.indexOf("conduct surveys");
+                                        if(canCreateSurvey != -1) {
+                                          UserInterface.hasAddIcon = true;
+                                        }
+                                    });
+
                               }
        }
 
@@ -26,7 +34,7 @@ function eventsSurveysController($scope, $state, $stateParams, snapRemote, UserS
           $scope.showSurveys = true;
         }
         $scope.suveySumaryList = [];
-
+        // TODO : use consts in the cases
         angular.forEach(response, function (items) {
           var _age = "", _race = "", _gender = "";
           angular.forEach(items.surveys_answers, function (item) {
@@ -91,7 +99,6 @@ function eventsSurveysController($scope, $state, $stateParams, snapRemote, UserS
             }
           })
         $scope.suveySumaryList.push( { age: _age, race: _race, gender: _gender, create: items.created_at, update: items.updated_at } );
-        console.log($scope.suveySumaryList);
       });
     });
 }
