@@ -18,10 +18,13 @@ angular.module('brandscopicApp', [
   'brandscopicApp.eventDirectives',
   'brandscopicApp.eventService',
   'brandscopicApp.photosService',
+  'brandscopicApp.surveysService',
   'ui.bootstrap',
   'ngMap',
   'model.photos',
-  'persistence.photos'
+  'persistence.photos',
+  'model.surveys',
+  'persistence.surveys'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
   //
@@ -246,15 +249,15 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.surveys', {
       url: "/surveys",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys.html",
-                              controller: 'EventsSurveysController'
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/surveys/events_details_surveys.html",
+                              controller: 'eventsSurveysController'
                             }
             }
     })
     .state('home.events.details.surveys.add', {
       url: "/add",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys_add.html",
-                              controller: 'EventsSurveysAddController'
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/surveys/events_details_surveys_add.html",
+                              controller: 'eventsSurveysAddController'
                             }
             }
     })
