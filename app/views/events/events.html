@@ -12,16 +12,15 @@
 	</div>
 </div>
 
-<scopic-event-filter filter="filter"></scopic-event-filter>
-
-
-<!-- No events
-
-<div class="empty">
+<div ng-show="showEvents">
+	<scopic-event-filter filter="filter" events-items="eventsItems"></scopic-event-filter>
+</div>
+<!-- No events -->
+<div class="empty" ng-hide="showEvents">
 	<span class="no-events"></span>
 	<h4>No Events</h4>
 	<h6>You have no events scheduled</h6>
 	<h6><b>Tip:</b> Tap the <span class="glyphicon glyphicon-plus"></span> button above to <br>schedule an event.</h6>
 </div>
 
--->
+

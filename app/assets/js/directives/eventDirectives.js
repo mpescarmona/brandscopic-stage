@@ -31,7 +31,8 @@ angular.module('brandscopicApp.eventDirectives', [])
         return {
             link: link,
             scope: {
-              filter: "="
+              filter: "=",
+              eventsItems: "="
             },
             restrict: 'E',
             templateUrl: 'views/directives/templates/eventFilter.html'

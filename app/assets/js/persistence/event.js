@@ -22,8 +22,7 @@ angular.module('persistence.event', ['ngResource', 'util.jsonToFormData'])
                            , transformRequest: jsonToFormDataFor('event')
                           }
 
-      , 'updateResults' : {
-                             method: 'PUT'
+      , 'updateResults' : { method: 'PUT'
                            , headers: contentTypeJson
                           }
 
@@ -43,5 +42,11 @@ angular.module('persistence.event', ['ngResource', 'util.jsonToFormData'])
                             , isArray: true
                             , url: '//stage.brandscopic.com/api/v1/events/:event_id/results.:format'
                           }
+
+      , 'brands'    :   {
+                            method: 'GET'
+                          , isArray: true
+                          , url: '//stage.brandscopic.com/api/v1/events/:event_id/surveys/brands.:format', auth_token: '@token', format: 'json', company_id: '@company_id', event_id: '@event_id'
+                      }
   });
 }]);

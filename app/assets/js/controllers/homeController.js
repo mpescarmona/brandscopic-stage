@@ -3,7 +3,7 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
     $state.go('login');
     return;
   }
-  $scope.showSearchField = false; 
+  $scope.showSearchField = false;
   // Disable right snap. Works with 'snap-options' option of tag snap-content.
   $scope.snapOptions = {
     disable: 'right'
@@ -51,7 +51,7 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
     });
   };
 
-  $scope.photoForm = { 
+  $scope.photoForm = {
       key: "",
       AWSAccessKeyId: "",
       policy: "",
@@ -60,7 +60,8 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
 
 	$scope.showSearchEvent = function(isShowing) {
 		$scope.showSearchField = isShowing;
-	};	
+    $scope.$broadcast("ALL_EVENT", isShowing);
+	};
 
   $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#home/events'},
                             {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#home/tasks'},
@@ -74,14 +75,14 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
 
   function sentForm() {
     var url = $scope.photoForm.url; // El script a dónde se realizará la petición.
-    var formData = { 
-                     key:$scope.photoForm.key, 
-                     AWSAccessKeyId: $scope.photoForm.AWSAccessKeyId, 
-                     acl: "private", 
-                     success_action_redirect: "http://localhost/", 
-                     policy: $scope.photoForm.policy, 
-                     signature: $scope.photoForm.signature, 
-                     ContentType: "image/jpeg" 
+    var formData = {
+                     key:$scope.photoForm.key,
+                     AWSAccessKeyId: $scope.photoForm.AWSAccessKeyId,
+                     acl: "private",
+                     success_action_redirect: "http://localhost/",
+                     policy: $scope.photoForm.policy,
+                     signature: $scope.photoForm.signature,
+                     ContentType: "image/jpeg"
                    };
 
     $.ajax({
