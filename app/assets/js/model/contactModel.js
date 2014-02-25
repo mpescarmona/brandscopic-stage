@@ -5,7 +5,7 @@ angular.module('model.contact', ['persistence.contact'])
        company_id
       , contact_id
       , collection
-     ,  contact
+      , contact
 
       , all = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'contact_id' in credentials && 'success' in actions) {
@@ -29,7 +29,6 @@ angular.module('model.contact', ['persistence.contact'])
             }
             else
               throw 'results missing on response'
-
           }
       }
 
@@ -41,10 +40,9 @@ angular.module('model.contact', ['persistence.contact'])
               contactClient.find(credentials, findResponse(actions))
           else
             throw 'Wrong set of credentials'
-
       }
       , findResponse = function (actions) {
-           return function(resp){
+           return function(resp) {
              contact = resp
              actions.success(angular.copy(contact))
            }
