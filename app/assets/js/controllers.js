@@ -547,7 +547,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleContactsAddController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'EventContact', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact) {
+  .controller('EventsPeopleContactsAddController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'EventContact', 'Contact', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact, Contact) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -569,7 +569,27 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                       , options = { force: true }
                                       , actions = { success: function(contacts) {
-                                                                  $scope.contacts = contacts
+                                                                  var contactList = []
+
+                                                                  for(var i = 0, item; item = contacts[i++];) {
+                                                                    if (item.type == 'contact') {
+
+                                                                      var
+                                                                          credentialsContact = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, contact_id: item.id }
+                                                                        , actionsContact = { success: function (contactFound) {
+                                                                                                if(contactFound && contactFound.last_name && contactFound.last_name != '' && contactFound.country && contactFound.country != '' && contactFound.state && contactFound.state != '' && contactFound.city && contactFound.city != '') {
+                                                                                                  contactList.push({id: contactFound.id, full_name: contactFound.full_name, title: contactFound.title, type: 'contact'} )
+                                                                                                }
+                                                                                             }
+                                                                                           }
+                                                                      Contact.find(credentialsContact, actionsContact)
+
+                                                                    }
+                                                                    else
+                                                                      contactList.push(item)
+                                                                  }
+
+                                                                  $scope.contacts = contactList
                                                                   // Options for User Interface in home partial
                                                                   angular.extend(UserInterface, ui)
                                                                   $scope.UserInterface = UserInterface
