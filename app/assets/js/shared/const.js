@@ -53,6 +53,13 @@ scopic.consts = Object.freeze({
         BRANDS: "Brands",
         PLACES: "Places",
         USERS: "Users"
+    },
+    event_status: {
+        APPROVED: "Approved",
+        LATE: "Late",
+        DUE: "Due",
+        SUBMITTED: "Submitted",
+        REJECTED: "Rejected",
     }
 });
 

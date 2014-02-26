@@ -7,8 +7,7 @@
   <div class="box-container np" ng-show="!UserInterface.searching">
     <ul class="events list swipe-list" go-to>
       <li ng-repeat="event1 in eventsItems | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status, status:'Active'}" ng-show="!UserInterface.searching" ng-class="{lastItem: $last}">
-        <div class="row action-buttons dual-button" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="goTo('#/home/events/{{event1.id}}/about')">
-          <!--approved: event_status=='Approved'-->
+        <div class="row action-buttons dual-button" ng-class="getEventBorderColor(event.event_status)" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="goTo('#/home/events/{{event1.id}}/about')">
           <div class="row-content">
             <div class="col-xs-3 eventHour">
               <p class="xs">{{event1.start_time}}</p>
