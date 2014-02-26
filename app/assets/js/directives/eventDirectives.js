@@ -3,6 +3,28 @@ angular.module('brandscopicApp.eventDirectives', [])
         "use strict";
 
         var link = function (scope, element, attrs) {
+            scope.getEventBorderColor = function (event_status) {
+                var classSelected;
+                switch(event_status) {
+                  case scopic.consts.event_status.APPROVED:
+                    classSelected = 'approve';
+                    break;
+                  case scopic.consts.event_status.LATE:
+                    classSelected = 'late';
+                    break;
+                  case scopic.consts.event_status.DUE:
+                    classSelected = 'due';
+                    break;
+                  case scopic.consts.event_status.SUBMITTED:
+                    classSelected = 'submitted';
+                    break;
+                  case scopic.consts.event_status.REJECTED:
+                    classSelected = 'late';
+                    break;
+                }
+                return classSelected;
+            }
+
             scope.$watch("filter", function (value) {
                 var campaign = [], place = [], user = [], brand = [];
                 if(value !== "" || value !== undefined) {
