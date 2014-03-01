@@ -1524,6 +1524,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         return;
       };
 
+      $scope.showExpenses = false;
       var
           ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: "home.events.details.expenses.add"}
         , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
@@ -1549,6 +1550,9 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                                                     }
 
                                                                     $scope.expenses = expenses
+                                                                    if($scope.expenses.length) {
+                                                                      $scope.showExpenses = true;
+                                                                    }
                                                                     // Options for User Interface in home partial
                                                                     ui.title = event.campaign ? event.campaign.name : "Expenses"
                                                                     angular.extend(UserInterface, ui)

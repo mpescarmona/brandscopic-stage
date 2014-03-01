@@ -16,8 +16,6 @@ angular.module('model.expense', ['persistence.expense'])
               event_id = credentials.event_id
               expenseClient.all(credentials, allResponse(actions))
             }
-          } else
-            throw 'Wrong set of credentials'
 
       }
       , allResponse = function (actions) {
