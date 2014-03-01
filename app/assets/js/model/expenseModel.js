@@ -16,6 +16,7 @@ angular.module('model.expense', ['persistence.expense'])
               event_id = credentials.event_id
               expenseClient.all(credentials, allResponse(actions))
             }
+          }
 
       }
       , allResponse = function (actions) {
