@@ -1539,8 +1539,17 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                       var
                                           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                         , actions = { success: function(expenses) {
+                                                                    // Add test image if file_small comes empty or null
+                                                                    for(var i = 0, item; item = expenses[i++];) {
+                                                                      if (!(item.receipt))
+                                                                        item.receipt = {file_small: 'assets/images/test.jpeg'}
+                                                                      else 
+                                                                        if (!(item.receipt.file_small))
+                                                                          item.receipt.file_small = 'assets/images/test.jpeg'
+                                                                    }
+
                                                                     $scope.expenses = expenses
-                                                                  // Options for User Interface in home partial
+                                                                    // Options for User Interface in home partial
                                                                     ui.title = event.campaign ? event.campaign.name : "Expenses"
                                                                     angular.extend(UserInterface, ui)
                                                                     $scope.UserInterface = UserInterface
