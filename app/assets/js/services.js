@@ -406,56 +406,5 @@ angular.module('brandscopicApp.services', ['ngResource'])
   });
 }])
 
-
-.service('VenuesRestClient', ['$resource', 'ApiParams', 'CompanyService', function($resource, ApiParams, CompanyService) {
-  var venueList = []
-    , companyId = CompanyService.getCompanyId();
-
-  this.getVenues = function(authToken, companyId, searchTerm) {
-    return $resource( ApiParams.baseUrl + '/venues/search',
-                        {},
-                        // should do a GET call to /venues/search
-                        {getVenues:{ method: 'GET',
-                                headers: {'Accept': 'application/json'},
-                                params: {auth_token: authToken, company_id: companyId, term: searchTerm},
-                                isArray: true,
-                                interceptor: {
-                                                response: function (data) {
-                                                    console.log('response in interceptor', data);
-                                                    return data;
-                                                },
-                                                responseError: function (data) {
-                                                    console.log('error in interceptor', data);
-                                                    return data;
-                                                }
-                                              },
-                                transformResponse: function(data, header) {
-                                  var wrapped = angular.fromJson(data);
-                                  angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
-                                  });
-                                  return wrapped;
-                                }
-                              }
-                        });
-  };
-
-  this.setVenues = function(venues) {
-    venueList = venues;
-  };
-
-  this.getVenueById = function(venueId) {
-    var myVenue =  [];
-    for (var i = 0, venue; venue = venueList[i++];) {
-      if (venue.id == venueId) {
-        myVenue = venue;
-        break;
-      }
-    };
-    return myVenue;
-  };
-
-}])
-
 .value('version', '0.1')
 .value('loginPage', '/login');

@@ -78,9 +78,40 @@ angular.module('model.venue', ['persistence.venue'])
 
           }
         }
+
+      , comments = function (credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'venue_id' in credentials && 'success' in actions)
+            venueClient.comments(credentials, commentsResponse(actions))
+          else
+            throw 'Wrong set of credentials'
+
+        }
+      , commentsResponse = function (actions) {
+          return function(resp){
+            venue = resp
+            actions.success(angular.copy(venue))
+          }
+        }
+
+      , photos = function (credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'venue_id' in credentials && 'success' in actions)
+            venueClient.photos(credentials, photosResponse(actions))
+          else
+            throw 'Wrong set of credentials'
+
+        }
+      , photosResponse = function (actions) {
+          return function(resp){
+            venue = resp
+            actions.success(angular.copy(venue))
+          }
+        }
+
     return {
-        all   : all
-      , find  : find
-      , search: search
+        all     : all
+      , find    : find
+      , search  : search
+      , comments: comments
+      , photos  : photos
     }
   }])
