@@ -16,15 +16,15 @@ angular.module('model.event', ['persistence.event'])
           else
             throw 'Wrong set of credentials'
 
-      }
+        }
       , findResponse = function (actions) {
-           return function(resp){
-             event = resp
-             actions.success(angular.copy(event))
-           }
-      }
+          return function(resp){
+            event = resp
+            actions.success(angular.copy(event))
+          }
+        }
       , create = function (credentials, actions, attributes) {
-        console.log(attributes)
+          console.log(attributes)
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions)
             if (Object.keys(attributes).length)
               eventClient.create(credentials
@@ -32,7 +32,7 @@ angular.module('model.event', ['persistence.event'])
                                  , createResponse(actions.success)
                                  , createResponse(actions.error)
                                 )
-      }
+        }
       , createResponse = function (action) {
         return function (resp) {
           if (resp.status == 'Active')
@@ -56,40 +56,40 @@ angular.module('model.event', ['persistence.event'])
                                 )
       }
       , updateResponse = function (action) {
-        return function (resp) {
-          if (resp.status == 'Active')
-            if (! event || event && event.id == resp.id ) {
-              event = resp
-              collection = undefined
-            }
+          return function (resp) {
+            if (resp.status == 'Active')
+              if (! event || event && event.id == resp.id ) {
+                event = resp
+                collection = undefined
+              }
 
-          var answer = resp.id ? resp : resp.data
+            var answer = resp.id ? resp : resp.data
 
-          if (action) action(angular.copy(answer))
+            if (action) action(angular.copy(answer))
+          }
         }
-      }
       , updateResults = function (credentials, actions, attributes) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
             if (Object.keys(attributes).length)
-              eventClient.updateResults(credentials
-                                 , attributes
-                                 , updateResultsResponse(actions.success)
-                                 , updateResultsResponse(actions.error)
-                                )
-      }
-      , updateResultsResponse = function (action) {
-        return function (resp) {
-          if (resp.status == 'Active')
-            if (! event || event && event.id == resp.id ) {
-              event = resp
-              collection = undefined
-            }
-
-          var answer = resp.id ? resp : resp.data
-
-          if (action) action(angular.copy(answer))
+              eventClient.updateResults( credentials
+                                         , attributes
+                                         , updateResultsResponse(actions.success)
+                                         , updateResultsResponse(actions.error)
+                                        )
         }
-      }
+      , updateResultsResponse = function (action) {
+          return function (resp) {
+            if (resp.status == 'Active')
+              if (! event || event && event.id == resp.id ) {
+                event = resp
+                collection = undefined
+              }
+
+            var answer = resp.id ? resp : resp.data
+
+            if (action) action(angular.copy(answer))
+          }
+        }
       , all = function (credentials, actions, options) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
             if (options && 'force' in options && options.force)
@@ -104,7 +104,7 @@ angular.module('model.event', ['persistence.event'])
           } else
             throw 'Wrong set of credentials'
 
-      }
+        }
       , allResponse = function (actions) {
           return function(resp) {
             if ('results' in resp)
@@ -123,7 +123,7 @@ angular.module('model.event', ['persistence.event'])
                   throw 'facets or results missing on response'
 
           }
-      }
+        }
       , results = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
             // if (collection && company_id == credentials.company_id)
@@ -135,7 +135,7 @@ angular.module('model.event', ['persistence.event'])
           } else
             throw 'Wrong set of credentials'
 
-      }
+        }
       , resultsResponse = function (actions) {
           return function(resp){
             if (resp.length) {
@@ -145,13 +145,13 @@ angular.module('model.event', ['persistence.event'])
               throw 'results missing on response'
 
           }
-      }
+        }
       , parseFilters = function (facets) {
           var keyName = 'event status'
           for (var i = 0, facet; facet = facets[i++];)
             if ('label' in facet && keyName == facet.label.toLowerCase())
               if ('items' in facet) return facet.items
-      }
+        }
 
       , search = function(credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
@@ -160,17 +160,16 @@ angular.module('model.event', ['persistence.event'])
           } else
               throw 'Wrong set of credentials'
         }
-
-        , searchResponse = function (actions) {
-            return function (resp) {
-              if (resp) {
-                actions.success(angular.copy(resp))
-              }
-              else
-                throw 'results missing on response'
-
+      , searchResponse = function (actions) {
+          return function (resp) {
+            if (resp) {
+              actions.success(angular.copy(resp))
             }
-      }
+            else
+              throw 'results missing on response'
+
+          }
+        }
 
       , brands = function(credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
@@ -179,33 +178,32 @@ angular.module('model.event', ['persistence.event'])
           } else
               throw 'Wrong set of credentials'
         }
-
-        , brandsResponse = function (actions) {
-            return function (resp) {
-              if (resp) {
-                actions.success(angular.copy(resp))
-              }
-              else
-                throw 'results missing on response'
-
+      , brandsResponse = function (actions) {
+          return function (resp) {
+            if (resp) {
+              actions.success(angular.copy(resp))
             }
-      }
-        ,  can = function (can) {
-            if ('actions' in event) {
-              for (var i = 0, action; action = event.actions[i++];){
-                if (can == action) return true
-              }
-              return false
-            }
+            else
+              throw 'results missing on response'
+
+          }
         }
-        , getAllowedActions = function () {
-            canDo = {}
-            if ('actions' in event) {
-               for (var i = 0, action; action = event.actions[i++];){
-                  canDo['can_' + action.replace(/ /g, '_')] = true
-              }
+      , can = function (can) {
+          if ('actions' in event) {
+            for (var i = 0, action; action = event.actions[i++];){
+              if (can == action) return true
             }
-            return canDo
+            return false
+          }
+        }
+      , getAllowedActions = function () {
+          canDo = {}
+          if ('actions' in event) {
+             for (var i = 0, action; action = event.actions[i++];){
+                canDo['can_' + action.replace(/ /g, '_')] = true
+            }
+          }
+          return canDo
         }
 
       , filterEvents = function(credentials, actions) {
@@ -215,17 +213,16 @@ angular.module('model.event', ['persistence.event'])
           } else
               throw 'Wrong set of credentials'
         }
-
-        , filterEventsResponse = function (actions) {
-            return function (resp) {
-              if (resp) {
-                actions.success(angular.copy(resp))
-              }
-              else
-                throw 'results missing on response'
-
+      , filterEventsResponse = function (actions) {
+          return function (resp) {
+            if (resp) {
+              actions.success(angular.copy(resp))
             }
-      }
+            else
+              throw 'results missing on response'
+
+          }
+        }
       return {
           all: all
         , find: find

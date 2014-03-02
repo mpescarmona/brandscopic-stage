@@ -30,21 +30,21 @@ angular.module('persistence.event', ['ngResource', 'util.jsonToFormData'])
                             url: '//stage.brandscopic.com/api/v1/events/autocomplete.:format', format: 'json', auth_token: '@token', company_id: '@company_id', q: '@q'
                           }
 
-      , 'filterEvents'        : {
+      , 'filterEvents'  : {
                             method: 'GET',
                             url: '//stage.brandscopic.com/api/v1/events.:format', format: 'json', auth_token: '@token', company_id: '@company_id', campaign: '@campaign', place: '@place', user: '@user', brand: '@brand', event_status: '@event_status'
                           }
 
       , 'results'       : {
-                              method: 'GET'
-                            , isArray: true
-                            , url: '//stage.brandscopic.com/api/v1/events/:event_id/results.:format'
+                            method: 'GET'
+                           , isArray: true
+                           , url: '//stage.brandscopic.com/api/v1/events/:event_id/results.:format'
                           }
 
-      , 'brands'    :   {
+      , 'brands'        : {
                             method: 'GET'
                           , isArray: true
                           , url: '//stage.brandscopic.com/api/v1/events/:event_id/surveys/brands.:format', auth_token: '@token', format: 'json', company_id: '@company_id', event_id: '@event_id'
-                      }
+                          }
   });
 }]);
