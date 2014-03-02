@@ -7,13 +7,17 @@
 				<a href="#/home/dashboard/{{item.id}}" class="noButton nextIcon pull-right"></a>
 		    <p class="txtAdjust">{{item.name}}</p>
 		    <div class="chart-bar">
+		    	<div class="bar-indicator executed-indicator" style="left: 31%"></div>
+		    	<div class="bar-indicator scheduled-indicator" style="left: 32%"></div>
+		    	<div class="bar-indicator goal-indicator" style="left: 100%"></div>
+		    	
 			    <div class="today-line-indicator" style="left: {{item.today}}"></div>
 			    <div class="progress">
   				  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{item.progress}}">
   				  </div>
 			    </div>
 			  </div>
-      </div>
+      		</div>
 		</div>
 	</div>
 </div>
