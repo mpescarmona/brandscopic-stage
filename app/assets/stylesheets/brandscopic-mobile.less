@@ -180,6 +180,9 @@ body{
 	}
 	&.approved{
 		background-color: @approved;
+		&:before{
+			display: none;
+		}
 	}
 	&.late, &.rejected{
 		background-color: @buttons;
@@ -201,6 +204,11 @@ body{
 
 	&.approved, &.late, &.rejected, &.scheduled, &.due, &.submitted{
 		color: white;
+		margin-bottom: 6px;
+		a{
+			color: white;
+			text-decoration: underline;
+		}
 	}
 
 	.row{
@@ -840,16 +848,16 @@ body{
 	}
 }
 
-.statusBar + .events-list .dividersBar:before{
+/*.statusBar + .events-list .dividersBar:before{
   display:none;
-}
+}*/
 
 .statusBar + .showEvents .pages .events-list:first-child .dividersBar{
 	height: 20px;
 	line-height: 18px;
 	margin-top: 0;
 	&:before{
-		background: transparent;
+		display: none;
 	}
 }
 
