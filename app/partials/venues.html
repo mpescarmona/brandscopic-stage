@@ -9,15 +9,15 @@
             <div class="col-xs-2 score">
               <p class="blue">
                 <!-- <span class="score-number">{{venue.score}}</span> SCORE -->
-                <span class="score-number">0</span>
+                <span class="score-number">{{venue.score | number}}</span>
                 <br> SCORE
               </p>
             </div>
             <div class="col-xs-9 venuesDescription">
               <!-- 						<h5 class="txtAdjust">{{venue.name}}</h5>
               <p class="txtAdjust medium">{{venue.address}}</p> -->
-              <h5 class="txtAdjust">{{venue.label}}</h5>
-              <p class="txtAdjust medium">{{venue.value}}</p>
+              <h5 class="txtAdjust">{{venue.name}}, {{venue.formatted_address}}</h5>
+              <p class="txtAdjust medium">{{venue.name}}, {{venue.formatted_address}}</p>
             </div>
             <a href="#/home/venues/{{venue.id}}/about" class="noButton nextIcon pull-right" stop-event='click'></a>
           </div>
@@ -28,13 +28,11 @@
 </div>
 
 
-<!-- No Venues 
+<!-- No Venues -->
 
-<div class="empty">
+<div class="empty" ng-hide="showVenues">
   <span class="no-venues"></span>
   <h4>No Venues</h4>
   <h6>No venues have been added</h6>
   <h6><b>Tip:</b> Tap the <span class="glyphicon glyphicon-plus"></span> button above to add<br> a venue.</h6>
 </div>
-
--->

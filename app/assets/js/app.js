@@ -297,6 +297,13 @@ angular.module('brandscopicApp', [
                             }
             }
     })
+    .state('home.venues.details.map', {
+      url: "/map",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_about_map.html",
+                              controller: 'VenuesAboutMapController'
+                            }
+            }
+    })
     .state('home.venues.details.analysis', {
       url: "/analysis",
       views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_analysis.html",

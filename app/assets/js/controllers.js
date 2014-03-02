@@ -1733,44 +1733,33 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     $scope.UserInterface = UserInterface;
   }])
 
-  .controller('VenuesController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'VenuesRestClient',  function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, VenuesRestClient) {
+  .controller('VenuesController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Venue',  function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, Venue) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
     snapRemote.close();
 
+    $scope.showVenues = false
     var
         ui = {title: 'Venues', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false, AddIconState: "home.venues.add"}
-      , venuesList = []
-      , authToken = UserService.currentUser.auth_token
-      , companyId = CompanyService.getCompanyId()
-      , searchTerm = ''
-      , venueList = new VenuesRestClient.getVenues(authToken, companyId, searchTerm)
-      , promise = venueList.getVenues().$promise
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
+      , options = { force: true }
+      , actions = { success: function(venues) {
+                                $scope.venuesItems = venues;
+                                if($scope.venuesItems.length) {
+                                  $scope.showVenues = true;
+                                }
+                                $scope.page = venues.page
+                                angular.extend(UserInterface, ui)
+                                $scope.UserInterface = UserInterface;
+                              }
+        }
 
-    angular.extend(UserInterface, ui)
-    $scope.UserInterface = UserInterface;
-
-    promise.then(function(response) {
-     if (response.status == 200) {
-      if (response.data != null) {
-          $scope.venuesItems = response.data;
-
-          VenuesRestClient.setVenues($scope.venuesItems);
-          return;
-      }
-     } else {
-        $scope.venuesItems = {};
-     }
-    });
-    promise.catch(function(response) {
-      $scope.venuesItems = {};
-    });
-
+    Venue.all(credentials, actions, options)
   }])
 
-  .controller('VenuesAddController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, snapRemote, UserService, UserInterface, VenuesRestClient) {
+  .controller('VenuesAddController', ['$scope', '$state', 'snapRemote', 'CompanyService', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, snapRemote, CompanyService, UserService, UserInterface, VenuesRestClient) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -1785,7 +1774,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     $scope.UserInterface = UserInterface;
   }])
 
-  .controller('VenuesDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
+  .controller('VenuesDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'CompanyService', 'UserService', 'UserInterface', 'Venue', function($scope, $state, $stateParams, snapRemote, CompanyService, UserService, UserInterface, Venue) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -1793,18 +1782,20 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close();
 
     var
-        eventData = []
-      , token = UserService.currentUser.auth_token
-      , venueId = $stateParams.venueId
-      , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = { title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false}
+        ui = {title: 'Venues', hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false}    
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
+      , actions = { success: function(venue) {
+                                ui.title =  venue.name
+                                $scope.venue = venue;
+                                angular.extend(UserInterface, ui)
+                                $scope.UserInterface = UserInterface;
+                              }
+        }
 
-    angular.extend(UserInterface, ui);
-
-    $scope.venue = currentVenue;
+    Venue.find(credentials, actions)
   }])
 
-  .controller('VenuesAboutController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
+  .controller('VenuesAboutController', ['$scope', '$state', '$stateParams', 'snapRemote', 'CompanyService', 'UserService', 'UserInterface', 'Venue', function($scope, $state, $stateParams, snapRemote, CompanyService, UserService, UserInterface, Venue) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -1812,35 +1803,110 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close();
 
     var
-        eventData = []
-      , authToken = UserService.currentUser.auth_token
-      , venueId = $stateParams.venueId
-      , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "about"}
+        ui = {}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
+      , actions = { success: function(venue) {
+                                ui = {title: 'Venues', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false, AddIconState: "home.venues.add", venueSubNav: "about"}
+                                $scope.venue = venue;
+                                angular.extend(UserInterface, ui)
+                                $scope.UserInterface = UserInterface;
+                                $scope.opening = []
+                                if (venue.opening_hours != null)
+                                  for(var i = 0, item; item = venue.opening_hours[i++];) {
+                                    $scope.opening.push( { day: item.substring(0, item.indexOf(" ")),
+                                                           hours: item.substring(item.indexOf(" ") + 1, item.length)
+                                                         } )
+                                  }
+                              }
+        }
 
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
+    Venue.find(credentials, actions)
+
+    $scope.map_styles = [
+                {
+                        stylers: [
+                                { hue: "#00ffe6" },
+                                { saturation: -100 },
+                                { gamma: 0.8 }
+                        ]
+                },{
+                        featureType: "road",
+                        elementType: "geometry",
+                        stylers: [
+                                { lightness: 100 },
+                                { visibility: "simplified" }
+                        ]
+                },{
+                        featureType: "road",
+                        elementType: "labels",
+                        stylers: [
+                                { visibility: "off" }
+                        ]
+                },{
+                        featureType: "road.arterial",
+                        elementType: "geometry",
+                        stylers: [
+                                { color: "#BABABA" }
+                        ]
+                }
+        ]
   }])
 
-  .controller('VenuesAnalysisController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
+  .controller('VenuesAboutMapController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Venue', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Venue) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
     }
-    snapRemote.close();
+    snapRemote.close()
 
     var
-        eventData = []
-      , authToken = UserService.currentUser.auth_token
-      , venueId = $stateParams.venueId
-      , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "analysis"}
+        ui = {hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: false, hasCustomHomeClass: false, searching: false, eventSubNav: "about"}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
+      , actions = { success: function(venue){
+                                    $scope.venue = venue
 
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
+                                    // Options for User Interface in home partial
+                                    ui.title = venue.name
+                                    $scope.UserInterface = UserInterface
+                                    // $scope.eventId = $stateParams.eventId
+                                    // $scope.editUrl = "#home/events/" + $stateParams.eventId + "/edit"
+                                    angular.extend(UserInterface, ui)
+                              }
+       }
+
+    Venue.find(credentials, actions)
+
+    $scope.map_styles     =  [
+                {
+                        stylers: [
+                                { hue: "#00ffe6" },
+                                { saturation: -100 },
+                                { gamma: 0.8 }
+                        ]
+                },{
+                        featureType: "road",
+                        elementType: "geometry",
+                        stylers: [
+                                { lightness: 100 },
+                                { visibility: "simplified" }
+                        ]
+                },{
+                        featureType: "road",
+                        elementType: "labels",
+                        stylers: [
+                                { visibility: "off" }
+                        ]
+                },{
+                        featureType: "road.arterial",
+                        elementType: "geometry",
+                        stylers: [
+                                { color: "#BABABA" }
+                        ]
+                }
+        ]
   }])
 
-  .controller('VenuesPhotosController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
+  .controller('VenuesAnalysisController', ['$scope', '$state', '$stateParams', 'snapRemote', 'CompanyService', 'UserService', 'UserInterface', 'Venue', function($scope, $state, $stateParams, snapRemote, CompanyService, UserService, UserInterface, Venue) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -1848,17 +1914,20 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close();
 
     var
-        eventData = []
-      , authToken = UserService.currentUser.auth_token
-      , venueId = $stateParams.venueId
-      , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "photos"}
+        ui = {}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
+      , actions = { success: function(venue) {
+                                ui = {title: venue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "analysis"}
+                                $scope.venue = venue;
+                                angular.extend(UserInterface, ui)
+                                $scope.UserInterface = UserInterface;
+                              }
+        }
 
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
+    Venue.find(credentials, actions)
   }])
 
-  .controller('VenuesCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
+  .controller('VenuesPhotosController', ['$scope', '$state', '$stateParams', 'snapRemote', 'CompanyService', 'UserService', 'UserInterface', 'Venue', function($scope, $state, $stateParams, snapRemote, CompanyService, UserService, UserInterface, Venue) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -1866,14 +1935,39 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close();
 
     var
-        eventData = []
-      , authToken = UserService.currentUser.auth_token
-      , venueId = $stateParams.venueId
-      , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "comments"}
+        ui = {}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
+      , actions = { success: function(venue) {
+                                ui = {title: venue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "photos"}
+                                $scope.venue = venue;
+                                angular.extend(UserInterface, ui)
+                                $scope.UserInterface = UserInterface;
+                              }
+        }
 
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
+    Venue.find(credentials, actions)
+  }])
+
+  .controller('VenuesCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'CompanyService', 'UserService', 'UserInterface', 'Venue', function($scope, $state, $stateParams, snapRemote, CompanyService, UserService, UserInterface, Venue) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close();
+
+    var
+        ui = {}
+      , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
+      , actions = { success: function(venue) {
+                                // ui = {title: venue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "photos"}
+                                ui = {title: venue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "comments"}
+                                $scope.venue = venue;
+                                angular.extend(UserInterface, ui)
+                                $scope.UserInterface = UserInterface;
+                              }
+        }
+
+    Venue.find(credentials, actions)
   }])
 
   .controller('CompaniesController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'CompaniesRestClient', function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, CompaniesRestClient) {
