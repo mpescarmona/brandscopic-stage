@@ -88,6 +88,9 @@ body{
 	&.dashboard{
 		margin-bottom: 4px;
 		margin-top: 5px;
+		.reference{
+			margin-top: 0;
+		}
 		&.details{
 			.col-xs-12{
 				margin-bottom: 15px;
@@ -2122,29 +2125,32 @@ ul.stats{
 /*-- DASHBOARD STYLES --*/
 
 .reference{
+	color: @brand;
+	font-size: 11px;
+	height: 18px;
+	margin-top: 7px;
 	.executed, .scheduled{
 		display: inline-block;
 		float: right;
 		&:before{
-			font-size: 30px;
+			font-size: 25px;
 			line-height: 8px;
 			position: relative;
-			top: 5px;
+			top: 4px;
 			left: -3px;
 		}
 	}
 	.executed{
-		width: 9%;
+		margin-right: 10px;
 		&:before{
 			content:"\25A0";
-			color:blue;
+			color: @approved;
 		}
 	}
 	.scheduled{
-		width: 11%;
 		&:before{
 			content:"\25A0";
-			color:green;
+			color: @blue;
 		}
 	}
 }
@@ -2154,8 +2160,10 @@ ul.stats{
 	position: relative;
 	.progress {
 		width: auto !important;
-		height: 20px;
+		height: 15px;
 		.bar {
+			display: inline-block;
+			float: left;
 			text-align: right;
 			text-shadow:none;
 			span.percentage {
@@ -2166,9 +2174,11 @@ ul.stats{
 		}
 		.bar-executed {
 			background-color: @approved !important;
+			height: 15px;
 		}
 		.bar-remaining {
 			color: @blue;
+			height: 15px;
 		}
 	}
 
@@ -2223,30 +2233,26 @@ ul.stats{
 			}
 		}
 	}
-	.remaining-label {
-		color:@brand;
-		position: absolute;
-		right: -350px;
-		width: 300px;
-		top: -2px;
-		b {
-			display: inline-block;
-			font-size: 28px;
-			font-weight: 400;
-			float: left;
-			width: 150px;
-			text-align: right;
-			margin-right: 10px;
-			line-height: 25px;
-		}
-		span {
-			display: block;
-			line-height: 19px;
-		}
-		.kpi-name{
-			color: @brand;
-			line-height: 9px;
-		}
+}
+
+.remaining-label {
+	color:@brand;
+	position: relative;
+	float: right;
+	text-align: center;
+	b {
+		display: block;
+		font-size: 20px;
+		font-weight: 400;
+		margin-top: 5px;
+		line-height: 25px;
+	}
+	.kpi-name{
+		display: block;
+		font-size: 10px;
+		line-height: 19px;
+		color: @lightGrey;
+		line-height: 11px;
 	}
 }
 
