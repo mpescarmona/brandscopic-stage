@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="box-container np">
 		<ul class="comments">
-			<li ng-repeat="comment in comments | orderBy:'time'">
+			<li ng-repeat="comment in comments | orderBy:'time'" class="expandible-comment" ng-class="{'expanded': expand, 'collapsed': !expand, lastItem: $last}">
 				<div class="margin-data">
 					<p class="comment-user" ng-show="comment.type=='google'">{{comment.author}}</p>
 					<p class="comment-date small">{{comment.time | timeago}}</p>
@@ -15,7 +15,7 @@
 					    <span class="rate5"></span>
 					</div>
 					<p class="clearfix medium">{{comment.content}}</p>
-					<a href="#" class="blue full-comment">Show full comment</a>
+					<span class="blue full-comment" ng-click="expand = !expand" data-content-expanded="Collapse comment" data-content-collapsed="Show full comment"></span>
 				</div>
 			</li>
 		</ul>
