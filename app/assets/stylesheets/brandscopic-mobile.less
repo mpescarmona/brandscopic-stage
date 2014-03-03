@@ -351,7 +351,7 @@ body{
 	.comment-user{
 		float: left;
 		margin-bottom: 2px;
-		width:70%;
+		width:60%;
 	}
 	.comment-date{
 		color: @brand;
@@ -1481,25 +1481,64 @@ input[type="text"], input[type="number"], input[type="search"], input[type="date
 
 
 .rating{
-	height: 23px;
+	span{
+		background: url('../images/stars.svg') 0 0 no-repeat;
+		display: block;
+		height: 15px;
+		margin-bottom: 4px;
+		width:75px;
+	}
+	&[data-rate="1"] {
+		span{
+			&.rate2, &.rate3, &.rate4, &.rate5{
+				display: none;
+			}
+		    &.rate1{
+		   		background-position: 0 0;
+		   }			
+		}
+	}
+	&[data-rate="2"] {
+		span{
+			&.rate1, &.rate3, &.rate4, &.rate5{
+				display: none;
+			}
+		    &.rate2{
+		   		background-position: 0 -15px;
+		   }			
+		}
+	}
+	&[data-rate="3"] {
+		span{
+			&.rate1, &.rate2, &.rate4, &.rate5{
+				display: none;
+			}
+		    &.rate3{
+		   		background-position: 0px -30px;
+		   }			
+		}
+	}
+	&[data-rate="4"] {
+		span{
+			&.rate1, &.rate2, &.rate3, &.rate5{
+				display: none;
+			}
+		    &.rate4{
+		   		background-position: 0px -45px;
+		   }			
+		}
+	}
+	&[data-rate="5"] {
+		span{
+			&.rate1, &.rate2, &.rate3, &.rate4{
+				display: none;
+			}
+		    &.rate5{
+		   		background-position: 0px -60px;
+		   }			
+		}
+	}
 }
-
-.rating span{
-  width:24px;
-  height:16px;
-  line-height:16px;
-  font-size: 15px;
-  font-family: 'icons';
-  color: @gold;
-  &.rate1{
-	content: "\e623";
-  }
-  &.rate2{
- 	content: "\e623 \e623"; 	
-  }
-}
-
-
 
 select{
 	width: 100%;
