@@ -319,7 +319,7 @@ angular.module('brandscopicApp', [
             }
     })
     .state('home.venues.details.photos.slider', {
-      url: "/slider",
+      url: "/slider/{index:.*}",
       views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_photos_slider.html",
                               controller: 'VenuesPhotoSliderController'
                             }
