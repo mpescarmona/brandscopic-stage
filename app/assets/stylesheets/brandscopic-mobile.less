@@ -2121,6 +2121,33 @@ ul.stats{
 
 /*-- DASHBOARD STYLES --*/
 
+.reference{
+	.executed, .scheduled{
+		display: inline-block;
+		float: right;
+		&:before{
+			font-size: 30px;
+			line-height: 8px;
+			position: relative;
+			top: 5px;
+			left: -3px;
+		}
+	}
+	.executed{
+		width: 9%;
+		&:before{
+			content:"\25A0";
+			color:blue;
+		}
+	}
+	.scheduled{
+		width: 11%;
+		&:before{
+			content:"\25A0";
+			color:green;
+		}
+	}
+}
 .chart-bar {
 	margin-right: 350px;
 	color: @brand;
