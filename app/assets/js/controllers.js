@@ -1759,7 +1759,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     Venue.all(credentials, actions, options)
   }])
 
-  .controller('VenuesAddController', ['$scope', '$state', 'snapRemote', 'CompanyService', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, snapRemote, CompanyService, UserService, UserInterface, VenuesRestClient) {
+  .controller('VenuesAddController', ['$scope', '$state', 'snapRemote', 'CompanyService', 'UserService', 'UserInterface', 'Venue', function($scope, $state, snapRemote, CompanyService, UserService, UserInterface, Venue) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -1782,7 +1782,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close();
 
     var
-        ui = {title: 'Venues', hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false}    
+        ui = {title: 'Venues', hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false}    
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
       , actions = { success: function(venue) {
                                 ui.title =  venue.name
@@ -1806,7 +1806,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         ui = {}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
       , actions = { success: function(venue) {
-                                ui = {title: venue.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false, AddIconState: "home.venues.add", venueSubNav: "about"}
+                                ui = {title: venue.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false, AddIconState: "home.venues.add", venueSubNav: "about"}
                                 $scope.venue = venue;
                                 angular.extend(UserInterface, ui)
                                 $scope.UserInterface = UserInterface;
@@ -1915,7 +1915,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         ui = {}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
       , actions = { success: function(venue) {
-                                ui = {title: venue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "analysis"}
+                                ui = {title: venue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "analysis"}
                                 $scope.venue = venue;
                                 angular.extend(UserInterface, ui)
                                 $scope.UserInterface = UserInterface;
@@ -1936,7 +1936,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         ui = {}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
       , actions = { success: function(venue) {
-                                ui = {title: venue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "photos"}
+                                ui = {title: venue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "photos"}
                                 $scope.venue = venue;
                                 angular.extend(UserInterface, ui)
                                 $scope.UserInterface = UserInterface;
@@ -1958,7 +1958,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         ui = {}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
       , actions = { success: function(venue) {
-                                ui = {title: venue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "comments"}
+                                ui = {title: venue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "comments"}
                                 angular.extend(UserInterface, ui)
                                 $scope.UserInterface = UserInterface
 
