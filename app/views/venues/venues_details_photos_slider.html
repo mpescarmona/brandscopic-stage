@@ -5,7 +5,7 @@
   <div class="container slider">
     <img ng-repeat="photo in photos" class="slide slide-animation nonDraggableImage"
          ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
-         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{photo.file_medium}}">
+         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{photo.file_original}}">
   </div>
   <!-- Container for the description of the photo -->
 <!--   <div class="container description">
