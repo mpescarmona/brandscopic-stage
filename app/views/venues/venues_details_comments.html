@@ -1,0 +1,35 @@
+<!-- Events - COMMENTS VIEW -->
+
+<div class="container">
+	<div class="dividersBar big">SUMMARY</div>
+	<div class="box-container np">
+		<ul class="comments">
+			<li ng-repeat="comment in comments | orderBy:'time'">
+				<div class="margin-data">
+					<p class="comment-user" ng-show="comment.type=='google'">{{comment.author}}</p>
+					<p class="comment-date small">{{comment.time | timeago}}</p>
+					<div class="rating clearfix" ng-show="comment.type=='google'">
+					    <input type="radio" name="rating" value="0" checked /><span id="hide"></span>
+					    <input type="radio" name="rating" value="1" /><span></span>
+					    <input type="radio" name="rating" value="2" /><span></span>
+					    <input type="radio" name="rating" value="3" /><span></span>
+					    <input type="radio" name="rating" value="4" /><span></span>
+					    <input type="radio" name="rating" value="5" /><span></span>
+					</div>
+					<p class="clearfix medium">{{comment.content}}</p>
+					<a href="#" class="blue full-comment">Show full comment</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+<!-- No Comments - Venues -->
+
+<div class="empty" ng-hide="showComments">
+	<span class="no-comments"></span>
+	<h4>No Comments</h4>
+	<h6>There aren't any comments for this venue</h6>
+	<h6><b>Tip:</b> You can create a comment from the <br> Comments section on any Event Details<br>screen.</h6>
+</div>

@@ -13,5 +13,15 @@ angular.module('persistence.venue', ['ngResource', 'util.jsonToFormData'])
                          , isArray: true
                          , url: '//stage.brandscopic.com/api/v1/venues/search.:format'
                        } 
+
+      , 'comments'    : { method: 'GET' 
+                         , isArray: true
+                         , url: '//stage.brandscopic.com/api/v1/venues/:venue_id/comments.:format'
+                       } 
+
+      , 'photos'      : { method: 'GET' 
+                         , isArray: true
+                         , url: '//stage.brandscopic.com/api/v1/venues/:venue_id/photos.:format'
+                       } 
   });
 }]);
