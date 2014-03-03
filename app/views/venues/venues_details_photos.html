@@ -1,47 +1,16 @@
-
-<!-- PHOTOS SECTION -->
-
-<div class="container">
-	<div class="box-container">
+<div class="container" ng-show="hasPhotos">
+	<div class="box-container photos clearfix">
 		<div class="gallery">
-			<ul>
-				<li>
-					<a href="#home/venues/{{venueId}}/photos/slider"><img src="assets/images/gallery.jpg"></a>
-				</li>
-				<li>
-					<a href="#home/venues/{{venueId}}/photos/slider"><img src="assets/images/gallery.jpg"></a>
-				</li>
-				<li>
-					<a href="#home/venues/{{venueId}}/photos/slider"><img src="assets/images/gallery.jpg"></a>
-				</li>
-				<li>
-					<a href="#home/venues/{{venueId}}/photos/slider"><img src="assets/images/gallery.jpg"></a>
-				</li>
-				<li>
-					<a href="#home/venues/{{venueId}}/photos/slider"><img src="assets/images/gallery.jpg"></a>
-				</li>
-				<li>
-					<a href="#home/venues/{{venueId}}/photos/slider"><img src="assets/images/gallery.jpg"></a>
-				</li>
-				<li>
-					<a href="#home/venues/{{venueId}}/photos/slider"><img src="assets/images/gallery.jpg"></a>
-				</li>
-				<li>
-					<a href="#home/venues/{{venueId}}/photos/slider"><img src="assets/images/gallery.jpg"></a>
-				</li>
-				<li>
-					<a href="#home/venues/{{venueId}}/photos/slider"><img src="assets/images/gallery.jpg"></a>
+			<ul id="event-gallery" class="clearfix">
+				<li ng-repeat="photo in photos">
+    				<a href="#home/venues/{{venue.id}}/photos/slider/{{$index}}"><img ng-src="{{ photo.file_small }}"></a>
 				</li>
 			</ul>
 		</div>
-		<div class="dividersBar">12 PHOTOS</div>
 	</div>
 </div>
 
-
-<!-- No Photos - Venues -->
-
-<div class="empty">
+<div class="empty" ng-hide="hasPhotos">
 	<span class="no-photo"></span>
 	<h4>No Photos</h4>
 	<h6>There aren't any photos that have<br>been uploaded to this venue</h6>
