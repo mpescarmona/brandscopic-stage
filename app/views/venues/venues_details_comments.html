@@ -4,55 +4,20 @@
 	<div class="dividersBar big">SUMMARY</div>
 	<div class="box-container np">
 		<ul class="comments">
-			<li>
+			<li ng-repeat="comment in comments | orderBy:'time'">
 				<div class="margin-data">
-					<p class="comment-user">Craig Williams</p>
-					<p class="comment-date small">10 mins ago</p>
-
-					<div class="rating clearfix">
-				    <input type="radio" name="rating" value="0" checked /><span id="hide"></span>
-				    <input type="radio" name="rating" value="1" /><span></span>
-				    <input type="radio" name="rating" value="2" /><span></span>
-				    <input type="radio" name="rating" value="3" /><span></span>
-				    <input type="radio" name="rating" value="4" /><span></span>
-				    <input type="radio" name="rating" value="5" /><span></span>
+					<p class="comment-user" ng-show="comment.type=='google'">{{comment.author}}</p>
+					<p class="comment-date small">{{comment.time}}</p>
+					<div class="rating clearfix" ng-show="comment.type=='google'">
+					    <input type="radio" name="rating" value="0" checked /><span id="hide"></span>
+					    <input type="radio" name="rating" value="1" /><span></span>
+					    <input type="radio" name="rating" value="2" /><span></span>
+					    <input type="radio" name="rating" value="3" /><span></span>
+					    <input type="radio" name="rating" value="4" /><span></span>
+					    <input type="radio" name="rating" value="5" /><span></span>
 					</div>
-
-					<p class="clearfix medium">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page demonstraverunt lectores legere me lius quod</p>
+					<p class="clearfix medium">{{comment.content}}</p>
 					<a href="#" class="blue full-comment">Show full comment</a>
-				</div>
-			</li>
-			<li>
-				<div class="margin-data">
-					<p class="comment-user">Jonathan Prince</p>
-					<p class="comment-date small">Yesterday</p>
-
-					<div class="rating clearfix">
-				    <input type="radio" name="rating-2" value="0" checked /><span id="hide"></span>
-				    <input type="radio" name="rating-2" value="1" /><span></span>
-				    <input type="radio" name="rating-2" value="2" /><span></span>
-				    <input type="radio" name="rating-2" value="3" /><span></span>
-				    <input type="radio" name="rating-2" value="4" /><span></span>
-				    <input type="radio" name="rating-2" value="5" /><span></span>
-					</div>
-					<p class="clearfix medium">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
-				</div>
-			</li>
-			<li>
-				<div class="margin-data">
-					<p class="comment-user">Chad Thompson</p>
-					<p class="comment-date small">A month ago</p>
-
-					<div class="rating clearfix">
-				    <input type="radio" name="rating-3" value="0" checked /><span id="hide"></span>
-				    <input type="radio" name="rating-3" value="1" /><span></span>
-				    <input type="radio" name="rating-3" value="2" /><span></span>
-				    <input type="radio" name="rating-3" value="3" /><span></span>
-				    <input type="radio" name="rating-3" value="4" /><span></span>
-				    <input type="radio" name="rating-3" value="5" /><span></span>
-					</div>
-
-					<p class="clearfix medium">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
 				</div>
 			</li>
 		</ul>
@@ -60,12 +25,11 @@
 </div>
 
 
-<!-- No Comments - Venues 
+<!-- No Comments - Venues -->
 
-<div class="empty">
+<div class="empty" ng-hide="showComments">
 	<span class="no-comments"></span>
 	<h4>No Comments</h4>
 	<h6>There aren't any comments for this venue</h6>
 	<h6><b>Tip:</b> You can create a comment from the <br> Comments section on any Event Details<br>screen.</h6>
 </div>
--->
