@@ -2119,6 +2119,108 @@ ul.stats{
 	border-bottom: 0 !important;
 }
 
+/*-- DASHBOARD STYLES --*/
 
+.chart-bar {
+	margin-right: 350px;
+	color: @brand;
+	position: relative;
+	.progress {
+		width: auto !important;
+		height: 20px;
+		.bar {
+			text-align: right;
+			text-shadow:none;
+			span.percentage {
+				margin-left: 10px;
+				margin-right: 10px;
+				line-height: 26px
+			}
+		}
+		.bar-executed {
+			background-color: @approved !important;
+		}
+		.bar-remaining {
+			color: @blue;
+		}
+	}
+
+	.today-line-indicator {
+		position: absolute;
+		width: 2px;
+		background-color: @brand;
+		height: 29px;
+		top: -5px;
+		border:1px solid @brand;
+		border-radius: 2px;
+		&.green{
+			background-color: @approved;
+			border-color: @approved;
+		}
+		&.blue{
+			background-color: @blue;
+			border-color: @blue;
+		}
+	}
+	.bar-indicator {
+		position: absolute;
+		width: 2px;
+		background-color: #959595;
+		height: 30px;
+		&.goal-indicator{
+			top: -10px;
+		}
+	}
+	.executed-label {
+		display: inline-block;
+		font-size: 12px;
+		white-space: nowrap;
+		margin-right: 50%;
+		div {
+			margin-left: -50%;
+			b{
+				font-size: 14px;
+			}
+		}
+	}
+	.scheduled-label {
+		display: inline-block;
+		font-size: 12px;
+		white-space: nowrap;
+		text-align: right;
+		margin-left: -50%;
+		div {
+			margin-right: -50%;
+			b{
+				font-size: 14px;
+			}
+		}
+	}
+	.remaining-label {
+		color:@brand;
+		position: absolute;
+		right: -350px;
+		width: 300px;
+		top: -2px;
+		b {
+			display: inline-block;
+			font-size: 28px;
+			font-weight: 400;
+			float: left;
+			width: 150px;
+			text-align: right;
+			margin-right: 10px;
+			line-height: 25px;
+		}
+		span {
+			display: block;
+			line-height: 19px;
+		}
+		.kpi-name{
+			color: @brand;
+			line-height: 9px;
+		}
+	}
+}
 
 
