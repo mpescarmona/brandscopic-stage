@@ -1479,48 +1479,24 @@ input[type="text"], input[type="number"], input[type="search"], input[type="date
 
 /*-- RATING STARS FOR COMMENTS --*/
 
-#hide {
-    display:none;
-}
 
 .rating{
 	height: 23px;
 }
- 
-.rating input {
-  position:absolute;
-  filter:alpha(opacity=0);
-  -moz-opacity:0;
-  -khtml-opacity:0;
-  opacity:0;
-  cursor:pointer;
-  height: 17px;
-  width:17px;
-}
-.rating span:before{
+
+.rating span{
   width:24px;
   height:16px;
   line-height:16px;
-  content: "\e623";
   font-size: 15px;
   font-family: 'icons';
   color: @gold;
-}
- 
-/* Change span immediately following the checked radio */
- 
-.rating input:checked + span:before {
-  color: @gold;
-}
- 
-/* Reset all remaining stars back to default background.
-   This supersedes the above due to its ordering. */
- 
-.rating input:checked + span ~ span:before {
-  content: "\e623";
-  font-size: 15px;
-  font-family: 'icons';
-  color: @lightGrey;
+  &.rate1{
+	content: "\e623";
+  }
+  &.rate2{
+ 	content: "\e623 \e623"; 	
+  }
 }
 
 

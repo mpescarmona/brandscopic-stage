@@ -9,12 +9,11 @@
 					<p class="comment-user" ng-show="comment.type=='google'">{{comment.author}}</p>
 					<p class="comment-date small">{{comment.time | timeago}}</p>
 					<div class="rating clearfix" ng-show="comment.type=='google'">
-					    <input type="radio" name="rating" value="0" checked /><span id="hide"></span>
-					    <input type="radio" name="rating" value="1" /><span></span>
-					    <input type="radio" name="rating" value="2" /><span></span>
-					    <input type="radio" name="rating" value="3" /><span></span>
-					    <input type="radio" name="rating" value="4" /><span></span>
-					    <input type="radio" name="rating" value="5" /><span></span>
+					    <span class="rate1"></span>
+					    <span class="rate2"></span>
+					    <span class="rate3"></span>
+					    <span class="rate4"></span>
+					    <span class="rate5"></span>
 					</div>
 					<p class="clearfix medium">{{comment.content}}</p>
 					<a href="#" class="blue full-comment">Show full comment</a>
