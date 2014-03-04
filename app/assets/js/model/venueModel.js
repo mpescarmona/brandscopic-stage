@@ -79,6 +79,20 @@ angular.module('model.venue', ['persistence.venue'])
           }
         }
 
+      , analysis = function (credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'venue_id' in credentials && 'success' in actions)
+            venueClient.analysis(credentials, analysisResponse(actions))
+          else
+            throw 'Wrong set of credentials'
+
+        }
+      , analysisResponse = function (actions) {
+          return function(resp){
+            venue = resp
+            actions.success(angular.copy(venue))
+          }
+        }
+
       , comments = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'venue_id' in credentials && 'success' in actions)
             venueClient.comments(credentials, commentsResponse(actions))
@@ -111,6 +125,7 @@ angular.module('model.venue', ['persistence.venue'])
         all     : all
       , find    : find
       , search  : search
+      , analysis: analysis
       , comments: comments
       , photos  : photos
     }

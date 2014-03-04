@@ -14,6 +14,10 @@ angular.module('persistence.venue', ['ngResource', 'util.jsonToFormData'])
                          , url: '//stage.brandscopic.com/api/v1/venues/search.:format'
                        } 
 
+      , 'analysis'   : { method: 'GET' 
+                         , url: '//stage.brandscopic.com/api/v1/venues/:venue_id/analysis.:format'
+                       } 
+
       , 'comments'    : { method: 'GET' 
                          , isArray: true
                          , url: '//stage.brandscopic.com/api/v1/venues/:venue_id/comments.:format'
