@@ -2133,10 +2133,10 @@ ul.stats{
 		display: inline-block;
 		float: right;
 		&:before{
-			font-size: 25px;
-			line-height: 8px;
+			font-size: 14px;
+			line-height: 14px;
 			position: relative;
-			top: 4px;
+			top: 1px;
 			left: -3px;
 		}
 	}
@@ -2176,8 +2176,8 @@ ul.stats{
 			background-color: @approved !important;
 			height: 15px;
 		}
-		.bar-remaining {
-			color: @blue;
+		.bar-scheduled {
+			background-color: @blue !important;
 			height: 15px;
 		}
 	}
@@ -2203,24 +2203,21 @@ ul.stats{
 		position: absolute;
 		width: 2px;
 		background-color: #959595;
-		height: 30px;
-		&.goal-indicator{
-			top: -10px;
-		}
+		height: 18px;
 	}
 	.executed-label {
+		color: @approved;
 		display: inline-block;
+		float: left;
 		font-size: 12px;
 		white-space: nowrap;
 		margin-right: 50%;
 		div {
 			margin-left: -50%;
-			b{
-				font-size: 14px;
-			}
 		}
 	}
 	.scheduled-label {
+		color: @blue;
 		display: inline-block;
 		font-size: 12px;
 		white-space: nowrap;
@@ -2228,10 +2225,10 @@ ul.stats{
 		margin-left: -50%;
 		div {
 			margin-right: -50%;
-			b{
-				font-size: 14px;
-			}
 		}
+	}
+	.executed-label, .scheduled-label {
+		margin-top: 3px;
 	}
 }
 
