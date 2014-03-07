@@ -34,10 +34,10 @@ function eventsAddCtrl($scope, $state, $stateParams, $location, snapRemote, User
                        console.log(event_error)
                     }
                   }
-      , sm1 = $scope.event.start_date.indexOf('-')
-      , sm2 = $scope.event.start_date.indexOf('/')
-      , em1 = $scope.event.end_date.indexOf('-')
-      , em2 = $scope.event.end_date.indexOf('/')
+      , sm1 = ($scope.event.start_date) ? $scope.event.start_date.indexOf('-') : 0
+      , sm2 = ($scope.event.start_date) ? $scope.event.start_date.indexOf('/') : 0
+      , em1 = ($scope.event.end_date) ? $scope.event.end_date.indexOf('-') : 0
+      , em2 = ($scope.event.end_date) ? $scope.event.end_date.indexOf('/') : 0
     if (sm1 == 4)
       $scope.event.start_date = $scope.event.start_date.replace(/^(\d{4})\-(\d{2})\-(\d{2}).*$/, '$2/$3/$1')
     if (sm2 == 4)
