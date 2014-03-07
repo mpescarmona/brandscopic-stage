@@ -1,4 +1,4 @@
-function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http) {
+function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification) {
   if( !UserService.isLogged() ) {
     $state.go('login');
     return;
@@ -10,7 +10,9 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
   };
 
   var
-      authToken = UserService.currentUser.auth_token
+      authToken = UserService.currentUser.auth_token,
+      credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active' },
+      pendingNotifications = 0;
 
   $scope.currentCompany = CompanyService.currentCompany;
   // Options for User Interface in home partial
@@ -95,12 +97,18 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
          });
   }
 
-    $scope.$on('ADD_PHOTO', function (eventT, authForm) {
-        $scope.photoForm.AWSAccessKeyId = authForm.fields.AWSAccessKeyId
-        $scope.photoForm.policy = authForm.fields.policy
-        $scope.photoForm.signature = authForm.fields.signature
-        $scope.photoForm.url = authForm.url
-    })
+  $scope.$on('ADD_PHOTO', function (eventT, authForm) {
+      $scope.photoForm.AWSAccessKeyId = authForm.fields.AWSAccessKeyId
+      $scope.photoForm.policy = authForm.fields.policy
+      $scope.photoForm.signature = authForm.fields.signature
+      $scope.photoForm.url = authForm.url
+  });
+
+  var notificationsActions = { success: function(notifications) {
+    pendingNotifications = notifications.length;
+  }};
+
+  Notification.all(credentials, notificationsActions);
 }
 
 homeCtrl.$inject = [
@@ -114,5 +122,6 @@ homeCtrl.$inject = [
   "SessionRestClient",
   "Event",
   "$location",
-  "$http"
+  "$http",
+  'Notification'
 ];
