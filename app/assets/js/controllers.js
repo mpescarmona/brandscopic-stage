@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng', 'model.notification'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng', 'model.notification', 'ngCookies'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
     $scope.trigger = function (event, payload) {
@@ -10,7 +10,12 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
   }])
 
-  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
+  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', '$cookieStore','LoginManager', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient, $cookieStore, LoginManager) {
+    if (LoginManager.isLogged()) {
+      $state.go('home.dashboard');
+      return;
+    }
+
     $scope.user = {'email': 'mpescarmona@gmail.com', 'password': 'Mario123'};
 
     $scope.wrongUser = null;
@@ -27,27 +32,25 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
        if (response.status == 200) {
         if (response.data.success == true) {
             $scope.wrongUser = false;
-            UserService.currentUser.auth_token = response.data.data.auth_token;
-            UserService.currentUser.isLogged = true;
-            UserService.currentUser.email = $scope.user.email;
-            UserService.currentUser.current_company_id = response.data.data.current_company_id;
+            var authToken = response.data.data.auth_token;
+            var currentCompanyId = response.data.data.current_company_id;
 
-            companies = new CompaniesRestClient.getCompanies(UserService.currentUser.auth_token)
+            companies = new CompaniesRestClient.getCompanies(authToken)
             promiseCompanies = companies.getCompanies().$promise
 
             promiseCompanies.then(function(responseCompanies) {
              if (responseCompanies.status == 200) {
               if (responseCompanies.data != null) {
                   companyData = responseCompanies.data;
-
                   for (var i = 0, company; company = companyData[i++];) {
-                    if (company.id == UserService.currentUser.current_company_id) {
+                    if (company.id == currentCompanyId) {
                       CompanyService.currentCompany.id = company.id;
                       CompanyService.currentCompany.name = company.name;
+                      LoginManager.login(response.data.data.auth_token, $scope.user.email, company.id, company.name);
+                      $state.go('home.dashboard');
                       break;
                     }
                   }
-                  $state.go('home.dashboard');
                   return;
               }
              }

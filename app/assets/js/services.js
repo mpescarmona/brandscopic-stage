@@ -2,24 +2,25 @@
 
 /* Services */
 
-angular.module('brandscopicApp.services', ['ngResource'])
+angular.module('brandscopicApp.services', ['ngResource', 'ngCookies'])
 
 .service('ApiParams', function() {
     this.baseUrl = "http://stage.brandscopic.com/api/v1";
     this.basePort = "";
 })
 
-.service('UserService', function() {
+.service('UserService', ['$cookieStore', function($cookieStore) {
 	this.currentUser = {
 		isLogged: false,
 		email: '',
 		auth_token: '',
     current_company_id: 0
 	};
-	this.isLogged = function() {
-		return this.currentUser.isLogged;
+  this.isLogged = function() {
+    var sessionData = $cookieStore.get('sessionData');
+		return ( sessionData != null);
 	};
-})
+}])
 
 .service('CompanyService', function() {
   this.currentCompany = {
@@ -404,6 +405,53 @@ angular.module('brandscopicApp.services', ['ngResource'])
                      , transformRequest: dataChanger('event')
                   }
   });
+}])
+.service('LoginManager', ['$cookieStore','UserService', 'CompanyService','SessionRestClient', function($cookieStore, UserService, CompanyService, SessionRestClient) {
+  this.login = function (authToken, email, currentCompanyId, currentCompanyName) {
+    UserService.currentUser.auth_token = authToken;
+    UserService.currentUser.email = email;
+    CompanyService.currentCompany.id = currentCompanyId;
+    CompanyService.currentCompany.name = currentCompanyName;
+    var sessionData = new LoginData(authToken, email, currentCompanyId, currentCompanyName);
+    $cookieStore.put('sessionData', sessionData);
+  };
+  this.initializeSystem = function () {
+    if (!this.isLogged()) return false;
+
+    var loginData = $cookieStore.get('sessionData');
+    UserService.currentUser.auth_token = loginData.authToken;
+    UserService.currentUser.email = loginData.email;
+    CompanyService.currentCompany.id = loginData.currentCompanyId;
+    CompanyService.currentCompany.name = loginData.currentCompanyName;
+  };
+  this.logout = function (authToken, loggedOutCallback, errorLoggingOutCallback) {
+    var
+      session = new SessionRestClient.logout(authToken)
+    , promise = session.logout().$promise
+
+    promise.then(function(response) {
+        UserService.currentUser.auth_token = "";
+        UserService.currentUser.isLogged = false;
+        UserService.currentUser.email = "";
+        $cookieStore.remove('sessionData');
+        if (loggedOutCallback != null) {
+          loggedOutCallback();
+        }
+      });
+    promise.catch(function(response) {
+      UserService.currentUser.auth_token = "";
+      UserService.currentUser.isLogged = false;
+      UserService.currentUser.email = "";
+      $cookieStore.remove('sessionData');
+      if (errorLoggingOut != null) {
+        errorLoggingOutCallback();
+      }
+      return false;
+    });
+  };
+  this.isLogged = function () {
+    return $cookieStore.get('sessionData') != null;
+  };
 }])
 
 .value('version', '0.1')

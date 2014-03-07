@@ -1,7 +1,10 @@
-function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification) {
-  if( !UserService.isLogged() ) {
+function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager) {
+
+  if( !LoginManager.isLogged() ) {
     $state.go('login');
     return;
+  } else {
+    LoginManager.initializeSystem();
   }
   $scope.showSearchField = false;
   // Disable right snap. Works with 'snap-options' option of tag snap-content.
@@ -22,31 +25,10 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
   $scope.place_reference = ""
 
   $scope.logout = function() {
-    var
-        session = new SessionRestClient.logout(authToken)
-      , promise = session.logout().$promise
-
-    promise.then(function(response) {
-      if (response.status == 200) {
-        UserService.currentUser.auth_token = "";
-        UserService.currentUser.isLogged = false;
-        UserService.currentUser.email = "";
-        $state.go('login');
-        return;
-      } else {
-        // $state.go('login');
-        $scope.wrongUser = true;
-        UserService.currentUser.auth_token = "";
-        UserService.currentUser.isLogged = false;
-        UserService.currentUser.email = "";
-      }
+    LoginManager.logout(authToken, function() { 
+      $state.go('login');
     });
-    promise.catch(function(response) {
-      $scope.wrongUser = true;
-      UserService.currentUser.auth_token = "";
-      UserService.currentUser.isLogged = false;
-      UserService.currentUser.email = "";
-    });
+    return false;
   };
 
   $scope.photoForm = {
@@ -68,7 +50,7 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
                             {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#home/dashboard'}];
 
   $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#home/profile', 'click': ''},
-                        {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#', 'click': 'logout()'}];
+                        {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '', 'click': 'logout()'}];
 
 
   function sentForm() {
@@ -123,5 +105,6 @@ homeCtrl.$inject = [
   "Event",
   "$location",
   "$http",
-  'Notification'
+  'Notification',
+  'LoginManager'
 ];
