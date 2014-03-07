@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng', 'model.notification'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
     $scope.trigger = function (event, payload) {
@@ -46,12 +46,12 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                       CompanyService.currentCompany.name = company.name;
                       break;
                     }
-                  };
+                  }
+                  $state.go('home.dashboard');
                   return;
               }
              }
             });
-            $state.go('home.dashboard');
             return;
         }
        } else {
@@ -1829,4 +1829,47 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
       Event.find(credentials, actions)
 
+  }])
+
+  .controller('NotificationsController',['$scope', 'Notification', 'snapRemote', 'UserService', 'CompanyService', '$state', 'UserInterface', function($scope, Notification, snapRemote, UserService, CompanyService, $state, UserInterface) {
+    //This function is used in order to save the scope of the id parameter.
+    function actionCreator(destinationState, id) {
+      return function() {
+        if (destinationState) {
+          $state.go(destinationState, { eventId: id });
+        }
+      };
+    }
+    snapRemote.close();
+
+    var ui = { title: 'Notifications', hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false}
+    angular.extend(UserInterface, ui);
+
+    var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active' };
+    var actions = {
+      success: function(notifications) {
+        var viewModel = [];
+        for (var i = 0; i < notifications.length; i++) {
+          var notification = notifications[i];
+          var id = null;
+          var destinationState = null;
+          var colorClass = Notification.getNotificationClass(notification);
+          if (notification.event_id) {
+            id = notification.event_id;
+            destinationState = 'home.events.details.about';
+          }
+
+          viewModel.push({
+              message: notification.message,
+              level: notification.level,
+              type: notification.task_id ? 'tasks' 
+                    : notification.event_id ? 'event' : '',
+              action: actionCreator(destinationState, id),
+              colorClass: colorClass
+            });
+        }
+        $scope.notifications = viewModel;
+      }
+    }
+    Notification.all(credentials, actions)
   }]);
