@@ -108,7 +108,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
       }
     })
     .state('home.events.details.about', {

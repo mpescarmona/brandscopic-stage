@@ -87,7 +87,7 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
   });
 
   $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-    if (fromState.data && fromState.data.shouldRememberInHistory) {
+    if ((fromState.data && fromState.data.shouldRememberInHistory) || (toState.data && toState.data.parentShouldBeRemembered)) {
       HistoryService.addState(fromState);
     }
   });
