@@ -444,7 +444,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies'])
       UserService.currentUser.email = "";
       $cookieStore.remove('sessionData');
       if (errorLoggingOut != null) {
-        errorLoggingOutCallback();
+        errorLoggingOutCallback(response);
       }
       return false;
     });
