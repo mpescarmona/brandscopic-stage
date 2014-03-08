@@ -2,7 +2,7 @@
 
 /* Directives */
 
-angular.module('brandscopicApp.directives', [])
+angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
   .directive('appVersion', ['version', function(version) {
     return function(scope, elm, attrs) {
       elm.text(version);
@@ -69,16 +69,17 @@ angular.module('brandscopicApp.directives', [])
     };
   })
 
-  .directive('headerBackAction', function ($window) {
+  .directive('headerBackAction', ['$window', 'HistoryService', function ($window, HistoryService) {
     return {
       restrict: 'A',
       link: function (scope, $el, attr) {
         $el.on('click', function (e) {
-          scope.goBack ? scope.goBack() : $window.history.back()
+          HistoryService.goBack();
+          //scope.goBack ? scope.goBack() : $window.history.back()
         });
       }
     };
-  })
+  }])
 
   .directive('whenScrolled', function() {
       return function(scope, elm, attr) {

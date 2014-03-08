@@ -1,4 +1,4 @@
-function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager) {
+function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager, HistoryService) {
 
   if( !LoginManager.isLogged() ) {
     $state.go('login');
@@ -86,6 +86,12 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
       $scope.photoForm.url = authForm.url
   });
 
+  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+    if (fromState.data && fromState.data.shouldRememberInHistory) {
+      HistoryService.addState(fromState);
+    }
+  });
+
   var notificationsActions = { success: function(notifications) {
     pendingNotifications = notifications.length;
   }};
@@ -106,5 +112,6 @@ homeCtrl.$inject = [
   "$location",
   "$http",
   'Notification',
-  'LoginManager'
+  'LoginManager',
+  'HistoryService'
 ];

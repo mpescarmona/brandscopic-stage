@@ -453,6 +453,19 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies'])
     return $cookieStore.get('sessionData') != null;
   };
 }])
+.service('HistoryService', ['$state', function($state) {
+  this.states = [];
+
+  this.goBack = function () {
+    var state = this.states.pop();
+    $state.go(state);
+    this.states.pop();
+  };
+
+  this.addState = function (state) {
+    this.states.push(state);
+  };
+}])
 
 .value('version', '0.1')
 .value('loginPage', '/login');
