@@ -5,3 +5,10 @@ scopic.injectConst = function (scope) {
         consts: scopic.consts
     };
 };
+
+function LoginData(authToken, email, currentCompanyId, currentCompanyName) {
+    this.authToken = authToken;
+    this.email = email;
+    this.currentCompanyId = currentCompanyId;
+    this.currentCompanyName = currentCompanyName;
+}
