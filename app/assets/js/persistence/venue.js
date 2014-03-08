@@ -9,9 +9,19 @@ angular.module('persistence.venue', ['ngResource', 'util.jsonToFormData'])
 
       , 'find'       : { method: 'GET' }
 
+      , 'create'     : { method: 'POST'
+                         , headers: contentType
+                         , transformRequest: jsonToFormDataFor('venue')
+                       }
+
       , 'search'     : { method: 'GET' 
                          , isArray: true
                          , url: '//stage.brandscopic.com/api/v1/venues/search.:format'
+                       } 
+
+      , 'types'     : { method: 'GET' 
+                         , isArray: true
+                         , url: '//stage.brandscopic.com/api/v1/venues/types.:format'
                        } 
 
       , 'analysis'   : { method: 'GET' 
