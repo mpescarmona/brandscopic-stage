@@ -59,14 +59,14 @@ angular.module('brandscopicApp', [
     })
     .state('home.dashboard', {
       url: "/dashboard",
-      views:{'details@home':{ templateUrl: "partials/dashboard.html",
+      views:{'details@home':{ templateUrl: "views/dashboard/dashboard.html",
                               controller: 'DashboardController'
                             }
             }
     })
     .state('home.dashboard.details', {
       url: "/:dashboardId",
-      views:{'details@home':{ templateUrl:"partials/dashboard_details.html",
+      views:{'details@home':{ templateUrl:"views/dashboard/dashboard_details.html",
                               controller: 'DashboardController'
                             }
             }
