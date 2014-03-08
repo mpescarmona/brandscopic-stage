@@ -61,6 +61,29 @@ angular.module('model.venue', ['persistence.venue'])
           }
         }
 
+      , create = function (credentials, actions, attributes) {
+          console.log(attributes)
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions)
+            if (Object.keys(attributes).length)
+              venueClient.create(credentials
+                                 , attributes
+                                 , createResponse(actions.success)
+                                 , createResponse(actions.error)
+                                )
+        }
+      , createResponse = function (action) {
+        return function (resp) {
+          if ('id' in resp) {
+            venue = resp
+            collection.push(venue)
+          }
+
+          var answer = resp.id ? resp : resp.data
+
+          if (action) action(angular.copy(answer))
+        }
+      }
+
       , search = function(credentials, actions){
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
             company_id = credentials.company_id
@@ -69,6 +92,24 @@ angular.module('model.venue', ['persistence.venue'])
               throw 'Wrong set of credentials'
         }
       , searchResponse = function (actions) {
+          return function(resp){
+            if (resp.length) {
+              actions.success(angular.copy(resp))
+            }
+            else
+              throw 'results missing on response'
+
+          }
+        }
+
+      , types = function(credentials, actions){
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
+            company_id = credentials.company_id
+            venueClient.types(credentials, typesResponse(actions))
+          } else
+              throw 'Wrong set of credentials'
+        }
+      , typesResponse = function (actions) {
           return function(resp){
             if (resp.length) {
               actions.success(angular.copy(resp))
@@ -124,7 +165,9 @@ angular.module('model.venue', ['persistence.venue'])
     return {
         all     : all
       , find    : find
+      , create  : create
       , search  : search
+      , types   : types
       , analysis: analysis
       , comments: comments
       , photos  : photos

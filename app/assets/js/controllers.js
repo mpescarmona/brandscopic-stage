@@ -114,27 +114,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
   }])
 
-  .controller('DashboardController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close();
-
-    var
-        ui = {title: 'Dashboard', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false}
-
-    // Options for User Interface in home partial
-    angular.extend(UserInterface, ui)
-
-    $scope.dashboardItems = [{'id': 1, 'name': 'Gin BAs FY14', 'today': '30%', 'progress': '40%'},
-                             {'id': 2, 'name': 'Jameson Locals FY14', 'today': '65%', 'progress': '10%'},
-                             {'id': 3, 'name': 'Jameson CE FY13', 'today': '75%', 'progress': '60%'},
-                             {'id': 4, 'name': 'Gin BAs FY14', 'today': '45%', 'progress': '80%'},
-                             {'id': 5, 'name': 'Mama Walker\'s FY14', 'today': '65%', 'progress': '30%'},
-                             {'id': 6, 'name': 'Royal Salute FY14', 'today': '25%', 'progress': '30%'}];
-  }])
-
   .controller('EventsAboutController', ['$scope', '$window', '$state', '$stateParams', '$sce', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, $sce, snapRemote, UserService, CompanyService, UserInterface, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
