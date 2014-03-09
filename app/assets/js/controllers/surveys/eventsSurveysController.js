@@ -1,4 +1,4 @@
-function eventsSurveysController($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, surveysService, Event) {
+function eventsSurveysController($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, surveysService, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -28,6 +28,7 @@ function eventsSurveysController($scope, $state, $stateParams, snapRemote, UserS
        }
 
     Event.find(credentials, actions)
+    
     $scope.showSurveys = false;
     surveysService.getSurveysList().then( function (response){
         if(response.length > 0) {
@@ -36,6 +37,7 @@ function eventsSurveysController($scope, $state, $stateParams, snapRemote, UserS
         $scope.suveySumaryList = [];
         // TODO : use consts in the cases
         angular.forEach(response, function (items) {
+
           var _age = "", _race = "", _gender = "";
           angular.forEach(items.surveys_answers, function (item) {
             if(item.kpi_id != null) {
@@ -98,15 +100,20 @@ function eventsSurveysController($scope, $state, $stateParams, snapRemote, UserS
                 }
             }
           })
-        $scope.suveySumaryList.push( { age: _age, race: _race, gender: _gender, create: items.created_at, update: items.updated_at } );
+        $scope.suveySumaryList.push( { id: items.id, age: _age, race: _race, gender: _gender, create: items.created_at, update: items.updated_at } );
       });
     });
+
+    $scope.editSurvey = function (survey_id){
+        $location.path("/home/events/" + $scope.eventId + "/surveys/" + survey_id + "/edit")
+    }
 }
 
 eventsSurveysController.$inject = [
   '$scope',
   '$state',
   '$stateParams',
+  '$location',
   'snapRemote',
   'UserService',
   'CompanyService',

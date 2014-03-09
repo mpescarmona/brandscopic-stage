@@ -36,6 +36,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
   this.hasMagnifierIcon = false;
   this.hasAddIcon = false;
   this.hasSaveIcon = false;
+  this.hasEditSurveyIcon = false;
   this.hasCancelIcon = false;
   this.hasMenuIcon = true;
   this.hasDeleteIcon = false;
@@ -177,7 +178,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
 }])
 
 .service('EventsRestClient', ['$resource', 'ApiParams', 'CompanyService', function($resource, ApiParams, CompanyService) {
-  var 
+  var
       eventList = {}
     , companyId = CompanyService.getCompanyId();
 
@@ -236,7 +237,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
                               }
                         });
   };
-  
+
   this.updateEvent = function(authToken, companyId, evt) {
     return $resource( ApiParams.baseUrl + '/events/' + evt.id,
                         {event: evt},
@@ -282,7 +283,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
                               }
                         });
   };
-  
+
   this.getEventMembersById = function(authToken, companyId, eventId, type) {
     return $resource( ApiParams.baseUrl + '/events/' + eventId + '/members',
                         {},
@@ -340,7 +341,7 @@ angular.module('brandscopicApp.services', ['ngResource'])
                               }
                         });
   };
-  
+
   this.getEventResultsById = function(authToken, companyId, eventId) {
     return $resource( ApiParams.baseUrl + '/events/' + eventId + '/results',
                         {},

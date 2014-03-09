@@ -2,13 +2,13 @@ angular.module('brandscopicApp.surveysService', []).
     factory('surveysService', ['$q', 'CompanyService', 'UserService', '$stateParams', 'Surveys', 'Event', function ($q, CompanyService, UserService, $stateParams, Surveys, Event) {
         'use strict';
 
-    var _question_one_options = Object.freeze([
-        {
-            PURCHASED: "PURCHASED",
-            AWARE: "AWARE",
-            UNAWARE: "UNAWARE"
-        }
-    ]);
+        var _question_one_options = Object.freeze([
+            {
+                PURCHASED: "PURCHASED",
+                AWARE: "AWARE",
+                UNAWARE: "UNAWARE"
+            }
+        ]);
  		var _genders = Object.freeze([
  			{
  				key: scopic.consts.surveys_question_gender.MALE,
@@ -137,28 +137,63 @@ angular.module('brandscopicApp.surveysService', []).
 			return defer.promise;
 		}
 
-    var _getBrandslist = function () {
-        var defer = $q.defer();
-        var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-        , actions = {
-          success: function (items) {
-                        defer.resolve(items)
-                    }
-           , error: function (event_error) {
-                        console.log(event_error);
-                        defer.reject(event_error)
+        var _editSurvey = function (survey, survey_id) {
+            var defer = $q.defer();
+            var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId, id: survey_id }
+            , actions = {
+              success: function (items) {
+                           defer.resolve(items)
+                        }
+               , error: function (event_error) {
+                          defer.reject(event_error)
+                  }
               }
-          }
 
-        Event.brands(credentials, actions)
-        return defer.promise;
-    }
+            Surveys.update(credentials, actions, survey)
+            return defer.promise;
+        }
+
+        var _getBrandslist = function () {
+            var defer = $q.defer();
+            var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+            , actions = {
+              success: function (items) {
+                            defer.resolve(items)
+                        }
+               , error: function (event_error) {
+                            console.log(event_error);
+                            defer.reject(event_error)
+                  }
+              }
+
+            Surveys.brands(credentials, actions)
+            return defer.promise;
+        }
+
+        var _getSurveyDetail = function (survey_id) {
+            var defer = $q.defer();
+            var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId, id: survey_id }
+            , actions = {
+              success: function (items) {
+                            defer.resolve(items)
+                        }
+               , error: function (event_error) {
+                            console.log(event_error);
+                            defer.reject(event_error)
+                  }
+              }
+
+            Surveys.detail(credentials, actions)
+            return defer.promise;
+        }
 
         return {
             ages: _ages,
-            getBrandslist: _getBrandslist,
             createSurvey: _createSurvey,
+            editSurvey : _editSurvey,
             genders: _genders,
+            getBrandslist: _getBrandslist,
+            getSurveyDetail: _getSurveyDetail,
             getSurveysList: _getSurveysList,
             likehood: _likelihood,
             races: _races,

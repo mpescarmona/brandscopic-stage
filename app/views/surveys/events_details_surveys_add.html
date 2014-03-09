@@ -146,7 +146,7 @@
 				<label class="short txtAdjust">{{ brand.name }}</label>
 				<div class="input-group">
 				    <span class="input-group-addon">$</span>
-				    <input type="number" class="form-control" placeholder="0.00" ng-model="brand.model">
+				    <input type="number" id="{{ brand.input_id }}" class="form-control" placeholder="0.00" ng-model="brand.model">
 				</div>
 			</div>
 
@@ -158,6 +158,7 @@
 			<div class="mt25" ng-repeat="brand in questions.brandsQuestion3">
 				<label class="short txtAdjust">{{ brand.name }}</label>
 				<select class="form-control arrows"
+						id="{{ brand.input_id }}"
 						ng-model="brand.model"
 					    ng-options="likehood.key as likehood.value for likehood in likehoodList">
 		    	</select>
@@ -174,6 +175,7 @@
 			</div>
 
 			<button id="buttonSave" data-trigger-on-header='save' class=" hide btn btn-danger" ng-click="createSurvey()">Save</button>
+			<button id="buttonSave" data-trigger-on-header='edit' class=" hide btn btn-danger" ng-click="editSurvey()">Save</button>
 		</form>
 	</div>
 </div>
