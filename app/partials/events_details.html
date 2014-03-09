@@ -8,9 +8,9 @@
 		<li ng-class="{active: UserInterface.eventSubNav=='tasks'}"><a href="#/home/events/{{eventId}}/tasks">TASKS</a></li>
 		<li ng-class="{active: UserInterface.eventSubNav=='data'}" ng-show="UserInterface.can_enter_post_event_data"><a href="#/home/events/{{eventId}}/data">DATA</a></li>
 		<li ng-class="{active: UserInterface.eventSubNav=='photos'}" ng-show="UserInterface.can_upload_photos"><a href="#/home/events/{{eventId}}/photos">PHOTOS</a></li>
-    <li ng-class="{active: UserInterface.eventSubNav=='comments'}" ng-show="UserInterface.can_gather_comments"><a href="#/home/events/{{eventId}}/comments">COMMENTS</a></li>
+    	<li ng-class="{active: UserInterface.eventSubNav=='comments'}" ng-show="UserInterface.can_gather_comments"><a href="#/home/events/{{eventId}}/comments">COMMENTS</a></li>
 		<li ng-class="{active: UserInterface.eventSubNav=='expenses'}" ng-show="UserInterface.can_enter_expenses"><a href="#/home/events/{{eventId}}/expenses">EXPENSES</a></li>
-		<li ng-class="{active: UserInterface.eventSubNav=='surveys'}"><a href="#/home/events/{{eventId}}/surveys">SURVEYS</a></li>
+		<li ng-class="{active: UserInterface.eventSubNav=='surveys'}" ng-show="UserInterface.can_create_survey"><a href="#/home/events/{{eventId}}/surveys">SURVEYS</a></li>
 	</ul>
 </div>
 
