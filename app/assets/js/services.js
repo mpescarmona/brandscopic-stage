@@ -454,6 +454,28 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies'])
     return $cookieStore.get('sessionData') != null;
   };
 }])
+.service('HistoryService', ['$state', function($state) {
+  this.states = [];
+
+  this.goBack = function () {
+    var state = this.states.pop();
+    $state.go(state);
+    this.states.pop();
+  };
+
+  this.addState = function (state) {
+    for(var i = this.states.length - 1; i >= 0; i--) {
+      if(this.states[i] === state) {
+         this.states.splice(i, 1);
+      }
+    }
+    this.states.push(state);
+  };
+
+  this.clearHistory = function () {
+    this.states = [];
+  };
+}])
 
 .value('version', '0.1')
 .value('loginPage', '/login');
