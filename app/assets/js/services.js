@@ -463,7 +463,16 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies'])
   };
 
   this.addState = function (state) {
+    for(var i = this.states.length - 1; i >= 0; i--) {
+      if(this.states[i] === state) {
+         this.states.splice(i, 1);
+      }
+    }
     this.states.push(state);
+  };
+
+  this.clearHistory = function () {
+    this.states = [];
   };
 }])
 

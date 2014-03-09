@@ -86,8 +86,13 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
       $scope.photoForm.url = authForm.url
   });
 
-  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-    if ((fromState.data && fromState.data.shouldRememberInHistory) || (toState.data && toState.data.parentShouldBeRemembered)) {
+  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    var numberOfPoints = toState.name.split('.').length - 1;
+    var isGoingToARootPlace = numberOfPoints == 1;
+    if (isGoingToARootPlace) {
+      HistoryService.clearHistory();
+      HistoryService.addState(toState);
+    } else if ((fromState.data && fromState.data.shouldRememberInHistory) || (toState.data && toState.data.parentShouldBeRemembered)) {
       HistoryService.addState(fromState);
     }
   });
