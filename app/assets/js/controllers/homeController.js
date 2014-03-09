@@ -1,7 +1,10 @@
-function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http) {
-  if( !UserService.isLogged() ) {
+function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager) {
+
+  if( !LoginManager.isLogged() ) {
     $state.go('login');
     return;
+  } else {
+    LoginManager.initializeSystem();
   }
   $scope.showSearchField = false;
   // Disable right snap. Works with 'snap-options' option of tag snap-content.
@@ -9,12 +12,10 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
     disable: 'right'
   };
 
-  $scope.goBack = function(){
-    $state.go('home.events')
-    return
-  }
   var
-      authToken = UserService.currentUser.auth_token
+      authToken = UserService.currentUser.auth_token,
+      credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active' },
+      pendingNotifications = 0;
 
   $scope.currentCompany = CompanyService.currentCompany;
   // Options for User Interface in home partial
@@ -24,31 +25,10 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
   $scope.place_reference = ""
 
   $scope.logout = function() {
-    var
-        session = new SessionRestClient.logout(authToken)
-      , promise = session.logout().$promise
-
-    promise.then(function(response) {
-      if (response.status == 200) {
-        UserService.currentUser.auth_token = "";
-        UserService.currentUser.isLogged = false;
-        UserService.currentUser.email = "";
-        $state.go('login');
-        return;
-      } else {
-        // $state.go('login');
-        $scope.wrongUser = true;
-        UserService.currentUser.auth_token = "";
-        UserService.currentUser.isLogged = false;
-        UserService.currentUser.email = "";
-      }
+    LoginManager.logout(authToken, function() { 
+      $state.go('login');
     });
-    promise.catch(function(response) {
-      $scope.wrongUser = true;
-      UserService.currentUser.auth_token = "";
-      UserService.currentUser.isLogged = false;
-      UserService.currentUser.email = "";
-    });
+    return false;
   };
 
   $scope.photoForm = {
@@ -70,7 +50,7 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
                             {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#home/dashboard'}];
 
   $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#home/profile', 'click': ''},
-                        {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#', 'click': 'logout()'}];
+                        {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '', 'click': 'logout()'}];
 
 
   function sentForm() {
@@ -99,12 +79,18 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
          });
   }
 
-    $scope.$on('ADD_PHOTO', function (eventT, authForm) {
-        $scope.photoForm.AWSAccessKeyId = authForm.fields.AWSAccessKeyId
-        $scope.photoForm.policy = authForm.fields.policy
-        $scope.photoForm.signature = authForm.fields.signature
-        $scope.photoForm.url = authForm.url
-    })
+  $scope.$on('ADD_PHOTO', function (eventT, authForm) {
+      $scope.photoForm.AWSAccessKeyId = authForm.fields.AWSAccessKeyId
+      $scope.photoForm.policy = authForm.fields.policy
+      $scope.photoForm.signature = authForm.fields.signature
+      $scope.photoForm.url = authForm.url
+  });
+
+  var notificationsActions = { success: function(notifications) {
+    pendingNotifications = notifications.length;
+  }};
+
+  Notification.all(credentials, notificationsActions);
 }
 
 homeCtrl.$inject = [
@@ -118,5 +104,7 @@ homeCtrl.$inject = [
   "SessionRestClient",
   "Event",
   "$location",
-  "$http"
+  "$http",
+  'Notification',
+  'LoginManager'
 ];

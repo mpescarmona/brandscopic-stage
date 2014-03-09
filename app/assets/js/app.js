@@ -59,14 +59,14 @@ angular.module('brandscopicApp', [
     })
     .state('home.dashboard', {
       url: "/dashboard",
-      views:{'details@home':{ templateUrl: "partials/dashboard.html",
+      views:{'details@home':{ templateUrl: "views/dashboard/dashboard.html",
                               controller: 'DashboardController'
                             }
             }
     })
     .state('home.dashboard.details', {
       url: "/:dashboardId",
-      views:{'details@home':{ templateUrl:"partials/dashboard_details.html",
+      views:{'details@home':{ templateUrl:"views/dashboard/dashboard_details.html",
                               controller: 'DashboardController'
                             }
             }
@@ -278,56 +278,63 @@ angular.module('brandscopicApp', [
 
     .state('home.venues', {
       url: "/venues",
-      views:{'details@home':{ templateUrl: "partials/venues.html",
+      views:{'details@home':{ templateUrl: "views/venues/venues.html",
                               controller: 'VenuesController'
                             }
             }
     })
     .state('home.venues.add', {
       url: "/add",
-      views:{'details@home':{ templateUrl: "partials/venues_add.html",
+      views:{'details@home':{ templateUrl: "views/venues/venues_add.html",
                               controller: 'VenuesAddController'
                             }
             }
     })
     .state('home.venues.details', {
       url: "/:venueId",
-      views:{'details@home':{ templateUrl: "partials/venues_details.html",
+      views:{'details@home':{ templateUrl: "views/venues/venues_details.html",
                               controller: 'VenuesDetailsController'
                             }
             }
     })
     .state('home.venues.details.about', {
       url: "/about",
-      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_about.html",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_about.html",
                               controller: 'VenuesAboutController'
+                            }
+            }
+    })
+    .state('home.venues.details.map', {
+      url: "/map",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_about_map.html",
+                              controller: 'VenuesAboutMapController'
                             }
             }
     })
     .state('home.venues.details.analysis', {
       url: "/analysis",
-      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_analysis.html",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_analysis.html",
                               controller: 'VenuesAnalysisController'
                             }
             }
     })
     .state('home.venues.details.photos', {
       url: "/photos",
-      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_photos.html",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_photos.html",
                               controller: 'VenuesPhotosController'
                             }
             }
     })
     .state('home.venues.details.photos.slider', {
-      url: "/slider",
-      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_photos_slider.html",
+      url: "/slider/{index:.*}",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_photos_slider.html",
                               controller: 'VenuesPhotoSliderController'
                             }
             }
     })
     .state('home.venues.details.comments', {
       url: "/comments",
-      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_comments.html",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_comments.html",
                               controller: 'VenuesCommentsController'
                             }
             }

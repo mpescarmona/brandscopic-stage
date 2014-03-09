@@ -1,0 +1,93 @@
+<!-- Event Details Container - ADD EVENT VIEW-->
+
+<div class="container mt5">
+	<div class="box-container events">
+		<form novalidate>
+
+		<div class="row">
+		  <div class="col-xs-12">
+		  	<label>Name</label>
+		  </div>
+		  <div class="col-xs-12">
+		  	<input type="text" ng-model="venue.name">
+		  	<span ng-show="venue_error.name" ng-class="{error: venue_error.name}" ng-model="venue_error.name">{{venue_error.name.join()}}</span>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-12">
+		  	<label>Type</label>
+		  </div>
+		  <div class="col-xs-12">
+			<select ng-model="venue.types" 
+					ng-options="item.value as item.name for item in venueTypes"
+					class="form-control arrow">
+			</select>
+		  	<span ng-show="venue_error.types" ng-class="{error: venue_error.types}" ng-model="venue_error.types">{{venue_error.types.join()}}</span>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-12">
+		  	<label>Address</label>
+		  </div>
+		  <div class="col-xs-12">
+		  	<input type="text" ng-model="venue.street_number">
+		  	<span ng-show="venue_error.street_number" ng-class="{error: venue_error.street_number}" ng-model="venue_error.street_number">{{venue_error.street_number.join()}}</span>
+		  </div>
+		  <div class="col-xs-12">
+		  	<input type="text" ng-model="venue.route">
+		  	<span ng-show="venue_error.route" ng-class="{error: venue_error.route}" ng-model="venue_error.route">{{venue_error.route.join()}}</span>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-12">
+		  	<label>Country</label>
+		  </div>
+		  <div class="col-xs-12">
+                <select ng-model="venue.country"
+                        ng-selected="{{countryCode}}"
+                        ng-options="country.id as country.name for country in countries"
+                        ng-change="getStatesForCountry()"
+                        class="form-control arrow">
+                </select>
+				<span ng-show="!angular.isUndefined(venue_error) && venue_error.country" ng-class="{error: venue_error.country}" ng-model="venue_error.country">{{venue_error.country.join()}}</span>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-12">
+		  	<label>City</label>
+		  </div>
+		  <div class="col-xs-12">
+		  	<input type="text" ng-model="venue.city">
+		  	<span ng-show="venue_error.city" ng-class="{error: venue_error.city}" ng-model="venue_error.city">{{venue_error.city.join()}}</span>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-12">
+		  	<label>State</label>
+		  </div>
+		  <div class="col-xs-12">
+              	<select ng-model="venue.state"
+              	        ng-selected="{{venue.state}}"
+              	        ng-options="state.id as state.name for state in states"
+              	        class="form-control arrow">
+              	</select>
+				<span ng-show="!angular.isUndefined(venue_error) && venue_error.state" ng-class="{error: venue_error.state}" ng-model="venue_error.state">{{venue_error.state.join()}}</span>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-12">
+		  	<label>Zip code</label>
+		  </div>
+		  <div class="col-xs-12">
+		  		<input type="number" ng-model="venue.zipcode">
+				<span ng-show="!angular.isUndefined(venue_error) && venue_error.zipcode" ng-class="{error: venue_error.zipcode}" ng-model="venue_error.zipcode">{{venue_error.zipcode.join()}}</span>
+		  </div>
+		</div>
+	    <div class="row">
+	      <div class="col-xs-12">
+            <input type="submit" value="save" data-trigger-on-header='save' class=" hide btn btn-danger" ng-click="createVenue(venue)">
+	      </div>
+	    </div>
+		</form>
+	</div>
+</div>

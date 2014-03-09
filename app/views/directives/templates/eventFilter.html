@@ -1,45 +1,32 @@
-<!-- Status Bar for Events List -->
-
-<div class="statusBar" ng-show="!UserInterface.searching">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-2 filter" ng-repeat="filter in filters" ng-class="{active: event_status==filter.id}">
-        <a ng-click="filterStatus('{{filter.id}}')">
-          <div class="number">{{filter.count | totalCount}}</div>
-          <p>{{filter.label}}</p>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
+ 
 <!-- Events Container -->
-
-<div class="container" ng-repeat="event in eventsItems | orderBy:['start_date','start_time'] | filter:event_status | filter:{status:'Active'}" ng-show="!UserInterface.searching">
-  <!-- <div class="dividersBar">TODAY</div> -->
-  <div class="dividersBar">{{event.start_date | date:'EEEE, MMM d'}}</div>
-  <div class="box-container np" ng-show="!UserInterface.searching">
-    <ul class="events list swipe-list" go-to>
-      <li ng-repeat="event1 in eventsItems | orderBy:['start_date','start_time'] | filter:{start_date:event.start_date, event_status:event.event_status, status:'Active'}" ng-show="!UserInterface.searching" ng-class="{lastItem: $last}">
-        <div class="row action-buttons dual-button" ng-class="getEventBorderColor(event.event_status)" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="goTo('#/home/events/{{event1.id}}/about')">
-          <div class="row-content">
-            <div class="col-xs-3 eventHour">
-              <p class="xs">{{event1.start_time}}</p>
-              <p class="xs">{{event1.end_time}}</p>
+<div when-scrolled="nextPage()" class="pages">
+  <div class="container events-list" ng-repeat="event in eventsItems | orderBy:['start_date','start_time'] | groupBy:'start_date' | filter:event_status | filter:{status:'Active'}" ng-show="!UserInterface.searching">
+    <div class="dividersBar" ng-show="event.start_date_CHANGED">{{event.start_date | eventDate}}</div>
+    <div class="box-container events-list np" ng-show="!UserInterface.searching">
+      <div class="events list swipe-list" go-to>
+        <div ng-show="!UserInterface.searching" class="list">
+          <div class="row action-buttons dual-button" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="goTo('#/home/events/{{event.id}}/about')">
+            <!--approved: event_status=='Approved'-->
+            <div class="row-content">
+              <div class="col-xs-3 eventHour">
+                <p class="xs">{{event.start_time}}</p>
+                <p class="xs">{{event.end_time}}</p>
+              </div>
+              <div class="col-xs-9 eventDescription">
+                <h5 class="txtAdjust">{{event.campaign.name}}</h5>
+                <p class="medium txtAdjust second">{{event.place.name}}, {{event.place.city}}, {{event.place.state}}</p>
+              </div>
             </div>
-            <div class="col-xs-9 eventDescription">
-              <h5 class="txtAdjust">{{event1.campaign.name}}</h5>
-              <p class="medium txtAdjust second">{{event1.place.name}}, {{event1.place.city}}, {{event1.place.state}}</p>
+            <div class="editpanel actions-panel">
+              <!-- <a href="#" class="edit" stop-event='click' redirect-to="#home/events/{{event1.id}}/edit"></a> -->
+              <!-- <a href="#" class="deactivate" stop-event='click' ng-click="deleteEvent(event)"></a> -->
+              <button type="button" class="noButton edit" stop-event='click' ng-click="goTo('#home/events/{{event.id}}/edit')"></button>
+              <button type="button" class="noButton deactivate" stop-event='click' ng-click="deleteEvent(event)"></button>
             </div>
-          </div>
-          <div class="editpanel actions-panel">
-            <!-- <a href="#" class="edit" stop-event='click' redirect-to="#home/events/{{event1.id}}/edit"></a> -->
-            <!-- <a href="#" class="deactivate" stop-event='click' ng-click="deleteEvent(event)"></a> -->
-            <button type="button" class="noButton edit" redirect-to="#home/events/{{event1.id}}/edit"></button>
-            <button type="button" class="noButton deactivate" ng-click="deleteEvent(event)"></button>
           </div>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </div>

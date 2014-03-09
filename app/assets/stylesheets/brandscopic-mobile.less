@@ -88,6 +88,16 @@ body{
 	&.dashboard{
 		margin-bottom: 4px;
 		margin-top: 5px;
+		.reference{
+			margin-top: 0;
+			margin-bottom:10px;
+		}
+		.row.remaining-events{
+			margin-bottom: 15px;
+			&:last-of-type{
+				margin-bottom: 0;
+			}
+		}
 		&.details{
 			.col-xs-12{
 				margin-bottom: 15px;
@@ -125,6 +135,9 @@ body{
 	&.events{
 		input#eventPlace{
 			padding: 0 41px 0 10px;
+		}
+		&.list{
+			margin-left: 3px;
 		}
 		ul.dropdown-menu{
 			top: 38px;
@@ -175,11 +188,16 @@ body{
 	&.np{
 		padding: 0;
 	}
-
-	&.late{
+	&.approved{
+		background-color: @approved;
+		&:before{
+			display: none;
+		}
+	}
+	&.late, &.rejected{
 		background-color: @buttons;
 	}
-	&.scheduled{
+	&.scheduled, &.due{
 		background-color: @brand;
 	}
 	&.submitted{
@@ -188,6 +206,15 @@ body{
 	&.late, &.scheduled, &.submitted{
 		color: white;
 		margin-bottom: 8px;
+		a{
+			color: white;
+			text-decoration: underline;
+		}
+	}
+
+	&.approved, &.late, &.rejected, &.scheduled, &.due, &.submitted{
+		color: white;
+		margin-bottom: 6px;
 		a{
 			color: white;
 			text-decoration: underline;
@@ -207,14 +234,14 @@ body{
 			list-style: none;
 			overflow: hidden;
 			&:first-of-type{
-				.editpanel, .deletepanel{
+				.editpanel, .edit-only-panel{
 					-webkit-border-top-right-radius: 6px;
 					-moz-border-radius-topright: 6px;
 					border-top-right-radius: 6px;
 				}
 			}
 			&:last-of-type{
-				.editpanel, .deletepanel{
+				.editpanel, .edit-only-panel{
 					-webkit-border-bottom-right-radius: 6px;
 					-moz-border-radius-bottomright: 6px;
 					border-bottom-right-radius: 6px;
@@ -334,14 +361,14 @@ body{
 	.comment-user{
 		float: left;
 		margin-bottom: 2px;
-		width:70%;
+		width:60%;
 	}
 	.comment-date{
 		color: @brand;
 		float: right;
 		margin-bottom: 5px;
 		text-align: right;
-		width: 30%;
+		width: 40%;
 	}
 	ul li:last-child{
 		border-bottom: 0;
@@ -398,12 +425,11 @@ body{
 
 /*-- SWIPE EFFECTS - PANELS --*/
 
-.editpanel, .deletepanel{
+.editpanel, .edit-only-panel{
 	background-color: @lightGrey;
 	box-sizing: border-box;
 	float: right;
 	height: 60px;
-	padding:13px 5px;
 	position: relative;
 	button{
 		color:white;
@@ -418,7 +444,9 @@ body{
 	}
 }
 
-.deletepanel{
+.edit-only-panel{
+	height: 75px;
+	padding: 20px 15px;
 	text-align: center;
 	width: 70px;
 }
@@ -437,7 +465,7 @@ body{
 .events{
 	.eventHour{
 		color: @txt;
-		margin-top: 12px;
+		margin-top: 9px;
 		p{
 			text-align: center;
 			&:first-child{
@@ -619,7 +647,7 @@ body{
 		}
 	}
 	li{
-		.editpanel{
+		.editpanel, .edit-only-panel{
 			margin-top: -3px;
 		}
 		h5{
@@ -830,15 +858,16 @@ body{
 	}
 }
 
-.statusBar + .events-list .dividersBar:before{
+/*.statusBar + .events-list .dividersBar:before{
   display:none;
-}
-.statusBar + .pages .events-list:first-child .dividersBar{
+}*/
+
+.statusBar + .showEvents .pages .events-list:first-child .dividersBar{
 	height: 20px;
 	line-height: 18px;
 	margin-top: 0;
 	&:before{
-		background: transparent;
+		display: none;
 	}
 }
 
@@ -1460,51 +1489,66 @@ input[type="text"], input[type="number"], input[type="search"], input[type="date
 
 /*-- RATING STARS FOR COMMENTS --*/
 
-#hide {
-    display:none;
-}
 
 .rating{
-	height: 23px;
+	span{
+		background: url('../images/stars.svg') 0 0 no-repeat;
+		display: block;
+		height: 15px;
+		margin-bottom: 4px;
+		width:75px;
+	}
+	&[data-rate="1"] {
+		span{
+			&.rate2, &.rate3, &.rate4, &.rate5{
+				display: none;
+			}
+		    &.rate1{
+		   		background-position: 0 0;
+		   }			
+		}
+	}
+	&[data-rate="2"] {
+		span{
+			&.rate1, &.rate3, &.rate4, &.rate5{
+				display: none;
+			}
+		    &.rate2{
+		   		background-position: 0 -15px;
+		   }			
+		}
+	}
+	&[data-rate="3"] {
+		span{
+			&.rate1, &.rate2, &.rate4, &.rate5{
+				display: none;
+			}
+		    &.rate3{
+		   		background-position: 0px -30px;
+		   }			
+		}
+	}
+	&[data-rate="4"] {
+		span{
+			&.rate1, &.rate2, &.rate3, &.rate5{
+				display: none;
+			}
+		    &.rate4{
+		   		background-position: 0px -45px;
+		   }			
+		}
+	}
+	&[data-rate="5"] {
+		span{
+			&.rate1, &.rate2, &.rate3, &.rate4{
+				display: none;
+			}
+		    &.rate5{
+		   		background-position: 0px -60px;
+		   }			
+		}
+	}
 }
- 
-.rating input {
-  position:absolute;
-  filter:alpha(opacity=0);
-  -moz-opacity:0;
-  -khtml-opacity:0;
-  opacity:0;
-  cursor:pointer;
-  height: 17px;
-  width:17px;
-}
-.rating span:before{
-  width:24px;
-  height:16px;
-  line-height:16px;
-  content: "\e623";
-  font-size: 15px;
-  font-family: 'icons';
-  color: @gold;
-}
- 
-/* Change span immediately following the checked radio */
- 
-.rating input:checked + span:before {
-  color: @gold;
-}
- 
-/* Reset all remaining stars back to default background.
-   This supersedes the above due to its ordering. */
- 
-.rating input:checked + span ~ span:before {
-  content: "\e623";
-  font-size: 15px;
-  font-family: 'icons';
-  color: @lightGrey;
-}
-
-
 
 select{
 	width: 100%;
@@ -1582,7 +1626,7 @@ textarea{
 .progress-bar-success{
 	background-color: @blue;
 }
-
+/*
 .chart-bar{
 	position: relative;
 	display: inline-block;
@@ -1607,7 +1651,7 @@ textarea{
 			width: 100%;
 		}
 	}
-}
+}*/
 
 .tasks{
 	.date-data:before{
@@ -2085,9 +2129,136 @@ ul.stats{
 	border-bottom: 0 !important;
 }
 
+/*-- DASHBOARD STYLES --*/
 
+.reference{
+	color: @brand;
+	font-size: 11px;
+	height: 18px;
+	margin-top: 7px;
+	.executed, .scheduled{
+		display: inline-block;
+		float: right;
+		&:before{
+			font-size: 14px;
+			line-height: 14px;
+			position: relative;
+			top: 1px;
+			left: -3px;
+		}
+	}
+	.executed{
+		margin-right: 10px;
+		&:before{
+			content:"\25A0";
+			color: @approved;
+		}
+	}
+	.scheduled{
+		&:before{
+			content:"\25A0";
+			color: @blue;
+		}
+	}
+}
+.chart-bar {
+	display: inline-block;
+	width: 91%;
+	color: @brand;
+	position: relative;
+	.progress {
+		width: auto !important;
+		height: 15px;
+		.bar {
+			display: inline-block;
+			float: left;
+			text-align: right;
+			text-shadow:none;
+			span.percentage {
+				margin-left: 10px;
+				margin-right: 10px;
+				line-height: 26px
+			}
+		}
+		.bar-executed {
+			background-color: @approved !important;
+			height: 15px;
+		}
+		.bar-scheduled {
+			background-color: @blue !important;
+			height: 15px;
+		}
+	}
 
+	.today-line-indicator {
+		position: absolute;
+		width: 2px;
+		background-color: @brand;
+		height: 29px;
+		top: -5px;
+		border:1px solid @brand;
+		border-radius: 2px;
+		&.green{
+			background-color: @approved;
+			border-color: @approved;
+		}
+		&.blue{
+			background-color: @blue;
+			border-color: @blue;
+		}
+	}
+	.bar-indicator {
+		position: absolute;
+		width: 2px;
+		background-color: #959595;
+		height: 18px;
+	}
+	.executed-label {
+		color: @approved;
+		display: inline-block;
+		float: left;
+		font-size: 12px;
+		white-space: nowrap;
+		margin-right: 50%;
+		div {
+			margin-left: -50%;
+		}
+	}
+	.scheduled-label {
+		color: @blue;
+		display: inline-block;
+		font-size: 12px;
+		white-space: nowrap;
+		text-align: right;
+		margin-left: -50%;
+		div {
+			margin-right: -50%;
+		}
+	}
+	.executed-label, .scheduled-label {
+		margin-top: 3px;
+	}
+}
 
-
+.remaining-label {
+	color:@brand;
+	position: relative;
+	float: right;
+	text-align: center;
+	b {
+		display: block;
+		font-size: 20px;
+		font-weight: 400;
+		margin-top: 5px;
+		line-height: 25px;
+	}
+	.kpi-name{
+		display: block;
+		font-size: 10px;
+		line-height: 19px;
+		color: @lightGrey;
+		line-height: 11px;
+	}
+}
 
 

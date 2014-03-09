@@ -6,5 +6,10 @@ angular.module('persistence.campaign', ['ngResource', 'util.jsonToFormData'])
   return $resource('//stage.brandscopic.com/api/v1/campaigns/all.:format', {auth_token: '@token', format: 'json', company_id: '@company_id'},
   {
         'all'     : { method: 'GET', isArray: true }
+
+      , 'stats'   : { method: 'GET' 
+                     , isArray: true
+                     , url: '//stage.brandscopic.com/api/v1/campaigns/overall_stats.:format'
+                    } 
   });
 }]);
