@@ -233,7 +233,7 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: true
+        shouldRememberInHistory: false
       }
     })
     .state('home.events.details.comments.add', {
@@ -283,7 +283,7 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
       }
     })
     .state('home.events.details.photos.slider', {
