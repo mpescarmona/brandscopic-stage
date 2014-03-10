@@ -459,8 +459,13 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies'])
 
   this.goBack = function () {
     var state = this.states.pop();
-    $state.go(state);
-    this.states.pop();
+    //The popped state could be the same as the current one when hitting the back button twice in a row.
+    while (state != null && $state.current.name === state.name) {
+      state = this.states.pop();
+    }
+    if (state != null) {
+      $state.go(state);
+    }
   };
 
   this.addState = function (state) {
