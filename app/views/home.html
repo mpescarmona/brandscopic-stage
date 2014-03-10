@@ -7,7 +7,9 @@
 
     <ul>
       <li ng-repeat="item in navigationItems">
-        <a href="{{item.link}}" class="{{item.class}}">{{item.label}}<p ng-bind-html="item.extraTag"></p></a>
+        <a href="{{item.link}}" class="{{item.class}}">
+          {{item.label}}<span ng-show="item.showNotifications" class="badge">{{getPendingNotifications()}}</span>
+        </a>
       </li>
     </ul>
     <ul class="navbar-fixed-bottom">

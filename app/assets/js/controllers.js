@@ -1754,6 +1754,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     $scope.chooseCompany = function(companyId, companyName) {
       CompanyService.currentCompany.id = companyId;
       CompanyService.currentCompany.name = companyName;
+      $scope.$emit('CompanyChosen', companyId, companyName);
       $state.go('home.dashboard');
       return;
     };
@@ -1823,7 +1824,11 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
     snapRemote.close();
 
+<<<<<<< HEAD
     var ui = { title: 'Notifications', hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false}
+=======
+    var ui = { title: 'Notifications', hasMenuIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasBackIcon: false}
+>>>>>>> dbc3996863143b50d062e8d05e0a83df3192a985
     angular.extend(UserInterface, ui);
 
     var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active' };
@@ -1839,12 +1844,13 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
             id = notification.event_id;
             destinationState = 'home.events.details.about';
           }
+          //TODO: Redirect to a task once we have a tasks endpoint.
 
           viewModel.push({
               message: notification.message,
               level: notification.level,
-              type: notification.task_id ? 'tasks'
-                    : notification.event_id ? 'event' : '',
+              type: notification.type.indexOf('task') != -1 ? 'tasks' 
+                    : notification.type.indexOf('event') != -1 ? 'event' : '',
               action: actionCreator(destinationState, id),
               colorClass: colorClass
             });
