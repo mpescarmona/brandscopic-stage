@@ -1841,12 +1841,13 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
             id = notification.event_id;
             destinationState = 'home.events.details.about';
           }
+          //TODO: Redirect to a task once we have a tasks endpoint.
 
           viewModel.push({
               message: notification.message,
               level: notification.level,
-              type: notification.task_id ? 'tasks' 
-                    : notification.event_id ? 'event' : '',
+              type: notification.type.indexOf('task') != -1 ? 'tasks' 
+                    : notification.type.indexOf('event') != -1 ? 'event' : '',
               action: actionCreator(destinationState, id),
               colorClass: colorClass
             });
