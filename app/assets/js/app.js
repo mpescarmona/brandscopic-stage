@@ -48,7 +48,10 @@ angular.module('brandscopicApp', [
       views:{'details@home':{ templateUrl: "partials/companies.html",
                               controller: 'CompaniesController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: true
+      }
     })
     .state('home.companies.select', {
       url: "/select",
@@ -62,14 +65,20 @@ angular.module('brandscopicApp', [
       views:{'details@home':{ templateUrl: "views/dashboard/dashboard.html",
                               controller: 'DashboardController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: true
+      }
     })
     .state('home.dashboard.details', {
       url: "/:dashboardId",
       views:{'details@home':{ templateUrl:"views/dashboard/dashboard_details.html",
                               controller: 'DashboardController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: true
+      }
     })
     .state('home.events', {
       url: "/events",
@@ -359,63 +368,90 @@ angular.module('brandscopicApp', [
       views:{'details@home':{ templateUrl: "views/venues/venues.html",
                               controller: 'VenuesController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: true
+      }
     })
     .state('home.venues.add', {
       url: "/add",
       views:{'details@home':{ templateUrl: "views/venues/venues_add.html",
                               controller: 'VenuesAddController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.venues.details', {
       url: "/:venueId",
       views:{'details@home':{ templateUrl: "views/venues/venues_details.html",
                               controller: 'VenuesDetailsController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: true
+      }
     })
     .state('home.venues.details.about', {
       url: "/about",
       views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_about.html",
                               controller: 'VenuesAboutController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.venues.details.map', {
       url: "/map",
       views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_about_map.html",
                               controller: 'VenuesAboutMapController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.venues.details.analysis', {
       url: "/analysis",
       views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_analysis.html",
                               controller: 'VenuesAnalysisController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.venues.details.photos', {
       url: "/photos",
       views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_photos.html",
                               controller: 'VenuesPhotosController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.venues.details.photos.slider', {
       url: "/slider/{index:.*}",
       views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_photos_slider.html",
                               controller: 'VenuesPhotoSliderController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.venues.details.comments', {
       url: "/comments",
       views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_comments.html",
                               controller: 'VenuesCommentsController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.notifications', {
       url: "/notifications",
@@ -432,7 +468,10 @@ angular.module('brandscopicApp', [
       views:{'details@home':{ templateUrl: "partials/edit_profile.html",
                               controller: 'ProfileController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: true
+      }
     })
 })
 //enables CORS in angular
