@@ -6,7 +6,7 @@ function VenuesAddController($scope, $state, $location, snapRemote, CompanyServi
   snapRemote.close()
 
   var
-      ui = { title: 'Venue', hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false}
+      ui = { title: 'Venue', hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasEditSurveyIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false}
   // Options for User Interface in home partial
   angular.extend(UserInterface, ui)
   $scope.UserInterface = UserInterface

@@ -88,8 +88,8 @@ angular.module('model.event', ['persistence.event'])
             var answer = resp.id ? resp : resp.data
 
             if (action) action(angular.copy(answer))
-          }
         }
+      }
       , all = function (credentials, actions, options) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
             if (options && 'force' in options && options.force)
@@ -160,50 +160,33 @@ angular.module('model.event', ['persistence.event'])
           } else
               throw 'Wrong set of credentials'
         }
-      , searchResponse = function (actions) {
-          return function (resp) {
-            if (resp) {
-              actions.success(angular.copy(resp))
-            }
-            else
-              throw 'results missing on response'
 
-          }
-        }
+        , searchResponse = function (actions) {
+            return function (resp) {
+              if (resp) {
+                actions.success(angular.copy(resp))
+              }
+              else
+                throw 'results missing on response'
 
-      , brands = function(credentials, actions) {
-          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
-            company_id = credentials.company_id
-            eventClient.brands(credentials, brandsResponse(actions))
-          } else
-              throw 'Wrong set of credentials'
-        }
-      , brandsResponse = function (actions) {
-          return function (resp) {
-            if (resp) {
-              actions.success(angular.copy(resp))
-            }
-            else
-              throw 'results missing on response'
-
-          }
-        }
-      , can = function (can) {
-          if ('actions' in event) {
-            for (var i = 0, action; action = event.actions[i++];){
-              if (can == action) return true
-            }
-            return false
-          }
-        }
-      , getAllowedActions = function () {
-          canDo = {}
-          if ('actions' in event) {
-             for (var i = 0, action; action = event.actions[i++];){
-                canDo['can_' + action.replace(/ /g, '_')] = true
             }
           }
-          return canDo
+        ,  can = function (can) {
+            if ('actions' in event) {
+              for (var i = 0, action; action = event.actions[i++];){
+                if (can == action) return true
+              }
+              return false
+            }
+        }
+        , getAllowedActions = function () {
+            canDo = {}
+            if ('actions' in event) {
+               for (var i = 0, action; action = event.actions[i++];){
+                  canDo['can_' + action.replace(/ /g, '_')] = true
+              }
+            }
+            return canDo
         }
 
       , filterEvents = function(credentials, actions) {
@@ -213,16 +196,18 @@ angular.module('model.event', ['persistence.event'])
           } else
               throw 'Wrong set of credentials'
         }
-      , filterEventsResponse = function (actions) {
-          return function (resp) {
-            if (resp) {
-              actions.success(angular.copy(resp))
-            }
-            else
-              throw 'results missing on response'
 
-          }
+        , filterEventsResponse = function (actions) {
+            return function (resp) {
+              if (resp) {
+                actions.success(angular.copy(resp))
+              }
+              else
+                throw 'results missing on response'
+
+            }
         }
+
       return {
           all: all
         , find: find
@@ -230,7 +215,6 @@ angular.module('model.event', ['persistence.event'])
         , update: update
         , updateResults: updateResults
         , search: search
-        , brands: brands
         , results: results
         , can : can
         , getAllowedActions : getAllowedActions

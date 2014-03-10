@@ -20,16 +20,16 @@ function eventsSurveysAddController($scope, $state, $stateParams, $location,  sn
         $scope.brandslist = response;
         angular.forEach(response, function (brand){
             $scope.questions.brandsQuestion1.push({
-                brand_id: brand.id, question_id: 1, name: brand.name, model: brand.id + "_Question1"
+                brand_id: brand.id, question_id: 1, name: brand.name, model: brand.id + "_model"
             });
             $scope.questions.brandsQuestion2.push({
-                brand_id: brand.id, question_id: 2, name: brand.name, model: brand.id + "_Question2"
+                brand_id: brand.id, question_id: 2, name: brand.name, model: brand.id + "_model"
             });
             $scope.questions.brandsQuestion3.push({
-                brand_id: brand.id, question_id: 3, name: brand.name, model: brand.id + "_Question2"
+                brand_id: brand.id, question_id: 3, name: brand.name, model: brand.id + "_model"
             });
             $scope.questions.brandsQuestion4.push({
-                brand_id: brand.id, question_id: 4, name: brand.name, model: brand.id + "_Question2"
+                brand_id: brand.id, question_id: 4, name: brand.name, model: brand.id + "_model"
             });
         });
     }, function (response) {
@@ -37,7 +37,7 @@ function eventsSurveysAddController($scope, $state, $stateParams, $location,  sn
     });
 
     var
-        ui = {title: "Survey", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, searching: false, eventSubNav: "expenses", AddIconState: ""}
+        ui = {title: "Survey", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasEditSurveyIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, searching: false, eventSubNav: "expenses", AddIconState: ""}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
                                     $scope.event = event;

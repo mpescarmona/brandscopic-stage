@@ -6,7 +6,7 @@ function VenuesAboutMapController($scope, $window, $state, $stateParams, snapRem
     snapRemote.close()
 
     var
-        ui = {hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: false, hasCustomHomeClass: false, searching: false, venueSubNav: "about"}
+        ui = {hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: false, hasCustomHomeClass: false, searching: false, venueSubNav: "about"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
       , actions = { success: function(venue){
                                     $scope.venue = venue
