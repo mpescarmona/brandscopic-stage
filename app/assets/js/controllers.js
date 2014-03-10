@@ -1824,11 +1824,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
     snapRemote.close();
 
-<<<<<<< HEAD
-    var ui = { title: 'Notifications', hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false}
-=======
-    var ui = { title: 'Notifications', hasMenuIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasBackIcon: false}
->>>>>>> dbc3996863143b50d062e8d05e0a83df3192a985
+    var ui = { title: 'Notifications', hasMenuIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasBackIcon: false}
     angular.extend(UserInterface, ui);
 
     var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active' };
