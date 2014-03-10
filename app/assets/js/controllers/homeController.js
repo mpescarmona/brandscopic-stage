@@ -92,8 +92,13 @@ function homeCtrl($q, $scope, $state, snapRemote, $sce, UserService, UserInterfa
     if (isGoingToARootPlace) {
       HistoryService.clearHistory();
       HistoryService.addState(toState);
-    } else if ((fromState.data && fromState.data.shouldRememberInHistory) || (toState.data && toState.data.parentShouldBeRemembered)) {
-      HistoryService.addState(fromState);
+    } else {
+      if (toState.data && toState.data.parentShouldBeRemembered) {
+        HistoryService.addState(fromState);
+      }
+      if (toState.data && toState.data.shouldRememberInHistory) {
+        HistoryService.addState(toState);
+      }
     }
   });
 
