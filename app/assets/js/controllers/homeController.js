@@ -1,4 +1,4 @@
-function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager, HistoryService) {
+function homeCtrl($q, $scope, $state, snapRemote, $sce, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager, HistoryService) {
 
   if( !LoginManager.isLogged() ) {
     $state.go('login');
@@ -43,11 +43,11 @@ function homeCtrl($q, $scope, $state, snapRemote, UserService, UserInterface, Co
     $scope.$broadcast("ALL_EVENT", isShowing);
 	};
 
-  $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#home/events'},
-                            {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#home/tasks'},
-                            {'class': 'venuesIcon', 'label': 'VENUES', 'link': '#home/venues'},
-                            {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#home/notifications'},
-                            {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#home/dashboard'}];
+  $scope.navigationItems = [{'class': 'eventIcon'       , 'label': 'EVENTS'       , 'link': '#home/events'       , 'extraTag': undefined},
+                            {'class': 'tasksIcon'       , 'label': 'TASKS'        , 'link': '#home/tasks'        , 'extraTag': undefined},
+                            {'class': 'venuesIcon'      , 'label': 'VENUES'       , 'link': '#home/venues'       , 'extraTag': undefined},
+                            {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#home/notifications', 'extraTag': $sce.trustAsHtml('<span class="badge">42</span>')},
+                            {'class': 'dashboardIcon'   , 'label': 'DASHBOARD'    , 'link': '#home/dashboard'    , 'extraTag': undefined}];
 
   $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#home/profile', 'click': ''},
                         {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '', 'click': 'logout()'}];
@@ -114,6 +114,7 @@ homeCtrl.$inject = [
   "$scope",
   "$state",
   "snapRemote",
+  "$sce",
   "UserService",
   "UserInterface",
   "CompanyService",
