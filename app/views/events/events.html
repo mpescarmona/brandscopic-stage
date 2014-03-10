@@ -11,46 +11,16 @@
 		</div>
 	</div>
 </div>
-<!-- Events Container -->
-<div when-scrolled="nextPage()" class="pages">
-  <div class="container events-list" ng-repeat="event in eventsItems | orderBy:['start_date','start_time'] | groupBy:'start_date' | filter:event_status | filter:{status:'Active'}" ng-show="!UserInterface.searching">
-    <div class="dividersBar" ng-show="event.start_date_CHANGED">{{event.start_date | eventDate}}</div>
-    <div class="box-container events-list np" ng-show="!UserInterface.searching">
-      <div class="events list swipe-list" go-to>
-        <div ng-show="!UserInterface.searching" class="list">
-          <div class="row action-buttons dual-button" ng-class="{late: event_status=='Late', due: event_status=='Due', submitted: event_status=='Submitted', rejected: event_status=='Rejected'}" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="goTo('#/home/events/{{event.id}}/about')">
-            <!--approved: event_status=='Approved'-->
-            <div class="row-content">
-              <div class="col-xs-3 eventHour">
-                <p class="xs">{{event.start_time}}</p>
-                <p class="xs">{{event.end_time}}</p>
-              </div>
-              <div class="col-xs-9 eventDescription">
-                <h5 class="txtAdjust">{{event.campaign.name}}</h5>
-                <p class="medium txtAdjust second">{{event.place.name}}, {{event.place.city}}, {{event.place.state}}</p>
-              </div>
-            </div>
-            <div class="editpanel actions-panel">
-              <!-- <a href="#" class="edit" stop-event='click' redirect-to="#home/events/{{event1.id}}/edit"></a> -->
-              <!-- <a href="#" class="deactivate" stop-event='click' ng-click="deleteEvent(event)"></a> -->
-              <button type="button" class="noButton edit" stop-event='click' ng-click="goTo('#home/events/{{event.id}}/edit')"></button>
-              <button type="button" class="noButton deactivate" stop-event='click' ng-click="deleteEvent(event)"></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
+<div ng-show="showEvents" class="showEvents">
+	<scopic-event-filter filter="filter" events-items="eventsItems"></scopic-event-filter>
 </div>
 
 
-<!-- No events 
-
-<div class="empty">
+<!-- No events -->
+<div class="empty" ng-hide="showEvents">
 	<span class="no-events"></span>
 	<h4>No Events</h4>
 	<h6>You have no events scheduled</h6>
 	<h6><b>Tip:</b> Tap the <span class="glyphicon glyphicon-plus"></span> button above to <br>schedule an event.</h6>
 </div>
-
--->

@@ -4,6 +4,7 @@ angular.module('model.campaign', ['persistence.campaign'])
     var
        company_id
       , collection
+      , stats
 
       , all = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
@@ -30,7 +31,32 @@ angular.module('model.campaign', ['persistence.campaign'])
           }
       }
 
+      , stats = function (credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
+            if (stats && company_id == credentials.company_id)
+              actions.success(stats)
+            else {
+              company_id = credentials.company_id
+              campaignClient.stats(credentials, statsResponse(actions))
+            }
+          } else
+            throw 'Wrong set of credentials'
+
+      }
+      , statsResponse = function (actions) {
+          return function(resp){
+            if (resp.length) {
+              stats = resp
+              actions.success(angular.copy(stats))
+            }
+            else
+              throw 'results missing on response'
+
+          }
+      }
+
       return {
-          all: all
+          all  : all
+        , stats: stats
       }
   }])

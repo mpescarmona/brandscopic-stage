@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng', 'model.notification', 'ngCookies'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
     $scope.trigger = function (event, payload) {
@@ -10,7 +10,12 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
   }])
 
-  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient) {
+  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', '$cookieStore','LoginManager', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient, $cookieStore, LoginManager) {
+    if (LoginManager.isLogged()) {
+      $state.go('home.dashboard');
+      return;
+    }
+
     $scope.user = {'email': 'mpescarmona@gmail.com', 'password': 'Mario123'};
 
     $scope.wrongUser = null;
@@ -27,31 +32,29 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
        if (response.status == 200) {
         if (response.data.success == true) {
             $scope.wrongUser = false;
-            UserService.currentUser.auth_token = response.data.data.auth_token;
-            UserService.currentUser.isLogged = true;
-            UserService.currentUser.email = $scope.user.email;
-            UserService.currentUser.current_company_id = response.data.data.current_company_id;
+            var authToken = response.data.data.auth_token;
+            var currentCompanyId = response.data.data.current_company_id;
 
-            companies = new CompaniesRestClient.getCompanies(UserService.currentUser.auth_token)
+            companies = new CompaniesRestClient.getCompanies(authToken)
             promiseCompanies = companies.getCompanies().$promise
 
             promiseCompanies.then(function(responseCompanies) {
              if (responseCompanies.status == 200) {
               if (responseCompanies.data != null) {
                   companyData = responseCompanies.data;
-
                   for (var i = 0, company; company = companyData[i++];) {
-                    if (company.id == UserService.currentUser.current_company_id) {
+                    if (company.id == currentCompanyId) {
                       CompanyService.currentCompany.id = company.id;
                       CompanyService.currentCompany.name = company.name;
+                      LoginManager.login(response.data.data.auth_token, $scope.user.email, company.id, company.name);
+                      $state.go('home.dashboard');
                       break;
                     }
-                  };
+                  }
                   return;
               }
              }
             });
-            $state.go('home.dashboard');
             return;
         }
        } else {
@@ -111,28 +114,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
   }])
 
-  .controller('DashboardController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close();
-
-    var
-        ui = {title: 'Dashboard', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false}
-
-    // Options for User Interface in home partial
-    angular.extend(UserInterface, ui)
-
-    $scope.dashboardItems = [{'id': 1, 'name': 'Gin BAs FY14', 'today': '30%', 'progress': '40%'},
-                             {'id': 2, 'name': 'Jameson Locals FY14', 'today': '65%', 'progress': '10%'},
-                             {'id': 3, 'name': 'Jameson CE FY13', 'today': '75%', 'progress': '60%'},
-                             {'id': 4, 'name': 'Gin BAs FY14', 'today': '45%', 'progress': '80%'},
-                             {'id': 5, 'name': 'Mama Walker\'s FY14', 'today': '65%', 'progress': '30%'},
-                             {'id': 6, 'name': 'Royal Salute FY14', 'today': '25%', 'progress': '30%'}];
-  }])
-
-  .controller('EventsAboutController', ['$scope', '$window', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+  .controller('EventsAboutController', ['$scope', '$window', '$state', '$stateParams', '$sce', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event', function($scope, $window, $state, $stateParams, $sce, snapRemote, UserService, CompanyService, UserInterface, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -140,10 +122,111 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     snapRemote.close()
 
     var
-        ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "about"}
+        makeAlert = function(event) {
+                          var
+                              today = (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear()
+                            , alert = {message: '', style: '', show: false}
+
+                              // If the event happens in the future (but not today):
+                              if (event.start_date > today) {
+                                alert = { message: $sce.trustAsHtml('Your event is scheduled. You can manage the event team, complete tasks, upload event documents.'),
+                                          style: 'box-container scheduled', /* should be grey */
+                                          show : true }
+                              }
+
+                              // If the event have late tasks
+                              if (event.tasks_late_count > 0) {
+                                alert = { message: $sce.trustAsHtml('Your event has ' + event.tasks_late_count + ' late tasks. Click here to complete.'),
+                                          style: 'box-container late', /* should be red */
+                                          show : true }
+                              }
+
+                              // If the event have tasks that are due today:
+                              if (event.tasks_due_today_count > 0) {
+                                alert = { message: $sce.trustAsHtml('Your event has ' + event.tasks_due_today_count + ' tasks that are due today. Click here to complete.'),
+                                          style: 'box-container scheduled', /* should be grey */
+                                          show : true }
+                              }
+
+                              // If the event happens today and not submitted:
+                              // if (event.start_date == today && event.event_status == 'Due') {
+                              if (event.event_status == 'Due') {
+                                var links = ' Please '
+                                for(var i = 0, item; item = event.actions[i++];) {
+                                  if (item == 'enter post event data') {
+                                    links = links + '<a href=\'#/home/events/' + event.id + '/data\'>enter post event data</a>, '
+                                  }
+                                  if (item == 'upload photos') {
+                                    links = links + '<a href=\'#/home/events/' + event.id + '/photos\'>upload photos</a>, '
+                                  }
+                                  if (item == 'conduct surveys') {
+                                    links = links + '<a href=\'#/home/events/' + event.id + '/surveys\'>conduct surveys</a>, '
+                                  }
+                                  if (item == 'enter expenses') {
+                                    links = links + '<a href=\'#/home/events/' + event.id + '/expenses\'>enter expenses</a>, '
+                                  }
+                                  if (item == 'gather comments') {
+                                    links = links + ' and <a href=\'#/home/events/' + event.id + '/comments\'>gather comments</a>'
+                                  }
+                                }
+                                links = links + ' from your audience during or shortly after the event. Once complete please submit your post event form.'
+                                alert = { message: $sce.trustAsHtml('Your post event report is due.' + links),
+                                          style: 'box-container due', /* should be grey */
+                                          show : true }
+                              }
+
+                              // If the event is late:
+                              if (event.event_status == 'Late') {
+                                var links = ' Please '
+                                for(var i = 0, item; item = event.actions[i++];) {
+                                  if (item == 'enter post event data') {
+                                    links = links + '<a href=\'#/home/events/' + event.id + '/data\'>enter post event data</a>, '
+                                  }
+                                  if (item == 'upload photos') {
+                                    links = links + '<a href=\'#/home/events/' + event.id + '/photos\'>upload photos</a>, '
+                                  }
+                                  if (item == 'conduct surveys') {
+                                    links = links + '<a href=\'#/home/events/' + event.id + '/surveys\'>conduct surveys</a>, '
+                                  }
+                                  if (item == 'enter expenses') {
+                                    links = links + '<a href=\'#/home/events/' + event.id + '/expenses\'>enter expenses</a>, '
+                                  }
+                                  if (item == 'gather comments') {
+                                    links = links + ' and <a href=\'#/home/events/' + event.id + '/comments\'>gather comments now</a>'
+                                  }
+                                }
+                                links = links + ' from your audience during or shortly after the event. Once complete please submit your post event form.'
+                                alert = { message: $sce.trustAsHtml('Your post event report is late.' + links),
+                                          style: 'box-container late', /* should be grey */
+                                          show : true }
+                              }
+                              // If the event is approved
+                              if (event.event_status == 'Approved') {
+                                alert = { message: $sce.trustAsHtml('Your post event report has been approved.'),
+                                          style: 'box-container approved', /* should be green */
+                                          show : true }
+                              }
+
+                              // If the event is rejected
+                              if (event.event_status == 'Rejected') {
+                                alert = { message: $sce.trustAsHtml('Your post event report form has been rejected for the following reasons: Rejection reason here. Please make the necessary changes and resubmit.'),
+                                          style: 'box-container rejected', /* should be green */
+                                          show : true }
+                              }
+
+                              // If the event is submitted
+                              if (event.event_status == 'Submitted') {
+                                alert = { message: $sce.trustAsHtml('Your post event report has been submitted for approval. Please review and either approve or reject.'),
+                                          style: 'box-container submitted', /* should be green */
+                                          show : true }
+                              }
+                              return alert
+        }
+      , ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "about"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event){
                                     $scope.event = event
+                                    $scope.alert = makeAlert(event)
 
                                     // Options for User Interface in home partial
                                     ui.title = event.campaign ? event.campaign.name : "Event"
@@ -199,7 +282,10 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                     }
 
       $scope.event.active = false
-      $scope.upload_photos = /upload photos/.test($scope.event.actions.join())
+      $scope.goBack = function(){
+        $state.go('home.events')
+        return
+      }
       Event.update(credentials, actions, $scope.event)
     }
   }])
@@ -341,6 +427,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                     angular.extend(UserInterface, Event.getAllowedActions())
                                     $scope.eventId = $stateParams.eventId
                                     $scope.UserInterface = UserInterface
+
                     }
         }
 
@@ -358,7 +445,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       $state.go(newState);
       return;
     };
-
 
     $scope.deleteTeam = function(teamId, teamType) {
       var
@@ -479,7 +565,10 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       return;
     }
     snapRemote.close()
-
+    $scope.goBack = function(){
+      $state.go('home.events')
+      return
+    }
     var
         ui = {title: 'Contact info', hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasAddPhoto: false, hasEditIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "people"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
@@ -541,7 +630,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
    Event.find(credentials, actions)
   }])
 
-  .controller('EventsPeopleContactsAddController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'EventContact', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact) {
+  .controller('EventsPeopleContactsAddController', ['$scope', '$state', '$location', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'EventContact', 'Contact', function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact, Contact) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -563,7 +652,27 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                         credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                       , options = { force: true }
                                       , actions = { success: function(contacts) {
-                                                                  $scope.contacts = contacts
+                                                                  var contactList = []
+
+                                                                  for(var i = 0, item; item = contacts[i++];) {
+                                                                    if (item.type == 'contact') {
+
+                                                                      var
+                                                                          credentialsContact = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, contact_id: item.id }
+                                                                        , actionsContact = { success: function (contactFound) {
+                                                                                                if(contactFound && contactFound.last_name && contactFound.last_name != '' && contactFound.country && contactFound.country != '' && contactFound.state && contactFound.state != '' && contactFound.city && contactFound.city != '') {
+                                                                                                  contactList.push({id: contactFound.id, full_name: contactFound.full_name, title: contactFound.title, type: 'contact'} )
+                                                                                                }
+                                                                                             }
+                                                                                           }
+                                                                      Contact.find(credentialsContact, actionsContact)
+
+                                                                    }
+                                                                    else
+                                                                      contactList.push(item)
+                                                                  }
+
+                                                                  $scope.contacts = contactList
                                                                   // Options for User Interface in home partial
                                                                   angular.extend(UserInterface, ui)
                                                                   $scope.UserInterface = UserInterface
@@ -771,7 +880,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                               , options = { force: true }
                               , actions = { success: function(assignableContacts) {
                                                         // setup foundContact with recently created contact
-                                                        // assuming type 'contact'. 
+                                                        // assuming type 'contact'.
                                                         foundContact = contact
                                                         foundContact.type = "contact"
                                                         for(var i = 0, item; item = assignableContacts[i++];) {
@@ -938,7 +1047,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                 for(var k = 0, segment; segment = field.segments[k++];) {
                   if (segment.value !== null) {
                     results_attributes.push({'id': field.id, 'value': segment.id})
-                    break                        
+                    break
                   }
                 }
               }
@@ -1302,7 +1411,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
          }
 
      Event.find(credentials, actions)
-     
+
 
     }])
 
@@ -1397,6 +1506,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         return;
       };
 
+      $scope.showExpenses = false;
       var
           ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: "home.events.details.expenses.add"}
         , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
@@ -1412,8 +1522,20 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                       var
                                           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                         , actions = { success: function(expenses) {
+                                                                    // Add test image if file_small comes empty or null
+                                                                    for(var i = 0, item; item = expenses[i++];) {
+                                                                      if (!(item.receipt))
+                                                                        item.receipt = {file_small: 'assets/images/test.jpeg'}
+                                                                      else 
+                                                                        if (!(item.receipt.file_small))
+                                                                          item.receipt.file_small = 'assets/images/test.jpeg'
+                                                                    }
+
                                                                     $scope.expenses = expenses
-                                                                  // Options for User Interface in home partial
+                                                                    if($scope.expenses.length) {
+                                                                      $scope.showExpenses = true;
+                                                                    }
+                                                                    // Options for User Interface in home partial
                                                                     ui.title = event.campaign ? event.campaign.name : "Expenses"
                                                                     angular.extend(UserInterface, ui)
                                                                     $scope.UserInterface = UserInterface
@@ -1443,9 +1565,10 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         return;
       }
       snapRemote.close()
+      $scope.event_expense = $scope.event_expense || {}
 
       var
-          ui = {title: "Expense", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: ""}
+          ui = {title: "Expense", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: "", hasAddPhoto: false}
         , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = { success: function(event){
                                       $scope.event = event;
@@ -1455,24 +1578,51 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                       $scope.UserInterface = UserInterface;
                                       $scope.eventId = $stateParams.eventId;
 
-                                      $scope.createExpense = function() {
-                                        var
-                                            credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
-                                          , actions = { success: function (expense) {
-                                                              $scope.event_expense = expense
-                                                              $location.path("/home/events/" + event.id + "/expenses")
-                                                        }
-                                                      , error: function (expense_error) {
-                                                          $scope.expense_error = expense_error
-                                                           console.log(expense_error)
-                                                        }
-                                                      }
-                                        Expense.create(credentials, actions, $scope.event_expense)
+                                      $scope.createExpense = function () {
+                                          var
+                                             credentials = { company_id: CompanyService.getCompanyId()
+                                                             , auth_token: UserService.currentUser.auth_token
+                                                             , event_id: $stateParams.eventId
+                                             }
+                                             , actions = { success: function (expense) {
+                                                             $scope.event_expense = expense
+                                                             $location.path("/home/events/" + event.id + "/expenses")
+                                                           }
+                                                           , error: function (expense_error) {
+                                                               $scope.expense_error = expense_error
+                                                               console.log(expense_error)
+                                                             }
+                                                         }
+
+                                            Expense.create(credentials, actions,$scope.event_expense)
+
+                                      }
+                                      $scope.triggerExpense = function () {
+                                        if ($scope.image)
+                                          window['uploadNow'].trigger(document.querySelector("[ng-model=image]"))
+                                        else{
+                                          $scope.createExpense()
+                                        }
                                       }
                                 }
          }
 
-      Event.find(credentials, actions)
+
+     Event.find(credentials, actions)
+     window['uploadNow'].bind({auth_token: UserService.currentUser.auth_token
+                          , company_id: CompanyService.getCompanyId()
+                          , event_id: $stateParams.eventId
+                          , url: 'http://stage.brandscopic.com/api/v1/events/'+ $stateParams.eventId +'/photos/form.json?'
+                          , noBind: true
+                         })
+
+     $scope.$on('createPhoto', function(e, data){
+       if (!data.render) {
+         $scope.event_expense.receipt_attributes = { direct_upload_url: data.direct_upload_url }
+         $scope.createExpense()
+       }
+
+     })
 
    }])
 
@@ -1484,7 +1634,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       snapRemote.close()
 
       var
-          ui = {title: "", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: true, showEventSubNav: false, hasCustomHomeClass: true, CloseState: "home.events.details.expenses", searching: false, eventSubNav: "expenses"}
+          ui = {title: "", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: true, showEventSubNav: false, hasCustomHomeClass: true, CloseState: "home.events.details.expenses", searching: false, eventSubNav: "expenses", hasAddPhoto: false}
         , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = { success: function(event){
                                       $scope.event = event;
@@ -1526,7 +1676,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
   }])
 
-  .controller('EventsSurveysAddController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, Event) {
+  .controller('EventsSurveysAddController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -1561,149 +1711,6 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         ui = { title: 'Tasks', hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false}
 
     // Options for User Interface in home partial
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
-  }])
-
-  .controller('VenuesController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'VenuesRestClient',  function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, VenuesRestClient) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close();
-
-    var
-        ui = {title: 'Venues', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false, AddIconState: "home.venues.add"}
-      , venuesList = []
-      , authToken = UserService.currentUser.auth_token
-      , companyId = CompanyService.getCompanyId()
-      , searchTerm = ''
-      , venueList = new VenuesRestClient.getVenues(authToken, companyId, searchTerm)
-      , promise = venueList.getVenues().$promise
-
-    angular.extend(UserInterface, ui)
-    $scope.UserInterface = UserInterface;
-
-    promise.then(function(response) {
-     if (response.status == 200) {
-      if (response.data != null) {
-          $scope.venuesItems = response.data;
-
-          VenuesRestClient.setVenues($scope.venuesItems);
-          return;
-      }
-     } else {
-        $scope.venuesItems = {};
-     }
-    });
-    promise.catch(function(response) {
-      $scope.venuesItems = {};
-    });
-
-  }])
-
-  .controller('VenuesAddController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, snapRemote, UserService, UserInterface, VenuesRestClient) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close();
-
-    var
-        ui = { title: 'Venue', hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false}
-
-    // Options for User Interface in home partial
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
-  }])
-
-  .controller('VenuesDetailsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close();
-
-    var
-        eventData = []
-      , token = UserService.currentUser.auth_token
-      , venueId = $stateParams.venueId
-      , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = { title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false}
-
-    angular.extend(UserInterface, ui);
-
-    $scope.venue = currentVenue;
-  }])
-
-  .controller('VenuesAboutController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close();
-
-    var
-        eventData = []
-      , authToken = UserService.currentUser.auth_token
-      , venueId = $stateParams.venueId
-      , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "about"}
-
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
-  }])
-
-  .controller('VenuesAnalysisController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close();
-
-    var
-        eventData = []
-      , authToken = UserService.currentUser.auth_token
-      , venueId = $stateParams.venueId
-      , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "analysis"}
-
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
-  }])
-
-  .controller('VenuesPhotosController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close();
-
-    var
-        eventData = []
-      , authToken = UserService.currentUser.auth_token
-      , venueId = $stateParams.venueId
-      , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "photos"}
-
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
-  }])
-
-  .controller('VenuesCommentsController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'UserInterface', 'VenuesRestClient', function($scope, $state, $stateParams, snapRemote, UserService, UserInterface, VenuesRestClient) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close();
-
-    var
-        eventData = []
-      , authToken = UserService.currentUser.auth_token
-      , venueId = $stateParams.venueId
-      , currentVenue = new VenuesRestClient.getVenueById(venueId)
-      , ui = {title: currentVenue.name, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, venueSubNav: "comments"}
-
     angular.extend(UserInterface, ui);
     $scope.UserInterface = UserInterface;
   }])
@@ -1751,4 +1758,100 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       $state.go('home.dashboard');
       return;
     };
+  }])
+
+  .controller('EventsPhotoSliderController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event',  'Photos', 'photosService', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Photos, photosService) {
+    if( !UserService.isLogged() ) {
+      $state.go('login');
+      return;
+    }
+    snapRemote.close()
+
+    var
+        ui = {title: "", hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: true, showEventSubNav: false, hasCustomHomeClass: true, CloseState: "home.events.details.photos", searching: false, eventSubNav: "photos", hasAddPhoto: false}
+        , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+        , actions = { success: function(event){
+        $scope.event = event;
+
+        // Options for User Interface in home partial
+        angular.extend(UserInterface, ui)
+        $scope.UserInterface = UserInterface;
+        $scope.eventId = $stateParams.eventId;
+
+        //slider
+        $scope.direction = 'left';
+        $scope.currentIndex = $stateParams.index || 0;
+
+        $scope.setCurrentSlideIndex = function (index) {
+            $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
+            $scope.currentIndex = index;
+        };
+
+        $scope.isCurrentSlideIndex = function (index) {
+            return Number($scope.currentIndex) === index;
+        };
+
+        $scope.prevSlide = function () {
+            $scope.direction = 'left';
+            $scope.currentIndex = ($scope.currentIndex < $scope.photos.length - 1) ? ++$scope.currentIndex : 0;
+        };
+
+        $scope.nextSlide = function () {
+            $scope.direction = 'right';
+            $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.photos.length - 1;
+        };
+    //end slider
+
+        }
+      }
+      photosService.getPhotosList().then( function (response) {
+        $scope.photos = response.results;
+        $scope.photosCount = response.results.length;
+      })
+
+      Event.find(credentials, actions)
+
+  }])
+
+  .controller('NotificationsController',['$scope', 'Notification', 'snapRemote', 'UserService', 'CompanyService', '$state', 'UserInterface', function($scope, Notification, snapRemote, UserService, CompanyService, $state, UserInterface) {
+    //This function is used in order to save the scope of the id parameter.
+    function actionCreator(destinationState, id) {
+      return function() {
+        if (destinationState) {
+          $state.go(destinationState, { eventId: id });
+        }
+      };
+    }
+    snapRemote.close();
+
+    var ui = { title: 'Notifications', hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false}
+    angular.extend(UserInterface, ui);
+
+    var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active' };
+    var actions = {
+      success: function(notifications) {
+        var viewModel = [];
+        for (var i = 0; i < notifications.length; i++) {
+          var notification = notifications[i];
+          var id = null;
+          var destinationState = null;
+          var colorClass = Notification.getNotificationClass(notification);
+          if (notification.event_id) {
+            id = notification.event_id;
+            destinationState = 'home.events.details.about';
+          }
+
+          viewModel.push({
+              message: notification.message,
+              level: notification.level,
+              type: notification.task_id ? 'tasks' 
+                    : notification.event_id ? 'event' : '',
+              action: actionCreator(destinationState, id),
+              colorClass: colorClass
+            });
+        }
+        $scope.notifications = viewModel;
+      }
+    }
+    Notification.all(credentials, actions)
   }]);

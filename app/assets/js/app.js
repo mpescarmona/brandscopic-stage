@@ -15,12 +15,16 @@ angular.module('brandscopicApp', [
   'brandscopicApp.animations',
   'brandscopicApp.debounce',
   'brandscopicApp.sharedDirectives',
+  'brandscopicApp.eventDirectives',
   'brandscopicApp.eventService',
   'brandscopicApp.photosService',
+  'brandscopicApp.surveysService',
   'ui.bootstrap',
   'ngMap',
   'model.photos',
-  'persistence.photos'
+  'persistence.photos',
+  'model.surveys',
+  'persistence.surveys'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
   //
@@ -55,14 +59,14 @@ angular.module('brandscopicApp', [
     })
     .state('home.dashboard', {
       url: "/dashboard",
-      views:{'details@home':{ templateUrl: "partials/dashboard.html",
+      views:{'details@home':{ templateUrl: "views/dashboard/dashboard.html",
                               controller: 'DashboardController'
                             }
             }
     })
     .state('home.dashboard.details', {
       url: "/:dashboardId",
-      views:{'details@home':{ templateUrl:"partials/dashboard_details.html",
+      views:{'details@home':{ templateUrl:"views/dashboard/dashboard_details.html",
                               controller: 'DashboardController'
                             }
             }
@@ -72,190 +76,275 @@ angular.module('brandscopicApp', [
       views:{'details@home':{ templateUrl: "views/events/events.html",
                               controller: 'eventsCtrl'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: true
+      }
     })
     .state('home.events.add', {
       url: "/add",
       views:{'details@home':{ templateUrl: "views/events/events_add.html",
                               controller: 'eventsAddCtrl'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details', {
       url: "/:eventId",
       views:{'details@home':{ templateUrl: "partials/events_details.html",
                               controller: 'EventsDetailsController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: true
+      }
     })
     .state('home.events.details.edit', {
       url: "/edit",
       views:{'details@home':{ templateUrl: "partials/events_edit.html",
                               controller: 'EventsEditController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
+      }
     })
     .state('home.events.details.about', {
       url: "/about",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_about.html",
                               controller: 'EventsAboutController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.map', {
       url: "/map",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_about_map.html",
                               controller: 'EventsAboutMapController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.people', {
       url: "/people",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people.html",
                               controller: 'EventsPeopleController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.people.contacts', {
       url: "/contacts",
-      abstract: true
+      abstract: true,
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.people.contacts.view', {
       url: "/:contactId/view",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts.html",
                               controller: 'EventsPeopleContactsController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.people.contacts.add', {
       url: "/add",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_add.html",
                               controller: 'EventsPeopleContactsAddController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.people.contacts.edit', {
       url: "/:contactId/edit",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_edit.html",
                               controller: 'EventsPeopleContactsEditController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.people.contacts.new', {
       url: "/new",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_new.html",
                               controller: 'EventsPeopleContactsNewController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.people.team', {
       url: "/team",
-      abstract: true
+      abstract: true,
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.people.team.add', {
       url: "/add",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team_add.html",
                               controller: 'EventsPeopleTeamAddController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.data', {
       url: "/data",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_data.html",
                               controller: 'EventsDataController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.data.view', {
       url: "/view",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_data_view.html",
                               controller: 'EventsDataViewController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.comments', {
       url: "/comments",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_comments.html",
                               controller: 'EventsCommentsController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.comments.add', {
       url: "/add",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_comments_add.html",
                               controller: 'EventsCommentsAddController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.tasks', {
       url: "/tasks",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks.html",
                               controller: 'EventsTasksController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.tasks.details', {
       url: "/:taskId/details",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks_details.html",
                               controller: 'EventsTasksDetailsController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.tasks.details.edit', {
       url: "/edit",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks_details_edit.html",
                               controller: 'EventsTasksEditController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.photos', {
       url: "/photos",
       views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_photos.html",
                               controller: 'eventsPhotosCtrl'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false,
+      }
     })
     .state('home.events.details.photos.slider', {
-      url: "/slider",
+      url: "/slider/{index:.*}",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_photos_slider.html",
-                              controller: 'eventsPhotosCtrl'
+                              controller: 'EventsPhotoSliderController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.expenses', {
       url: "/expenses",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses.html",
                               controller: 'EventsExpensesController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.expenses.add', {
       url: "/add",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses_add.html",
                               controller: 'EventsExpensesAddController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.expenses.photo', {
       url: "/:expenseId/photo",
       views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses_photo.html",
                               controller: 'EventsExpensesPhotoController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.surveys', {
       url: "/surveys",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys.html",
-                              controller: 'EventsSurveysController'
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/surveys/events_details_surveys.html",
+                              controller: 'eventsSurveysController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.events.details.surveys.add', {
       url: "/add",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_surveys_add.html",
-                              controller: 'EventsSurveysAddController'
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/surveys/events_details_surveys_add.html",
+                              controller: 'eventsSurveysAddController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false
+      }
     })
     .state('home.tasks', {
       url: "/tasks",
@@ -267,56 +356,63 @@ angular.module('brandscopicApp', [
 
     .state('home.venues', {
       url: "/venues",
-      views:{'details@home':{ templateUrl: "partials/venues.html",
+      views:{'details@home':{ templateUrl: "views/venues/venues.html",
                               controller: 'VenuesController'
                             }
             }
     })
     .state('home.venues.add', {
       url: "/add",
-      views:{'details@home':{ templateUrl: "partials/venues_add.html",
+      views:{'details@home':{ templateUrl: "views/venues/venues_add.html",
                               controller: 'VenuesAddController'
                             }
             }
     })
     .state('home.venues.details', {
       url: "/:venueId",
-      views:{'details@home':{ templateUrl: "partials/venues_details.html",
+      views:{'details@home':{ templateUrl: "views/venues/venues_details.html",
                               controller: 'VenuesDetailsController'
                             }
             }
     })
     .state('home.venues.details.about', {
       url: "/about",
-      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_about.html",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_about.html",
                               controller: 'VenuesAboutController'
+                            }
+            }
+    })
+    .state('home.venues.details.map', {
+      url: "/map",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_about_map.html",
+                              controller: 'VenuesAboutMapController'
                             }
             }
     })
     .state('home.venues.details.analysis', {
       url: "/analysis",
-      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_analysis.html",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_analysis.html",
                               controller: 'VenuesAnalysisController'
                             }
             }
     })
     .state('home.venues.details.photos', {
       url: "/photos",
-      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_photos.html",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_photos.html",
                               controller: 'VenuesPhotosController'
                             }
             }
     })
     .state('home.venues.details.photos.slider', {
-      url: "/slider",
-      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_photos_slider.html",
+      url: "/slider/{index:.*}",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_photos_slider.html",
                               controller: 'VenuesPhotoSliderController'
                             }
             }
     })
     .state('home.venues.details.comments', {
       url: "/comments",
-      views:{'venuesDetail@home.venues.details':{ templateUrl: "partials/venues_details_comments.html",
+      views:{'venuesDetail@home.venues.details':{ templateUrl: "views/venues/venues_details_comments.html",
                               controller: 'VenuesCommentsController'
                             }
             }
@@ -326,7 +422,10 @@ angular.module('brandscopicApp', [
       views:{'details@home':{ templateUrl: "partials/notifications.html",
                               controller: 'NotificationsController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: true
+      }
     })
     .state('home.profile', {
       url: "/profile",
@@ -346,6 +445,7 @@ angular.module('brandscopicApp', [
         $rootScope.alert = function (text) {
             alert(text);
         };
+
         /**
          * Use 'injectConst' which provides a place to inject relevant bits of the scopic
          * into all child controller $scopes by attaching as a reference

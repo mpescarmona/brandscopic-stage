@@ -1,0 +1,15 @@
+<!-- Venues Details Container - VENUES VIEW - ABOUT MAP-->
+
+<div class="container">
+	<div class="box-container event-description">
+		<h5>{{venue.name}}</h5>
+		<p>{{venue.formatted_address}}</p>
+		<a href="http://maps.google.com/maps?q={{[venue.latitude,venue.longitude].join()}}" class="blue" target="_blank">Get directions</a>
+	</div>
+</div>
+  <!--FIXME! STYLES FOR THIS VIEW NEEDS TO BE FIXED-->
+  <div class="google-map fullscreen">
+    <map zoom-control="true" center="{{[venue.latitude,venue.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
+    <marker position="{{[venue.latitude,venue.longitude]}}" title="{{venue.name||'venue'}}"></marker>
+  </div>
+</div>
