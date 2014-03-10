@@ -1755,6 +1755,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     $scope.chooseCompany = function(companyId, companyName) {
       CompanyService.currentCompany.id = companyId;
       CompanyService.currentCompany.name = companyName;
+      $scope.$emit('CompanyChosen', companyId, companyName);
       $state.go('home.dashboard');
       return;
     };
@@ -1824,7 +1825,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
     snapRemote.close();
 
-    var ui = { title: 'Notifications', hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false}
+    var ui = { title: 'Notifications', hasMenuIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasBackIcon: false}
     angular.extend(UserInterface, ui);
 
     var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active' };

@@ -4,9 +4,9 @@ angular.module('model.notification', ['persistence.notification'])
 	var
 	    country_id
 	  , collection
-	  , all = function(credentials, actions) {
+	  , all = function(credentials, actions, force) {
 	  	  	if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
-	  	  		if (collection) {
+	  	  		if (!force && collection) {
 	  	  			actions.success(collection);
 	  	  		} else {
 	  	  			notificationClient.all(credentials, allResponse(actions));

@@ -1,4 +1,4 @@
-function homeCtrl($q, $scope, $state, snapRemote, $sce, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager, HistoryService) {
+function homeCtrl($q, $scope, $state, $timeout, snapRemote, $sce, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager, HistoryService) {
 
   if( !LoginManager.isLogged() ) {
     $state.go('login');
@@ -15,7 +15,8 @@ function homeCtrl($q, $scope, $state, snapRemote, $sce, UserService, UserInterfa
   var
       authToken = UserService.currentUser.auth_token,
       credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active' },
-      pendingNotifications = 0;
+      pendingNotifications = 0,
+      notificationsQueryingPromise = null;
 
   $scope.currentCompany = CompanyService.currentCompany;
   // Options for User Interface in home partial
@@ -43,11 +44,11 @@ function homeCtrl($q, $scope, $state, snapRemote, $sce, UserService, UserInterfa
     $scope.$broadcast("ALL_EVENT", isShowing);
 	};
 
-  $scope.navigationItems = [{'class': 'eventIcon'       , 'label': 'EVENTS'       , 'link': '#home/events'       , 'extraTag': undefined},
-                            {'class': 'tasksIcon'       , 'label': 'TASKS'        , 'link': '#home/tasks'        , 'extraTag': undefined},
-                            {'class': 'venuesIcon'      , 'label': 'VENUES'       , 'link': '#home/venues'       , 'extraTag': undefined},
-                            {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#home/notifications', 'extraTag': $sce.trustAsHtml('<span class="badge">42</span>')},
-                            {'class': 'dashboardIcon'   , 'label': 'DASHBOARD'    , 'link': '#home/dashboard'    , 'extraTag': undefined}];
+  $scope.navigationItems = [{'class': 'eventIcon'       , 'label': 'EVENTS'       , 'link': '#home/events'                                  },
+                            {'class': 'tasksIcon'       , 'label': 'TASKS'        , 'link': '#home/tasks'                                   },
+                            {'class': 'venuesIcon'      , 'label': 'VENUES'       , 'link': '#home/venues'                                  },
+                            {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#home/notifications', 'showNotifications': true},
+                            {'class': 'dashboardIcon'   , 'label': 'DASHBOARD'    , 'link': '#home/dashboard'                               }];
 
   $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#home/profile', 'click': ''},
                         {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '', 'click': 'logout()'}];
@@ -102,17 +103,30 @@ function homeCtrl($q, $scope, $state, snapRemote, $sce, UserService, UserInterfa
     }
   });
 
+  $scope.$on('CompanyChosen', function (event, companyId, companyName) {
+    credentials.company_id = companyId;
+    //We cancel the querying action because otherwise after calling Notification.all again we'd get two chronic jobs.
+    $timeout.cancel(notificationsQueryingPromise);
+    Notification.all(credentials, notificationsActions, true);
+  })
+
   var notificationsActions = { success: function(notifications) {
     pendingNotifications = notifications.length;
+    $timeout(function() { Notification.all(credentials, notificationsActions, true); }, 30000); //Check the notifications every 30 seconds
   }};
 
-  Notification.all(credentials, notificationsActions);
+  $scope.getPendingNotifications = function() {
+    return pendingNotifications;
+  };
+
+  Notification.all(credentials, notificationsActions, true);
 }
 
 homeCtrl.$inject = [
   "$q",
   "$scope",
   "$state",
+  "$timeout",
   "snapRemote",
   "$sce",
   "UserService",
