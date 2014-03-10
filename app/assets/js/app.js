@@ -355,6 +355,13 @@ angular.module('brandscopicApp', [
         shouldRememberInHistory: false
       }
     })
+    .state('home.events.details.surveys.edit', {
+      url: "/:surveyId/edit",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/surveys/events_details_surveys_add.html",
+                              controller: 'eventsSurveysEditController'
+                            }
+            }
+    })
     .state('home.tasks', {
       url: "/tasks",
       views:{'details@home':{ templateUrl: "partials/tasks.html",

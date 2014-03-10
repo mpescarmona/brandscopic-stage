@@ -62,9 +62,15 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
     return {
       restrict: 'A',
       link: function (scope, $el, attr) {
-        $el.on('click', function (e) {
-          $('[data-trigger-on-header=save]').first().click()
-        });
+        if(scope.$eval(attr.save)) {
+          $el.on('click', function (e) {
+            $('[data-trigger-on-header=save]').first().click()
+          });
+        } else {
+          $el.on('click', function (e) {
+            $('[data-trigger-on-header=edit]').first().click()
+          });
+        }
       }
     };
   })
@@ -84,7 +90,7 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
   .directive('whenScrolled', function() {
       return function(scope, elm, attr) {
           var raw = elm[0];
-          
+
           elm.bind('scroll', function() {
               if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
                   scope.$apply(attr.whenScrolled);
@@ -199,7 +205,7 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
 
     };
   })
-  
+
   .directive('showPhoto', function(){
     return function (scope, $el, attr) {
      $el.on('change', function (e) {
@@ -208,6 +214,6 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
           document.querySelector('.fileUpload img.show-preview').src = e.target.result
         }
         reader.readAsDataURL(e.target.files[0]);
-      })  
+      })
     }
   });
