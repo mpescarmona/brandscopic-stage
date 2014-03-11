@@ -14,15 +14,15 @@
 	<div class="box-container venuesDetails">
 		<h5>{{venue.name}}</h5>
 		<div class="place-data">
-			{{venue.formatted_address}}<br>
-			{{venue.state}}, {{venue.country}}<br>
+			<div class="address">{{venue.formatted_address}}</div>
+			<div class="country">{{venue.state}}, {{venue.country}}</div>
 			<!-- (979) 846-0211<br> -->
 			<!-- <a href="#" class="blue">www.foxandhound.com</a><br> -->
 			<!-- $$ Bar<br> -->
-			dont have phone<br>
-			<a href="#" class="blue">dont have website</a><br>
-			DONT HAVE $$ Bar<br>
-			{{venue.td_link_code}}
+			<div class="phone">Dont have phone</div>
+			<a href="#" class="blue">Dont have website</a>
+			<div class="bar">DONT HAVE $$ Bar</div>
+			<div class="code">{{venue.td_link_code}}</div>
 		</div>
 		<div class="time-data">
 			<ul>	
