@@ -8,6 +8,7 @@
   left: 0;
   width: auto;
   height: auto;
+  overflow-x: hidden;
   padding-top: 46px;
   z-index: 2;
   overflow: auto;
@@ -707,6 +708,16 @@ body.appLayout .container {
   margin-bottom: 4px;
   margin-top: 5px;
 }
+.box-container.dashboard .reference {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.box-container.dashboard .row.remaining-events {
+  margin-bottom: 15px;
+}
+.box-container.dashboard .row.remaining-events:last-of-type {
+  margin-bottom: 0;
+}
 .box-container.dashboard.details .col-xs-12 {
   margin-bottom: 15px;
 }
@@ -739,6 +750,9 @@ body.appLayout .container {
 }
 .box-container.events input#eventPlace {
   padding: 0 41px 0 10px;
+}
+.box-container.events.list {
+  margin-left: 3px;
 }
 .box-container.events ul.dropdown-menu {
   top: 38px;
@@ -784,10 +798,18 @@ body.appLayout .container {
 .box-container.np {
   padding: 0;
 }
-.box-container.late {
+.box-container.approved {
+  background-color: #90bf43;
+}
+.box-container.approved:before {
+  display: none;
+}
+.box-container.late,
+.box-container.rejected {
   background-color: #de4d43;
 }
-.box-container.scheduled {
+.box-container.scheduled,
+.box-container.due {
   background-color: #989898;
 }
 .box-container.submitted {
@@ -801,6 +823,24 @@ body.appLayout .container {
 }
 .box-container.late a,
 .box-container.scheduled a,
+.box-container.submitted a {
+  color: white;
+  text-decoration: underline;
+}
+.box-container.approved,
+.box-container.late,
+.box-container.rejected,
+.box-container.scheduled,
+.box-container.due,
+.box-container.submitted {
+  color: white;
+  margin-bottom: 6px;
+}
+.box-container.approved a,
+.box-container.late a,
+.box-container.rejected a,
+.box-container.scheduled a,
+.box-container.due a,
 .box-container.submitted a {
   color: white;
   text-decoration: underline;
@@ -819,13 +859,13 @@ body.appLayout .container {
   overflow: hidden;
 }
 .box-container ul li:first-of-type .editpanel,
-.box-container ul li:first-of-type .deletepanel {
+.box-container ul li:first-of-type .edit-only-panel {
   -webkit-border-top-right-radius: 6px;
   -moz-border-radius-topright: 6px;
   border-top-right-radius: 6px;
 }
 .box-container ul li:last-of-type .editpanel,
-.box-container ul li:last-of-type .deletepanel {
+.box-container ul li:last-of-type .edit-only-panel {
   -webkit-border-bottom-right-radius: 6px;
   -moz-border-radius-bottomright: 6px;
   border-bottom-right-radius: 6px;
@@ -932,14 +972,14 @@ body.appLayout .container {
 .comments .comment-user {
   float: left;
   margin-bottom: 2px;
-  width: 70%;
+  width: 60%;
 }
 .comments .comment-date {
   color: #989898;
   float: right;
   margin-bottom: 5px;
   text-align: right;
-  width: 30%;
+  width: 40%;
 }
 .comments ul li:last-child {
   border-bottom: 0;
@@ -995,29 +1035,30 @@ body.appLayout .container {
 }
 /*-- SWIPE EFFECTS - PANELS --*/
 .editpanel,
-.deletepanel {
+.edit-only-panel {
   background-color: #c0c0c0;
   box-sizing: border-box;
   float: right;
   height: 60px;
-  padding: 13px 5px;
   position: relative;
 }
 .editpanel button,
-.deletepanel button {
+.edit-only-panel button {
   color: white;
   text-align: center;
   width: 45%;
 }
 .editpanel button:before,
-.deletepanel button:before {
+.edit-only-panel button:before {
   font-size: 25px;
 }
 .editpanel button:hover,
-.deletepanel button:hover {
+.edit-only-panel button:hover {
   text-decoration: none;
 }
-.deletepanel {
+.edit-only-panel {
+  height: 75px;
+  padding: 20px 15px;
   text-align: center;
   width: 70px;
 }
@@ -1032,7 +1073,7 @@ body.appLayout .container {
 /* -- EVENTS SECTION -- */
 .events .eventHour {
   color: #666666;
-  margin-top: 12px;
+  margin-top: 9px;
 }
 .events .eventHour p {
   text-align: center;
@@ -1198,7 +1239,8 @@ body.appLayout .container {
 .events ul.dropdown-menu > li > a {
   color: #666666;
 }
-.events li .editpanel {
+.events li .editpanel,
+.events li .edit-only-panel {
   margin-top: -3px;
 }
 .events li h5 {
@@ -1308,6 +1350,7 @@ body.appLayout .container {
   margin-top: 5px;
 }
 .notifications ul li {
+  position: relative;
   width: 100%;
 }
 .notifications ul li .row {
@@ -1337,6 +1380,9 @@ body.appLayout .container {
   position: absolute;
   left: 8px;
   top: 14px;
+}
+.notifications ul li:last-child {
+  border-bottom: 0;
 }
 /*-- Events list --*/
 .container.events-list .dividersBar {
@@ -1378,16 +1424,16 @@ body.appLayout .container {
 .dividersBar.big:after {
   display: none;
 }
-.statusBar + .events-list .dividersBar:before {
-  display: none;
-}
-.statusBar + .pages .events-list:first-child .dividersBar {
+/*.statusBar + .events-list .dividersBar:before{
+  display:none;
+}*/
+.statusBar + .showEvents .pages .events-list:first-child .dividersBar {
   height: 20px;
   line-height: 18px;
   margin-top: 0;
 }
-.statusBar + .pages .events-list:first-child .dividersBar:before {
-  background: transparent;
+.statusBar + .showEvents .pages .events-list:first-child .dividersBar:before {
+  display: none;
 }
 .dividersBar + .box-container.events-list {
   border-top: 0px solid #d3d3d3;
@@ -1800,6 +1846,17 @@ button.noButton:hover {
   color: #de4d43;
   font-weight: 400;
 }
+.badge {
+  background-color: #7a7a7a;
+  border-radius: 5px;
+  float: right;
+  font-size: 11px;
+  font-weight: normal;
+  height: 20px;
+  margin-top: 2px;
+  padding: 5px 0 0 0;
+  width: 20px;
+}
 input[type="text"],
 input[type="number"],
 input[type="search"],
@@ -2026,42 +2083,57 @@ input[type="password"].short {
   line-height: 21px;
 }
 /*-- RATING STARS FOR COMMENTS --*/
-#hide {
+.rating span {
+  background: url('../images/stars.svg') 0 0 no-repeat;
+  display: block;
+  height: 15px;
+  margin-bottom: 4px;
+  width: 75px;
+}
+.rating[data-rate="1"] span.rate2,
+.rating[data-rate="1"] span.rate3,
+.rating[data-rate="1"] span.rate4,
+.rating[data-rate="1"] span.rate5 {
   display: none;
 }
-.rating {
-  height: 23px;
+.rating[data-rate="1"] span.rate1 {
+  background-position: 0 0;
 }
-.rating input {
-  position: absolute;
-  filter: alpha(opacity=0);
-  -moz-opacity: 0;
-  -khtml-opacity: 0;
-  opacity: 0;
-  cursor: pointer;
-  height: 17px;
-  width: 17px;
+.rating[data-rate="2"] span.rate1,
+.rating[data-rate="2"] span.rate3,
+.rating[data-rate="2"] span.rate4,
+.rating[data-rate="2"] span.rate5 {
+  display: none;
 }
-.rating span:before {
-  width: 24px;
-  height: 16px;
-  line-height: 16px;
-  content: "\e623";
-  font-size: 15px;
-  font-family: 'icons';
-  color: #cfc53e;
+.rating[data-rate="2"] span.rate2 {
+  background-position: 0 -15px;
 }
-/* Change span immediately following the checked radio */
-.rating input:checked + span:before {
-  color: #cfc53e;
+.rating[data-rate="3"] span.rate1,
+.rating[data-rate="3"] span.rate2,
+.rating[data-rate="3"] span.rate4,
+.rating[data-rate="3"] span.rate5 {
+  display: none;
 }
-/* Reset all remaining stars back to default background.
-   This supersedes the above due to its ordering. */
-.rating input:checked + span ~ span:before {
-  content: "\e623";
-  font-size: 15px;
-  font-family: 'icons';
-  color: #c0c0c0;
+.rating[data-rate="3"] span.rate3 {
+  background-position: 0px -30px;
+}
+.rating[data-rate="4"] span.rate1,
+.rating[data-rate="4"] span.rate2,
+.rating[data-rate="4"] span.rate3,
+.rating[data-rate="4"] span.rate5 {
+  display: none;
+}
+.rating[data-rate="4"] span.rate4 {
+  background-position: 0px -45px;
+}
+.rating[data-rate="5"] span.rate1,
+.rating[data-rate="5"] span.rate2,
+.rating[data-rate="5"] span.rate3,
+.rating[data-rate="5"] span.rate4 {
+  display: none;
+}
+.rating[data-rate="5"] span.rate5 {
+  background-position: 0px -60px;
 }
 select {
   width: 100%;
@@ -2126,31 +2198,32 @@ textarea {
 .progress-bar-success {
   background-color: #3e9ccf;
 }
-.chart-bar {
-  position: relative;
-  display: inline-block;
-  height: 33px;
-  width: 91%;
-}
-.chart-bar .today-line-indicator {
-  position: absolute;
-  width: 4px;
-  background-color: #347a99;
-  height: 25px;
-  top: -2px;
-  border: 1px solid #347a99;
-  border-radius: 2px;
-}
-.chart-bar .today-line-indicator:after {
-  color: #c0c0c0;
-  content: "Today";
-  display: inline-block;
-  font-size: 10px;
-  top: 23px;
-  right: 12px;
-  position: absolute;
-  width: 100%;
-}
+/*
+.chart-bar{
+	position: relative;
+	display: inline-block;
+	height: 33px;
+	width: 91%;
+	.today-line-indicator{
+		position: absolute;
+		width: 4px;
+		background-color: #347a99;
+		height: 25px;
+		top: -2px;
+		border: 1px solid #347a99;
+		border-radius: 2px;
+		&:after{
+			color: @lightGrey;
+			content:"Today";
+			display: inline-block;
+			font-size: 10px;
+			top: 23px;
+			right: 12px;
+			position: absolute;
+			width: 100%;
+		}
+	}
+}*/
 .tasks .date-data:before {
   margin-left: -25px;
 }
@@ -2585,4 +2658,133 @@ ul.stats.simple .number {
 }
 .lastItem {
   border-bottom: 0 !important;
+}
+/*-- DASHBOARD STYLES --*/
+.reference {
+  color: #989898;
+  font-size: 11px;
+  height: 18px;
+  margin-top: 7px;
+}
+.reference .executed,
+.reference .scheduled {
+  display: inline-block;
+  float: right;
+}
+.reference .executed:before,
+.reference .scheduled:before {
+  font-size: 14px;
+  line-height: 14px;
+  position: relative;
+  top: 1px;
+  left: -3px;
+}
+.reference .executed {
+  margin-right: 10px;
+}
+.reference .executed:before {
+  content: "\25A0";
+  color: #90bf43;
+}
+.reference .scheduled:before {
+  content: "\25A0";
+  color: #3e9ccf;
+}
+.chart-bar {
+  display: inline-block;
+  width: 91%;
+  color: #989898;
+  position: relative;
+}
+.chart-bar .progress {
+  width: auto !important;
+  height: 15px;
+}
+.chart-bar .progress .bar {
+  display: inline-block;
+  float: left;
+  text-align: right;
+  text-shadow: none;
+}
+.chart-bar .progress .bar span.percentage {
+  margin-left: 10px;
+  margin-right: 10px;
+  line-height: 26px;
+}
+.chart-bar .progress .bar-executed {
+  background-color: #90bf43 !important;
+  height: 15px;
+}
+.chart-bar .progress .bar-scheduled {
+  background-color: #3e9ccf !important;
+  height: 15px;
+}
+.chart-bar .today-line-indicator {
+  position: absolute;
+  width: 2px;
+  background-color: #989898;
+  height: 29px;
+  top: -5px;
+  border: 1px solid #989898;
+  border-radius: 2px;
+}
+.chart-bar .today-line-indicator.green {
+  background-color: #90bf43;
+  border-color: #90bf43;
+}
+.chart-bar .today-line-indicator.blue {
+  background-color: #3e9ccf;
+  border-color: #3e9ccf;
+}
+.chart-bar .bar-indicator {
+  position: absolute;
+  width: 2px;
+  background-color: #959595;
+  height: 18px;
+}
+.chart-bar .executed-label {
+  color: #90bf43;
+  display: inline-block;
+  float: left;
+  font-size: 12px;
+  white-space: nowrap;
+  margin-right: 50%;
+}
+.chart-bar .executed-label div {
+  margin-left: -50%;
+}
+.chart-bar .scheduled-label {
+  color: #3e9ccf;
+  display: inline-block;
+  font-size: 12px;
+  white-space: nowrap;
+  text-align: right;
+  margin-left: -50%;
+}
+.chart-bar .scheduled-label div {
+  margin-right: -50%;
+}
+.chart-bar .executed-label,
+.chart-bar .scheduled-label {
+  margin-top: 3px;
+}
+.remaining-label {
+  color: #989898;
+  position: relative;
+  float: right;
+  text-align: center;
+}
+.remaining-label b {
+  display: block;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 5px;
+  line-height: 25px;
+}
+.remaining-label .kpi-name {
+  display: block;
+  font-size: 10px;
+  line-height: 19px;
+  color: #c0c0c0;
+  line-height: 11px;
 }
