@@ -6,11 +6,6 @@ angular.module('brandscopicApp.eventService', []).
         'use strict';
 
         var searchResult = []
-        function htmlEntities(str) {
-            console.log(str)
-            return String(str).replace("<i>", '').replace("</i>", '');
-        }
-
         var _getEventSearch = function (value) {
             var defer = $q.defer();
             var
@@ -20,7 +15,7 @@ angular.module('brandscopicApp.eventService', []).
                                 searchResult = [];
                                 angular.forEach(items, function (item) {
                                     angular.forEach(item.value, function (subItem) {
-                                            var label = htmlEntities(subItem.label);
+                                            var label = subItem.label;
                                             searchResult.push({ category: item.label, label: label, id: subItem.value });
                                         });
                                     });
@@ -56,7 +51,6 @@ angular.module('brandscopicApp.eventService', []).
 
       return {
         getEventSearch: _getEventSearch,
-        getEventsByFilters: _getEventsByFilters,
-        //getAllEvent: _getAllEvent
+        getEventsByFilters: _getEventsByFilters
       }
 }]);
