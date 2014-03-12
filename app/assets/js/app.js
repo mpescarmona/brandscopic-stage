@@ -102,7 +102,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details', {
       url: "/:eventId",
-      views:{'details@home':{ templateUrl: "partials/events_details.html",
+      views:{'details@home':{ templateUrl: "views/events/events_details.html",
                               controller: 'EventsDetailsController'
                             }
             },
@@ -112,7 +112,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.edit', {
       url: "/edit",
-      views:{'details@home':{ templateUrl: "partials/events_edit.html",
+      views:{'details@home':{ templateUrl: "views/events/events_edit.html",
                               controller: 'EventsEditController'
                             }
             },
@@ -123,7 +123,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.about', {
       url: "/about",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_about.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_about.html",
                               controller: 'EventsAboutController'
                             }
             },
@@ -133,7 +133,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.map', {
       url: "/map",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_about_map.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_about_map.html",
                               controller: 'EventsAboutMapController'
                             }
             },
@@ -143,7 +143,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.people', {
       url: "/people",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_people.html",
                               controller: 'EventsPeopleController'
                             }
             },
@@ -160,7 +160,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.people.contacts.view', {
       url: "/:contactId/view",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_people_contacts.html",
                               controller: 'EventsPeopleContactsController'
                             }
             },
@@ -170,7 +170,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.people.contacts.add', {
       url: "/add",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_add.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_people_contacts_add.html",
                               controller: 'EventsPeopleContactsAddController'
                             }
             },
@@ -180,7 +180,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.people.contacts.edit', {
       url: "/:contactId/edit",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_edit.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_people_contacts_edit.html",
                               controller: 'EventsPeopleContactsEditController'
                             }
             },
@@ -190,7 +190,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.people.contacts.new', {
       url: "/new",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_contacts_new.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_people_contacts_new.html",
                               controller: 'EventsPeopleContactsNewController'
                             }
             },
@@ -207,7 +207,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.people.team.add', {
       url: "/add",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_people_team_add.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_people_team_add.html",
                               controller: 'EventsPeopleTeamAddController'
                             }
             },
@@ -217,7 +217,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.data', {
       url: "/data",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_data.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_data.html",
                               controller: 'EventsDataController'
                             }
             },
@@ -227,7 +227,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.data.view', {
       url: "/view",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_data_view.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_data_view.html",
                               controller: 'EventsDataViewController'
                             }
             },
@@ -237,7 +237,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.comments', {
       url: "/comments",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_comments.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_comments.html",
                               controller: 'EventsCommentsController'
                             }
             },
@@ -247,7 +247,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.comments.add', {
       url: "/add",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_comments_add.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_comments_add.html",
                               controller: 'EventsCommentsAddController'
                             }
             },
@@ -257,7 +257,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.tasks', {
       url: "/tasks",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_tasks.html",
                               controller: 'EventsTasksController'
                             }
             },
@@ -267,7 +267,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.tasks.details', {
       url: "/:taskId/details",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks_details.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_tasks_details.html",
                               controller: 'EventsTasksDetailsController'
                             }
             },
@@ -277,7 +277,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.tasks.details.edit', {
       url: "/edit",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_tasks_details_edit.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_tasks_details_edit.html",
                               controller: 'EventsTasksEditController'
                             }
             },
@@ -297,7 +297,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.photos.slider', {
       url: "/slider/{index:.*}",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_photos_slider.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_photos_slider.html",
                               controller: 'EventsPhotoSliderController'
                             }
             },
@@ -307,7 +307,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.expenses', {
       url: "/expenses",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_expenses.html",
                               controller: 'EventsExpensesController'
                             }
             },
@@ -317,7 +317,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.expenses.add', {
       url: "/add",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses_add.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_expenses_add.html",
                               controller: 'EventsExpensesAddController'
                             }
             },
@@ -327,7 +327,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.events.details.expenses.photo', {
       url: "/:expenseId/photo",
-      views:{'eventsDetail@home.events.details':{ templateUrl: "partials/events_details_expenses_photo.html",
+      views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_expenses_photo.html",
                               controller: 'EventsExpensesPhotoController'
                             }
             },
