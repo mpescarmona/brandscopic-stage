@@ -2277,4 +2277,44 @@ ul.stats{
 	}
 }
 
+/*-- Autocomplete Styles --*/
+
+.ui-autocomplete.ui-widget{
+	height: 120px !important;
+	left: 0 !important;
+	overflow-y: scroll !important;
+	overflow: scroll;
+	width: 100% !important;
+	.category{
+		color: @blue;
+		font-size: 9px;
+		text-transform: uppercase;
+		strong{
+			font-weight: normal;
+		}
+	}
+	.ui-menu-item{
+		i{
+			color: @txt;
+			font-style: normal;
+		}
+	}
+	&.ui-corner-all{
+		border-radius: 0 !important;
+	}
+	&.ui-menu .ui-menu-item {
+		border-bottom: 1px solid @borders;
+		a:hover{
+			background-color: white !important;
+			color: @lightGrey;
+		}
+	}
+	.ui-autocomplete-category{
+		padding: 7px 10px 7px 11px !important;
+	}
+	.ui-autocomplete-category, .ui-menu-item{
+		border-bottom: 1px solid @borders;
+	}
+}
+
 
