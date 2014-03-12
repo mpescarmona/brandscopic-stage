@@ -30,6 +30,11 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
                               }
                               $scope.page = events.page
                               angular.extend(UserInterface, ui)
+                              if ($stateParams.filter) {
+                                var filter = $stateParams.filter;
+                                var capitalizedFilterName = filter.charAt(0).toUpperCase() + filter.slice(1)
+                                $scope.filterStatus(capitalizedFilterName);
+                              }
                             }
       }
 
@@ -41,7 +46,7 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     }
   });
 
-  $scope.event_status = false
+  $scope.event_status = false;
   $scope.filterStatus = function(status) {
     $scope.event_status = ($scope.event_status == status) ? false : status;
 
@@ -97,7 +102,6 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
       $scope.filter = filter;
       $scope.$apply();
   });
-
 }
 
 eventsCtrl.$inject = [

@@ -81,7 +81,7 @@ angular.module('brandscopicApp', [
       }
     })
     .state('home.events', {
-      url: "/events",
+      url: "/events?filter",
       views:{'details@home':{ templateUrl: "views/events/events.html",
                               controller: 'eventsCtrl'
                             }

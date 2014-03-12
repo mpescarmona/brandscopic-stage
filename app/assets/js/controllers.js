@@ -1815,10 +1815,10 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
   .controller('NotificationsController',['$scope', 'Notification', 'snapRemote', 'UserService', 'CompanyService', '$state', 'UserInterface', function($scope, Notification, snapRemote, UserService, CompanyService, $state, UserInterface) {
     //This function is used in order to save the scope of the id parameter.
-    function actionCreator(destinationState, id) {
+    function actionCreator(destinationState, parameters) {
       return function() {
         if (destinationState) {
-          $state.go(destinationState, { eventId: id });
+          $state.go(destinationState, parameters);
         }
       };
     }
@@ -1833,21 +1833,33 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         var viewModel = [];
         for (var i = 0; i < notifications.length; i++) {
           var notification = notifications[i];
-          var id = null;
           var destinationState = null;
-          var colorClass = Notification.getNotificationClass(notification);
+          var parameters = {};
           if (notification.event_id) {
-            id = notification.event_id;
+            parameters = { eventId: notification.event_id };
             destinationState = 'home.events.details.about';
+          } else if (notification.type === 'event_recaps_due') {
+            parameters = { filter: 'due' };
+            destinationState = 'home.events';
+          } else if (notification.type === 'event_recaps_late') {
+            parameters = { filter: 'late' };
+            destinationState = 'home.events';
+          } else if (notification.type === 'event_recaps_pending') {
+            parameters = { filter: 'pending' };
+            destinationState = 'home.events';
+          } else if (notification.type === 'event_recaps_rejected') {
+            parameters = { filter: 'rejected' };
+            destinationState = 'home.events';
           }
           //TODO: Redirect to a task once we have a tasks endpoint.
 
+          var colorClass = Notification.getNotificationClass(notification);
           viewModel.push({
               message: notification.message,
               level: notification.level,
               type: notification.type.indexOf('task') != -1 ? 'tasks' 
                     : notification.type.indexOf('event') != -1 ? 'event' : '',
-              action: actionCreator(destinationState, id),
+              action: actionCreator(destinationState, parameters),
               colorClass: colorClass
             });
         }
