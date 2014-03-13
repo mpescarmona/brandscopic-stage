@@ -6,7 +6,6 @@ angular.module('brandscopicApp.eventService', []).
         'use strict';
 
         var searchResult = []
-
         var _getEventSearch = function (value) {
             var defer = $q.defer();
             var
