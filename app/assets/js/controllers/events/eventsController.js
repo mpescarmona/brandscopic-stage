@@ -98,7 +98,11 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
     Event.update(credentials, actions, deletedEvent)
   }
   $scope.filter = "";
-  $scope.$on("FILTER_EVENTS", function (event, filter) {
+
+  // Set typeahead to search by events
+  $scope.$emit("SEARCH_DIRECTIVE", "events")
+
+  $scope.$on("RESULT_SEARCH", function (event, filter) {
       $scope.filter = filter;
       $scope.$apply();
   });

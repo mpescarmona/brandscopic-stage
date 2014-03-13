@@ -161,6 +161,23 @@ angular.module('model.venue', ['persistence.venue'])
             actions.success(angular.copy(venue))
           }
         }
+      , filterVenues = function(credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
+            company_id = credentials.company_id
+            venueClient.filterVenues(credentials, filterVenuesResponse(actions))
+          } else
+              throw 'Wrong set of credentials'
+        }
+
+        , filterVenuesResponse = function (actions) {
+            return function (resp) {
+              if (resp) {
+                actions.success(angular.copy(resp))
+              }
+              else
+                throw 'results missing on response'
+            }
+        }
 
     return {
         all     : all
@@ -171,5 +188,6 @@ angular.module('model.venue', ['persistence.venue'])
       , analysis: analysis
       , comments: comments
       , photos  : photos
+      , filterVenues: filterVenues
     }
   }])

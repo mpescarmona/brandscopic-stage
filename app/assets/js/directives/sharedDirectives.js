@@ -1,5 +1,5 @@
 angular.module('brandscopicApp.sharedDirectives', [])
-    .directive('scopicTypeahead', ['$q', 'CompanyService', 'debounce', 'UserService', 'Venue', 'Event', 'eventService', function ($q, CompanyService, debounce, UserService, Venue, Event, eventService) {
+    .directive('scopicTypeahead', ['$q', 'CompanyService', 'debounce', 'UserService', 'Venue', 'Event', 'eventService', 'venueService', function ($q, CompanyService, debounce, UserService, Venue, Event, eventService, venueService) {
         "use strict";
 
         var link = function (scope, element, attrs) {
@@ -14,7 +14,7 @@ angular.module('brandscopicApp.sharedDirectives', [])
                       var that = this,
                       currentCategory = "";
                       $.each( items, function( index, item ) {
-                          if ( item.category != currentCategory ) {
+                          if ( item.category && item.category != currentCategory ) {
                             ul.append( "<li class='ui-autocomplete-category'>" + "<span class='category'><strong>" + item.category + "</strong></span>" + "</li>" );
                             currentCategory = item.category;
                           }
@@ -26,20 +26,27 @@ angular.module('brandscopicApp.sharedDirectives', [])
             $( "#searchEvent" ).catcomplete({
               delay: 0,
               source: function (request, response) {
-                      eventService.getEventSearch(request.term).then( function (data) {
-                          response(data);
-                      })
+                      if(attrs.source == "events") {
+                          eventService.getEventSearch(request.term).then( function (data) {
+                              response(data);
+                          })
+                      }
+                      if(attrs.source == "venues") {
+                          venueService.getVenuesSearch(request.term).then( function (data) {
+                              response(data);
+                          })
+                      }
                     },
               focus: function(event, ui) {
                       if(ui.item == undefined ) {
-                        return false;
+                          return false;
                       } else {
-                        ui.item.value = removeTagOnSelect(ui.item.value);
+                          ui.item.value = removeTagOnSelect(ui.item.value);
                       }
                     },
               select: function(event, ui) {
                       if(ui.item != null && ui.item != undefined) {
-                        scope.$broadcast("FILTER_EVENTS", { id: ui.item.id, type: ui.item.category });
+                          scope.$broadcast("RESULT_SEARCH", { id: ui.item.id, type: ui.item.category });
                       }
                       return false;
                     }

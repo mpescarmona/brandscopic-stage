@@ -32,7 +32,7 @@
     <div class="right">
       <span ng-show="showSearchField" class="events_search">
         <div class="typeahead">
-            <scopic-typeahead> </scopic-typeahead>
+            <scopic-typeahead source="{{ source }}"> </scopic-typeahead>
         </div>
         <div class="btn-cancel">
           <button class="btn btn-grey" ng-click="showSearchEvent(false)" style="margin-left:5px;">Cancel</button>

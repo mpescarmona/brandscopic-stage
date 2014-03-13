@@ -110,6 +110,14 @@ function homeCtrl($q, $scope, $state, $timeout, snapRemote, $sce, UserService, U
     Notification.all(credentials, notificationsActions, true);
   })
 
+  /*
+   * Wait for trigger of the event SEARCH_DIRECTIVE and set if the typahead will search events or venues
+   * @source: would be "events or venues".
+   */
+  $scope.$on('SEARCH_DIRECTIVE', function (event, source) {
+      $scope.source = source;
+  })
+
   var notificationsActions = { success: function(notifications) {
     pendingNotifications = notifications.length;
     $timeout(function() { Notification.all(credentials, notificationsActions, true); }, 30000); //Check the notifications every 30 seconds

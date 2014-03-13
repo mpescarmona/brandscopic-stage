@@ -37,5 +37,10 @@ angular.module('persistence.venue', ['ngResource', 'util.jsonToFormData'])
                          , isArray: true
                          , url: '//stage.brandscopic.com/api/v1/venues/:venue_id/photos.:format'
                        } 
+
+      , 'filterVenues'  : {
+                            method: 'GET',
+                            url: '//stage.brandscopic.com/api/v1/venues.:format', format: 'json', auth_token: '@token', company_id: '@company_id', location: '@location', campaign: '@campaign', page : '@page'
+                          }
   });
 }]);

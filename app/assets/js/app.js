@@ -19,6 +19,7 @@ angular.module('brandscopicApp', [
   'brandscopicApp.eventService',
   'brandscopicApp.photosService',
   'brandscopicApp.surveysService',
+  'brandscopicApp.venueService',
   'ui.bootstrap',
   'ngMap',
   'model.photos',
