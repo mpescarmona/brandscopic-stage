@@ -21,8 +21,8 @@ function eventsCtrl($scope, $state, $stateParams, snapRemote, UserService, Compa
                               for (var i = 0, len = events.length; i < len; i++) {
                                 if (events[i].status == 'Active') {
                                   evt.push(events[i])
-                                  }
                                 }
+                              }
                               $scope.eventsItems = evt
                               $scope.filters = filters
                               if($scope.eventsItems.length) {
