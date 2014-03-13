@@ -73,7 +73,7 @@ angular.module('brandscopicApp', [
     .state('home.dashboard.details', {
       url: "/:dashboardId",
       views:{'details@home':{ templateUrl:"views/dashboard/dashboard_details.html",
-                              controller: 'DashboardController'
+                              controller: 'DashboardDetailsController'
                             }
             },
       data: {

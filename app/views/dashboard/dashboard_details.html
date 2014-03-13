@@ -8,81 +8,43 @@
 		</div>
 
 		<!-- Columna 1 -->
-		<div class="row remaining-events">
-			<div class="col-xs-10">
-			    <p class="txtAdjust">Boston</p>
-			    <div class="chart-bar">
-			    	<div class="bar-indicator executed-indicator" style="left: 62%"></div>
-			    	<div class="bar-indicator scheduled-indicator" style="left: 85%"></div>
+		<div class="container" ng-repeat="item in dashboardDetailItems">
+			<div class="row remaining-events">
+				<div class="col-xs-10">
+				    <p class="txtAdjust">{{item.name}}</p>
+				    <div class="chart-bar">
+				    	<div class="bar-indicator executed-indicator" style="left: {{item.executed_percentage}}%"></div>
+				    	<div class="bar-indicator scheduled-indicator" style="left: {{item.executed_percentage + item.scheduled_percentage}}%"></div>
 
-				    <div class="progress">
-		  				<div class="bar bar-executed" style="width: 62%;"></div>
-		  				<div class="bar bar-scheduled" style="width: 23%;"></div>
-		  				<div class="bar bar-remaining" style="width: 15%;"></div>
-		  			</div>
+					    <div class="progress">
+			  				<div class="bar bar-executed" style="width: {{item.executed_percentage}}%;"></div>
+			  				<div class="bar bar-scheduled" style="width: {{item.scheduled_percentage}}%;"></div>
+			  				<div class="bar bar-remaining" style="width: {{item.remaining_percentage}}%;"></div>
+			  			</div>
 
-		  			<div class="executed-label" style="margin-left: 62%"><div><b>1050</b></div></div>
-		  			<div class="scheduled-label" style="float: right; margin-right: 15%"><div><b>34</b></div></div>
-		  		</div>
-		  	</div>
-		  	<div class="col-xs-2">
-		  		<div class="remaining-label">
-		  			<b>2284</b>
-					<span class="kpi-name">REMAINING<br/>EVENTS</span>
-				</div>
-	        </div>
-	    </div>
-
-		<!-- Columna 2 -->
-		<div class="row remaining-events">
-			<div class="col-xs-10">
-			    <p class="txtAdjust">Detroit</p>
-			    <div class="chart-bar">
-			    	<div class="bar-indicator executed-indicator" style="left: 62%"></div>
-			    	<div class="bar-indicator scheduled-indicator" style="left: 85%"></div>
-
-				    <div class="progress">
-		  				<div class="bar bar-executed" style="width: 62%;"></div>
-		  				<div class="bar bar-scheduled" style="width: 23%;"></div>
-		  				<div class="bar bar-remaining" style="width: 15%;"></div>
-		  			</div>
-
-		  			<div class="executed-label" style="margin-left: 62%"><div><b>240</b></div></div>
-		  			<div class="scheduled-label" style="float: right; margin-right: 15%"><div><b>34</b></div></div>
-		  		</div>
-		  	</div>
-		  	<div class="col-xs-2">
-		  		<div class="remaining-label">
-		  			<b>2284</b>
-					<span class="kpi-name">REMAINING<br/>EVENTS</span>
-				</div>
-	        </div>
-	    </div>
-		
-		<!-- Columna 3 -->
-		<div class="row remaining-events">
-			<div class="col-xs-10">
-			    <p class="txtAdjust">Chicago</p>
-			    <div class="chart-bar">
-			    	<div class="bar-indicator executed-indicator" style="left: 62%"></div>
-			    	<div class="bar-indicator scheduled-indicator" style="left: 85%"></div>
-
-				    <div class="progress">
-		  				<div class="bar bar-executed" style="width: 62%;"></div>
-		  				<div class="bar bar-scheduled" style="width: 23%;"></div>
-		  				<div class="bar bar-remaining" style="width: 15%;"></div>
-		  			</div>
-
-		  			<div class="executed-label" style="margin-left: 62%"><div><b>80</b></div></div>
-		  			<div class="scheduled-label" style="float: right; margin-right: 15%"><div><b>34</b></div></div>
-		  		</div>
-		  	</div>
-		  	<div class="col-xs-2">
-		  		<div class="remaining-label">
-		  			<b>2284</b>
-					<span class="kpi-name">REMAINING<br/>EVENTS</span>
-				</div>
-	        </div>
+			  			<div class="executed-label" style="margin-left: {{item.executed_percentage}}%">
+			  				<div><b>{{item.executed}}</b></div>
+			  			</div>
+			  			<div class="scheduled-label" style="float: right; margin-right: {{item.remaining_percentage}}%">
+			  				<div><b>{{item.scheduled}}</b></div>
+			  			</div>
+			  		</div>
+			  	</div>
+			  	<div class="col-xs-2">
+			  		<div class="remaining-label">
+			  			<b>{{item.remaining}}</b>
+						<span class="kpi-name">REMAINING<br/>{{item.kpi}}</span>
+					</div>
+		        </div>
+		    </div>
 		</div>
+
 	</div>
+</div>
+
+<!-- No campaigns - DASHBOARD -->
+<div class="empty" ng-hide="showDashboardDetails">
+	<span class="no-campaigns"></span>
+	<h4>No Campaigns</h4>
+	<h6>You do not have any campaigns</h6>
 </div>

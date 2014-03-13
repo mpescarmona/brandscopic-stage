@@ -3,8 +3,10 @@ angular.module('model.campaign', ['persistence.campaign'])
   .service('Campaign', ['campaignClient', function (campaignClient) {
     var
        company_id
+      , campaign_id
       , collection
       , stats
+      , statDetails
 
       , all = function (credentials, actions) {
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions) {
@@ -55,8 +57,34 @@ angular.module('model.campaign', ['persistence.campaign'])
           }
       }
 
+      , statDetails = function (credentials, actions) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'campaign_id' in credentials && 'success' in actions) {
+            if (statDetails && company_id == credentials.company_id && campaign_id == credentials.campaign_id)
+              actions.success(statDetails)
+            else {
+              company_id = credentials.company_id
+              campaign_id = credentials.campaign_id
+              campaignClient.statDetails(credentials, statDetailsResponse(actions))
+            }
+          } else
+            throw 'Wrong set of credentials'
+
+      }
+      , statDetailsResponse = function (actions) {
+          return function(resp){
+            if (resp.length) {
+              statDetails = resp
+              actions.success(angular.copy(statDetails))
+            }
+            else
+              throw 'results missing on response'
+
+          }
+      }
+
       return {
-          all  : all
-        , stats: stats
+          all        : all
+        , stats      : stats
+        , statDetails: statDetails
       }
   }])
