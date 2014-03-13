@@ -3,7 +3,6 @@ angular.module('brandscopicApp.sharedDirectives', [])
         "use strict";
 
         var link = function (scope, element, attrs) {
-
             function removeTagOnSelect(str) {
                 return String(str).replace("<i>", '').replace("</i>", '');
             }

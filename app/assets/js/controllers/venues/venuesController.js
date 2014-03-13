@@ -26,6 +26,7 @@ function VenuesController ($scope, $state, snapRemote, UserService, CompanyServi
     // Set typeahead to search by venues
     $scope.$emit("SEARCH_DIRECTIVE", "venues")
 
+    // This listener is waiting for the item selected in the search result in order to refresh the venues list.
     $scope.$on("RESULT_SEARCH", function (event, filter) {
         var location = "", campaign = [], page = 1;
         //TODO. filter should bring the location and campaign id, but only bring us "value, label and id"
@@ -38,7 +39,7 @@ function VenuesController ($scope, $state, snapRemote, UserService, CompanyServi
                campaign.push(filter.id);
             }
 
-          // I hardcode a filter param in order to see the refresh list with the result of the campaign 60.
+          // I hardcoded a filter param in order to see the refresh list with the result of the campaign 60.
           // The method is working well. but I don't know where I should get the filters
           campaign.push(60);
 
@@ -49,6 +50,7 @@ function VenuesController ($scope, $state, snapRemote, UserService, CompanyServi
           */
           venueService.getVenuesByFilters(location, campaign, page).then( function (response) {
               $scope.venuesItems = response.results;
+              console.log($scope.venuesItems)
           });
         }
     });
