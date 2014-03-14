@@ -31,7 +31,7 @@ angular.module('brandscopicApp.sharedDirectives', [])
                           })
                       }
                       if(attrs.source == "venues") {
-                          venueService.getVenuesSearch(request.term).then( function (data) {
+                          venueService.getVenuesAutocomplete(request.term).then( function (data) {
                               response(data);
                           })
                       }
@@ -40,12 +40,20 @@ angular.module('brandscopicApp.sharedDirectives', [])
                       if(ui.item == undefined ) {
                           return false;
                       } else {
+                        if(attrs.source == "events") {
                           ui.item.value = removeTagOnSelect(ui.item.value);
+                        } else {
+                          ui.item.value = removeTagOnSelect(ui.item.label);
+                        }
                       }
                     },
               select: function(event, ui) {
                       if(ui.item != null && ui.item != undefined) {
-                          scope.$broadcast("RESULT_SEARCH", { id: ui.item.id, type: ui.item.category });
+                          if(attrs.source == "events") {
+                            scope.$broadcast("RESULT_SEARCH", { id: ui.item.id, type: ui.item.category });
+                          } else {
+                            scope.$broadcast("RESULT_SEARCH", { id: ui.item.value, type: ui.item.type });
+                          }
                       }
                       return false;
                     }
