@@ -1625,7 +1625,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
    }])
 
-    .controller('EventsExpensesPhotoController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+    .controller('EventsExpensesPhotoController', ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'Event', 'Expense', function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
       if( !UserService.isLogged() ) {
         $state.go('login');
         return;
@@ -1643,6 +1643,26 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                       $scope.UserInterface = UserInterface;
                                       $scope.eventId = $stateParams.eventId;
                                       $scope.expenseId = $stateParams.expenseId;
+
+                                      var
+                                          credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                        , actions = { success: function(expenses) {
+                                                                    // Add test image if file_small comes empty or null
+                                                                    for(var i = 0, item; item = expenses[i++];) {
+                                                                      if (item.id == $stateParams.expenseId) {
+                                                                        if (!(item.receipt))
+                                                                          item.receipt = {file_original: 'assets/images/test.jpeg'}
+                                                                        else
+                                                                          if (!(item.receipt.file_original))
+                                                                            item.receipt.file_original = 'assets/images/test.jpeg'
+                                                                        $scope.showExpenses = true
+                                                                        $scope.expense = item
+                                                                        
+                                                                      }
+                                                                    }
+                                                               }
+                                        }
+                                      Expense.all(credentials, actions)
                                 }
          }
 
