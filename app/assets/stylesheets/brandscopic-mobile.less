@@ -88,6 +88,12 @@ body{
 	&.dashboard{
 		margin-bottom: 4px;
 		margin-top: 5px;
+		.col-xs-2{
+			width: 22%;
+		}
+		.col-xs-10{
+			width: 78%;
+		}
 		.reference{
 			margin-top: 0;
 			margin-bottom:10px;
@@ -2233,7 +2239,6 @@ ul.stats{
 		color: @approved;
 		display: inline-block;
 		float: left;
-		font-size: 12px;
 		white-space: nowrap;
 		margin-right: 50%;
 		div {
@@ -2243,7 +2248,6 @@ ul.stats{
 	.scheduled-label {
 		color: @blue;
 		display: inline-block;
-		font-size: 12px;
 		white-space: nowrap;
 		text-align: right;
 		margin-left: -50%;
@@ -2252,6 +2256,8 @@ ul.stats{
 		}
 	}
 	.executed-label, .scheduled-label {
+		font-size: 10px;
+		height: 8px;
 		margin-top: 3px;
 	}
 }
@@ -2265,7 +2271,7 @@ ul.stats{
 		display: block;
 		font-size: 20px;
 		font-weight: 400;
-		margin-top: 5px;
+		margin-top: 9px;
 		line-height: 25px;
 	}
 	.kpi-name{
