@@ -40,7 +40,13 @@ angular.module('persistence.venue', ['ngResource', 'util.jsonToFormData'])
 
       , 'filterVenues'  : {
                             method: 'GET',
-                            url: '//stage.brandscopic.com/api/v1/venues.:format', format: 'json', auth_token: '@token', company_id: '@company_id', location: '@location', campaign: '@campaign', page : '@page'
+                            url: '//stage.brandscopic.com/api/v1/venues.:format', format: 'json', auth_token: '@token', company_id: '@company_id', campaign: '@campaign', place: '@place', user: '@user', brand: '@brand', page : '@page'
                           }
+
+      , 'venuesAutocomplete':   {
+                                  method: 'GET',
+                                  isArray: true ,
+                                  url: '//stage.brandscopic.com/api/v1/venues/autocomplete.:format', format: 'json', auth_token: '@token', company_id: '@company_id', q: '@q'
+                                }
   });
 }]);

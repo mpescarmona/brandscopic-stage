@@ -15,8 +15,7 @@ angular.module('brandscopicApp.eventService', []).
                                 searchResult = [];
                                 angular.forEach(items, function (item) {
                                     angular.forEach(item.value, function (subItem) {
-                                            var label = subItem.label;
-                                            searchResult.push({ category: item.label, label: label, id: subItem.value });
+                                            searchResult.push({ category: item.label, label: subItem.label, id: subItem.value });
                                         });
                                     });
                                 defer.resolve(searchResult)

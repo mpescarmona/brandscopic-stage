@@ -26,31 +26,28 @@ function VenuesController ($scope, $state, snapRemote, UserService, CompanyServi
     // Set typeahead to search by venues
     $scope.$emit("SEARCH_DIRECTIVE", "venues")
 
+    // This listener is waiting for the item selected in the search result in order to refresh the venues list.
     $scope.$on("RESULT_SEARCH", function (event, filter) {
-        var location = "", campaign = [], page = 1;
-        //TODO. filter should bring the location and campaign id, but only bring us "value, label and id"
-        //      for that I can not pass the param to do the filter and refresh the venue list with the search result.
-        if(filter && filter !== "" || filter !== undefined) {
-            if(filter.type == "location") {
-               location = filter.id;
-            }
-            if(filter.type == "campaign") {
-               campaign.push(filter.id);
-            }
+        var campaign = [], place = [], user = [], brand = [];
+     
+          switch(filter.type) {
+            case "campaign":
+                campaign.push(filter.id);
+                break;
+            case "brand":
+                brand.push(filter.id);
+                break;
+            case "place":
+                place.push(filter.id);
+                break;
+            case "user":
+                user.push(filter.id);
+                break;
+          }
 
-          // I hardcode a filter param in order to see the refresh list with the result of the campaign 60.
-          // The method is working well. but I don't know where I should get the filters
-          campaign.push(60);
-
-          /*
-            location: should be string.
-            campaign: should be array with id of the campaing.
-            page: should be enteger.
-          */
-          venueService.getVenuesByFilters(location, campaign, page).then( function (response) {
+          venueService.getVenuesByFilters(campaign, place, user, brand).then( function (response) {
               $scope.venuesItems = response.results;
           });
-        }
     });
 }
 
