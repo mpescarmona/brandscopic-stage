@@ -98,7 +98,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
       }
     })
     .state('home.events.details', {
@@ -176,7 +177,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
       }
     })
     .state('home.events.details.people.contacts.edit', {
@@ -186,7 +188,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
       }
     })
     .state('home.events.details.people.contacts.new', {
@@ -213,7 +216,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
       }
     })
     .state('home.events.details.data', {
@@ -253,7 +257,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
       }
     })
     .state('home.events.details.tasks', {
@@ -283,7 +288,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
       }
     })
     .state('home.events.details.photos', {
@@ -323,7 +329,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
       }
     })
     .state('home.events.details.expenses.photo', {
@@ -353,7 +360,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
       }
     })
     .state('home.events.details.surveys.edit', {
@@ -361,7 +369,11 @@ angular.module('brandscopicApp', [
       views:{'eventsDetail@home.events.details':{ templateUrl: "views/surveys/events_details_surveys_add.html",
                               controller: 'eventsSurveysEditController'
                             }
-            }
+            },
+      data: {
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
+      }
     })
     .state('home.tasks', {
       url: "/tasks",
@@ -388,7 +400,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        parentShouldBeRemembered: true
       }
     })
     .state('home.venues.details', {

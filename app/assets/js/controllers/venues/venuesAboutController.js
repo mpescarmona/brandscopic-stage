@@ -9,7 +9,7 @@ function VenuesAboutController($scope, $state, $stateParams, snapRemote, Company
         ui = {}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
       , actions = { success: function(venue) {
-                                ui = {title: venue.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.venues.add", venueSubNav: "about"}
+                                ui = {title: venue.name, hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.venues.add", venueSubNav: "about"}
                                 $scope.venue = venue
                                 angular.extend(UserInterface, ui)
                                 $scope.UserInterface = UserInterface
