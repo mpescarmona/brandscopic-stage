@@ -24,7 +24,6 @@ angular.module('model.event', ['persistence.event'])
           }
         }
       , create = function (credentials, actions, attributes) {
-          console.log(attributes)
           if ('auth_token' in credentials && 'company_id' in credentials && 'success' in actions)
             if (Object.keys(attributes).length)
               eventClient.create(credentials

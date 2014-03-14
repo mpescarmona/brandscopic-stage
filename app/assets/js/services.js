@@ -295,7 +295,6 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies'])
                                 isArray: true,
                                 interceptor: {
                                                 response: function (data) {
-                                                    console.log('response in interceptor', data);
                                                     return data;
                                                 },
                                                 responseError: function (data) {
@@ -324,7 +323,6 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies'])
                                 isArray: true,
                                 interceptor: {
                                                 response: function (data) {
-                                                    console.log('response in interceptor', data);
                                                     return data;
                                                 },
                                                 responseError: function (data) {

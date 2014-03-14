@@ -85,8 +85,6 @@ var uploadNow = (function () {
         urlOnUpdate = options.urlOnUpdate || urlOnUpdate
         input       = options.input       || 'input[type=file][data-aws]'
         bind        = !options.nobind
-        
-      console.log(auth_token, company_id, url, event_id)
 
       if (bind)
         document.querySelector(input).addEventListener('change', handleFileSelect)
