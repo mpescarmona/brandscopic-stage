@@ -414,6 +414,15 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies'])
     var sessionData = new LoginData(authToken, email, currentCompanyId, currentCompanyName);
     $cookieStore.put('sessionData', sessionData);
   };
+
+  this.saveSession = function(loginData) {
+    $cookieStore.put('sessionData', loginData);
+  };
+
+  this.getCurrentSession = function() {
+    return $cookieStore.get('sessionData');
+  }
+
   this.initializeSystem = function () {
     if (!this.isLogged()) return false;
 
