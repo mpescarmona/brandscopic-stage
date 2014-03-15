@@ -71,10 +71,17 @@
   margin-left: 0 !important;
 }
 
-.dual-button.action-buttons.ng-hide.late, .dual-button.action-buttons.ng-hide.submitted, .dual-button.action-buttons.ng-hide.rejected, .dual-button.action-buttons.ng-hide.approve, {
+.dual-button.action-buttons.ng-hide.late, .dual-button.action-buttons.ng-hide.submitted, .dual-button.action-buttons.ng-hide.rejected, .dual-button.action-buttons.ng-hide.approve {
   margin-left: 3px !important;
   height: 50px;
   margin-top: 5px;
+}
+
+.dual-button.action-buttons.ng-hide.due{
+  margin-top: 5px; 
+  margin-left: 3px !important;
+  height: 50px;
+  border-left: 4px solid white;
 }
 
 
