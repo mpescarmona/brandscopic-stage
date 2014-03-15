@@ -42,6 +42,9 @@ function homeCtrl($q, $scope, $state, $timeout, snapRemote, $sce, UserService, U
 	$scope.showSearchEvent = function(isShowing) {
     $("#searchEvent").val("");
 		$scope.showSearchField = isShowing;
+    if(!isShowing) {
+      $scope.$broadcast("CLOSE_SEARCH", true);
+    }
     $scope.$broadcast("ALL_EVENT", isShowing);
 	};
 

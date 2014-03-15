@@ -125,7 +125,8 @@ angular.module('brandscopicApp.filters', [])
       , group_changed = false
     // this is a new field which is added to each item where we append "_CHANGED"
     // to indicate a field change in the list
-      , new_field = group_by + '_CHANGED'
+      , firstOfGroup = group_by + '_CHANGED'
+      , lastOfGroup = group_by + '_LAST_OF_GROUP';
 
     // loop through each item in the list
     angular.forEach(list, function(item) {
@@ -148,15 +149,21 @@ angular.module('brandscopicApp.filters', [])
       // if the group changed, then add a new field to the item
       // to indicate this
       if (group_changed) {
-        item[new_field] = true
+        item[firstOfGroup] = true;
+        if (prev_item !== null) {
+          prev_item[lastOfGroup] = true;
+        }
       } else {
-        item[new_field] = false
+        item[firstOfGroup] = false;
       }
 
       filtered.push(item)
       prev_item = item
 
-    })
+    });
+    if (filtered.length > 0) {
+      filtered[filtered.length - 1].lastOfGroup = true;
+    }
 
     return filtered
     }

@@ -6,7 +6,7 @@
     <div class="box-container events-list np" ng-show="!UserInterface.searching">
       <div class="events list swipe-list" go-to>
         <div ng-show="!UserInterface.searching" class="list">
-          <div class="row action-buttons dual-button" ng-class="getEventBorderColor(event.event_status)" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="goTo('#/home/events/{{event.id}}/about')">
+          <div class="row action-buttons dual-button" ng-class="[getEventBorderColor(event.event_status), getLastOfDateButtonClass(event)]" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="goTo('#/home/events/{{event.id}}/about')">
             <!--approved: event_status=='Approved'-->
             <div class="row-content">
               <div class="col-xs-3 eventHour">
@@ -22,7 +22,7 @@
               <!-- <a href="#" class="edit" stop-event='click' redirect-to="#home/events/{{event1.id}}/edit"></a> -->
               <!-- <a href="#" class="deactivate" stop-event='click' ng-click="deleteEvent(event)"></a> -->
               <button type="button" class="noButton edit" stop-event='click' ng-click="goTo('#home/events/{{event.id}}/edit')"></button>
-              <button type="button" class="noButton deactivate" stop-event='click' ng-click="deleteEvent(event)"></button>
+              <button type="button" class="noButton deactivate" ng-class="getLastOfDateButtonClass(event)" stop-event='click' ng-click="deleteEvent(event)"></button>
             </div>
           </div>
         </div>

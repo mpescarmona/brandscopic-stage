@@ -23,7 +23,11 @@ angular.module('brandscopicApp.eventDirectives', [])
                     break;
                 }
                 return classSelected;
-            }
+            };
+
+            scope.getLastOfDateButtonClass = function (event) {
+              return event.start_date_LAST_OF_GROUP ? "last_of_group" : "";
+            };
 
             scope.$watch("filter", function (value) {
                 var campaign = [], place = [], user = [], brand = [];
