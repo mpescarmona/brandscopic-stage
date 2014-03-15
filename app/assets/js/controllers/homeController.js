@@ -109,6 +109,11 @@ function homeCtrl($q, $scope, $state, $timeout, snapRemote, $sce, UserService, U
 
   $scope.$on('CompanyChosen', function (event, companyId, companyName) {
     credentials.company_id = companyId;
+    var data = LoginManager.getCurrentSession();
+    data.currentCompanyId = companyId;
+    data.currentCompanyName = companyName;
+
+    LoginManager.saveSession(data);
     //We cancel the querying action because otherwise after calling Notification.all again we'd get two chronic jobs.
     $timeout.cancel(notificationsQueryingPromise);
     Notification.all(credentials, notificationsActions, true);
