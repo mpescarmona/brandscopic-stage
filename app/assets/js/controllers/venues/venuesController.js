@@ -49,6 +49,14 @@ function VenuesController ($scope, $state, snapRemote, UserService, CompanyServi
               $scope.venuesItems = response.results;
           });
     });
+
+    $scope.$on("CLOSE_SEARCH", function (value) {
+      if(value) {
+          venueService.getVenuesByFilters().then( function (response) {
+              $scope.venuesItems = response.results;
+          });
+      }
+    });
 }
 
 VenuesController.$inject = [  '$scope'
