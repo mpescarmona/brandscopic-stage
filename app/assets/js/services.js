@@ -2,24 +2,49 @@
 
 /* Services */
 
-angular.module('brandscopicApp.services', ['ngResource', 'ngCookies'])
+angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.user'])
 
 .service('ApiParams', function() {
     this.baseUrl = "http://stage.brandscopic.com/api/v1";
     this.basePort = "";
 })
 
-.service('UserService', ['$cookieStore', function($cookieStore) {
+.service('UserService', ['$cookieStore', 'CompanyService', 'User', function($cookieStore, CompanyService, User) {
 	this.currentUser = {
 		isLogged: false,
 		email: '',
 		auth_token: '',
-    current_company_id: 0
-	};
+    current_company_id: 0, 
+    permissions: []
+	}
   this.isLogged = function() {
-    var sessionData = $cookieStore.get('sessionData');
-		return ( sessionData != null);
-	};
+    var sessionData = $cookieStore.get('sessionData')
+		return ( sessionData != null)
+	}
+
+  this.setUserPermissions = function(authToken, companyId) {
+    var
+        credentials = { company_id: companyId, auth_token: authToken }
+      , actions = { success: function(permissions) {
+                                this.currentUser.permissions = permissions
+                              }
+        }
+
+    User.permissions(credentials, actions)
+  }
+
+  this.checkPermission = function(permission) {
+    var canDo = false
+    if (this.currentUser.permissions && permission) {
+      for (var i = 0, item; item = this.currentUser.permissions[i++];) {
+        if (item == permission) {
+          canDo = true
+          break
+        }
+      }
+    }
+    return canDo
+  }
 }])
 
 .service('CompanyService', function() {

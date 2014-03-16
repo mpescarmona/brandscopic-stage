@@ -38,6 +38,8 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
             companies = new CompaniesRestClient.getCompanies(authToken)
             promiseCompanies = companies.getCompanies().$promise
 
+            UserService.setUserPermissions(authToken, currentCompanyId)
+
             promiseCompanies.then(function(responseCompanies) {
              if (responseCompanies.status == 200) {
               if (responseCompanies.data != null) {
@@ -1734,7 +1736,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     $scope.UserInterface = UserInterface;
   }])
 
-  .controller('CompaniesController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'CompaniesRestClient', function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, CompaniesRestClient) {
+  .controller('CompaniesController', ['$scope', '$state', 'snapRemote', 'UserService', 'CompanyService', 'UserInterface', 'CompaniesRestClient', 'User', function($scope, $state, snapRemote, UserService, CompanyService, UserInterface, CompaniesRestClient, User) {
     if( !UserService.isLogged() ) {
       $state.go('login');
       return;
@@ -1772,11 +1774,12 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     });
 
     $scope.chooseCompany = function(companyId, companyName) {
-      CompanyService.currentCompany.id = companyId;
-      CompanyService.currentCompany.name = companyName;
-      $scope.$emit('CompanyChosen', companyId, companyName);
-      $state.go('home.dashboard');
-      return;
+      UserService.setUserPermissions(UserService.currentUser.auth_token, companyId)
+      CompanyService.currentCompany.id = companyId
+      CompanyService.currentCompany.name = companyName
+      $scope.$emit('CompanyChosen', companyId, companyName)
+      $state.go('home.dashboard')
+      return
     };
   }])
 
