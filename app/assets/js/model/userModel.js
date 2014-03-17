@@ -29,7 +29,25 @@ angular.module('model.user', ['persistence.user'])
           }
       }
 
+      , forgotPassword = function (credentials, actions) {
+          if ('email' in credentials && 'success' in actions)
+            userClient.forgotPassword(credentials, forgotPasswordResponse(actions))
+          else
+            throw 'Wrong set of credentials'
+
+      }
+      , forgotPasswordResponse = function (actions) {
+          return function(resp){
+            if (resp)
+              actions.success(angular.copy(resp))
+            else
+              throw 'results missing on response'
+
+          }
+      }
+
       return {
-          permissions: permissions
+          permissions   : permissions
+        , forgotPassword: forgotPassword
       }
   }])

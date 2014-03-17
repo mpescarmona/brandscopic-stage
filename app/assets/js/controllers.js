@@ -10,7 +10,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
   }])
 
-  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', '$cookieStore','LoginManager', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient, $cookieStore, LoginManager) {
+  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', 'User', '$cookieStore','LoginManager', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient, User, $cookieStore, LoginManager) {
     if (LoginManager.isLogged()) {
       $state.go('home.dashboard');
       return;
@@ -76,28 +76,21 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
 
     $scope.forgotPassword = function(email) {
       var
-          session = new SessionRestClient.forgotPassword(email)
-        , promise = session.forgotPassword().$promise
+          credentials = { email: email }
+        , actions = { success: function (forgot) {
+                            UserService.currentUser.isLogged = false
+                            UserService.currentUser.email = ""
+                            $state.go('login')
+                      }
+                    , error: function (forgot_error) {
+                            $scope.wrongUser = true;
+                            UserService.currentUser.auth_token = "";
+                            UserService.currentUser.isLogged = false;
+                            UserService.currentUser.email = "";
+                      }
+                    }
 
-      promise.then(function(response) {
-       if (response.status == 200) {
-        UserService.currentUser.isLogged = false;
-        UserService.currentUser.email = "";
-        $state.go('login');
-        return;
-       } else {
-          $scope.wrongUser = true;
-          UserService.currentUser.auth_token = "";
-          UserService.currentUser.isLogged = false;
-          UserService.currentUser.email = "";
-       }
-      });
-      promise.catch(function(response) {
-        $scope.wrongUser = true;
-        UserService.currentUser.auth_token = "";
-        UserService.currentUser.isLogged = false;
-        UserService.currentUser.email = "";
-      });
+      User.forgotPassword(credentials, actions)
     }
 
     $scope.keyUpClear = function (e) {
