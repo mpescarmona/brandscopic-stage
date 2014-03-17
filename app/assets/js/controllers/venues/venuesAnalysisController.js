@@ -168,11 +168,11 @@ function VenuesAnalysisController($scope, $state, $stateParams, snapRemote, Comp
                                                                             subtitle: { text: "" },
                                                                             xAxis: { categories: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] },
                                                                             yAxis: [  {
-                                                                                        id: 0,
+                                                                                        id: "primary-y",
                                                                                         title: {enabled: false }
                                                                                       }
                                                                                     , {
-                                                                                        id: 1,
+                                                                                        id: "secondary-y",
                                                                                         title: {enabled: false },
                                                                                         opposite: true
                                                                                       }
@@ -182,18 +182,16 @@ function VenuesAnalysisController($scope, $state, $stateParams, snapRemote, Comp
                                                                                       {
                                                                                         name: 'Impressions/promo hour',
                                                                                         type: 'line',
-                                                                                        yAxis: 0,
+                                                                                        yAxis: "primary-y",
                                                                                         data: impressionsPromo,
                                                                                         labels: { enabled: false }
-
                                                                                       } ,
                                                                                       {
                                                                                         name: 'Cost/Impression',
                                                                                         type: 'line',
-                                                                                        yAxis: 1,
+                                                                                        yAxis: "secondary-y",
                                                                                         data: impressionsCost,
                                                                                         labels: { enabled: false }
-
                                                                                       }
                                                                                     ],
                                                                             credits: { enabled: false },
