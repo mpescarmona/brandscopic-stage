@@ -46,7 +46,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.companies', {
       url: "/companies",
-      views:{'details@home':{ templateUrl: "partials/companies.html",
+      views:{'details@home':{ templateUrl: "views/companies/companies.html",
                               controller: 'CompaniesController'
                             }
             },
@@ -56,7 +56,7 @@ angular.module('brandscopicApp', [
     })
     .state('home.companies.select', {
       url: "/select",
-      views:{'details@home':{ templateUrl: "partials/companies_select.html",
+      views:{'details@home':{ templateUrl: "views/companies/companies_select.html",
                               controller: 'CompaniesController'
                             }
             }
