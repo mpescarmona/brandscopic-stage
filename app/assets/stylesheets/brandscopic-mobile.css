@@ -708,6 +708,12 @@ body.appLayout .container {
   margin-bottom: 4px;
   margin-top: 5px;
 }
+.box-container.dashboard .col-xs-2 {
+  width: 22%;
+}
+.box-container.dashboard .col-xs-10 {
+  width: 78%;
+}
 .box-container.dashboard .reference {
   margin-top: 0;
   margin-bottom: 10px;
@@ -909,6 +915,9 @@ body.appLayout .container {
 .box-container ul.eventsPeople li {
   height: 60px;
 }
+.box-container ul.eventsPeople li .alignment {
+  display: table !important;
+}
 .box-container ul.eventsPeople li:last-child {
   border-bottom: 0;
 }
@@ -1095,7 +1104,7 @@ body.appLayout .container {
   color: #c0c0c0;
 }
 .events .eventDescription {
-  margin-top: 7px;
+  margin-top: 8px;
   box-sizing: border-box;
   padding-left: 10px;
   padding-right: 10px;
@@ -1399,9 +1408,6 @@ body.appLayout .container {
   background: #fff;
   position: absolute;
 }
-.box-container.events-list .eventDescription {
-  margin-top: 11px;
-}
 .dividersBar {
   color: #c0c0c0;
   font-size: 10px;
@@ -1439,12 +1445,20 @@ body.appLayout .container {
   border-top: 0px solid #d3d3d3;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
+  height: 60px;
+}
+.dividersBar + .box-container.events-list .last_of_group .editpanel {
+  border-bottom-right-radius: 6px;
+}
+.dividersBar + .box-container.events-list .dual-button.action-buttons {
+  margin-top: 5px;
 }
 .dividersBar + .events-list .editpanel {
   border-radius: 0 6px 0  0;
 }
 .dividersBar + .events-list:last-child .editpanel {
   border-radius: 0 6px 0  0;
+  margin-top: -5px;
 }
 .dividersBar.ng-hide + .events-list .editpanel {
   border-radius: 0px;
@@ -2746,7 +2760,6 @@ ul.stats.simple .number {
   color: #90bf43;
   display: inline-block;
   float: left;
-  font-size: 12px;
   white-space: nowrap;
   margin-right: 50%;
 }
@@ -2756,7 +2769,6 @@ ul.stats.simple .number {
 .chart-bar .scheduled-label {
   color: #3e9ccf;
   display: inline-block;
-  font-size: 12px;
   white-space: nowrap;
   text-align: right;
   margin-left: -50%;
@@ -2766,19 +2778,20 @@ ul.stats.simple .number {
 }
 .chart-bar .executed-label,
 .chart-bar .scheduled-label {
+  font-size: 10px;
+  height: 8px;
   margin-top: 3px;
 }
 .remaining-label {
   color: #989898;
   position: relative;
-  float: right;
   text-align: center;
 }
 .remaining-label b {
   display: block;
   font-size: 20px;
   font-weight: 400;
-  margin-top: 5px;
+  margin-top: 9px;
   line-height: 25px;
 }
 .remaining-label .kpi-name {
@@ -2787,4 +2800,51 @@ ul.stats.simple .number {
   line-height: 19px;
   color: #c0c0c0;
   line-height: 11px;
+}
+/*-- Autocomplete Styles --*/
+.ui-autocomplete.ui-widget {
+  height: 120px !important;
+  left: 0 !important;
+  overflow-y: scroll !important;
+  overflow: scroll;
+  width: 100% !important;
+}
+.ui-autocomplete.ui-widget .category {
+  color: #3e9ccf;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+.ui-autocomplete.ui-widget .category strong {
+  font-weight: normal;
+}
+.ui-autocomplete.ui-widget .ui-menu-item i {
+  color: #666666;
+  font-style: normal;
+}
+.ui-autocomplete.ui-widget.ui-corner-all {
+  border-radius: 0 !important;
+}
+.ui-autocomplete.ui-widget.ui-menu .ui-menu-item {
+  border-bottom: 1px solid #d3d3d3;
+}
+.ui-autocomplete.ui-widget.ui-menu .ui-menu-item a:hover {
+  background-color: white !important;
+  color: #c0c0c0;
+}
+.ui-autocomplete.ui-widget .ui-autocomplete-category {
+  padding: 7px 10px 7px 11px !important;
+}
+.ui-autocomplete.ui-widget .ui-autocomplete-category,
+.ui-autocomplete.ui-widget .ui-menu-item {
+  border-bottom: 1px solid #d3d3d3;
+}
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+  background-color: white !important;
+  background-image: none !important;
+  border: 1px solid #d3d3d3 !important;
 }
