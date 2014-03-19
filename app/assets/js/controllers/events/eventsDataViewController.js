@@ -1,4 +1,6 @@
-function EventsDataViewController($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event) {
+
       if( !UserService.isLogged() ) {
         $state.go('login')
         return
@@ -193,13 +195,14 @@ function EventsDataViewController($scope, $state, $stateParams, $location, snapR
     Event.find(credentials, actions)
 }
 
-EventsDataViewController.$inject = [  '$scope'
-                                    , '$state'
-                                    , '$stateParams'
-                                    , '$location'
-                                    , 'snapRemote'
-                                    , 'UserService'
-                                    , 'CompanyService'
-                                    , 'UserInterface'
-                                    , 'Event'
-                                   ]
+module.controller('EventsDataViewController'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , '$stateParams'
+                                           , '$location'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'UserInterface'
+                                           , 'Event'
+                                          ]

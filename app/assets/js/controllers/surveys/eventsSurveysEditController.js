@@ -1,7 +1,9 @@
-function eventsSurveysEditController($scope, $state, $stateParams, $location,  snapRemote, UserService, CompanyService, surveysService, UserInterface, Event, Surveys) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, $stateParams, $location,  snapRemote, UserService, CompanyService, surveysService, UserInterface, Event, Surveys) {
+
     if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
+      $state.go('login')
+      return
     }
 
     // Inherit from base controller.
@@ -9,9 +11,9 @@ function eventsSurveysEditController($scope, $state, $stateParams, $location,  s
 
     snapRemote.close()
     var ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "surveys",  AddIconState: "home.events.details.surveys.edit"}
-    var survey_id = $stateParams.survey_id;
+    var survey_id = $stateParams.survey_id
     angular.extend(UserInterface, ui)
-    $scope.UserInterface = UserInterface;
+    $scope.UserInterface = UserInterface
 
     function buildSurveyForEdit (surveys_answers) {
         angular.forEach(surveys_answers, function (answer) {
@@ -30,46 +32,46 @@ function eventsSurveysEditController($scope, $state, $stateParams, $location,  s
             if(answer.question_id == 1) {
               angular.forEach($scope.questions.brandsQuestion1, function (question1) {
                   if(question1.brand_id == answer.brand_id) {
-                    question1.model = answer.answer;
-                    question1.id = answer.id;
+                    question1.model = answer.answer
+                    question1.id = answer.id
                   }
-              });
+              })
             }
 
             if(answer.question_id == 2) {
               angular.forEach($scope.questions.brandsQuestion2, function (question2) {
                   if(question2.brand_id == answer.brand_id) {
                     $("#question2" + answer.brand_id).val(answer.answer)
-                    question2.model = answer.answer;
-                    question2.id = answer.id;
+                    question2.model = answer.answer
+                    question2.id = answer.id
                   }
-              });
+              })
             }
 
             if(answer.question_id == 3) {
               angular.forEach($scope.questions.brandsQuestion3, function (question3) {
                   if(question3.brand_id == answer.brand_id) {
-                    question3.model = parseInt(answer.answer);
-                    question3.id = answer.id;
+                    question3.model = parseInt(answer.answer)
+                    question3.id = answer.id
                   }
-              });
+              })
             }
 
             if(answer.question_id == 4) {
               angular.forEach($scope.questions.brandsQuestion4, function (question4) {
                   if(question4.brand_id == answer.brand_id) {
-                    question4.model = parseInt(answer.answer);
-                    question4.id = answer.id;
+                    question4.model = parseInt(answer.answer)
+                    question4.id = answer.id
                   }
-              });
+              })
             }
 
-        });
+        })
     }
 
     surveysService.getSurveyDetail($stateParams.surveyId).then( function (response){
-        buildSurveyForEdit(response.surveys_answers);
-    });
+        buildSurveyForEdit(response.surveys_answers)
+    })
 
     $scope.editSurvey = function() {
         var surveyModel = {
@@ -77,37 +79,37 @@ function eventsSurveysEditController($scope, $state, $stateParams, $location,  s
             surveys_answers_attributes: []
           }
         },
-        arrayAnswers = [];
+        arrayAnswers = []
 
         arrayAnswers.push({ kpi_id: 6, answer: $scope.genderModel.genderSelected });
         arrayAnswers.push({ kpi_id: 7, answer: $scope.ageModel.ageSelected });
         arrayAnswers.push({ kpi_id: 8, answer: $scope.raceModel.raceSelected });
         angular.forEach($scope.questions, function (questions) {
             angular.forEach(questions, function (question) {
-               arrayAnswers.push({ id: question.id, answer: question.model.toString() });
+               arrayAnswers.push({ id: question.id, answer: question.model.toString() })
             })
-        });
-        surveyModel.survey.surveys_answers_attributes = arrayAnswers;
+        })
+        surveyModel.survey.surveys_answers_attributes = arrayAnswers
 
         surveysService.editSurvey(surveyModel, $stateParams.surveyId).then( function (response) {
             $scope.survey = response
-            $location.path("/home/events/" + $stateParams.eventId + "/surveys");
+            $location.path("/home/events/" + $stateParams.eventId + "/surveys")
         }, function (response) {
-            console.log(response);
-        });
+            console.log(response)
+        })
     }
 }
 
-eventsSurveysEditController.$inject = [
-  '$scope',
-  '$state',
-  '$stateParams',
-  '$location',
-  'snapRemote',
-  'UserService',
-  'CompanyService',
-  'surveysService',
-  'UserInterface',
-  'Event',
-  'Surveys'
-];
+module.controller('eventsSurveysEditController'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , '$stateParams'
+                                           , '$location'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'surveysService'
+                                           , 'UserInterface'
+                                           , 'Event'
+                                           , 'Surveys'
+                                         ]

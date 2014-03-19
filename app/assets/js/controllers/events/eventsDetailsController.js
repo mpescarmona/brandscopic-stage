@@ -1,4 +1,6 @@
-function EventsDetailsController($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+
   if( !UserService.isLogged() ) {
     $state.go('login')
     return
@@ -24,13 +26,13 @@ function EventsDetailsController($scope, $state, $stateParams, snapRemote, UserS
  Event.find(credentials, actions)
 }
 
-EventsDetailsController.$inject = [  '$scope'
-                                   , '$state'
-                                   , '$stateParams'
-                                   , 'snapRemote'
-                                   , 'UserService'
-                                   , 'CompanyService'
-                                   , 'UserInterface'
-                                   , 'Event'
-                                  ]
-
+module.controller('EventsDetailsController'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , '$stateParams'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'UserInterface'
+                                           , 'Event'
+                                          ]

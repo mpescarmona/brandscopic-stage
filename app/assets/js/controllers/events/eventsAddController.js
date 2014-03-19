@@ -1,9 +1,11 @@
-function eventsAddCtrl($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Campaign, Venue, debounce) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Campaign, Venue, debounce) {
+
   if( !UserService.isLogged() ) {
-    $state.go('login');
-    return;
+    $state.go('login')
+    return
   } 
-  snapRemote.close();
+  snapRemote.close()
 
   $scope.event = {}
   $scope.campaigns = {}
@@ -17,7 +19,7 @@ function eventsAddCtrl($scope, $state, $stateParams, $location, snapRemote, User
                                   $scope.UserInterface = UserInterface
                                   angular.forEach(campaigns, function (value){
                                       $scope.campaingsDrop.push( { id: value.id, name: value.name })
-                                  });
+                                  })
                            }
       }
   Campaign.all(credentials, actions)
@@ -59,7 +61,7 @@ function eventsAddCtrl($scope, $state, $stateParams, $location, snapRemote, User
                       $scope.itemsToShowPlaces = []
                       angular.forEach(items, function (item) {
                           $scope.itemsToShowPlaces.push({ label: item.label, id: item.id })
-                      });
+                      })
 
                   }
              , error: function (event_error) {
@@ -76,24 +78,24 @@ function eventsAddCtrl($scope, $state, $stateParams, $location, snapRemote, User
         $scope.event.place_reference = value.id
       }
       getDebouncedPlaces(value)
-  });
+  })
   // Makes a debounced watch of the model to avoid calling multiple times to the API
   var getDebouncedPlaces = debounce(function (value) {
       _getSearch(value)
-  });
+  })
 }
 
-eventsAddCtrl.$inject = [
-  "$scope",
-  "$state",
-  "$stateParams",
-  "$location",
-  "snapRemote",
-  "UserService",
-  "CompanyService",
-  "UserInterface",
-  "Event",
-  "Campaign",
-  "Venue",
-  "debounce"
-];
+module.controller('eventsAddCtrl'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , '$stateParams'
+                                           , '$location'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'UserInterface'
+                                           , 'Event'
+                                           , 'Campaign'
+                                           , 'Venue'
+                                           , 'debounce'
+                                          ]
