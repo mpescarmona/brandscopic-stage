@@ -7,6 +7,7 @@ angular.module('persistence.user', ['ngResource', 'util.jsonToFormData'])
   {
         'permissions'   : {  method: 'GET'
                            , params: {action: 'permissions'}
+                           , isArray: true
                           }
 
       , 'forgotPassword': {  method: 'POST'
