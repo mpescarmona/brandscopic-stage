@@ -1,4 +1,6 @@
-function VenuesAboutMapController($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Venue) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $window, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Venue) {
+
     if( !UserService.isLogged() ) {
       $state.go('login')
       return
@@ -50,13 +52,14 @@ function VenuesAboutMapController($scope, $window, $state, $stateParams, snapRem
         ]
 }
 
-VenuesAboutMapController.$inject = [  '$scope'
-                                    , '$window'
-                                    , '$state'
-                                    , '$stateParams'
-                                    , 'snapRemote'
-                                    , 'UserService'
-                                    , 'CompanyService'
-                                    , 'UserInterface'
-                                    , 'Venue'
-                                   ]
+module.controller('VenuesAboutMapController'
+                  , controller).$inject = [  '$scope'
+                                           , '$window'
+                                           , '$state'
+                                           , '$stateParams'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'UserInterface'
+                                           , 'Venue'
+                                          ]

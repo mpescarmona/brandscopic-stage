@@ -1,4 +1,6 @@
-function EventsPeopleContactsNewController($scope, $state, $location, $stateParams, $timeout, snapRemote, UserService, CompanyService, UserInterface, Event, Contact, Country, EventContact) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, $location, $stateParams, $timeout, snapRemote, UserService, CompanyService, UserInterface, Event, Contact, Country, EventContact) {
+
     if( !UserService.isLogged() ) {
       $state.go('login')
       return
@@ -94,18 +96,20 @@ function EventsPeopleContactsNewController($scope, $state, $location, $statePara
       Contact.create(credentials, actions, $scope.contact)
     }
 }
-EventsPeopleContactsNewController.$inject = [  '$scope'
-                                             , '$state'
-                                             , '$location'
-                                             , '$stateParams'
-                                             , '$timeout'
-                                             , 'snapRemote'
-                                             , 'UserService'
-                                             , 'CompanyService'
-                                             , 'UserInterface'
-                                             , 'Event'
-                                             , 'Contact'
-                                             , 'Country'
-                                             , 'EventContact'
-                                            ]
+
+module.controller('EventsPeopleContactsNewController'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , '$location'
+                                           , '$stateParams'
+                                           , '$timeout'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'UserInterface'
+                                           , 'Event'
+                                           , 'Contact'
+                                           , 'Country'
+                                           , 'EventContact'
+                                          ]
 

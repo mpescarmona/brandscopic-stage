@@ -1,4 +1,6 @@
-function EventsExpensesPhotoController($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function ($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
+
   if( !UserService.isLogged() ) {
     $state.go('login')
     return
@@ -41,14 +43,15 @@ function EventsExpensesPhotoController($scope, $state, $stateParams, snapRemote,
   Event.find(credentials, actions)
 }
 
-EventsExpensesPhotoController.$inject = [  '$scope'
-                                         , '$state'
-                                         , '$stateParams'
-                                         , 'snapRemote'
-                                         , 'UserService'
-                                         , 'CompanyService'
-                                         , 'UserInterface'
-                                         , 'Event'
-                                         , 'Expense'
-                                        ]
+module.controller('EventsExpensesPhotoController'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , '$stateParams'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'UserInterface'
+                                           , 'Event'
+                                           , 'Expense'
+                                          ]
 

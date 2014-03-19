@@ -1,4 +1,6 @@
-function EventsPeopleContactsEditController($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact, Contact, Country) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact, Contact, Country) {
+
     if( !UserService.isLogged() ) {
       $state.go('login')
       return
@@ -109,7 +111,8 @@ function EventsPeopleContactsEditController($scope, $state, $location, $statePar
     }
 }
 
-EventsPeopleContactsEditController.$inject = [  '$scope'
+module.controller('EventsPeopleContactsEditController'
+                  , controller).$inject = [  '$scope'
                                               , '$state'
                                               , '$location'
                                               , '$stateParams'

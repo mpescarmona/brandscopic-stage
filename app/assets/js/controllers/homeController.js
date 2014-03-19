@@ -1,65 +1,66 @@
-function homeCtrl($q, $scope, $state, $timeout, snapRemote, $sce, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager, HistoryService) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($q, $scope, $state, $timeout, snapRemote, $sce, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager, HistoryService) {
 
   if( !LoginManager.isLogged() ) {
-    $state.go('login');
-    return;
+    $state.go('login')
+    return
   } else {
-    LoginManager.initializeSystem();
+    LoginManager.initializeSystem()
   }
-  $scope.showSearchField = false;
+  $scope.showSearchField = false
   // Disable right snap. Works with 'snap-options' option of tag snap-content.
   $scope.snapOptions = {
     disable: 'right'
-  };
+  }
 
   var
       authToken = UserService.currentUser.auth_token,
       credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active' },
       pendingNotifications = 0,
-      notificationsQueryingPromise = null;
+      notificationsQueryingPromise = null
 
-  $scope.currentCompany = CompanyService.currentCompany;
+  $scope.currentCompany = CompanyService.currentCompany
   // Options for User Interface in home partial
-  $scope.UserInterface = UserInterface;
-  $scope.UserInterface.title = "Home";
+  $scope.UserInterface = UserInterface
+  $scope.UserInterface.title = "Home"
   $scope.isEventCompleted = true
   $scope.place_reference = ""
 
   $scope.logout = function() {
     LoginManager.logout(authToken, function() { 
-      $state.go('login');
-    });
-    return false;
-  };
+      $state.go('login')
+    })
+    return false
+  }
 
   $scope.photoForm = {
       key: "",
       AWSAccessKeyId: "",
       policy: "",
       signature: ""
-  };
+  }
 
 	$scope.showSearchEvent = function(isShowing) {
-    $("#searchEvent").val("");
-		$scope.showSearchField = isShowing;
+    $("#searchEvent").val("")
+		$scope.showSearchField = isShowing
     if(!isShowing) {
-      $scope.$broadcast("CLOSE_SEARCH", true);
+      $scope.$broadcast("CLOSE_SEARCH", true)
     }
-    $scope.$broadcast("ALL_EVENT", isShowing);
-	};
+    $scope.$broadcast("ALL_EVENT", isShowing)
+	}
 
   $scope.navigationItems = [{'class': 'eventIcon'       , 'label': 'EVENTS'       , 'link': '#home/events'                                  },
                             {'class': 'tasksIcon'       , 'label': 'TASKS'        , 'link': '#home/tasks'                                   },
                             {'class': 'venuesIcon'      , 'label': 'VENUES'       , 'link': '#home/venues'                                  },
                             {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#home/notifications', 'showNotifications': true},
-                            {'class': 'dashboardIcon'   , 'label': 'DASHBOARD'    , 'link': '#home/dashboard'                               }];
+                            {'class': 'dashboardIcon'   , 'label': 'DASHBOARD'    , 'link': '#home/dashboard'                               }]
 
   $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#home/profile', 'click': ''},
-                        {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '', 'click': 'logout()'}];
+                        {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '', 'click': 'logout()'}]
 
 
   function sentForm() {
-    var url = $scope.photoForm.url; // El script a dónde se realizará la petición.
+    var url = $scope.photoForm.url // The script where the request will be made
     var formData = {
                      key:$scope.photoForm.key,
                      AWSAccessKeyId: $scope.photoForm.AWSAccessKeyId,
@@ -68,7 +69,7 @@ function homeCtrl($q, $scope, $state, $timeout, snapRemote, $sce, UserService, U
                      policy: $scope.photoForm.policy,
                      signature: $scope.photoForm.signature,
                      ContentType: "image/jpeg"
-                   };
+                   }
 
     $.ajax({
           type: "POST",
@@ -81,7 +82,7 @@ function homeCtrl($q, $scope, $state, $timeout, snapRemote, $sce, UserService, U
                 console.log(textStatus)
                 console.log(errorThrown)
             }
-         });
+         })
   }
 
   $scope.$on('ADD_PHOTO', function (eventT, authForm) {
@@ -89,34 +90,34 @@ function homeCtrl($q, $scope, $state, $timeout, snapRemote, $sce, UserService, U
       $scope.photoForm.policy = authForm.fields.policy
       $scope.photoForm.signature = authForm.fields.signature
       $scope.photoForm.url = authForm.url
-  });
+  })
 
   $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-    var numberOfPoints = toState.name.split('.').length - 1;
-    var isGoingToARootPlace = numberOfPoints == 1;
+    var numberOfPoints = toState.name.split('.').length - 1
+    var isGoingToARootPlace = numberOfPoints == 1
     if (isGoingToARootPlace) {
-      HistoryService.clearHistory();
-      HistoryService.addState(toState);
+      HistoryService.clearHistory()
+      HistoryService.addState(toState)
     } else {
       if (toState.data && toState.data.parentShouldBeRemembered) {
-        HistoryService.addState(fromState);
+        HistoryService.addState(fromState)
       }
       if (toState.data && toState.data.shouldRememberInHistory) {
-        HistoryService.addState(toState);
+        HistoryService.addState(toState)
       }
     }
-  });
+  })
 
   $scope.$on('CompanyChosen', function (event, companyId, companyName) {
-    credentials.company_id = companyId;
-    var data = LoginManager.getCurrentSession();
-    data.currentCompanyId = companyId;
-    data.currentCompanyName = companyName;
+    credentials.company_id = companyId
+    var data = LoginManager.getCurrentSession()
+    data.currentCompanyId = companyId
+    data.currentCompanyName = companyName
 
-    LoginManager.saveSession(data);
+    LoginManager.saveSession(data)
     //We cancel the querying action because otherwise after calling Notification.all again we'd get two chronic jobs.
-    $timeout.cancel(notificationsQueryingPromise);
-    Notification.all(credentials, notificationsActions, true);
+    $timeout.cancel(notificationsQueryingPromise)
+    Notification.all(credentials, notificationsActions, true)
   })
 
   /*
@@ -124,36 +125,36 @@ function homeCtrl($q, $scope, $state, $timeout, snapRemote, $sce, UserService, U
    * @source: would be "events or venues".
    */
   $scope.$on('SEARCH_DIRECTIVE', function (event, source) {
-      $scope.source = source;
+      $scope.source = source
   })
 
   var notificationsActions = { success: function(notifications) {
-    pendingNotifications = notifications.length;
-    $timeout(function() { Notification.all(credentials, notificationsActions, true); }, 30000); //Check the notifications every 30 seconds
-  }};
+    pendingNotifications = notifications.length
+    $timeout(function() { Notification.all(credentials, notificationsActions, true) }, 30000) //Check the notifications every 30 seconds
+  }}
 
   $scope.getPendingNotifications = function() {
-    return pendingNotifications;
-  };
+    return pendingNotifications
+  }
 
-  Notification.all(credentials, notificationsActions, true);
+  Notification.all(credentials, notificationsActions, true)
 }
 
-homeCtrl.$inject = [
-  "$q",
-  "$scope",
-  "$state",
-  "$timeout",
-  "snapRemote",
-  "$sce",
-  "UserService",
-  "UserInterface",
-  "CompanyService",
-  "SessionRestClient",
-  "Event",
-  "$location",
-  "$http",
-  'Notification',
-  'LoginManager',
-  'HistoryService'
-];
+module.controller('homeCtrl'
+                  , controller).$inject = [  '$q'
+                                           , '$scope'
+                                           , '$state'
+                                           , '$timeout'
+                                           , 'snapRemote'
+                                           , '$sce'
+                                           , 'UserService'
+                                           , 'UserInterface'
+                                           , 'CompanyService'
+                                           , 'SessionRestClient'
+                                           , 'Event'
+                                           , '$location'
+                                           , '$http'
+                                           , 'Notification'
+                                           , 'LoginManager'
+                                           , 'HistoryService'
+                                          ]

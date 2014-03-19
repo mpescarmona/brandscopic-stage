@@ -27,7 +27,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
         credentials = { company_id: companyId, auth_token: authToken }
       , actions = { success: function(permissions) {
                                 this.currentUser.permissions = permissions
-                              }
+                             }
         }
 
     User.permissions(credentials, actions)
@@ -119,11 +119,11 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                                 params: {id: authToken},
                                 interceptor: {
                                                 response: function (data) {
-                                                    console.log('response in interceptor', data);
+                                                    // console.log('response in interceptor', data);
                                                     return data;
                                                 },
                                                 responseError: function (data) {
-                                                    console.log('error in interceptor', data);
+                                                    // console.log('error in interceptor', data);
                                                     return data;
                                                 }
                                               },
@@ -155,11 +155,11 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                                 isArray: true,
                                 interceptor: {
                                                 response: function (data) {
-                                                    //console.log('response in interceptor', data);
+                                                    // console.log('response in interceptor', data);
                                                     return data;
                                                 },
                                                 responseError: function (data) {
-                                                    //console.log('error in interceptor', data);
+                                                    // console.log('error in interceptor', data);
                                                     return data;
                                                 }
                                               },
@@ -189,11 +189,11 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                                 params: {auth_token: authToken, company_id: companyId},
                                 interceptor: {
                                                 response: function (data) {
-                                                    console.log('response in interceptor', data);
+                                                    // console.log('response in interceptor', data);
                                                     return data;
                                                 },
                                                 responseError: function (data) {
-                                                    console.log('error in interceptor', data);
+                                                    // console.log('error in interceptor', data);
                                                     return data;
                                                 }
                                               },
@@ -217,11 +217,11 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                                 params: {auth_token: authToken, company_id: companyId},
                                 interceptor: {
                                                 response: function (data) {
-                                                    console.log('response in interceptor', data);
+                                                    // console.log('response in interceptor', data);
                                                     return data;
                                                 },
                                                 responseError: function (data) {
-                                                    console.log('error in interceptor', data);
+                                                    // console.log('error in interceptor', data);
                                                     return data;
                                                 }
                                               },
@@ -249,11 +249,11 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
 
                                 interceptor: {
                                                 response: function (data) {
-                                                    console.log('response in interceptor', data);
+                                                    // console.log('response in interceptor', data);
                                                     return data;
                                                 },
                                                 responseError: function (data) {
-                                                    console.log('error in interceptor', data);
+                                                    // console.log('error in interceptor', data);
                                                     return data;
                                                 }
                                               },
@@ -295,7 +295,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                                                     return data;
                                                 },
                                                 responseError: function (data) {
-                                                    console.log('error in interceptor', data);
+                                                    // console.log('error in interceptor', data);
                                                     return data;
                                                 }
                                               },
@@ -311,6 +311,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
   };
 
   this.getEventContactsById = function(authToken, companyId, eventId) {
+                        console.log('getEventContactsById');
     return $resource( ApiParams.baseUrl + '/events/' + eventId + '/contacts',
                         {},
                         // should do a GET call to /events/:eventId
@@ -339,6 +340,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
   };
 
   this.getEventResultsById = function(authToken, companyId, eventId) {
+                                                    console.log('getEventResultsById');
     return $resource( ApiParams.baseUrl + '/events/' + eventId + '/results',
                         {},
                         // should do a GET call to /events/:eventId
@@ -348,11 +350,11 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                                 isArray: true,
                                 interceptor: {
                                                 response: function (data) {
-                                                    console.log('response in interceptor', data);
+                                                    // console.log('response in interceptor', data);
                                                     return data;
                                                 },
                                                 responseError: function (data) {
-                                                    console.log('error in interceptor', data);
+                                                    // console.log('error in interceptor', data);
                                                     return data;
                                                 }
                                               },

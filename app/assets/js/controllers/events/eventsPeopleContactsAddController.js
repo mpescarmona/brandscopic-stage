@@ -1,4 +1,6 @@
-function EventsPeopleContactsAddController($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact, Contact) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact, Contact) {
+
     if( !UserService.isLogged() ) {
       $state.go('login')
       return
@@ -72,16 +74,16 @@ function EventsPeopleContactsAddController($scope, $state, $location, $statePara
    Event.find(credentials, actions)
 }
 
-EventsPeopleContactsAddController.$inject = [  '$scope'
-                                             , '$state'
-                                             , '$location'
-                                             , '$stateParams'
-                                             , 'snapRemote'
-                                             , 'UserService'
-                                             , 'CompanyService'
-                                             , 'UserInterface'
-                                             , 'Event'
-                                             , 'EventContact'
-                                             , 'Contact'
-                                            ]
-
+module.controller('EventsPeopleContactsAddController'
+                  , controller).$inject = [  '$scope'
+                                            , '$state'
+                                            , '$location'
+                                            , '$stateParams'
+                                            , 'snapRemote'
+                                            , 'UserService'
+                                            , 'CompanyService'
+                                            , 'UserInterface'
+                                            , 'Event'
+                                            , 'EventContact'
+                                            , 'Contact'
+                                           ]

@@ -1,4 +1,6 @@
-function EventsCommentsController($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Comment) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Comment) {
+
   if( !UserService.isLogged() ) {
     $state.go('login')
     return
@@ -31,14 +33,15 @@ function EventsCommentsController($scope, $state, $stateParams, snapRemote, User
   Event.find(credentials, actions)
 } 
 
-EventsCommentsController.$inject = [  '$scope'
-                                    , '$state'
-                                    , '$stateParams'
-                                    , 'snapRemote'
-                                    , 'UserService'
-                                    , 'CompanyService'
-                                    , 'UserInterface'
-                                    , 'Event'
-                                    , 'Comment' 
-                                   ]
+module.controller('EventsCommentsController'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , '$stateParams'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'UserInterface'
+                                           , 'Event'
+                                           , 'Comment' 
+                                          ]
 

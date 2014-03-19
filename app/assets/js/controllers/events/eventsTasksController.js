@@ -1,4 +1,6 @@
-function EventsTasksController($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller1 = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+
   if( !UserService.isLogged() ) {
     $state.go('login')
     return
@@ -78,10 +80,8 @@ function EventsTasksController($scope, $state, $stateParams, snapRemote, UserSer
  Event.find(credentials, actions)
 }
 
-EventsTasksController.$inject = ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event']
 
-
-function EventsTasksDetailsController($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+, controller2 = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
       if( !UserService.isLogged() ) {
         $state.go('login')
         return
@@ -108,9 +108,8 @@ function EventsTasksDetailsController($scope, $state, $stateParams, snapRemote, 
 
     }
 
-EventsTasksDetailsController.$inject = ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event']
 
-function EventsTasksEditController($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+, controller3 = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
       if( !UserService.isLogged() ) {
         $state.go('login')
         return
@@ -136,5 +135,33 @@ function EventsTasksEditController($scope, $state, $stateParams, snapRemote, Use
 
     }
 
-EventsTasksEditController.$inject = ['$scope', '$state', '$stateParams', 'snapRemote', 'UserService', 'CompanyService','UserInterface', 'Event']
-
+module.controller('EventsTasksController'
+                  , controller1).$inject = [  '$scope'
+                                            , '$state'
+                                            , '$stateParams'
+                                            , 'snapRemote'
+                                            , 'UserService'
+                                            , 'CompanyService'
+                                            , 'UserInterface'
+                                            , 'Event'
+                                           ]
+module.controller('EventsTasksDetailsController'
+                  , controller2).$inject = [  '$scope'
+                                            , '$state'
+                                            , '$stateParams'
+                                            , 'snapRemote'
+                                            , 'UserService'
+                                            , 'CompanyService'
+                                            , 'UserInterface'
+                                            , 'Event'
+                                           ]
+module.controller('EventsTasksEditController'
+                  , controller3).$inject = [  '$scope'
+                                            , '$state'
+                                            , '$stateParams'
+                                            , 'snapRemote'
+                                            , 'UserService'
+                                            , 'CompanyService'
+                                            , 'UserInterface'
+                                            , 'Event'
+                                           ]
