@@ -1,4 +1,6 @@
-function EventsPeopleTeamAddController($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventTeam) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, $location, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventTeam) {
+
   if( !UserService.isLogged() ) {
     $state.go('login')
     return
@@ -51,14 +53,15 @@ function EventsPeopleTeamAddController($scope, $state, $location, $stateParams, 
   Event.find(credentials, actions)
 }
 
-EventsPeopleTeamAddController.$inject = [  '$scope'
-                                         , '$state'
-                                         , '$location'
-                                         , '$stateParams'
-                                         , 'snapRemote'
-                                         , 'UserService'
-                                         , 'CompanyService'
-                                         , 'UserInterface'
-                                         , 'Event'
-                                         , 'EventTeam'
-                                        ]
+module.controller('EventsPeopleTeamAddController'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , '$location'
+                                           , '$stateParams'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'UserInterface'
+                                           , 'Event'
+                                           , 'EventTeam'
+                                          ]

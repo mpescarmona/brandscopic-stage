@@ -1,4 +1,6 @@
-function EventsPhotoSliderController($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Photos, photosService) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function ($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Photos, photosService) {
+
     if( !UserService.isLogged() ) {
       $state.go('login')
       return
@@ -51,15 +53,15 @@ function EventsPhotoSliderController($scope, $state, $stateParams, snapRemote, U
 
   }
 
-EventsPhotoSliderController.$inject = [  '$scope'
-                                       , '$state'
-                                       , '$stateParams'
-                                       , 'snapRemote'
-                                       , 'UserService'
-                                       , 'CompanyService'
-                                       , 'UserInterface'
-                                       , 'Event'
-                                       , 'Photos'
-                                       , 'photosService'
-                                      ]
-
+module.controller('EventsPhotoSliderController'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , '$stateParams'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'UserInterface'
+                                           , 'Event'
+                                           , 'Photos'
+                                           , 'photosService'
+                                          ]

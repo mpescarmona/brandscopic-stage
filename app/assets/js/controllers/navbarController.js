@@ -1,29 +1,30 @@
-function navbarCtrl($scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, snapRemote, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location) {
 
-    $scope.showSearchField = false; 
+    $scope.showSearchField = false 
     // Disable right snap. Works with 'snap-options' option of tag snap-content.
     $scope.snapOptions = {
       disable: 'right'
-    };
+    }
 
-    $scope.currentCompany = CompanyService.currentCompany;
+    $scope.currentCompany = CompanyService.currentCompany
     // Options for User Interface in home partial
-    $scope.UserInterface = UserInterface;
-    $scope.UserInterface.title = "Home";
+    $scope.UserInterface = UserInterface
+    $scope.UserInterface.title = "Home"
     $scope.isEventCompleted = true
 
 	$scope.showSearchEvent = function(isShowing) {
-		$scope.showSearchField = isShowing;
-	};	
+		$scope.showSearchField = isShowing
+	}	
 
     $scope.navigationItems = [{'class': 'eventIcon', 'label': 'EVENTS', 'link': '#home/events'},
                               {'class': 'tasksIcon', 'label': 'TASKS',  'link': '#home/tasks'},
                               {'class': 'venuesIcon', 'label': 'VENUES', 'link': '#home/venues'},
                               {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#home/notifications'},
-                              {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#home/dashboard'}];
+                              {'class': 'dashboardIcon', 'label': 'DASHBOARD', 'link': '#home/dashboard'}]
 
     $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#home/profile', 'click': ''},
-                          {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#', 'click': 'logout()'}];
+                          {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '#', 'click': 'logout()'}]
 
     function createEvent () {
       var
@@ -51,36 +52,36 @@ function navbarCtrl($scope, $state, snapRemote, UserService, UserInterface, Comp
         $scope.event.end_date = $scope.event.end_date.replace(/^(\d{4})\/(\d{2})\/(\d{2}).*$/, '$2/$3/$1')
 
       //$scope.event.campaign_id = $scope.campaign ? $scope.campaign.id : 0
-      alert("intenta crear!");
+      alert("intenta crear!")
       Event.create(credentials, actions, $scope.event)
     }
 
     $scope.CreateEventView = function () {
         alert("intenta crear el evento")
         if($scope.event) {
-          createEvent();
+          createEvent()
         } else {
-          alert("error esta completo el model");
+          alert("error esta completo el model")
         }
     }
 
     $scope.$on('CREATE_EVENT', function (eventT, eventObj) {
         if ( eventObj.campaign_id >= 0 && eventObj.end_date  &&  eventObj.end_time && eventObj.start_date && eventObj.start_time ) {
             $scope.isEventCompleted = false
-            $scope.event = eventObj;
+            $scope.event = eventObj
         }
-        event.processed = true;
-    });
+        event.processed = true
+    })
 }
 
-navbarCtrl.$inject = [
-    "$scope",
-    "$state",
-    "snapRemote",
-    "UserService",
-    "UserInterface",
-    "CompanyService",
-    "SessionRestClient",
-    "Event",
-    "$location"
-];
+module.controller('navbarCtrl'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'UserInterface'
+                                           , 'CompanyService'
+                                           , 'SessionRestClient'
+                                           , 'Event'
+                                           , '$location'
+                                        ]

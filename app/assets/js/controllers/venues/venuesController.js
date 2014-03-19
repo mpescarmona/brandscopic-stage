@@ -1,4 +1,6 @@
-function VenuesController ($scope, $state, snapRemote, UserService, CompanyService, venueService, UserInterface, Venue) {
+var module = angular.module('brandscopicApp.controllers')
+  , controller = function($scope, $state, snapRemote, UserService, CompanyService, venueService, UserInterface, Venue) {
+
     if( !UserService.isLogged() ) {
       $state.go('login')
       return
@@ -28,43 +30,44 @@ function VenuesController ($scope, $state, snapRemote, UserService, CompanyServi
 
     // This listener is waiting for the item selected in the search result in order to refresh the venues list.
     $scope.$on("RESULT_SEARCH", function (event, filter) {
-        var campaign = [], place = [], user = [], brand = [];
+        var campaign = [], place = [], user = [], brand = []
      
           switch(filter.type) {
             case "campaign":
-                campaign.push(filter.id);
-                break;
+                campaign.push(filter.id)
+                break
             case "brand":
-                brand.push(filter.id);
-                break;
+                brand.push(filter.id)
+                break
             case "place":
-                place.push(filter.id);
-                break;
+                place.push(filter.id)
+                break
             case "user":
-                user.push(filter.id);
-                break;
+                user.push(filter.id)
+                break
           }
 
           venueService.getVenuesByFilters(campaign, place, user, brand).then( function (response) {
-              $scope.venuesItems = response.results;
-          });
-    });
+              $scope.venuesItems = response.results
+          })
+    })
 
     $scope.$on("CLOSE_SEARCH", function (value) {
       if(value) {
           venueService.getVenuesByFilters().then( function (response) {
-              $scope.venuesItems = response.results;
-          });
+              $scope.venuesItems = response.results
+          })
       }
-    });
+    })
 }
 
-VenuesController.$inject = [  '$scope'
-                            , '$state'
-                            , 'snapRemote'
-                            , 'UserService'
-                            , 'CompanyService'
-                            , 'venueService'
-                            , 'UserInterface'
-                            , 'Venue'
-                           ]
+module.controller('VenuesController'
+                  , controller).$inject = [  '$scope'
+                                           , '$state'
+                                           , 'snapRemote'
+                                           , 'UserService'
+                                           , 'CompanyService'
+                                           , 'venueService'
+                                           , 'UserInterface'
+                                           , 'Venue'
+                                          ]
