@@ -11,8 +11,8 @@ angular.module('persistence.user', ['ngResource', 'util.jsonToFormData'])
                           }
 
       , 'forgotPassword': {  method: 'POST'
-      					   , headers: {'Accept': 'application/json'}
-	                       , url: '//stage.brandscopic.com/api/v1/users/password/new_password.:format'
+      					           , headers: {'Accept': 'application/json'}
+	                         , url: '//stage.brandscopic.com/api/v1/users/password/new_password.:format'
                           }
 
   });

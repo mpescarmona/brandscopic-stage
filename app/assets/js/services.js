@@ -10,13 +10,13 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
 })
 
 .service('UserService', ['$cookieStore', 'CompanyService', 'User', function($cookieStore, CompanyService, User) {
-	this.currentUser = {
-		isLogged: false,
-		email: '',
-		auth_token: '',
-    current_company_id: 0, 
-    permissions: []
-	}
+	this.currentUser = {  isLogged: false
+                    	, email: ''
+                    	, auth_token: ''
+                      , current_company_id: 0
+                      , permissions: {}
+                     }
+
   this.isLogged = function() {
     var sessionData = $cookieStore.get('sessionData')
 		return ( sessionData != null)
@@ -26,7 +26,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
     var
         credentials = { company_id: companyId, auth_token: authToken }
       , actions = { success: function(permissions) {
-                                this.currentUser.permissions = permissions
+                                return permissions
                              }
         }
 

@@ -19,8 +19,14 @@ angular.module('model.user', ['persistence.user'])
       , permissionsResponse = function (actions) {
           return function(resp){
             if (resp.length) {
-              permissions = resp
-
+              var permissions = []
+              for (var i = 0, action, item; action = resp[i++];){
+                item = ''
+                for (var j = 0, aux; aux = action[j++];){
+                  item = item + aux
+                }
+                permissions.push(item)
+              }
               actions.success(angular.copy(permissions))
             }
             else
