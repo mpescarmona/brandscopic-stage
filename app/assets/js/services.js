@@ -311,7 +311,6 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
   };
 
   this.getEventContactsById = function(authToken, companyId, eventId) {
-                        console.log('getEventContactsById');
     return $resource( ApiParams.baseUrl + '/events/' + eventId + '/contacts',
                         {},
                         // should do a GET call to /events/:eventId
