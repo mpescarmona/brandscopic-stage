@@ -38,22 +38,29 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
             companies = new CompaniesRestClient.getCompanies(authToken)
             promiseCompanies = companies.getCompanies().$promise
 
-            UserService.setUserPermissions(authToken, currentCompanyId)
-
             promiseCompanies.then(function(responseCompanies) {
              if (responseCompanies.status == 200) {
               if (responseCompanies.data != null) {
-                  companyData = responseCompanies.data;
-                  for (var i = 0, company; company = companyData[i++];) {
-                    if (company.id == currentCompanyId) {
-                      CompanyService.currentCompany.id = company.id;
-                      CompanyService.currentCompany.name = company.name;
-                      LoginManager.login(response.data.data.auth_token, $scope.user.email, company.id, company.name);
-                      $state.go('home.dashboard');
-                      break;
+
+                var
+                    credentials = { company_id: currentCompanyId, auth_token: authToken }
+                  , actions = { success: function(permissions) {
+                                            UserService.currentUser.permissions = permissions
+
+                                            companyData = responseCompanies.data;
+                                            for (var i = 0, company; company = companyData[i++];) {
+                                              if (company.id == currentCompanyId) {
+                                                CompanyService.currentCompany.id = company.id;
+                                                CompanyService.currentCompany.name = company.name;
+                                                LoginManager.login(response.data.data.auth_token, $scope.user.email, company.id, company.name);
+                                                $state.go('home.dashboard');
+                                                break;
+                                              }
+                                            }
+                                            return;
+                                         }
                     }
-                  }
-                  return;
+                User.permissions(credentials, actions)
               }
              }
             });
