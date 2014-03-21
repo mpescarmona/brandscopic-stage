@@ -10,7 +10,7 @@ var module = angular.module('brandscopicApp.controllers')
     angular.extend(this, new eventsSurveysParentController($scope, surveysService));
 
     snapRemote.close()
-    var ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "surveys",  AddIconState: "home.events.details.surveys.edit"}
+    var ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: true, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "surveys",  AddIconState: "home.events.details.surveys.edit", hasAddPhoto: false}
     var survey_id = $stateParams.survey_id
     angular.extend(UserInterface, ui)
     $scope.UserInterface = UserInterface
