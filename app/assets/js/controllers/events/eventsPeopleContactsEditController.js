@@ -7,16 +7,24 @@ var module = angular.module('brandscopicApp.controllers')
     }
     snapRemote.close()
 
-    $scope.getCountries = function() {
+    $scope.getCountries = function(actions) {
       var
           countries = []
-        , credentials = { auth_token: UserService.currentUser.auth_token }
-        , actions = { success: function (countries) {
-                        $scope.countries = countries
-                      }
-                    }
+        , credentials = { auth_token: UserService.currentUser.auth_token };
+      if (actions === null) {
+        actions = { 
+          success: function (countries) {
+            $scope.countries = countries
+          }
+        }
+      }
       Country.all(credentials, actions)
     }
+
+    $scope.countryHasChanged = function() {
+      $scope.contact.country = $scope.selectedCountry.name;
+      $scope.getStatesForCountry($scope.selectedCountry.id);
+    };
 
     $scope.getStates = function(countryId) {
       var
@@ -30,9 +38,7 @@ var module = angular.module('brandscopicApp.controllers')
     }
 
     $scope.getStatesForCountry = function() {
-      var
-          countryCode = $scope.contact.country
-      $scope.getStates(countryCode)
+      $scope.getStates($scope.selectedCountry.id);
     }
 
     var
@@ -45,7 +51,10 @@ var module = angular.module('brandscopicApp.controllers')
                                     $scope.contact = []
                                     $scope.countries = []
                                     $scope.states = []
-                                    $scope.countryCode = ""
+                                    $scope.selectedCountry = {
+                                      id: "",
+                                      name: ""
+                                    };
 
                                     // Options for User Interface in home partial
                                     angular.extend(UserInterface, ui)
@@ -78,15 +87,18 @@ var module = angular.module('brandscopicApp.controllers')
                                                         EventContact.contacts(credentials, assignableActions)
                                                       }
                                                       if ($scope.contact.id) {
-                                                        $scope.getCountries()
-
-                                                        for(var i = 0, item; item = $scope.countries[i++];) {
-                                                          if (item.name == $scope.contact.country) {
-                                                            $scope.countryCode = item.id
-                                                            break
+                                                        $scope.getCountries({
+                                                          success: function(countries) {
+                                                            $scope.countries = countries;
+                                                            for(var i = 0, item; item = countries[i++];) {
+                                                              if (item.name == $scope.contact.country) {
+                                                                $scope.selectedCountry = item
+                                                                break
+                                                              }
+                                                            }
+                                                            $scope.getStates($scope.selectedCountry.id)
                                                           }
-                                                        }
-                                                        $scope.getStates($scope.countryCode)
+                                                        });
                                                       }
                                                     }
                                                   }
