@@ -119,6 +119,7 @@ var module = angular.module('brandscopicApp.controllers')
                         $scope.contact_error = contact_error
                       }
                     }
+      $scope.contact.country = $scope.selectedCountry.id
       Contact.update(credentials, actions, $scope.contact)
     }
 }
