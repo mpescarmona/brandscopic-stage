@@ -46,7 +46,7 @@ var module = angular.module('brandscopicApp.controllers')
 
                                   CompanyService.currentCompany.id = companyId
                                   CompanyService.currentCompany.name = companyName
-                                  $scope.$emit('CompanyChosen', companyId, companyName)
+                                  $scope.$emit('CompanyChosen', companyId, companyName, permissions)
                                   $state.go('home.dashboard')
                                   return
                                }
