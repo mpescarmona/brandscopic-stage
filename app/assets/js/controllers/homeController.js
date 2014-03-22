@@ -49,7 +49,7 @@ var module = angular.module('brandscopicApp.controllers')
     $scope.$broadcast("ALL_EVENT", isShowing)
 	}
 
-  $scope.navigationItems = [{'class': 'eventIcon'       , 'label': 'EVENTS'       , 'link': '#home/events'                                  },
+  $scope.navigationItems = [{'class': 'eventIcon'       , 'label': 'EVENTS'       , 'link': '#home/events', 'visible': UserService.permissionIsValid('events')},
                             {'class': 'tasksIcon'       , 'label': 'TASKS'        , 'link': '#home/tasks'                                   },
                             {'class': 'venuesIcon'      , 'label': 'VENUES'       , 'link': '#home/venues'                                  },
                             {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#home/notifications', 'showNotifications': true},

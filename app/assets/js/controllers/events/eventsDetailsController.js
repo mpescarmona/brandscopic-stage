@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, PermissionsHandler) {
 
   if( !UserService.isLogged() ) {
     $state.go('login')
@@ -21,9 +21,9 @@ var module = angular.module('brandscopicApp.controllers')
                                   $scope.UserInterface = UserInterface
 
                   }
-      }
-
- Event.find(credentials, actions)
+      };
+  PermissionsHandler.handlePermissions(['events_show']);
+  Event.find(credentials, actions)
 }
 
 module.controller('EventsDetailsController'
@@ -35,4 +35,5 @@ module.controller('EventsDetailsController'
                                            , 'CompanyService'
                                            , 'UserInterface'
                                            , 'Event'
+                                           , 'PermissionsHandler'
                                           ]

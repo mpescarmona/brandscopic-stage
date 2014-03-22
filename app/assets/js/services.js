@@ -33,7 +33,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
     User.permissions(credentials, actions)
   }
 
-  this.checkPermission = function(permission) {
+  this.permissionIsValid = function(permission) {
     var canDo = false
     if (this.currentUser.permissions && permission) {
       for (var i = 0, item; item = this.currentUser.permissions[i++];) {
@@ -486,6 +486,17 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
 
   this.clearHistory = function () {
     this.states = [];
+  };
+}])
+.service('PermissionsHandler', ['$state', 'UserService', function($state, UserService){
+
+  //Permissions should be an array which contain the permissions a page needs to be accessible. 
+  this.handlePermissions = function(permissions) {
+    angular.forEach(permissions, function(permission) {
+      if (!UserService.permissionIsValid(permission)) {
+        $state.go('home.forbidden');
+      }
+    });
   };
 }])
 

@@ -19,6 +19,19 @@ angular.module('brandscopicApp.filters', [])
     }
   })
 
+.filter('validatePermissions', function() {
+  return function(array) {
+    var filteredMembers = [];
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].visible !== false) {
+        filteredMembers.push(array[i]);
+      }
+    }
+
+    return filteredMembers;
+  };
+})
+
 .filter('timeago', function () {
     //time: the time
     //local: compared to what time? default: now
