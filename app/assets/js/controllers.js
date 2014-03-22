@@ -52,7 +52,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
                                               if (company.id == currentCompanyId) {
                                                 CompanyService.currentCompany.id = company.id;
                                                 CompanyService.currentCompany.name = company.name;
-                                                LoginManager.login(response.data.data.auth_token, $scope.user.email, company.id, company.name);
+                                                LoginManager.login(response.data.data.auth_token, $scope.user.email, company.id, company.name, permissions);
                                                 $state.go('home.dashboard');
                                                 break;
                                               }

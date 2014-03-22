@@ -39,8 +39,6 @@ var module = angular.module('brandscopicApp.controllers')
                             }
       }
 
-  Event.all(credentials, actions, options)
-
   $scope.$on('ALL_EVENT', function (event, param) {
     if(!param)
       Event.all(credentials, actions, options)
@@ -106,6 +104,8 @@ var module = angular.module('brandscopicApp.controllers')
       $scope.filter = filter
       $scope.$apply()
   })
+
+  Event.all(credentials, actions, options)
 }
 
 module.controller('eventsCtrl'

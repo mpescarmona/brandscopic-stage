@@ -403,13 +403,14 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                   }
   });
 }])
-.service('LoginManager', ['$cookieStore','UserService', 'CompanyService','SessionRestClient', function($cookieStore, UserService, CompanyService, SessionRestClient) {
-  this.login = function (authToken, email, currentCompanyId, currentCompanyName) {
+.service('LoginManager', ['$cookieStore','UserService', 'CompanyService','SessionRestClient', 'User', function($cookieStore, UserService, CompanyService, SessionRestClient, User) {
+  this.login = function (authToken, email, currentCompanyId, currentCompanyName, permissions) {
     UserService.currentUser.auth_token = authToken;
     UserService.currentUser.email = email;
+    UserService.currentUser.permissions = permissions;
     CompanyService.currentCompany.id = currentCompanyId;
     CompanyService.currentCompany.name = currentCompanyName;
-    var sessionData = new LoginData(authToken, email, currentCompanyId, currentCompanyName);
+    var sessionData = new SessionData(authToken, email, currentCompanyId, currentCompanyName, permissions);
     $cookieStore.put('sessionData', sessionData);
   };
 
@@ -427,6 +428,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
     var loginData = $cookieStore.get('sessionData');
     UserService.currentUser.auth_token = loginData.authToken;
     UserService.currentUser.email = loginData.email;
+    UserService.currentUser.permissions = loginData.currentPermissions;
     CompanyService.currentCompany.id = loginData.currentCompanyId;
     CompanyService.currentCompany.name = loginData.currentCompanyName;
   };

@@ -108,11 +108,12 @@ var module = angular.module('brandscopicApp.controllers')
     }
   })
 
-  $scope.$on('CompanyChosen', function (event, companyId, companyName) {
+  $scope.$on('CompanyChosen', function (event, companyId, companyName, permissions) {
     credentials.company_id = companyId
     var data = LoginManager.getCurrentSession()
     data.currentCompanyId = companyId
     data.currentCompanyName = companyName
+    data.currentPermissions = permissions
 
     LoginManager.saveSession(data)
     //We cancel the querying action because otherwise after calling Notification.all again we'd get two chronic jobs.

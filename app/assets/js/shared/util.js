@@ -6,9 +6,10 @@ scopic.injectConst = function (scope) {
     };
 };
 
-function LoginData(authToken, email, currentCompanyId, currentCompanyName) {
+function SessionData(authToken, email, currentCompanyId, currentCompanyName, permissions) {
     this.authToken = authToken;
     this.email = email;
     this.currentCompanyId = currentCompanyId;
     this.currentCompanyName = currentCompanyName;
+    this.currentPermissions = permissions;
 }
