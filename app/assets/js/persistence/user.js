@@ -7,11 +7,12 @@ angular.module('persistence.user', ['ngResource', 'util.jsonToFormData'])
   {
         'permissions'   : {  method: 'GET'
                            , params: {action: 'permissions'}
+                           , isArray: true
                           }
 
       , 'forgotPassword': {  method: 'POST'
-      					   , headers: {'Accept': 'application/json'}
-	                       , url: '//stage.brandscopic.com/api/v1/users/password/new_password.:format'
+      					           , headers: {'Accept': 'application/json'}
+	                         , url: '//stage.brandscopic.com/api/v1/users/password/new_password.:format'
                           }
 
   });

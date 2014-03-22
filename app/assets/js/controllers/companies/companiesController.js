@@ -38,12 +38,21 @@ var module = angular.module('brandscopicApp.controllers')
     })
 
     $scope.chooseCompany = function(companyId, companyName) {
-      UserService.setUserPermissions(UserService.currentUser.auth_token, companyId)
-      CompanyService.currentCompany.id = companyId
-      CompanyService.currentCompany.name = companyName
-      $scope.$emit('CompanyChosen', companyId, companyName)
-      $state.go('home.dashboard')
-      return
+
+      var
+          credentials = { company_id: companyId, auth_token: authToken }
+        , actions = { success: function(permissions) {
+                                  UserService.currentUser.permissions = permissions
+
+                                  CompanyService.currentCompany.id = companyId
+                                  CompanyService.currentCompany.name = companyName
+                                  $scope.$emit('CompanyChosen', companyId, companyName)
+                                  $state.go('home.dashboard')
+                                  return
+                               }
+          }
+
+      User.permissions(credentials, actions)
     }
   }
 
