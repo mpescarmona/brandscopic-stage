@@ -865,13 +865,15 @@ body.appLayout .container {
   overflow: hidden;
 }
 .box-container ul li:first-of-type .editpanel,
-.box-container ul li:first-of-type .edit-only-panel {
+.box-container ul li:first-of-type .edit-only-panel,
+.box-container ul li:first-of-type .deletepanel {
   -webkit-border-top-right-radius: 6px;
   -moz-border-radius-topright: 6px;
   border-top-right-radius: 6px;
 }
 .box-container ul li:last-of-type .editpanel,
-.box-container ul li:last-of-type .edit-only-panel {
+.box-container ul li:last-of-type .edit-only-panel,
+.box-container ul li:last-of-type .deletepanel {
   -webkit-border-bottom-right-radius: 6px;
   -moz-border-radius-bottomright: 6px;
   border-bottom-right-radius: 6px;
@@ -914,9 +916,6 @@ body.appLayout .container {
 }
 .box-container ul.eventsPeople li {
   height: 60px;
-}
-.box-container ul.eventsPeople li .alignment {
-  display: table !important;
 }
 .box-container ul.eventsPeople li:last-child {
   border-bottom: 0;
@@ -1044,7 +1043,8 @@ body.appLayout .container {
 }
 /*-- SWIPE EFFECTS - PANELS --*/
 .editpanel,
-.edit-only-panel {
+.edit-only-panel,
+.deletepanel {
   background-color: #c0c0c0;
   box-sizing: border-box;
   float: right;
@@ -1052,18 +1052,26 @@ body.appLayout .container {
   position: relative;
 }
 .editpanel button,
-.edit-only-panel button {
+.edit-only-panel button,
+.deletepanel button {
   color: white;
   text-align: center;
   width: 45%;
 }
 .editpanel button:before,
-.edit-only-panel button:before {
+.edit-only-panel button:before,
+.deletepanel button:before {
   font-size: 25px;
 }
 .editpanel button:hover,
-.edit-only-panel button:hover {
+.edit-only-panel button:hover,
+.deletepanel button:hover {
   text-decoration: none;
+}
+.deletepanel {
+  padding: 13px;
+  text-align: center;
+  width: 70px;
 }
 .edit-only-panel {
   height: 75px;
