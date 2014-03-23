@@ -1,5 +1,5 @@
 angular.module('brandscopicApp.eventDirectives', [])
-    .directive('scopicEventFilter', ['$q', 'CompanyService', 'debounce', 'UserService', 'Venue', 'Event', 'eventService', 'UserInterface', function ($q, CompanyService, debounce, UserService, Venue, Event, eventService, UserInterface) {
+    .directive('scopicEventFilter', ['$q', 'CompanyService', 'debounce', 'UserService', 'Venue', 'Event', 'eventService', 'UserInterface', '$window', function ($q, CompanyService, debounce, UserService, Venue, Event, eventService, UserInterface, $window) {
         "use strict";
 
         var link = function (scope, element, attrs) {
@@ -27,6 +27,16 @@ angular.module('brandscopicApp.eventDirectives', [])
 
             scope.getLastOfDateButtonClass = function (event) {
               return event.start_date_LAST_OF_GROUP ? "last_of_group" : "";
+            };
+
+            scope.handleEventClick = function(permission, path) {
+              if (UserService.permissionIsValid(permission)) {
+                $window.location.href = path;
+              }
+            };
+
+            scope.permissionIsValid = function(permission) {
+              return UserService.permissionIsValid(permission);
             };
 
             scope.$watch("filter", function (value) {

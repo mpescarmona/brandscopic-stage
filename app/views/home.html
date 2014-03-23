@@ -6,7 +6,7 @@
       <a href="#home/companies/select"><h5 class="txtAdjust">{{currentCompany.name}}</h5></a>
 
     <ul>
-      <li ng-repeat="item in navigationItems">
+      <li ng-repeat="item in navigationItems | validatePermissions">
         <a href="{{item.link}}" class="{{item.class}}">
           {{item.label}}<span ng-show="item.showNotifications" class="badge">{{getPendingNotifications()}}</span>
         </a>

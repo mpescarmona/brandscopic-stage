@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event) {
+  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, PermissionsHandler) {
 
   if( !UserService.isLogged() ) {
     $state.go('login')
@@ -11,7 +11,7 @@ var module = angular.module('brandscopicApp.controllers')
   $scope.UserInterface = UserInterface
   $scope.showEvents = false
   var
-      ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add",hasAddPhoto: false}
+      ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: UserService.permissionIsValid('events_create'), hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add",hasAddPhoto: false}
     , today = (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear()
     , future = "12/31/" + (new Date().getFullYear() + 10)
     , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, start_date: today, end_date: future, 'status[]': 'Active' }
@@ -38,8 +38,6 @@ var module = angular.module('brandscopicApp.controllers')
                               }
                             }
       }
-
-  Event.all(credentials, actions, options)
 
   $scope.$on('ALL_EVENT', function (event, param) {
     if(!param)
@@ -106,6 +104,9 @@ var module = angular.module('brandscopicApp.controllers')
       $scope.filter = filter
       $scope.$apply()
   })
+
+  PermissionsHandler.handlePermissions(['events']);
+  Event.all(credentials, actions, options)
 }
 
 module.controller('eventsCtrl'
@@ -117,4 +118,5 @@ module.controller('eventsCtrl'
                                            , 'CompanyService'
                                            , 'UserInterface'
                                            , 'Event'
+                                           , 'PermissionsHandler'
                                           ]
