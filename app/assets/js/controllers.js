@@ -115,18 +115,3 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
 
   }])
-
-  .controller('TasksController', ['$scope', '$state', 'snapRemote', 'UserService', 'UserInterface',  function($scope, $state, snapRemote, UserService, UserInterface) {
-    if( !UserService.isLogged() ) {
-      $state.go('login');
-      return;
-    }
-    snapRemote.close();
-
-    var
-        ui = { title: 'Tasks', hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: false, hasCancelIcon: false, hasCustomHomeClass: false, searching: false}
-
-    // Options for User Interface in home partial
-    angular.extend(UserInterface, ui);
-    $scope.UserInterface = UserInterface;
-  }])
