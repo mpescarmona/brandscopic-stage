@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($q, $scope, $state, $timeout, snapRemote, $sce, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager, HistoryService) {
+  , controller = function($q, $scope, $rootScope, $state, $timeout, snapRemote, $sce, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager, HistoryService) {
 
   if( !LoginManager.isLogged() ) {
     $state.go('login')
@@ -7,7 +7,7 @@ var module = angular.module('brandscopicApp.controllers')
   } else {
     LoginManager.initializeSystem()
   }
-  $scope.showSearchField = false
+  $rootScope.showSearchField = false
   // Disable right snap. Works with 'snap-options' option of tag snap-content.
   $scope.snapOptions = {
     disable: 'right'
@@ -42,7 +42,7 @@ var module = angular.module('brandscopicApp.controllers')
 
 	$scope.showSearchEvent = function(isShowing) {
     $("#searchEvent").val("")
-		$scope.showSearchField = isShowing
+		$rootScope.showSearchField = isShowing
     if(!isShowing) {
       $scope.$broadcast("CLOSE_SEARCH", true)
     }
@@ -144,6 +144,7 @@ var module = angular.module('brandscopicApp.controllers')
 module.controller('homeCtrl'
                   , controller).$inject = [  '$q'
                                            , '$scope'
+                                           , '$rootScope'
                                            , '$state'
                                            , '$timeout'
                                            , 'snapRemote'

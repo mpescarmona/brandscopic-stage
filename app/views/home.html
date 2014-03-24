@@ -30,7 +30,7 @@
       <h1 class="txtAdjust">{{UserInterface.title}}</h1>
     </div>
     <div class="right">
-      <span ng-show="showSearchField" class="events_search">
+      <span ng-show="$root.showSearchField" class="events_search">
         <div class="typeahead">
             <scopic-typeahead source="{{ source }}"> </scopic-typeahead>
         </div>
@@ -38,7 +38,7 @@
           <button class="btn btn-grey" ng-click="showSearchEvent(false)" style="margin-left:5px;">Cancel</button>
         </div>
       </span>
-      <span ng-hide="showSearchField">
+      <span ng-hide="$root.showSearchField">
           <button class="noButton magnifierIcon out pull-right"
                 ng-click="showSearchEvent(true)"
                 ng-show="UserInterface.hasMagnifierIcon"

@@ -1,12 +1,12 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($scope, $state, $stateParams, snapRemote, CompanyService, UserService, UserInterface, Venue) {
+  , controller = function($scope, $rootScope, $state, $stateParams, snapRemote, CompanyService, UserService, UserInterface, Venue) {
 
     if( !UserService.isLogged() ) {
       $state.go('login')
       return
     }
     snapRemote.close()
-
+    $rootScope.showSearchField = false;
     var
         ui = {}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: $stateParams.venueId }
@@ -58,6 +58,7 @@ var module = angular.module('brandscopicApp.controllers')
 
 module.controller('VenuesAboutController'
                   , controller).$inject = [  '$scope'
+                                           , '$rootScope'
                                            , '$state'
                                            , '$stateParams'
                                            , 'snapRemote'
