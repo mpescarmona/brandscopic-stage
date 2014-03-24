@@ -1,6 +1,5 @@
 <!-- Event Details Container - ABOUT VIEW-->
 <needs-permissions provider="eventAboutPermissionsService">
-	<p id="prueba">PEPEEEE</p>
 	<div class="google-map">
 		<map zoom-control="false" center="{{[event.place.latitude,event.place.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
 	  <marker position="{{[event.place.latitude,event.place.longitude]}}" title="{{event.place.name||'venue'}}"></marker>
