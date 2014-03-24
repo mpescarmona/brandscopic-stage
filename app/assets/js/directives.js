@@ -249,8 +249,9 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
                 break;
               }
             }
-
-            element.find(key).hide();
+            if (!elementsShouldBeVisible) {
+              element.find(key).hide();
+            }
           });
 
           handlePermissions(permissionsService.hyperlinksEnabledPermissions, function(key, permissions) {
@@ -262,7 +263,9 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
               }
             }
 
-            element.find(key).off();
+            if (!elementsShouldBeLinkable) {
+              element.find(key).off();
+            }
           });
         }, 0);
       }
