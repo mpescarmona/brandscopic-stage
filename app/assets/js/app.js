@@ -494,6 +494,15 @@ angular.module('brandscopicApp', [
         shouldRememberInHistory: true
       }
     })
+    .state('home.forbidden', {
+      url: "/forbidden_area",
+      views:{
+        'details@home': {
+          templateUrl: "views/forbidden.html",
+          controller: 'ForbiddenController'
+        }
+      }
+  })
 })
 //enables CORS in angular
 .config(['$httpProvider', function($httpProvider) {

@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Campaign) {
+  , controller = function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, Campaign, PermissionsHandler) {
 
     if( !UserService.isLogged() ) {
       $state.go('login')
@@ -31,8 +31,6 @@ var module = angular.module('brandscopicApp.controllers')
                              }
         }
 
-    Event.find(credentials, actions)
-
     $scope.updateEvent = function() {
       var
           credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
@@ -61,6 +59,10 @@ var module = angular.module('brandscopicApp.controllers')
       $scope.event.campaign_id = $scope.event.campaign.id ? $scope.event.campaign.id : 0
       Event.update(credentials, actions, $scope.event)
     }
+
+    PermissionsHandler.handlePermissions(['events_edit']);
+    Event.find(credentials, actions)
+
 }
 
 module.controller('EventsEditController'
@@ -74,4 +76,5 @@ module.controller('EventsEditController'
                                            , 'UserInterface'
                                            , 'Event'
                                            , 'Campaign'
+                                           , 'PermissionsHandler'
                                           ]

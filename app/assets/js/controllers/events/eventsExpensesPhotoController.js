@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function ($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
+  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Expense) {
 
   if( !UserService.isLogged() ) {
     $state.go('login')
