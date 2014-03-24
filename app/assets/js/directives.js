@@ -206,63 +206,65 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
     };
   })
   .directive('needsPermissions', ['UserService', '$injector', '$state', '$timeout', function(UserService, $injector, $state, $timeout){
-    function handlePermissions(permissions, permissionsHandler) {
-      if (permissions instanceof Array) {
-        for (var i = 0; i < permissions.length; i++) {
-          var permission = permissions[i];
-          permissionsHandler(permission);
-        }
-      }
-      else if (permissions !== null && typeof permissions === 'object') {
-        for (var key in permissions) {
-          permissionsHandler(key, permissions[key]);
-        }
-      }
-    }
     return {
       restrict: 'AE',
       link: function(scope, element, attrs) {
-        console.log('Permissions directive executed');
-        var permissionsServiceName = attrs.provider;
-        if (permissionsServiceName == null) {
-          throw 'The permissions directive lacks a provider';
-        }
-        
-        var permissionsService = $injector.get(permissionsServiceName);
-        if (permissionsService == null) {
-          throw 'The permissions provider could not be found';
-        }
-
-        handlePermissions(permissionsService.pagePermissions, function(permission) {
-          if (!UserService.permissionIsValid(permission)) {
-            $state.go('home.forbidden');
-            return;
-          }
-        });
-
-        handlePermissions(permissionsService.elementsVisiblePermissions, function(key, permissions) {
-          var elementsShouldBeVisible = true;
-          for (var i = 0; i < permissions.length; i++) {
-            if (!UserService.permissionIsValid(permissions[i])) {
-              elementsShouldBeVisible = false;
-              break;
+        function handlePermissions(permissions, permissionsHandler) {
+          if (permissions instanceof Array) {
+            for (var i = 0; i < permissions.length; i++) {
+              var permission = permissions[i];
+              permissionsHandler(permission);
             }
           }
-
-          element.find(key).hide();
-        });
-
-        handlePermissions(permissionsService.hyperlinksEnabledPermissions, function(key, permissions) {
-          var elementsShouldBeLinkable = true;
-          for (var i = 0; i < permissions.length; i++) {
-            if (!UserService.permissionIsValid(permissions[i])) {
-              elementsShouldBeLinkable = false;
-              break;
+          else if (permissions !== null && typeof permissions === 'object') {
+            for (var key in permissions) {
+              permissionsHandler(key, permissions[key]);
             }
           }
+        }
+        $timeout(function() {
+          console.log('Permissions directive executed');
+          var permissionsServiceName = attrs.provider;
+          if (permissionsServiceName == null) {
+            throw 'The permissions directive lacks a provider';
+          }
+          
+          var permissionsService = $injector.get(permissionsServiceName);
+          if (permissionsService == null) {
+            throw 'The permissions provider could not be found';
+          }
 
-          element.find(key).off();
-        });
+          handlePermissions(permissionsService.pagePermissions, function(permission) {
+            if (!UserService.permissionIsValid(permission)) {
+              $state.go('home.forbidden');
+              return;
+            }
+          });
+
+          handlePermissions(permissionsService.elementsVisiblePermissions, function(key, permissions) {
+            var elementsShouldBeVisible = true;
+            for (var i = 0; i < permissions.length; i++) {
+              if (!UserService.permissionIsValid(permissions[i])) {
+                elementsShouldBeVisible = false;
+                break;
+              }
+            }
+
+            element.find(key).hide();
+          });
+
+          handlePermissions(permissionsService.hyperlinksEnabledPermissions, function(key, permissions) {
+            var elementsShouldBeLinkable = true;
+            for (var i = 0; i < permissions.length; i++) {
+              if (!UserService.permissionIsValid(permissions[i])) {
+                elementsShouldBeLinkable = false;
+                break;
+              }
+            }
+
+            element.find(key).off();
+          });
+        }, 0);
       }
     };
   }])

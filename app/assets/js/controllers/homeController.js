@@ -49,11 +49,11 @@ var module = angular.module('brandscopicApp.controllers')
     $scope.$broadcast("ALL_EVENT", isShowing)
 	}
 
-  $scope.navigationItems = [{'class': 'eventIcon'       , 'label': 'EVENTS'       , 'link': '#home/events', 'visible': UserService.permissionIsValid('events')},
-                            {'class': 'tasksIcon'       , 'label': 'TASKS'        , 'link': '#home/tasks'                                   },
-                            {'class': 'venuesIcon'      , 'label': 'VENUES'       , 'link': '#home/venues'                                  },
-                            {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#home/notifications', 'showNotifications': true},
-                            {'class': 'dashboardIcon'   , 'label': 'DASHBOARD'    , 'link': '#home/dashboard'                               }]
+  $scope.navigationItems = [{'class': 'eventIcon'       , 'label': 'EVENTS'       , 'link': '#home/events', 'id': 'eventsNavBar'                                        },
+                            {'class': 'tasksIcon'       , 'label': 'TASKS'        , 'link': '#home/tasks',  'id': 'tasksNavBar'                                         },
+                            {'class': 'venuesIcon'      , 'label': 'VENUES'       , 'link': '#home/venues', 'id': 'venuesNavBar'                                        },
+                            {'class': 'notificationIcon', 'label': 'NOTIFICATIONS', 'link': '#home/notifications', 'showNotifications': true, 'id': 'notificationNavBar'},
+                            {'class': 'dashboardIcon'   , 'label': 'DASHBOARD'    , 'link': '#home/dashboard', 'id': 'dashboardNavBar'                                  }]
 
   $scope.actionItems = [{'class': 'profileIcon', 'label': 'EDIT PROFILE', 'link': '#home/profile', 'click': ''},
                         {'class': 'logoutIcon', 'label': 'LOGOUT', 'link': '', 'click': 'logout()'}]
