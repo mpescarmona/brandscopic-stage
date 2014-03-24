@@ -205,7 +205,7 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
 
     };
   })
-  .directive('needsPermissions', ['UserService', '$injector', '$scope', function(UserService, $injector, $scope){
+  .directive('needsPermissions', ['UserService', '$injector', '$state', '$timeout', function(UserService, $injector, $state, $timeout){
     function handlePermissions(permissions, permissionsHandler) {
       if (permissions instanceof Array) {
         for (var i = 0; i < permissions.length; i++) {
@@ -222,6 +222,7 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
     return {
       restrict: 'AE',
       link: function(scope, element, attrs) {
+        console.log('Permissions directive executed');
         var permissionsServiceName = attrs.provider;
         if (permissionsServiceName == null) {
           throw 'The permissions directive lacks a provider';
@@ -234,12 +235,12 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
 
         handlePermissions(permissionsService.pagePermissions, function(permission) {
           if (!UserService.permissionIsValid(permission)) {
-            $scope.go('home.forbidden');
+            $state.go('home.forbidden');
             return;
           }
         });
 
-        handlePermissions(permissionsService.elementsVisible, function(key, permissions) {
+        handlePermissions(permissionsService.elementsVisiblePermissions, function(key, permissions) {
           var elementsShouldBeVisible = true;
           for (var i = 0; i < permissions.length; i++) {
             if (!UserService.permissionIsValid(permissions[i])) {
@@ -248,14 +249,19 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
             }
           }
 
-          var elements = angular.elements(key);
-          for (i = 0; i< elements.length ; i++) {
-            elements[i].hide();
-          }
+          element.find(key).hide();
         });
 
         handlePermissions(permissionsService.hyperlinksEnabledPermissions, function(key, permissions) {
-          
+          var elementsShouldBeLinkable = true;
+          for (var i = 0; i < permissions.length; i++) {
+            if (!UserService.permissionIsValid(permissions[i])) {
+              elementsShouldBeLinkable = false;
+              break;
+            }
+          }
+
+          element.find(key).off();
         });
       }
     };
