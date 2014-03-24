@@ -205,6 +205,61 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
 
     };
   })
+  .directive('needsPermissions', ['UserService', '$injector', '$scope', function(UserService, $injector, $scope){
+    function handlePermissions(permissions, permissionsHandler) {
+      if (permissions instanceof Array) {
+        for (var i = 0; i < permissions.length; i++) {
+          var permission = permissions[i];
+          permissionsHandler(permission);
+        }
+      }
+      else if (permissions !== null && typeof permissions === 'object') {
+        for (var key in permissions) {
+          permissionsHandler(key, permissions[key]);
+        }
+      }
+    }
+    return {
+      restrict: 'AE',
+      link: function(scope, element, attrs) {
+        var permissionsServiceName = attrs.provider;
+        if (permissionsServiceName == null) {
+          throw 'The permissions directive lacks a provider';
+        }
+        
+        var permissionsService = $injector.get(permissionsServiceName);
+        if (permissionsService == null) {
+          throw 'The permissions provider could not be found';
+        }
+
+        handlePermissions(permissionsService.pagePermissions, function(permission) {
+          if (!UserService.permissionIsValid(permission)) {
+            $scope.go('home.forbidden');
+            return;
+          }
+        });
+
+        handlePermissions(permissionsService.elementsVisible, function(key, permissions) {
+          var elementsShouldBeVisible = true;
+          for (var i = 0; i < permissions.length; i++) {
+            if (!UserService.permissionIsValid(permissions[i])) {
+              elementsShouldBeVisible = false;
+              break;
+            }
+          }
+
+          var elements = angular.elements(key);
+          for (i = 0; i< elements.length ; i++) {
+            elements[i].hide();
+          }
+        });
+
+        handlePermissions(permissionsService.hyperlinksEnabledPermissions, function(key, permissions) {
+          
+        });
+      }
+    };
+  }])
 
   .directive('showPhoto', function(){
     return function (scope, $el, attr) {
