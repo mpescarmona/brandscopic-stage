@@ -127,6 +127,8 @@ body{
 		}
 		p{
 			float: left;
+			font-size: 13px;
+			font-weight: bold;
 			margin-bottom: 5px;
 			width:91%;
 		}
@@ -818,6 +820,9 @@ body{
 						top: 14px;
 					}
 				}
+				.nextIcon:before{
+					top:0;
+				}
 			}
 			&:last-child{
 				border-bottom: 0;
@@ -1229,10 +1234,10 @@ body{
 
 .btn-danger{
 	background-color: @buttons;
-	border: 0;
+	border: @buttons;
 	font-weight:bold;
 	&:hover{
-		background-color: @buttons-hover;
+		background-color: @buttons;
 	}
 }
 

@@ -5,12 +5,14 @@
 	<div class="box-container notifications np">
 		<ul>
 			<li ng-repeat="notification in notifications">
-				<div class="row {{notification.colorClass}}" ng-click="notification.action()">
-					<div class="col-xs-11 {{notification.type}}Icon">
-						<p>{{notification.message}}</p>
+				<a href="javascript:;">
+					<div class="row {{notification.colorClass}}" ng-click="notification.action()">
+						<div class="col-xs-11 {{notification.type}}Icon">
+							<p>{{notification.message}}</p>
+						</div>
+						<div class="noButton nextIcon"></div>
 					</div>
-					<a href="javascript:;" class="noButton nextIcon"></a>
-				</div>
+				</a>
 			</li>
 		</ul>
 	</div>
