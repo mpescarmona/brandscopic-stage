@@ -222,7 +222,8 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
             }
           }
         }
-        $timeout(function() {
+
+        function doWork() {
           console.log('Permissions directive executed');
           var permissionsServiceName = attrs.provider;
           if (permissionsServiceName == null) {
@@ -267,7 +268,20 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
               element.find(key).off();
             }
           });
-        }, 0);
+        
+        }
+
+        //We need this in order to know what variables in the scope might change after load time 
+        //probably because of an AJAX query, in order to apply the permissions on new items.
+        if (scope.getObservableProperties) {
+          var propertiesToWatch = scope.getObservableProperties();
+          for (var i = 0; i < propertiesToWatch.length; i++) {
+            scope.$watch(propertiesToWatch[i], function() {
+              doWork();
+            }, true);
+          }
+        }
+        $timeout(function() {doWork();}, 0);
       }
     };
   }])

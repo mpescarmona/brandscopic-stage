@@ -135,7 +135,14 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                       }
                     }
 
-      Session.logout(credentials, actions)
+      Session.logout(credentials, actions);
+      UserService.currentUser.auth_token = "";
+      UserService.currentUser.isLogged = false;
+      UserService.currentUser.email = "";
+      $cookieStore.remove('sessionData');
+      if (loggedOutCallback != null) {
+        loggedOutCallback();
+      }
   };
   this.isLogged = function () {
     return $cookieStore.get('sessionData') != null;

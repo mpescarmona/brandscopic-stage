@@ -6,6 +6,6 @@ angular.module('brandscopicApp.services.permissions')
 		'.deactivate-event': ['events_deactivate']
 	};
 	this.hyperlinksEnabledPermissions = {
-		'.events-link': ['events-show1']
+		'.events-link': ['events_show']
 	};
 });

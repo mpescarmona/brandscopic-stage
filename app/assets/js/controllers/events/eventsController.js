@@ -95,7 +95,11 @@ var module = angular.module('brandscopicApp.controllers')
     deletedEvent.active = false
     Event.update(credentials, actions, deletedEvent)
   }
-  $scope.filter = ""
+  $scope.filter = "";
+
+  $scope.getObservableProperties = function() {
+    return ['eventsItems'];
+  }
 
   // Set typeahead to search by events
   $scope.$emit("SEARCH_DIRECTIVE", "events")
