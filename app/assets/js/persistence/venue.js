@@ -1,9 +1,9 @@
-angular.module('persistence.venue', ['ngResource', 'util.jsonToFormData'])
+angular.module('persistence.venue', ['ngResource', 'util.jsonToFormData', 'brandscopicApp.services'])
 
-.factory('venueClient', ['$resource', 'jsonToFormDataFor', function($resource, jsonToFormDataFor) {
+.factory('venueClient', ['$resource', 'jsonToFormDataFor', 'ApiParams', function($resource, jsonToFormDataFor, ApiParams) {
   var contentType = { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'}
 
-  return $resource('//stage.brandscopic.com/api/v1/venues/:venue_id.:format', {auth_token: '@token', format: 'json', company_id: '@company_id', term: '@term'},
+  return $resource(ApiParams.baseUrl + '/venues/:venue_id.:format', {auth_token: '@token', format: 'json', company_id: '@company_id', term: '@term'},
   {
         'all'        : { method: 'GET' }
 
@@ -16,37 +16,37 @@ angular.module('persistence.venue', ['ngResource', 'util.jsonToFormData'])
 
       , 'search'     : { method: 'GET' 
                          , isArray: true
-                         , url: '//stage.brandscopic.com/api/v1/venues/search.:format'
+                         , url: ApiParams.baseUrl + '/venues/search.:format'
                        } 
 
       , 'types'     : { method: 'GET' 
                          , isArray: true
-                         , url: '//stage.brandscopic.com/api/v1/venues/types.:format'
+                         , url: ApiParams.baseUrl + '/venues/types.:format'
                        } 
 
       , 'analysis'   : { method: 'GET' 
-                         , url: '//stage.brandscopic.com/api/v1/venues/:venue_id/analysis.:format'
+                         , url: ApiParams.baseUrl + '/venues/:venue_id/analysis.:format'
                        } 
 
       , 'comments'    : { method: 'GET' 
                          , isArray: true
-                         , url: '//stage.brandscopic.com/api/v1/venues/:venue_id/comments.:format'
+                         , url: ApiParams.baseUrl + '/venues/:venue_id/comments.:format'
                        } 
 
       , 'photos'      : { method: 'GET' 
                          , isArray: true
-                         , url: '//stage.brandscopic.com/api/v1/venues/:venue_id/photos.:format'
+                         , url: ApiParams.baseUrl + '/venues/:venue_id/photos.:format'
                        } 
 
       , 'filterVenues'  : {
                             method: 'GET',
-                            url: '//stage.brandscopic.com/api/v1/venues.:format', format: 'json', auth_token: '@token', company_id: '@company_id', campaign: '@campaign', place: '@place', user: '@user', brand: '@brand', page : '@page'
+                            url: ApiParams.baseUrl + '/venues.:format', format: 'json', auth_token: '@token', company_id: '@company_id', campaign: '@campaign', place: '@place', user: '@user', brand: '@brand', page : '@page'
                           }
 
       , 'venuesAutocomplete':   {
                                   method: 'GET',
                                   isArray: true ,
-                                  url: '//stage.brandscopic.com/api/v1/venues/autocomplete.:format', format: 'json', auth_token: '@token', company_id: '@company_id', q: '@q'
+                                  url: ApiParams.baseUrl + '/venues/autocomplete.:format', format: 'json', auth_token: '@token', company_id: '@company_id', q: '@q'
                                 }
   });
 }]);

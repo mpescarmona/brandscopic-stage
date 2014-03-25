@@ -1,8 +1,8 @@
-angular.module('persistence.contact', ['ngResource', 'util.jsonToFormData'])
+angular.module('persistence.contact', ['ngResource', 'util.jsonToFormData', 'brandscopicApp.services'])
 
-.factory('contactClient', ['$resource', 'jsonToFormDataFor', function($resource, jsonToFormDataFor) {
+.factory('contactClient', ['$resource', 'jsonToFormDataFor', 'ApiParams', function($resource, jsonToFormDataFor, ApiParams) {
   var contentType = { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'}
-  return $resource('//stage.brandscopic.com/api/v1/contacts/:contact_id.:format', {auth_token: '@token', format: 'json', company_id: '@company_id', contact_id: '@contact_id'},
+  return $resource(ApiParams.baseUrl + '/contacts/:contact_id.:format', {auth_token: '@token', format: 'json', company_id: '@company_id', contact_id: '@contact_id'},
   {
         'all'     : { method: 'GET', isArray: true }
 
