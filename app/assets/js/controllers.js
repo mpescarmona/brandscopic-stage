@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng', 'model.notification', 'ngCookies'])
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng', 'model.notification', 'model.company', 'model.session', 'ngCookies'])
   .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
     $scope.UserService = UserService;
     $scope.trigger = function (event, payload) {
@@ -10,7 +10,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
   }])
 
-  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'SessionRestClient', 'CompaniesRestClient', 'User', '$cookieStore','LoginManager', function($scope, $state, UserService, CompanyService, SessionRestClient, CompaniesRestClient, User, $cookieStore, LoginManager) {
+  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'Company', 'User', '$cookieStore','LoginManager', 'Session', function($scope, $state, UserService, CompanyService, Company, User, $cookieStore, LoginManager, Session) {
     if (LoginManager.isLogged()) {
       $state.go('home.dashboard');
       return;
@@ -21,64 +21,46 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     $scope.wrongUser = null;
     $scope.validateApiUser = function() {
       var
-          session = new SessionRestClient.login($scope.user.email, $scope.user.password)
-        , promiseLogin = session.login().$promise
-        , companyData = []
-        , authToken = UserService.currentUser.auth_token
-        , companies = null
-        , promiseCompanies = null
+          credentials = { email: $scope.user.email, password: $scope.user.password }
+        , actions = { success: function (login) {
 
-      promiseLogin.then(function(response) {
-       if (response.status == 200) {
-        if (response.data.success == true) {
-            $scope.wrongUser = false;
-            var authToken = response.data.data.auth_token;
-            var currentCompanyId = response.data.data.current_company_id;
+                                  $scope.wrongUser = false;
+                                  var 
+                                      authToken = login.data.auth_token
+                                    , currentCompanyId = login.data.current_company_id
+                                    , credentials = { auth_token: authToken }
+                                    , action = { success: function(companies) {
+                                                                var
+                                                                    credentials = { company_id: currentCompanyId, auth_token: authToken }
+                                                                  , actions = { success: function(permissions) {
+                                                                                            UserService.currentUser.permissions = permissions
 
-            companies = new CompaniesRestClient.getCompanies(authToken)
-            promiseCompanies = companies.getCompanies().$promise
-
-            promiseCompanies.then(function(responseCompanies) {
-             if (responseCompanies.status == 200) {
-              if (responseCompanies.data != null) {
-
-                var
-                    credentials = { company_id: currentCompanyId, auth_token: authToken }
-                  , actions = { success: function(permissions) {
-                                            UserService.currentUser.permissions = permissions
-
-                                            companyData = responseCompanies.data;
-                                            for (var i = 0, company; company = companyData[i++];) {
-                                              if (company.id == currentCompanyId) {
-                                                CompanyService.currentCompany.id = company.id;
-                                                CompanyService.currentCompany.name = company.name;
-                                                LoginManager.login(response.data.data.auth_token, $scope.user.email, company.id, company.name, permissions);
-                                                $state.go('home.dashboard');
-                                                break;
+                                                                                            for (var i = 0, company; company = companies[i++];) {
+                                                                                              if (company.id == currentCompanyId) {
+                                                                                                CompanyService.currentCompany.id = company.id;
+                                                                                                CompanyService.currentCompany.name = company.name;
+                                                                                                LoginManager.login(login.data.auth_token, $scope.user.email, company.id, company.name, permissions);
+                                                                                                $state.go('home.dashboard');
+                                                                                                break;
+                                                                                              }
+                                                                                            }
+                                                                                            return;
+                                                                                         }
+                                                                    }
+                                                                User.permissions(credentials, actions)
+                                                           }
                                               }
-                                            }
-                                            return;
-                                         }
+                                  Company.all(credentials, action)
+                      }
+                    , error: function (login_error) {
+                                  $scope.wrongUser = true
+                                  UserService.currentUser.auth_token = ""
+                                  UserService.currentUser.isLogged = false
+                                  UserService.currentUser.email = ""
+                      }
                     }
-                User.permissions(credentials, actions)
-              }
-             }
-            });
-            return;
-        }
-       } else {
-          $scope.wrongUser = true;
-          UserService.currentUser.auth_token = "";
-          UserService.currentUser.isLogged = false;
-          UserService.currentUser.email = "";
-       }
-      });
-      promiseLogin.catch(function(response) {
-        $scope.wrongUser = true;
-        UserService.currentUser.auth_token = "";
-        UserService.currentUser.isLogged = false;
-        UserService.currentUser.email = "";
-      });
+
+      Session.login(credentials, actions)
     };
 
     $scope.forgotPassword = function(email) {

@@ -64,15 +64,18 @@ angular.module('model.eventTeam', ['persistence.eventTeam'])
           if (action) action(angular.copy(answer))
         }
       }
-      , all = function (credentials, actions) {
-          if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions) {
-            if (collection && company_id == credentials.company_id)
-              actions.success(collection)
-            else {
-              company_id = credentials.company_id
+      , all = function (credentials, actions, options) {
+          if ('auth_token' in credentials && 'company_id' in credentials && 'event_id' in credentials && 'success' in actions)
+            if (options && 'force' in options && options.force) 
               eventTeamClient.all(credentials, allResponse(actions))
-            }
-          } else
+            else
+              if (collection && company_id == credentials.company_id)
+                actions.success(collection)
+              else {
+                company_id = credentials.company_id
+                eventTeamClient.all(credentials, allResponse(actions))
+              }
+          else
             throw 'Wrong set of credentials'
 
       }
