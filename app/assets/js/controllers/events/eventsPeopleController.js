@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventsRestClient, EventContact, EventTeam) {
+  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, EventContact, EventTeam) {
     
     if( !UserService.isLogged() ) {
       $state.go('login');
@@ -62,11 +62,7 @@ var module = angular.module('brandscopicApp.controllers')
       , authToken = UserService.currentUser.auth_token
       , companyId = CompanyService.getCompanyId()
       , eventId = $stateParams.eventId
-      , eventTeam = new EventsRestClient.getEventMembersById(authToken, companyId, eventId)
-      , promiseTeam = eventTeam.getEventMembersById().$promise
       , eventContactsData = []
-      , eventContacts = new EventsRestClient.getEventContactsById(authToken, companyId, eventId)
-      , promiseContacts = eventContacts.getEventContactsById().$promise
 
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
       , actions = { success: function(event) {
@@ -90,35 +86,20 @@ var module = angular.module('brandscopicApp.controllers')
                                         $scope.UserInterface.AddIconState = "home.events.details.people.contacts.add"
                                     }
 
-                                    // get event Team members
-                                    promiseTeam.then(function(responseTeam) {
-                                     if (responseTeam.status == 200) {
-                                      if (responseTeam.data != null) {
-                                          eventTeamData = responseTeam.data
-                                          $scope.eventTeamItems = eventTeamData
-                                      }
-                                     } else {
-                                        $scope.eventTeamItems = {}
-                                     }
-                                    })
-                                    promiseTeam.catch(function(responseTeam) {
-                                      $scope.eventTeamItems = {}
-                                    })
+                                    var
+                                        credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
+                                      , actionsTeam = { success: function(eventTeam){
+                                                                    $scope.eventTeamItems = eventTeam
+                                                                 }
+                                       }
+                                      , actionsContact = { success: function(eventContact){
+                                                                    $scope.eventContactItems = eventContact
+                                                                 }
+                                       }
+                                      , options = { force: true }
 
-                                    // get event Contact members
-                                    promiseContacts.then(function(responseContacts) {
-                                     if (responseContacts.status == 200) {
-                                      if (responseContacts.data != null) {
-                                          eventContactsData = responseContacts.data
-                                          $scope.eventContactItems = eventContactsData
-                                      }
-                                     } else {
-                                        $scope.eventContactItems = {}
-                                     }
-                                    })
-                                    promiseTeam.catch(function(responseTeam) {
-                                      $scope.eventContactItems = {}
-                                    })
+                                    EventTeam.all(credentials, actionsTeam, options)
+                                    EventContact.all(credentials, actionsContact, options)
                              }
         }
 
@@ -134,7 +115,6 @@ module.controller('EventsPeopleController'
                                            , 'CompanyService'
                                            , 'UserInterface'
                                            , 'Event'
-                                           , 'EventsRestClient'
                                            , 'EventContact'
                                            , 'EventTeam'
                                           ]

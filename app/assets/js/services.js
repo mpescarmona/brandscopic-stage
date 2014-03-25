@@ -2,7 +2,7 @@
 
 /* Services */
 
-angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.user'])
+angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.user', 'model.session'])
 
 .service('ApiParams', function() {
     this.baseUrl = "http://stage.brandscopic.com/api/v1";
@@ -82,328 +82,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
   this.hasAddPhoto = false;
 })
 
-.service('SessionRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
-
-  this.login = function(email, password) {
-    return $resource( ApiParams.baseUrl + '/sessions',
-                        {},
-                        // should do a POST call to /sessions with email and password
-                        {login:{ method: 'POST',
-                                headers: {'Accept': 'application/json'},
-                                params: {email: email, password: password},
-                                interceptor: {
-                                                response: function (data) {
-                                                    return data;
-                                                },
-                                                responseError: function (data) {
-                                                    return data;
-                                                }
-                                              },
-                                transformResponse: function(data, header) {
-                                  var wrapped = angular.fromJson(data);
-                                  angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Post(item); //<-- replace each item with an instance of the resource object
-                                  });
-                                  return wrapped;
-                                }
-                              }
-                        });
-	};
-
-  this.logout = function(authToken) {
-    return $resource( ApiParams.baseUrl + '/sessions',
-                        {},
-                        // should do a DELETE call to /sessions with authToken
-                        {logout:{ method: 'DELETE',
-                                headers: {'Accept': 'application/json'},
-                                params: {id: authToken},
-                                interceptor: {
-                                                response: function (data) {
-                                                    // console.log('response in interceptor', data);
-                                                    return data;
-                                                },
-                                                responseError: function (data) {
-                                                    // console.log('error in interceptor', data);
-                                                    return data;
-                                                }
-                                              },
-                                transformResponse: function(data, header) {
-                                  if (data.toString() != "") {
-                                    var wrapped = angular.fromJson(data);
-                                    angular.forEach(wrapped.items, function(item, idx) {
-                                       wrapped.items[idx] = new Post(item); //<-- replace each item with an instance of the resource object
-                                    });
-                                    return wrapped;
-                                  } else {
-                                    return data;
-                                  }
-                                }
-                              }
-                        });
-  };
-}])
-
-.service('CompaniesRestClient', ['$resource', 'ApiParams', function($resource, ApiParams) {
-
-  this.getCompanies = function(authToken) {
-    return $resource( ApiParams.baseUrl + '/companies',
-                        {},
-                        // should do a GET call to /companies
-                        {getCompanies:{ method: 'GET',
-                                headers: {'Accept': 'application/json'},
-                                params: {auth_token: authToken},
-                                isArray: true,
-                                interceptor: {
-                                                response: function (data) {
-                                                    // console.log('response in interceptor', data);
-                                                    return data;
-                                                },
-                                                responseError: function (data) {
-                                                    // console.log('error in interceptor', data);
-                                                    return data;
-                                                }
-                                              },
-                                transformResponse: function(data, header) {
-                                  var wrapped = angular.fromJson(data);
-                                  angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
-                                  });
-                                  return wrapped;
-                                }
-                              }
-                        });
-  };
-}])
-
-.service('EventsRestClient', ['$resource', 'ApiParams', 'CompanyService', function($resource, ApiParams, CompanyService) {
-  var
-      eventList = {}
-    , companyId = CompanyService.getCompanyId();
-
-  this.getEvents = function(authToken, companyId) {
-    return $resource( ApiParams.baseUrl + '/events',
-                        {},
-                        // should do a GET call to /events
-                        {getEvents:{ method: 'GET',
-                                headers: {'Accept': 'application/json'},
-                                params: {auth_token: authToken, company_id: companyId},
-                                interceptor: {
-                                                response: function (data) {
-                                                    // console.log('response in interceptor', data);
-                                                    return data;
-                                                },
-                                                responseError: function (data) {
-                                                    // console.log('error in interceptor', data);
-                                                    return data;
-                                                }
-                                              },
-                                transformResponse: function(data, header) {
-                                  var wrapped = angular.fromJson(data);
-                                  angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
-                                  });
-                                  return wrapped;
-                                }
-                              }
-                        });
-  };
-
-  this.getEventById = function(authToken, companyId, eventId) {
-    return $resource( ApiParams.baseUrl + '/events/' + eventId,
-                        {},
-                        // should do a GET call to /events/:eventId
-                        {getEventById:{ method: 'GET',
-                                headers: {'Accept': 'application/json'},
-                                params: {auth_token: authToken, company_id: companyId},
-                                interceptor: {
-                                                response: function (data) {
-                                                    // console.log('response in interceptor', data);
-                                                    return data;
-                                                },
-                                                responseError: function (data) {
-                                                    // console.log('error in interceptor', data);
-                                                    return data;
-                                                }
-                                              },
-                                transformResponse: function(data, header) {
-                                  var wrapped = angular.fromJson(data);
-                                  angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
-                                  });
-                                  return wrapped;
-                                }
-                              }
-                        });
-  };
-
-  this.updateEvent = function(authToken, companyId, evt) {
-    return $resource( ApiParams.baseUrl + '/events/' + evt.id,
-                        {event: evt},
-                        // should do a PUT call to /events/:eventId
-                        {updateEvent:{ method: 'PUT',
-                                headers: {'Accept': 'application/json'
-                                          // , 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                                          // , 'Content-Type': undefined},
-                                         },
-                                params: {auth_token: authToken, company_id: companyId},
-
-                                interceptor: {
-                                                response: function (data) {
-                                                    // console.log('response in interceptor', data);
-                                                    return data;
-                                                },
-                                                responseError: function (data) {
-                                                    // console.log('error in interceptor', data);
-                                                    return data;
-                                                }
-                                              },
-
-                                // transformRequest: function(obj) {
-                                //   var str = [];
-                                //   for(var p in obj)
-                                //     str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                                //   return str.join("&");
-                                // },
-
-                                // transformRequest: function (data, headerGetter) {
-                                //     console.log('data in transformRequest', data);
-                                //     console.log('header in transformRequest', headerGetter);
-                                //     var result = JSON.stringify(data);
-                                //     return result;
-                                // },
-                                transformResponse: function(data, header) {
-                                  var wrapped = angular.fromJson(data);
-                                  angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
-                                  });
-                                  return wrapped;
-                                }
-                              }
-                        });
-  };
-
-  this.getEventMembersById = function(authToken, companyId, eventId, type) {
-    return $resource( ApiParams.baseUrl + '/events/' + eventId + '/members',
-                        {},
-                        // should do a GET call to /events/:eventId
-                        {getEventMembersById:{ method: 'GET',
-                                headers: {'Accept': 'application/json'},
-                                params: {auth_token: authToken, company_id: companyId},
-                                isArray: true,
-                                interceptor: {
-                                                response: function (data) {
-                                                    return data;
-                                                },
-                                                responseError: function (data) {
-                                                    // console.log('error in interceptor', data);
-                                                    return data;
-                                                }
-                                              },
-                                transformResponse: function(data, header) {
-                                  var wrapped = angular.fromJson(data);
-                                  angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
-                                  });
-                                  return wrapped;
-                                }
-                              }
-                        });
-  };
-
-  this.getEventContactsById = function(authToken, companyId, eventId) {
-    return $resource( ApiParams.baseUrl + '/events/' + eventId + '/contacts',
-                        {},
-                        // should do a GET call to /events/:eventId
-                        {getEventContactsById:{ method: 'GET',
-                                headers: {'Accept': 'application/json'},
-                                params: {auth_token: authToken, company_id: companyId},
-                                isArray: true,
-                                interceptor: {
-                                                response: function (data) {
-                                                    return data;
-                                                },
-                                                responseError: function (data) {
-                                                    console.log('error in interceptor', data);
-                                                    return data;
-                                                }
-                                              },
-                                transformResponse: function(data, header) {
-                                  var wrapped = angular.fromJson(data);
-                                  angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
-                                  });
-                                  return wrapped;
-                                }
-                              }
-                        });
-  };
-
-  this.getEventResultsById = function(authToken, companyId, eventId) {
-                                                    console.log('getEventResultsById');
-    return $resource( ApiParams.baseUrl + '/events/' + eventId + '/results',
-                        {},
-                        // should do a GET call to /events/:eventId
-                        {getEventResultsById:{ method: 'GET',
-                                headers: {'Accept': 'application/json'},
-                                params: {auth_token: authToken, company_id: companyId},
-                                isArray: true,
-                                interceptor: {
-                                                response: function (data) {
-                                                    // console.log('response in interceptor', data);
-                                                    return data;
-                                                },
-                                                responseError: function (data) {
-                                                    // console.log('error in interceptor', data);
-                                                    return data;
-                                                }
-                                              },
-                                transformResponse: function(data, header) {
-                                  var wrapped = angular.fromJson(data);
-                                  angular.forEach(wrapped.items, function(item, idx) {
-                                     wrapped.items[idx] = new Get(item); //<-- replace each item with an instance of the resource object
-                                  });
-                                  return wrapped;
-                                }
-                              }
-                        });
-  };
-
-  this.setEvents = function(events) {
-    eventList = events;
-  };
-
-  this.getFacetByName = function(facetName) {
-    var myFacet =  [];
-    for (var i = 0, facet; facet = eventList.facets[i++];) {
-      if (facet.label.toLowerCase() == facetName.toLowerCase()) {
-        myFacet = facet.items;
-        break;
-      }
-    };
-    return myFacet;
-  };
-}])
-
-
-.service('Event', ['$resource', function($resource) {
-  return $resource('//stage.brandscopic.com/api/v1/events/:id.:format', {auth_token: '@token', format: 'json', company_id: '@company_id'},
-  {
-        'all'    : { method: 'GET', isArray: true }
-
-      , 'get'    : { method: 'GET' }
-
-      , 'create' : { method: 'POST'
-                     , headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'}
-                     , transformRequest: dataChanger('event')
-                  }
-
-      , 'save'   : { method: 'PUT'
-                     , headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'}
-                     , transformRequest: dataChanger('event')
-                  }
-  });
-}])
-.service('LoginManager', ['$cookieStore','UserService', 'CompanyService','SessionRestClient', 'User', function($cookieStore, UserService, CompanyService, SessionRestClient, User) {
+.service('LoginManager', ['$cookieStore','UserService', 'CompanyService','Session', 'User', function($cookieStore, UserService, CompanyService, Session, User) {
   this.login = function (authToken, email, currentCompanyId, currentCompanyName, permissions) {
     UserService.currentUser.auth_token = authToken;
     UserService.currentUser.email = email;
@@ -433,29 +112,30 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
     CompanyService.currentCompany.name = loginData.currentCompanyName;
   };
   this.logout = function (authToken, loggedOutCallback, errorLoggingOutCallback) {
-    var
-      session = new SessionRestClient.logout(authToken)
-    , promise = session.logout().$promise
+      var
+          credentials = { id: authToken }
+        , actions = { success: function (login) {
+                                  UserService.currentUser.auth_token = "";
+                                  UserService.currentUser.isLogged = false;
+                                  UserService.currentUser.email = "";
+                                  $cookieStore.remove('sessionData');
+                                  if (loggedOutCallback != null) {
+                                    loggedOutCallback();
+                                  }
+                      }
+                    , error: function (login_error) {
+                                  UserService.currentUser.auth_token = "";
+                                  UserService.currentUser.isLogged = false;
+                                  UserService.currentUser.email = "";
+                                  $cookieStore.remove('sessionData');
+                                  if (errorLoggingOut != null) {
+                                    errorLoggingOutCallback(response);
+                                  }
+                                  return false;
+                      }
+                    }
 
-    promise.then(function(response) {
-        UserService.currentUser.auth_token = "";
-        UserService.currentUser.isLogged = false;
-        UserService.currentUser.email = "";
-        $cookieStore.remove('sessionData');
-        if (loggedOutCallback != null) {
-          loggedOutCallback();
-        }
-      });
-    promise.catch(function(response) {
-      UserService.currentUser.auth_token = "";
-      UserService.currentUser.isLogged = false;
-      UserService.currentUser.email = "";
-      $cookieStore.remove('sessionData');
-      if (errorLoggingOut != null) {
-        errorLoggingOutCallback(response);
-      }
-      return false;
-    });
+      Session.logout(credentials, actions)
   };
   this.isLogged = function () {
     return $cookieStore.get('sessionData') != null;

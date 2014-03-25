@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($q, $scope, $rootScope, $state, $timeout, snapRemote, $sce, UserService, UserInterface, CompanyService, SessionRestClient, Event, $location, $http, Notification, LoginManager, HistoryService) {
+  , controller = function($q, $scope, $rootScope, $state, $timeout, snapRemote, $sce, UserService, UserInterface, CompanyService, Event, $location, $http, Notification, LoginManager, HistoryService) {
 
   if( !LoginManager.isLogged() ) {
     $state.go('login')
@@ -152,7 +152,6 @@ module.controller('homeCtrl'
                                            , 'UserService'
                                            , 'UserInterface'
                                            , 'CompanyService'
-                                           , 'SessionRestClient'
                                            , 'Event'
                                            , '$location'
                                            , '$http'
