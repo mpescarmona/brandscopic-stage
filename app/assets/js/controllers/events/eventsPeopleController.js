@@ -103,7 +103,21 @@ var module = angular.module('brandscopicApp.controllers')
                              }
         }
 
-   Event.find(credentials, actions)
+    $scope.customPermissionsHandler = function() {
+      ui.hasAddIcon = UserService.permissionIsValid('events_add_contacts');
+      angular.extend(UserInterface, ui);
+      if (UserService.permissionIsValid('events_contacts')) {
+        $scope.showPeople = 'contacts';
+      } else {
+        $scope.showPeople = 'team';
+      }
+    };
+
+    $scope.getObservableProperties = function() {
+      return ['eventTeamItems', 'eventContactItems'];
+    };
+
+    Event.find(credentials, actions)
 }
 
 module.controller('EventsPeopleController'

@@ -531,4 +531,4 @@ angular.module('brandscopicApp', [
 
 }]);
 
-angular.module('brandscopicApp.services.permissions', []);
+angular.module('brandscopicApp.services.permissions', ['brandscopicApp.services']);

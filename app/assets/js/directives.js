@@ -244,11 +244,15 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
 
           handlePermissions(permissionsService.elementsVisiblePermissions, function(key, permissions) {
             var elementsShouldBeVisible = true;
-            for (var i = 0; i < permissions.length; i++) {
-              if (!UserService.permissionIsValid(permissions[i])) {
-                elementsShouldBeVisible = false;
-                break;
+            if (permissions instanceof Array) {
+              for (var i = 0; i < permissions.length; i++) {
+                if (!UserService.permissionIsValid(permissions[i])) {
+                  elementsShouldBeVisible = false;
+                  break;
+                }
               }
+            } else {
+              elementsShouldBeVisible = permissions.customHandler();
             }
             if (!elementsShouldBeVisible) {
               element.find(key).hide();
@@ -257,17 +261,26 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
 
           handlePermissions(permissionsService.hyperlinksEnabledPermissions, function(key, permissions) {
             var elementsShouldBeLinkable = true;
-            for (var i = 0; i < permissions.length; i++) {
-              if (!UserService.permissionIsValid(permissions[i])) {
-                elementsShouldBeLinkable = false;
-                break;
+            if (permissions instanceof Array) {
+              for (var i = 0; i < permissions.length; i++) {
+                if (!UserService.permissionIsValid(permissions[i])) {
+                  elementsShouldBeLinkable = false;
+                  break;
+                }
               }
+            } else {  //In this case, we have a custom handler
+              elementsShouldBeLinkable = permissions.customHandler();
             }
+
 
             if (!elementsShouldBeLinkable) {
               element.find(key).off();
             }
           });
+
+          if (scope.customPermissionsHandler) {
+            scope.customPermissionsHandler();
+          }
         
         }
 

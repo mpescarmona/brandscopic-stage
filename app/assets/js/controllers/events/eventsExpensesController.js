@@ -61,6 +61,11 @@ var module = angular.module('brandscopicApp.controllers')
                                 }
          }
 
+      $scope.customPermissionsHandler = function() {
+        ui.hasAddIcon = UserService.permissionIsValid('events_create_expenses');
+        angular.extend(UserInterface, ui);
+      }
+
       Event.find(credentials, actions)
 
     }
