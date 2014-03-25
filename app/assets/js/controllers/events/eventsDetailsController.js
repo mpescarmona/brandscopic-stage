@@ -22,7 +22,6 @@ var module = angular.module('brandscopicApp.controllers')
 
                   }
       };
-  PermissionsHandler.handlePermissions(['events_show']);
   Event.find(credentials, actions)
 }
 
