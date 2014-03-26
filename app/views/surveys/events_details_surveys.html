@@ -1,3 +1,4 @@
+<needs-permissions provider="eventSurveysPermissionsService">
 <div class="container" ng-show="showSurveys">
 	<div class="box-container np events surveys">
 		<ul class="events list swipe-list">
@@ -12,7 +13,7 @@
 						</p>
 					</div>
 					<div class="edit-only-panel actions-panel" >
-					 	<button class="noButton edit" ng-click="editSurvey(survey.id)"></button>
+					 	<button class="noButton edit survey-edit-button" ng-click="editSurvey(survey.id)"></button>
 					</div>
 				</div>
 			</li>
@@ -26,5 +27,4 @@
 	<h6>There aren't any surveys for the event</h6>
 	<h6><b>Tip:</b> Tap the <span class="glyphicon glyphicon-plus"></span> button above to<br>conduct a new survey.</h6>
 </div> -->
-
-
+</needs-permissions>

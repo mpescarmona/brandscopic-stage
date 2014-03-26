@@ -13,7 +13,9 @@ angular.module('brandscopicApp.services.permissions')
 				return elementsShouldBeVisible;
 			}
 		},
-		'#expenses-button': ['events_expenses']
+		'#expenses-button': ['events_expenses'],
+		'#photos-button': ['events_photos'],
+		'#surveys-button': ['events_surveys']
 	};
 	this.hyperlinksEnabledPermissions = {};
 }]);
