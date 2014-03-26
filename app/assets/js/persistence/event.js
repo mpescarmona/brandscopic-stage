@@ -31,7 +31,7 @@ angular.module('persistence.event', ['ngResource', 'util.jsonToFormData', 'brand
 
       , 'filterEvents'  : {
                             method: 'GET',
-                            url: ApiParams.baseUrl + '/events.:format', format: 'json', auth_token: '@token', company_id: '@company_id', campaign: '@campaign', place: '@place', user: '@user', brand: '@brand', event_status: '@event_status'
+                            url: ApiParams.baseUrl + '/events.:format', format: 'json', auth_token: '@token', company_id: '@company_id', campaign: '@campaign', place: '@place', user: '@user', brand: '@brand', brand_portfolio: '@brand_portfolio', venue: '@venue', event_status: '@event_status'
                           }
 
       , 'results'       : {
