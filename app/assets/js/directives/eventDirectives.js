@@ -3,7 +3,6 @@ angular.module('brandscopicApp.eventDirectives', [])
         "use strict";
 
         var link = function (scope, element, attrs) {
-          console.log('EventsFilterDirective executed');
           scope.getEventBorderColor = function (event_status) {
               var classSelected;
               switch(event_status) {
