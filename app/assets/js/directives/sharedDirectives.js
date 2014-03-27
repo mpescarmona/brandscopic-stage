@@ -49,11 +49,7 @@ angular.module('brandscopicApp.sharedDirectives', [])
                     },
               select: function(event, ui) {
                       if(ui.item != null && ui.item != undefined) {
-                          if(attrs.source == "events") {
-                            scope.$broadcast("RESULT_SEARCH", { id: ui.item.id, type: ui.item.category });
-                          } else {
-                            scope.$broadcast("RESULT_SEARCH", { id: ui.item.value, type: ui.item.type });
-                          }
+                          scope.$broadcast("RESULT_SEARCH", { id: ui.item.id, type: ui.item.type });
                       }
                       return false;
                     }

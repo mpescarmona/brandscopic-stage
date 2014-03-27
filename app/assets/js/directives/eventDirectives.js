@@ -40,24 +40,31 @@ angular.module('brandscopicApp.eventDirectives', [])
             };
 
             scope.$watch("filter", function (value) {
-                var campaign = [], place = [], user = [], brand = [];
+              console.log(value);
+                var campaign = [], place = [], user = [], brand = [], brand_portfolio = [], venue = []; 
                 if(value !== "" || value !== undefined) {
                     switch(value.type) {
-                      case scopic.consts.events_typeahead_categories.CAMPAIGNS:
+                      case scopic.consts.events_typeahead_categories.CAMPAIGN:
                           campaign.push(value.id);
                           break;
-                      case scopic.consts.events_typeahead_categories.BRANDS:
+                      case scopic.consts.events_typeahead_categories.BRAND:
                           brand.push(value.id);
                           break;
-                      case scopic.consts.events_typeahead_categories.PLACES:
+                      case scopic.consts.events_typeahead_categories.BRAND2:
+                          brand_portfolio.push(value.id);
+                          break;
+                      case scopic.consts.events_typeahead_categories.PLACE:
                           place.push(value.id);
                           break;
-                      case scopic.consts.events_typeahead_categories.USERS:
+                      case scopic.consts.events_typeahead_categories.USER:
                           user.push(value.id);
+                          break;
+                      case scopic.consts.events_typeahead_categories.VENUE:
+                          venue.push(value.id);
                           break;
                     }
 
-                    eventService.getEventsByFilters(campaign, place, user, brand).then( function (response) {
+                    eventService.getEventsByFilters(campaign, place, user, brand, brand_portfolio, venue).then( function (response) {
                         scope.eventsItems = response.results;
                     });
                 }
