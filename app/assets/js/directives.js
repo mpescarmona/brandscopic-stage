@@ -254,7 +254,6 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
         }
 
         function doWork() {
-          console.log('Permissions directive executed');
           var permissionsServiceName = attrs.provider;
           if (permissionsServiceName == null) {
             throw 'The permissions directive lacks a provider';

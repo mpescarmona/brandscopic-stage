@@ -8,9 +8,9 @@ var module = angular.module('brandscopicApp.controllers')
 
     // Inherit from base controller.
     angular.extend(this, new eventsSurveysParentController($scope, surveysService));
-
+    
     snapRemote.close()
-
+    $scope.permissionsProvider = "eventSurveysAddPermissionsService";
     var
         ui = {title: "Survey", hasMenuIcon: false, hasDeleteIcon: true, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: true, hasEditSurveyIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, searching: false, eventSubNav: "surveys", AddIconState: "", hasAddPhoto: false}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }

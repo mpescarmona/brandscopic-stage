@@ -58,7 +58,12 @@ var module = angular.module('brandscopicApp.controllers')
               $scope.venuesItems = response.results
           })
       }
-    })
+    });
+
+    $scope.customPermissionsHandler = function(){
+      ui.hasAddIcon = UserService.permissionIsValid('venues_create');
+      angular.extend(UserInterface, ui);
+    };
 }
 
 module.controller('VenuesController'

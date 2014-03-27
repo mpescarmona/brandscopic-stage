@@ -11,4 +11,10 @@ angular.module('brandscopicApp.services.permissions')
 	this.pagePermissions = ['events_create_surveys'];
 	this.elementsVisiblePermissions = {};
 	this.hyperlinksEnabledPermissions = {};
+})
+
+.service('eventSurveysEditPermissionsService', function(){
+	this.pagePermissions = ['events_edit_surveys'];
+	this.elementsVisiblePermissions = {};
+	this.hyperlinksEnabledPermissions = {};
 });

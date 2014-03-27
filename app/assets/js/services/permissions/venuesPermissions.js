@@ -1,12 +1,12 @@
 angular.module('brandscopicApp.services.permissions')
-.service('eventsPhotosPermissionsService', function(){
-	this.pagePermissions = ['events_photos'];
+.service('venuesPermissionsService', function(){
+	this.pagePermissions = ['venues'];
 	this.elementsVisiblePermissions = {};
 	this.hyperlinksEnabledPermissions = {};
 })
 
-.service('eventsPhotosAddPermissionsService', function(){
-	this.pagePermissions = ['events_create_photos'];
+.service('venuesPermissionsAddService', function(){
+	this.pagePermissions = ['venues_create'];
 	this.elementsVisiblePermissions = {};
 	this.hyperlinksEnabledPermissions = {};
 });
