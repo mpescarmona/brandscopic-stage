@@ -1,0 +1,131 @@
+@singlebutton: 70px;
+@dualbutton: 100px;
+
+.row-width(@value){
+  width: ~"-webkit-calc(100% + @{value})";
+  width: ~"-moz-calc(100% + @{value})";
+  width: ~"calc(100% + @{value})";
+}
+.row-content-width(@value){
+  width: ~"-webkit-calc(100% - @{value})";
+  width: ~"-moz-calc(100% - @{value})";
+  width: ~"calc(100% - @{value})";
+}
+
+.swipe-list li, .swipe-list .list{
+  overflow: hidden;
+}
+
+.row-content{
+  float: left;
+}
+.actions-panel{
+  float: right;
+}
+
+.single-button{
+  &.row{
+    .row-width(@singlebutton);
+  }
+  .row-content{
+    .row-content-width(@singlebutton);
+  }
+}
+.dual-button{
+  &.row{
+    .row-width(@dualbutton);
+  }
+  .row-content{
+    .row-content-width(@dualbutton);
+  }
+}
+
+.action-buttons {
+  -webkit-transition:margin linear 0.1s;
+  -moz-transition:margin linear 0.1s;
+  -o-transition:margin linear 0.1s;
+  transition:margin linear 0.1s;
+  display:block!important;
+}
+.action-buttons.ng-hide {
+  display: block !important;
+}
+
+/*-- SINGLE ACTION PANEL STYLES --*/
+
+.single-button.action-buttons{
+  margin-left: -@singlebutton !important;
+}
+
+.single-button.action-buttons.ng-hide{
+  margin-left: 0 !important;
+}
+
+/*-- TWO ACTIONS PANEL STYLES --*/
+
+.dual-button.action-buttons{
+  margin-left: -@dualbutton !important;
+}
+
+.dual-button.action-buttons.ng-hide{
+  margin-left: 0 !important;
+}
+
+.dual-button.action-buttons.ng-hide.late, .dual-button.action-buttons.ng-hide.submitted, .dual-button.action-buttons.ng-hide.rejected, .dual-button.action-buttons.ng-hide.approve {
+  margin-left: 3px !important;
+  height: 50px;
+  margin-top: 5px;
+}
+
+.dual-button.action-buttons.ng-hide.due{
+  margin-top: 5px; 
+  margin-left: 3px !important;
+  height: 50px;
+  border-left: 4px solid white;
+}
+
+
+
+
+/*expandible comments*/
+/*FIXME: future improvement, calculate the height from font size*/
+
+.expandible-comment{
+  .margin-data{
+    max-height: 190px;
+    position: relative;
+    overflow: hidden;
+    padding: 13px 13px 0 13px;
+    margin-bottom: 13px;
+    .full-comment{
+      position: absolute;
+      top: 164px;
+      background: white;  /*pls replace with variable*/
+      width: 100%;
+      cursor: pointer;
+      padding: 4px 0 15px;
+      &:before{
+        display: inline;
+        content: attr(data-content-collapsed); /* this allows content stay in views instead of css, will allow future translations*/
+      }
+    }
+  }
+  &.expanded{
+    .margin-data{
+      max-height: inherit;
+    }
+    .full-comment{
+      position: relative;
+      top: inherit;
+      padding: 0;
+      &:before{
+        display: inline;
+        content: attr(data-content-expanded);
+      }
+      &:after{
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid #3e9ccf; /*pls replace with variable*/
+      }
+    }
+  }
+}
