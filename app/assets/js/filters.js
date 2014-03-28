@@ -19,6 +19,19 @@ angular.module('brandscopicApp.filters', [])
     }
   })
 
+.filter('validatePermissions', function() {
+  return function(array) {
+    var filteredMembers = [];
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].visible !== false) {
+        filteredMembers.push(array[i]);
+      }
+    }
+
+    return filteredMembers;
+  };
+})
+
 .filter('timeago', function () {
     //time: the time
     //local: compared to what time? default: now
@@ -93,8 +106,8 @@ angular.module('brandscopicApp.filters', [])
           , months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
           , days = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY']
 
-        if (time.getDate() == local.getDate())           result = 'TODAY'
-        else if (time.getDate() == tomorrow.getDate())   result = 'TOMORROW'
+        if (time.getDate() === local.getDate() && time.getMonth() === local.getMonth())           result = 'TODAY'
+        else if (time.getDate() === tomorrow.getDate() && time.getMonth() === tomorrow.getMonth())   result = 'TOMORROW'
         else                                             result = days[ time.getDay() ] + ', ' + months[time.getMonth()] + ' ' + time.getDate()
 
         return result
