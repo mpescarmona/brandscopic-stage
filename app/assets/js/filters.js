@@ -106,9 +106,14 @@ angular.module('brandscopicApp.filters', [])
           , months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
           , days = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY']
 
-        if (time.getDate() === local.getDate() && time.getMonth() === local.getMonth())           result = 'TODAY'
-        else if (time.getDate() === tomorrow.getDate() && time.getMonth() === tomorrow.getMonth())   result = 'TOMORROW'
-        else                                             result = days[ time.getDay() ] + ', ' + months[time.getMonth()] + ' ' + time.getDate()
+        if (time.getDate() === local.getDate() && time.getMonth() === local.getMonth() && time.getFullYear() === local.getFullYear()) {
+          result = 'TODAY';
+        } else if (time.getDate() === tomorrow.getDate() && time.getMonth() === tomorrow.getMonth() && time.getFullYear() === tomorrow.getFullYear()) {
+          result = 'TOMORROW';
+        }  
+        else {
+          result = days[ time.getDay() ] + ', ' + months[time.getMonth()] + ' ' + time.getDate() + ' ' + time.getFullYear();
+        }
 
         return result
     }
