@@ -26,7 +26,8 @@ angular.module('brandscopicApp', [
   'model.photos',
   'persistence.photos',
   'model.surveys',
-  'persistence.surveys'
+  'persistence.surveys',
+  'infinite-scroll'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
   //

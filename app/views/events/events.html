@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-2 filter" ng-repeat="filter in filters" ng-class="{active: event_status==filter.id}">
-					<a ng-click="filterStatus('{{filter.id}}')">
+					<a ng-click="filterStatus('{{filter.id}}', true)">
 						<div class="number">{{filter.count | totalCount}}</div>
 						<p>{{filter.label}}</p>
 					</a>
@@ -12,11 +12,9 @@
 		</div>
 	</div>
 
-
-	<div ng-show="showEvents" class="showEvents">
-		<scopic-event-filter filter="filter" events-items="eventsItems"></scopic-event-filter>
-	</div>
-
+<div ng-show="showEvents" class="showEvents" infinite-scroll="nextPage()" infinite-scroll-disabled="isLoadingEvents()" infinite-scroll-immediate-check="false">
+	<scopic-event-filter filter="filter" events-items="eventsItems"></scopic-event-filter>
+</div>
 
 	<!-- No events -->
 	<div class="empty" ng-hide="showEvents">
