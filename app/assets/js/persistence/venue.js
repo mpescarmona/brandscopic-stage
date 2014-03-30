@@ -40,7 +40,7 @@ angular.module('persistence.venue', ['ngResource', 'util.jsonToFormData', 'brand
 
       , 'filterVenues'  : {
                             method: 'GET',
-                            url: ApiParams.baseUrl + '/venues.:format', format: 'json', auth_token: '@token', company_id: '@company_id', campaign: '@campaign', place: '@place', user: '@user', brand: '@brand', page : '@page'
+                            url: ApiParams.baseUrl + '/venues.:format', format: 'json', auth_token: '@token', company_id: '@company_id', campaign: '@campaign', brand: '@brand', brand_portfolio: '@brand_portfolio', company_user: '@company_user', team: '@team', area: '@area', page : '@page'
                           }
 
       , 'venuesAutocomplete':   {

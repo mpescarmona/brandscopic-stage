@@ -49,10 +49,12 @@ scopic.consts = Object.freeze({
         UNAWARE: "unaware"
     },
     events_typeahead_categories: {
-        CAMPAIGNS: "Campaigns",
-        BRANDS: "Brands",
-        PLACES: "Places",
-        USERS: "Users"
+        CAMPAIGN: "campaign",
+        BRAND: "brand",
+        BRAND2: "brand_portfolio",
+        PLACE: "place",
+        USER: "user",
+        VENUE: "venue"
     },
     event_status: {
         APPROVED: "Approved",

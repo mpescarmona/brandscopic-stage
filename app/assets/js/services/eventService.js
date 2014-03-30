@@ -15,7 +15,7 @@ angular.module('brandscopicApp.eventService', []).
                                 searchResult = [];
                                 angular.forEach(items, function (item) {
                                     angular.forEach(item.value, function (subItem) {
-                                            searchResult.push({ category: item.label, label: subItem.label, id: subItem.value });
+                                            searchResult.push({ category: item.label, label: subItem.label, id: subItem.value, type: subItem.type });
                                         });
                                     });
                                 defer.resolve(searchResult)
@@ -30,10 +30,10 @@ angular.module('brandscopicApp.eventService', []).
             return defer.promise;
         }
 
-        var _getEventsByFilters = function (campaign, place, user, brand) {
+        var _getEventsByFilters = function (campaign, place, user, brand, brand_portfolio, venue) {
             var defer = $q.defer();
             var
-              credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'campaign[]': campaign, 'place[]': place, 'user[]': user, 'brand[]': brand }
+              credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'campaign[]': campaign, 'place[]': place, 'user[]': user, 'brand[]': brand, 'brand_portfolio[]': brand_portfolio, 'venue[]': venue }
             , actions = {
                 success: function (items) {
                             defer.resolve(items)

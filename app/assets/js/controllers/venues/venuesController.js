@@ -29,25 +29,31 @@ var module = angular.module('brandscopicApp.controllers')
     $scope.$emit("SEARCH_DIRECTIVE", "venues")
 
     // This listener is waiting for the item selected in the search result in order to refresh the venues list.
-    $scope.$on("RESULT_SEARCH", function (event, filter) {
-        var campaign = [], place = [], user = [], brand = []
-     
-          switch(filter.type) {
-            case "campaign":
-                campaign.push(filter.id)
-                break
-            case "brand":
-                brand.push(filter.id)
-                break
-            case "place":
-                place.push(filter.id)
-                break
-            case "user":
-                user.push(filter.id)
-                break
+    $scope.$on("RESULT_SEARCH", function (event, data) {
+      console.log(data);
+        var area = [],  brand = [], brand_portfolio = [], campaign = [],  company_user = [],  team = [];
+          switch(data.type) {
+              case "campaign":
+                  campaign.push(data.id);
+                  break;
+              case "brand":
+                  brand.push(data.id);
+                  break;
+              case "brand_portfolio":
+                  brand_portfolio.push(data.id);
+                  break;
+              case "area":
+                  area.push(data.id);
+                  break;
+              case "company_user":
+                  company_user.push(data.id);
+                  break;
+              case "team":
+                  team.push(data.id);
+                  break;
           }
 
-          venueService.getVenuesByFilters(campaign, place, user, brand).then( function (response) {
+          venueService.getVenuesByFilters(area, brand, brand_portfolio, campaign, company_user, team).then( function (response) {
               $scope.venuesItems = response.results
           })
     })

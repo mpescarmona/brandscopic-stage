@@ -39,7 +39,7 @@ angular.module('brandscopicApp.venueService', []).
                                 searchResult = [];
                                 angular.forEach(items, function (item) {
                                     angular.forEach(item.value, function (subItem) {
-                                            searchResult.push({ category: item.label, label: subItem.label, value: subItem.value, type: subItem.type });
+                                            searchResult.push({ category: item.label, label: subItem.label, id: subItem.value, type: subItem.type });
                                         });
                                     });
                                 defer.resolve(searchResult)
@@ -58,10 +58,10 @@ angular.module('brandscopicApp.venueService', []).
          * Get the a list of venues by a params. 
          * If any param is not set brings all venues
          */
-        var _getVenuesByFilters = function (campaign, place, user, brand, page) {
+        var _getVenuesByFilters = function (area, brand, brand_portfolio, campaign, company_user, team) {
             var defer = $q.defer();
             var
-              credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'campaign[]': campaign, 'place[]': place, 'user[]': user, 'brand[]': brand, page: page }
+              credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'area[]': area, 'brand[]': brand, 'brand_portfolio[]': brand_portfolio, 'campaign[]': campaign, 'company_user[]': company_user, 'team[]': team }
             , actions = {
                 success: function (items) {
                             defer.resolve(items)
