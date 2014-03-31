@@ -10,6 +10,7 @@ angular.module('brandscopicApp', [
   'ngTouch',
   'brandscopicApp.filters',
   'brandscopicApp.services',
+  'brandscopicApp.services.permissions',
   'brandscopicApp.directives',
   'brandscopicApp.controllers',
   'brandscopicApp.animations',
@@ -25,7 +26,8 @@ angular.module('brandscopicApp', [
   'model.photos',
   'persistence.photos',
   'model.surveys',
-  'persistence.surveys'
+  'persistence.surveys',
+  'infinite-scroll'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
   //
@@ -529,3 +531,5 @@ angular.module('brandscopicApp', [
         scopic.injectConst($rootScope);
 
 }]);
+
+angular.module('brandscopicApp.services.permissions', ['brandscopicApp.services']);

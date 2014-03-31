@@ -24,20 +24,41 @@ angular.module('brandscopicApp.eventDirectives', [])
                 }
                 return classSelected;
             };
-
-            scope.getLastOfDateButtonClass = function (event) {
-              return event.start_date_LAST_OF_GROUP ? "last_of_group" : "";
-            };
-
-            scope.handleEventClick = function(permission, path) {
-              if (UserService.permissionIsValid(permission)) {
-                $window.location.href = path;
+          scope.getEventBorderColor = function (event_status) {
+              var classSelected;
+              switch(event_status) {
+                case scopic.consts.event_status.APPROVED:
+                  classSelected = 'approve';
+                  break;
+                case scopic.consts.event_status.LATE:
+                  classSelected = 'late';
+                  break;
+                case scopic.consts.event_status.DUE:
+                  classSelected = 'due';
+                  break;
+                case scopic.consts.event_status.SUBMITTED:
+                  classSelected = 'submitted';
+                  break;
+                case scopic.consts.event_status.REJECTED:
+                  classSelected = 'late';
+                  break;
               }
-            };
+              return classSelected;
+          };
 
-            scope.permissionIsValid = function(permission) {
-              return UserService.permissionIsValid(permission);
-            };
+          scope.getLastOfDateButtonClass = function (event) {
+            return event.start_date_LAST_OF_GROUP ? "last_of_group" : "";
+          };
+
+          scope.handleEventClick = function(permission, path) {
+            if (UserService.permissionIsValid(permission)) {
+              $window.location.href = path;
+            }
+          };
+
+          scope.permissionIsValid = function(permission) {
+            return UserService.permissionIsValid(permission);
+          };
 
             scope.$watch("filter", function (value) {
               console.log(value);

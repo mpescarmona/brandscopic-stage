@@ -6,6 +6,7 @@ var module = angular.module('brandscopicApp.controllers')
       return
     }
     snapRemote.close()
+
     $scope.photosList = {}
     $scope.photoForm = {
         key: "",
@@ -28,6 +29,12 @@ var module = angular.module('brandscopicApp.controllers')
                                     $scope.eventId = $stateParams.eventId
                               }
        }
+
+    $scope.customPermissionsHandler = function() {
+      var hasAddIcon = UserService.permissionIsValid('events_create_photos');
+      ui.hasAddPhoto = hasAddIcon;
+      angular.extend(UserInterface, ui);
+    };
 
     Event.find(credentials, actions)
 

@@ -205,6 +205,129 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
 
     };
   })
+  .directive('needsPermissions', ['UserService', '$injector', '$state', '$timeout', function(UserService, $injector, $state, $timeout){
+    //This directive is used in order to separate the permissions handling from the controllers and views, and to set a 
+    //framework to follow when setting permissions.
+    //The directive has to be used with a "provider" attribute, which should point to the name of an injectable service with 
+    //the following properties:
+    //  pagePermissions: An array which describes what permissions the user needs in order to access the page. If one
+    //    of them is not valid, then the user is redirected to an error page.
+    //  elementsVisiblePermissions: Should be an object with the following structure:
+    //      'key': permissions 
+    //    key: a selector of elements that should or not be visible. Can point to an id with '#idName' or to a class with '.className'.
+    //    permissions: can be an array with the permissions, or an object with the following structure:
+    //      {
+    //        events: [array of events that the handler needs],
+    //        customHandler: function() { a custom handler that returns true if the elements should be visible
+    //          or false if they should be invisible. This form is used if you need to override the default logic of the 
+    //          directive. }
+    //      }
+    //  hyperlinksEnabledPermissions: The same as elementsVisiblePermissions, but determines if the components should
+    //    or should not respond to click actions.
+    //
+    //  If you need to further expand the logic of the permissions check beyond the current capabilities of the directive,
+    //  you can set a 'customPermissionsHandler()' function on the scope of the controller, which will be called by the directive
+    //  in order to perform logic on the controller.
+    //
+    //  A shortcoming I could not fix, is that if the controller loads data using AJAX you need to register it with the directive by setting 
+    //  on the scope a function called 'getObservableProperties()', which should return an array with the names of the 
+    //  properties in the scope that will hold the data coming back from the AJAX request. 
+    //  This is necessary because AngularJS doesn't provide an easy way to track changes to the child elements of the directive
+    //  and since some of the data is resolved asynchronously, the directive does its work with empty data before the data is retrieved from the API.
+    //  Since listening to all the changes on the DOM would be to taxative on the CPU, we have to selectively say what variables we want to watch closely for changes.
+
+    return {
+      restrict: 'AE',
+      link: function(scope, element, attrs) {
+        function handlePermissions(permissions, permissionsHandler) {
+          if (permissions instanceof Array) {
+            for (var i = 0; i < permissions.length; i++) {
+              var permission = permissions[i];
+              permissionsHandler(permission);
+            }
+          }
+          else if (permissions !== null && typeof permissions === 'object') {
+            for (var key in permissions) {
+              permissionsHandler(key, permissions[key]);
+            }
+          }
+        }
+
+        function doWork() {
+          var permissionsServiceName = attrs.provider;
+          if (permissionsServiceName == null) {
+            throw 'The permissions directive lacks a provider';
+          }
+          
+          var permissionsService = $injector.get(permissionsServiceName);
+          if (permissionsService == null) {
+            throw 'The permissions provider could not be found';
+          }
+
+          handlePermissions(permissionsService.pagePermissions, function(permission) {
+            if (!UserService.permissionIsValid(permission)) {
+              $state.go('home.forbidden');
+              return;
+            }
+          });
+
+          handlePermissions(permissionsService.elementsVisiblePermissions, function(key, permissions) {
+            var elementsShouldBeVisible = true;
+            if (permissions instanceof Array) {
+              for (var i = 0; i < permissions.length; i++) {
+                if (!UserService.permissionIsValid(permissions[i])) {
+                  elementsShouldBeVisible = false;
+                  break;
+                }
+              }
+            } else {
+              elementsShouldBeVisible = permissions.customHandler();
+            }
+            if (!elementsShouldBeVisible) {
+              element.find(key).hide();
+            }
+          });
+
+          handlePermissions(permissionsService.hyperlinksEnabledPermissions, function(key, permissions) {
+            var elementsShouldBeLinkable = true;
+            if (permissions instanceof Array) {
+              for (var i = 0; i < permissions.length; i++) {
+                if (!UserService.permissionIsValid(permissions[i])) {
+                  elementsShouldBeLinkable = false;
+                  break;
+                }
+              }
+            } else {  //In this case, we have a custom handler
+              elementsShouldBeLinkable = permissions.customHandler();
+            }
+
+
+            if (!elementsShouldBeLinkable) {
+              element.find(key).off();
+            }
+          });
+
+          if (scope.customPermissionsHandler) {
+            scope.customPermissionsHandler();
+          }
+        
+        }
+
+        //We need this in order to know what variables in the scope might change after load time 
+        //probably because of an AJAX query, in order to apply the permissions on new items.
+        if (scope.getObservableProperties) {
+          var propertiesToWatch = scope.getObservableProperties();
+          for (var i = 0; i < propertiesToWatch.length; i++) {
+            scope.$watch(propertiesToWatch[i], function() {
+              doWork();
+            }, true);
+          }
+        }
+        //Hack to make sure that the directive will fire AFTER ng-repeat's are executed.
+        $timeout(function() {doWork();}, 0);
+      }
+    };
+  }])
 
   .directive('showPhoto', function(){
     return function (scope, $el, attr) {

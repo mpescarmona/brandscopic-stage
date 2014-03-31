@@ -29,6 +29,16 @@ var module = angular.module('brandscopicApp.controllers')
                               }
        }
 
+
+    $scope.customPermissionsHandler = function(){
+      ui.hasAddIcon = UserService.permissionIsValid('events_create_surveys');
+      angular.extend(UserInterface, ui);
+    };
+
+    $scope.getObservableProperties = function() {
+      return ['suveySumaryList'];
+    };
+
     Event.find(credentials, actions)
 
     $scope.showSurveys = false

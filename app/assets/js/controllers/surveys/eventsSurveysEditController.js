@@ -14,7 +14,7 @@ var module = angular.module('brandscopicApp.controllers')
     var survey_id = $stateParams.survey_id
     angular.extend(UserInterface, ui)
     $scope.UserInterface = UserInterface
-
+    $scope.permissionsProvider = "eventSurveysEditPermissionsService";
     function buildSurveyForEdit (surveys_answers) {
         angular.forEach(surveys_answers, function (answer) {
             switch(answer.kpi_id) {

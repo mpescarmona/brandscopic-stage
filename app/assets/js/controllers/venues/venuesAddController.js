@@ -71,8 +71,9 @@ var module = angular.module('brandscopicApp.controllers')
     Venue.create(credentials, actions, $scope.venue)
   }
 
-  $scope.getCountries()
-  $scope.getVenueTypes()
+
+  $scope.getCountries();
+  $scope.getVenueTypes();
 
 }
 

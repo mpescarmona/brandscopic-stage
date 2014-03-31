@@ -106,9 +106,14 @@ angular.module('brandscopicApp.filters', [])
           , months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
           , days = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY']
 
-        if (time.getDate() == local.getDate())           result = 'TODAY'
-        else if (time.getDate() == tomorrow.getDate())   result = 'TOMORROW'
-        else                                             result = days[ time.getDay() ] + ', ' + months[time.getMonth()] + ' ' + time.getDate()
+        if (time.getDate() === local.getDate() && time.getMonth() === local.getMonth() && time.getFullYear() === local.getFullYear()) {
+          result = 'TODAY';
+        } else if (time.getDate() === tomorrow.getDate() && time.getMonth() === tomorrow.getMonth() && time.getFullYear() === tomorrow.getFullYear()) {
+          result = 'TOMORROW';
+        }  
+        else {
+          result = days[ time.getDay() ] + ', ' + months[time.getMonth()] + ' ' + time.getDate() + ' ' + time.getFullYear();
+        }
 
         return result
     }
@@ -180,4 +185,44 @@ angular.module('brandscopicApp.filters', [])
 
     return filtered
     }
-  });
+  })
+
+.filter('allowedNotifications', ['UserService', function(UserService) {
+  var neededPermissionsMap = {
+      event_recaps_due: ['events'],
+      event_recaps_late: ['events'],
+      event_recaps_pending: ['events'],
+      event_recaps_rejected: ['events'],
+      new_event: ['events', 'events_show']
+    };
+
+  function notificationShouldBeShown(notification) {
+    if (neededPermissionsMap[notification.type] == null) {  //We are still not handling the event type with permissions
+      return true;
+    } else {
+      var neededPermissions = neededPermissionsMap[notification.type];
+      var showNotification = true;
+      for (var i = 0; i < neededPermissions.length; i++) {
+        showNotification = UserService.permissionIsValid(neededPermissions[i]);
+        if (!showNotification) {
+          break;
+        }
+      }
+      return showNotification;
+    }
+  }
+  return function (notifications) {
+    if (notifications == null) {
+      return;
+    }
+
+    var filteredNotifications = [];
+    for (var i = 0; i < notifications.length; i++) {
+      if (notificationShouldBeShown(notifications[i])) {
+        filteredNotifications.push(notifications[i]);
+      }
+    }
+
+    return filteredNotifications;
+  };
+}]);

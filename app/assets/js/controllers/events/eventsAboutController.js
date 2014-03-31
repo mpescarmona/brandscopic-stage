@@ -173,14 +173,6 @@ var module = angular.module('brandscopicApp.controllers')
       }
       Event.update(credentials, actions, $scope.event)
     }
-
-    $scope.shouldShowEditButton = function() {
-      return UserService.permissionIsValid('events_edit');
-    };
-
-    $scope.shouldShowDeactivateButton = function() {
-      return UserService.permissionIsValid('events_deactivate');
-    };
   }
 
 module.controller('EventsAboutController'
