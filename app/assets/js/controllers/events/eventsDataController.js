@@ -93,6 +93,11 @@ var module = angular.module('brandscopicApp.controllers')
                    }
         Event.updateResults(credentials, actions, data)
       }
+        $scope.isActive = false;
+    $scope.showMoreText = function () {
+      alert("coco")
+        $scope.isActive = true;
+    }
 }
 
 module.controller('EventsDataController'
