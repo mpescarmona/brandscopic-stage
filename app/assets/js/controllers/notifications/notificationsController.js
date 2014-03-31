@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($scope, Notification, snapRemote, UserService, CompanyService, $state, UserInterface) {
+  , controller = function($scope, Notification, snapRemote, UserService, CompanyService, $state, UserInterface, allowedNotificationsFilter) {
     //This function is used in order to save the scope of the id parameter.
     function actionCreator(destinationState, parameters) {
       return function() {
@@ -16,7 +16,9 @@ var module = angular.module('brandscopicApp.controllers')
     var credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, 'status[]': 'Active' };
     var actions = {
       success: function(notifications) {
-        var viewModel = [];
+        var viewModel = [];        
+        notifications = allowedNotificationsFilter(notifications);
+
         for (var i = 0; i < notifications.length; i++) {
           var notification = notifications[i];
           var destinationState = null;
@@ -63,4 +65,5 @@ module.controller('NotificationsController'
                                            , 'CompanyService'
                                            , '$state'
                                            , 'UserInterface'
+                                           , 'allowedNotificationsFilter'
                                           ]
