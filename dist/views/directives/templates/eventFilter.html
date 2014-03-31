@@ -1,0 +1,32 @@
+ 
+<!-- Events Container -->
+<div when-scrolled="nextPage()" class="pages">
+  <div class="container events-list" ng-repeat="event in eventsItems | orderBy:['start_date','start_time'] | groupBy:'start_date' | filter:event_status | filter:{status:'Active'}" ng-show="!UserInterface.searching">
+    <div class="dividersBar" ng-show="event.start_date_CHANGED">{{event.start_date | eventDate}}</div>
+    <div class="box-container events-list np" ng-show="!UserInterface.searching">
+      <div class="events list swipe-list" go-to>
+        <div ng-show="!UserInterface.searching" class="list">
+          <div class="row action-buttons dual-button" ng-class="[getEventBorderColor(event.event_status), getLastOfDateButtonClass(event)]" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="handleEventClick('events_show', '#/home/events/{{event.id}}/about')">
+            <!--approved: event_status=='Approved'-->
+            <div class="row-content">
+              <div class="col-xs-3 eventHour">
+                <p class="xs">{{event.start_time}}</p>
+                <p class="xs">{{event.end_time}}</p>
+              </div>
+              <div class="col-xs-9 eventDescription">
+                <h5 class="txtAdjust">{{event.campaign.name}}</h5>
+                <p class="medium txtAdjust second">{{event.place.name}}, {{event.place.city}}, {{event.place.state}}</p>
+              </div>
+            </div>
+            <div class="editpanel actions-panel">
+              <!-- <a href="#" class="edit" stop-event='click' redirect-to="#home/events/{{event1.id}}/edit"></a> -->
+              <!-- <a href="#" class="deactivate" stop-event='click' ng-click="deleteEvent(event)"></a> -->
+              <button type="button" ng-show="permissionIsValid('events_edit')" class="noButton edit" stop-event='click' ng-click="goTo('#home/events/{{event.id}}/edit')"></button>
+              <button type="button" ng-show="permissionIsValid('events_deactivate')" class="noButton deactivate" ng-class="getLastOfDateButtonClass(event)" stop-event='click' ng-click="deleteEvent(event)"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

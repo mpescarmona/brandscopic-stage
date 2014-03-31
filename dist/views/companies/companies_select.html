@@ -1,0 +1,14 @@
+<!-- Changing companies -->
+<div class="container">
+	<div class="box-container np events mt5">
+		<ul class="companies-list">
+			<li class="txtAdjust" ng-repeat="company in companies">
+				<div class="row" ng-class="{selected: currentCompany.id==company.id}" ng-click="chooseCompany({{company.id}}, '{{company.name}}')">
+					<div class="col-xs-10 company">
+						<h5 class="txtAdjust">{{company.name}}</h5>
+					</div>
+					<div class="col-xs-2"></div>
+				</div>
+			</li>
+		</ul>
+	</div>

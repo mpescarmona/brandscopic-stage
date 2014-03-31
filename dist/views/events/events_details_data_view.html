@@ -1,0 +1,78 @@
+<!-- Events - DATA VIEW--> 
+
+<div class="container">
+	<div class="dividersBar big">SUMMARY</div>
+	<div class="box-container events">
+		<p class="medium">{{event.summary}}</p>
+		<span class="blue full-comment" ng-click="expand = !expand" data-content-expanded="Collapse comment" data-content-collapsed="Show full comment"></span>
+ 		<br> 
+		<ul class="stats">
+			<li ng-repeat="item in progressBarData">
+				<div class="row">
+					<div class="col-xs-6">
+						<p class="number">{{item.value}}</p>
+						<p class="category">{{item.name}}</p>
+					</div>
+					<div class="col-xs-6">
+						<div class="progress">
+						  <div class="progress-bar" role="progressbar" aria-valuenow="{{item.percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{item.percentage}}%;">
+						  </div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+
+		<ul class="stats simple mt20">
+			<li>
+				<div class="row">
+					<div class="col-xs-6">
+						<p class="number">$1.29</p>
+					</div>
+					<div class="col-xs-6">
+						<p class="category">/IMPRESSION</p>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="row">
+					<div class="col-xs-6">
+						<p class="number">$1.78</p>
+					</div>
+					<div class="col-xs-6">
+						<p class="category">/INFLUENCE</p>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="row">
+					<div class="col-xs-6">
+						<p class="number">$2.12</p>
+					</div>
+					<div class="col-xs-6">
+						<p class="category">/SAMPLE</p>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="dividersBar big">DEMOGRAPHICS</div>
+	<div class="box-container">
+		<div class="row sex">
+			<div class="col-xs-7 male blue">
+				<p class="percent">{{Male}}%</p>
+				<h5 class="blue">MALE</h5>
+			</div>
+			<div class="col-xs-5 female blue">
+				<p class="percent">{{Female}}%</p>
+				<h5 class="blue">FEMALE</h5>
+			</div>
+		</div>
+		<div class="row highcharts-container">
+            <highchart id="ageChart" config="ageChart" class="span10"></highchart>
+		</div>
+		<div class="row highcharts-container">
+            <highchart id="ethnicityChart" config="ethnicityChart" class="span10"></highchart>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,97 @@
+
+/* Smartphones (landscape) ------------------------- */
+
+@media only screen and (min-width : 481px) {
+
+	/*-- FIXED STYLES ON PHOTOS GALLERY --*/
+
+	body.appLayout .container{
+		&.description{
+			bottom: -10px;
+			z-index: 300;
+			position: absolute;
+			padding: 0 0 5px 0;
+			width: 100%;
+		}
+		&.slider{
+			width:auto;
+		}
+	}
+
+	.empty{
+		height: 100%;
+		margin: 16% auto 0 auto;
+		&.people{
+			margin: 20% auto;
+			h6:last-child{
+				bottom: 30px;
+				font-weight: 600;
+				width: 100%;
+				position: absolute;
+				margin-bottom: 0;
+				line-height: 21px;
+			}
+		}
+		h6:last-child{
+			margin-bottom: 15px;
+		}
+	}
+
+	.navHeader{
+		ul.dropdown-menu{
+			width: 85%;
+		}
+		.events_search{
+			.typeahead{
+				width: 86%;
+			}		
+		}
+
+		.btn-cancel{
+			width: 14% !important;
+		}
+	}
+
+	.ui-autocomplete{
+		top: 31px;
+		width: 82.7%;
+	}
+
+	.slider{
+		position: absolute;
+		left: 4%;
+		width: auto;
+		right: 4%;
+		top: 11px;
+		z-index: 100;
+	}
+
+	.gallery ul li{
+		height: 200px;
+	}
+
+	.gallery_fullscreen{
+		height: 100%;
+		padding-top:0;
+		&.expenses{
+			img{
+				max-height: none;
+			}
+		}
+	}
+	.slider{
+		position: absolute;
+		left: 4%;
+		width: auto;
+		right: 4%;
+		top: 11px;
+	}
+	.slide{
+		top: -60px;
+	}
+
+	/*-- FIXED STYLES ON SUBNAV --*/
+	.subnav ul.scrollplane{
+		width: 98%;
+	}
+}

@@ -1,0 +1,18 @@
+<div class="container" ng-show="hasPhotos">
+	<div class="box-container photos clearfix">
+		<div class="gallery">
+			<ul id="event-gallery" class="clearfix">
+				<li ng-repeat="photo in photos">
+    				<a href="#home/venues/{{venue.id}}/photos/slider/{{$index}}"><img ng-src="{{ photo.file_small }}"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="empty" ng-hide="hasPhotos">
+	<span class="no-photo"></span>
+	<h4>No Photos</h4>
+	<h6>There aren't any photos that have<br>been uploaded to this venue</h6>
+	<h6><b>Tip:</b> You can upload photos from the <br> Photos section on any Event Details<br>screen.</h6>
+</div>

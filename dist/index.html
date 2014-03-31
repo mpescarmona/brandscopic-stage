@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" ng-app="brandscopicApp">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+    <title>Brandscopic Mobile App</title>
+
+<!--
+    <script type="text/javascript">
+        less = {
+            env: "development", // or "production"
+            async: false,       // load imports async
+            fileAsync: false,   // load imports async when in a page under
+                                // a file protocol
+            poll: 1000,         // when in watch mode, time in ms between polls
+            functions: {},      // user functions, keyed by name
+            dumpLineNumbers: "comments", // or "mediaQuery" or "all"
+            relativeUrls: false,// whether to adjust url's to be relative
+                                // if false, url's are already relative to the
+                                // entry less file
+            rootpath: ":/a.com/"// a path to add on to the start of every url
+                                //resource
+        };
+    </script>
+-->
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/stylesheets/6743a83a.brandscopic-mobile.min.css"/>
+
+    <!-- Scripts -->
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
+
+    <!-- Meta Vieport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  </head>
+  <body ng-controller="MainController" ng-class="{loginLayout: !UserService.isLogged(), appLayout: UserService.isLogged()}">
+
+
+      <div ui-view window-resize-thingy></div>
+
+      <!-- Le Javascript -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script src='//code.angularjs.org/1.2.7/angular.js'></script>
+      <script src='//code.angularjs.org/1.2.7/angular-resource.js'></script>
+      <script src='//code.angularjs.org/1.2.7/angular-animate.js'></script>
+      <script src='//code.angularjs.org/1.2.7/angular-touch.js'></script>
+
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
+  
+      <script src="js/f0a7d703.brandscopic-mobile.min.js"></script>
+    </div>
+  </body>
+</html>
