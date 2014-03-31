@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" ng-app="brandscopicApp">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+    <title>Brandscopic Mobile App</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet/less" type="text/css" href="assets/stylesheets/application.less" />
+    <link rel="stylesheet" href="assets/stylesheets/brandscopic-mobile.min.css"/>
+
+    <!-- Scripts -->
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
+
+    <!-- Meta Vieport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  </head>
+  <body ng-controller="MainController" ng-class="{loginLayout: !UserService.isLogged(), appLayout: UserService.isLogged()}">
+
+      <div ui-view window-resize-thingy></div>
+
+      <!-- Le Javascript -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
+
+      <script src="js/angular1.2.7-min.js"></script>
+
+      <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+
+      <script src="js/less-min.js"></script>
+  
+      <script src="js/brandscopic-mobile.min.js"></script>
+    </div>
+  </body>
+</html>

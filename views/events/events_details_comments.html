@@ -1,0 +1,27 @@
+<!-- Events - COMMENTS VIEW -->  
+
+<div class="container">
+	<div class="box-container np">
+		<ul class="comments">
+			<li ng-repeat="comment in comments | orderBy:'created_at':true" class="expandible-comment" ng-class="{'expanded': expand, 'collapsed': !expand, lastItem: $last}">
+				<div class="margin-data">
+					<p class="comment-date small">{{comment.created_at | timeago}}</p>
+					<p class="clearfix medium">{{comment.content}}</p>
+					<span class="blue full-comment" ng-click="expand = !expand" data-content-expanded="Collapse comment" data-content-collapsed="Show full comment"></span>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+<!-- No Comments 
+
+<div class="empty">
+	<span class="no-comments"></span>
+	<h4>No Comments</h4>
+	<h6>There aren't any comments for the event</h6>
+	<h6><b>Tip:</b> Tap the <span class="glyphicon glyphicon-plus"></span> button above to add a<br>comment.</h6>
+</div>
+
+-->

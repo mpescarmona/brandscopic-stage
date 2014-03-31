@@ -1,0 +1,26 @@
+<!-- Event Details Container - ABOUT VIEW-->
+<div class="google-map">
+	<map zoom-control="false" center="{{[event.place.latitude,event.place.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
+  <marker position="{{[event.place.latitude,event.place.longitude]}}" title="{{event.place.name||'venue'}}"></marker>
+</div>
+<a href="#/home/events/{{event.id}}/map" class="fullscreen"></a>
+<div class="container">
+	<!-- DYNAMIC ALERT -->
+	<div class="{{alert.style}}">
+		<p ng-bind-html="alert.message"></p>
+	</div>
+	<div class="box-container events eventDetails">
+		<h5>{{event.campaign.name}}</h5>
+		<div class="date-data">
+			{{event.start_date}}<br>
+			{{event.start_time}} - {{event.end_time}}
+		</div>
+		<div class="place-data">
+			<a href="#" class="blue">{{event.place.name}}</a>
+			<div class="address">{{event.place.formatted_address}}</div>
+			<div class="state">{{event.place.state_name}}, {{event.place.state}}, {{event.place.zipcode}}</div>
+		</div>
+		<button type="button" ng-show="shouldShowEditButton()" class="btn-default btn-sm edit" redirect-to="{{editUrl}}"></button>
+		<button type="button" ng-show="shouldShowDeactivateButton()" class="btn-default btn-sm deactivate" ng-click="deleteEvent(event)"></button>
+	</div>
+</div>

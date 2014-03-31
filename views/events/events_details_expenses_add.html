@@ -1,0 +1,31 @@
+<!-- EVENTS - ADD EXPENSES VIEW -->
+
+<div class="container">
+	<form>
+  	<div class="box-container events expenses np">
+  		<div class="row">
+  			<div class="col-xs-7 expenses-details">
+  				<label class="medium">Name</label>
+  				<input type="text" ng-model="event_expense.name"></input>
+  				<label class="medium mt15">Amount</label>
+  				<div class="input-group">
+  					<span class="input-group-addon">$</span>
+  			  	<input type="number" class="form-control" ng-model="event_expense.amount">
+  				</div>
+  			</div>
+  			<div class="col-xs-4 expenses-attach pull-right">
+  				<div class="fileUpload">
+            <img class="receipt-img show-preview">
+  				  <p>Attach receipt</p>
+  				  <input ng-model='image' type="file" class="upload" id="upload-recipit-input" accept="image/*"/ data-aws show-photo>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+    <div class="row">
+      <div class="col-xs-12">
+        <input type="submit" value="save" class="hide" data-trigger-on-header='save' ng-click="triggerExpense(expense)">
+      </div>
+    </div>
+	</form>
+</div>

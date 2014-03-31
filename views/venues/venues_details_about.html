@@ -1,0 +1,40 @@
+<!-- VENUES DETAILS - ABOUT -->
+
+<div class="google-map">
+	<map zoom-control="false" center="{{[venue.latitude,venue.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
+  <marker position="{{[venue.latitude,venue.longitude]}}" title="{{venue.name||'venue'}}"></marker>
+</div>
+<!--<a href="#/home/events/{{event.id}}/map" class="fullscreen"></a>-->
+
+<a href="#/home/venues/{{venue.id}}/map" class="fullscreen"></a>
+
+<!-- END OF THE MAP FOR VENUES -->
+
+<div class="container venues">
+	<div class="box-container venuesDetails">
+		<h5>{{venue.name}}</h5>
+		<div class="place-data">
+			<div class="address">{{venue.formatted_address}}</div>
+			<div class="country">{{venue.state}}, {{venue.country}}</div>
+			<!-- (979) 846-0211<br> -->
+			<!-- <a href="#" class="blue">www.foxandhound.com</a><br> -->
+			<!-- $$ Bar<br> -->
+			<div class="phone">Dont have phone</div>
+			<a href="#" class="blue">Dont have website</a>
+			<div class="bar">DONT HAVE $$ Bar</div>
+			<div class="code">{{venue.td_link_code}}</div>
+		</div>
+		<div class="time-data">
+			<ul>	
+				<li ng-repeat="open in opening">
+					<div class="day">
+			   		{{open.day}}
+			   	</div>
+			   	<div class="hour">
+			   		{{open.hours}}
+			   	</div>
+			  </li>
+			</ul>
+		</div>
+	</div>
+</div>
