@@ -763,6 +763,7 @@ body{
 		height: 100%;
 		position: absolute;
 		z-index: -10;
+		margin-top: -40px;
 	}
 }
 
@@ -935,7 +936,6 @@ body{
 	color: @txt;
 	height: 60px;
 	float: left;
-	position: fixed;
 	z-index: 99999;
 	width: 100%;
 	margin-bottom: 3px;
@@ -2162,11 +2162,12 @@ ul.stats{
 .female, .male{
 	box-sizing: border-box;
 	position: relative;
-	padding-left: 10%;
+	padding-left: 10% !important;
 	&:before{
 		font-size: 60px;
-		position: absolute;
-		bottom: -9px;
+		position: absolute !important;
+		left: -37px;
+		bottom: -11px;
 	}
 	.percent{
 		font-size: 34px;
