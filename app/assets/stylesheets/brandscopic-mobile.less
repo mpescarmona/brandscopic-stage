@@ -757,7 +757,7 @@ body{
 .google-map{
 	height: 142px;
 	margin-bottom: 5px;
-	margin-top: -5px;
+	margin-top: 37px;
 	width: 100%;
 	&.fullscreen{
 		height: 100%;
@@ -935,6 +935,8 @@ body{
 	color: @txt;
 	height: 60px;
 	float: left;
+	position: fixed;
+	z-index: 99999;
 	width: 100%;
 	margin-bottom: 3px;
 	.container{
@@ -974,7 +976,7 @@ body{
 		margin: 0 !important;
 	}
 	&.tasks{
-		margin-top: -5px;
+		margin-top: 37px;
 	}
 }
 
@@ -983,10 +985,12 @@ body{
 .subnav{
 	background-color: @txt;
 	margin-bottom: 5px;
-  overflow-x: auto;
-  overflow-y: none;
-  height: 37px;
-  width: 100%;
+	overflow-x: auto;
+	overflow-y: none;
+	position: fixed;
+	height: 37px;
+	width: 100%;
+	z-index: 99999;
 	ul.scrollplane{
 		height: 37px; // less than scroll container
 		width: 165%; // greater than scroll container;
@@ -2088,6 +2092,11 @@ html{min-height:100%;position:relative}
 	font-size: 88px;
 	left: 7px;
 }
+
+/*
+.showEvents{
+	padding-top: 65px;
+}*/
 
 
 /*-- DEMOGRAPHICS --*/
