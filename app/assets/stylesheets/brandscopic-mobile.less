@@ -757,7 +757,7 @@ body{
 .google-map{
 	height: 142px;
 	margin-bottom: 5px;
-	margin-top: 37px;
+	margin-top: -3px;
 	width: 100%;
 	&.fullscreen{
 		height: 100%;
@@ -976,7 +976,10 @@ body{
 		margin: 0 !important;
 	}
 	&.tasks{
-		margin-top: 37px;
+		margin-top: -3px;
+		&+.container{
+			padding-top: 60px;
+		}
 	}
 }
 
@@ -2359,3 +2362,10 @@ ul.stats{
 	border: 1px solid @borders !important;
 }
 
+.showEvents{
+	padding-top: 62px;
+}
+
+[ui-view="eventsDetail"], [ui-view="venuesDetail"]{
+	padding-top: 40px;
+}
