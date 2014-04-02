@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($q, $scope, $rootScope, $state, $timeout, snapRemote, $sce, UserService, UserInterface, CompanyService, Event, $location, $http, Notification, LoginManager, HistoryService) {
+  , controller = function($q, $scope, $rootScope, $state, $timeout, snapRemote, $sce, UserService, UserInterface, CompanyService, Event, $location, $http, Notification, LoginManager) {
 
   if( !LoginManager.isLogged() ) {
     $state.go('login')
@@ -92,22 +92,6 @@ var module = angular.module('brandscopicApp.controllers')
       $scope.photoForm.url = authForm.url
   })
 
-  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-    var numberOfPoints = toState.name.split('.').length - 1
-    var isGoingToARootPlace = numberOfPoints == 1
-    if (isGoingToARootPlace) {
-      HistoryService.clearHistory()
-      HistoryService.addState(toState)
-    } else {
-      if (toState.data && toState.data.parentShouldBeRemembered) {
-        HistoryService.addState(fromState)
-      }
-      if (toState.data && toState.data.shouldRememberInHistory) {
-        HistoryService.addState(toState)
-      }
-    }
-  })
-
   $scope.$on('CompanyChosen', function (event, companyId, companyName, permissions) {
     credentials.company_id = companyId
     var data = LoginManager.getCurrentSession()
@@ -157,5 +141,4 @@ module.controller('homeCtrl'
                                            , '$http'
                                            , 'Notification'
                                            , 'LoginManager'
-                                           , 'HistoryService'
                                           ]
