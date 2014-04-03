@@ -21,6 +21,10 @@ angular.module('brandscopicApp.filters', [])
 
 .filter('validatePermissions', function() {
   return function(array) {
+    if (array == null) {
+      return [];
+    }
+    
     var filteredMembers = [];
     for (var i = 0; i < array.length; i++) {
       if (array[i].visible !== false) {
