@@ -10,7 +10,13 @@
 	</div>
 </div>
 
-<div class="empty" ng-hide="hasPhotos">
+<!-- Loading -->
+<div class="loading" ng-show="loading">
+<h4>Loading</h4>
+</div>
+
+<!-- No Comments - Venues photos -->
+<div class="empty" ng-show="!hasPhotos && !loading">
 	<span class="no-photo"></span>
 	<h4>No Photos</h4>
 	<h6>There aren't any photos that have<br>been uploaded to this venue</h6>

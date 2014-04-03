@@ -36,10 +36,13 @@
 	</div>
 </div>
 
+<!-- Loading -->
+<div class="loading" ng-show="loading">
+	<h4>Loading</h4>
+</div>
 
 <!-- No Expenses -->
-
-<div class="empty" ng-hide="showExpenses">
+<div class="empty" ng-show="!showExpenses && !loading">
 	<span class="no-expenses"></span>
 	<h4>No Expenses</h4>
 	<h6>There aren't any expenses for the event</h6>

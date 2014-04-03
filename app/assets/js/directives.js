@@ -339,4 +339,20 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
         reader.readAsDataURL(e.target.files[0]);
       })
     }
+  })
+
+  .directive('loadingData', function(){
+    return {
+      restrict: 'E',
+      // template: '<div class="loading" ng-show="attrs.loading">
+      //             <h4>Cargando</h4>
+      //           </div>'
+      template: '<h4>Loading</h4>'
+      // link: function(scope, element, attrs) {
+      //     var loadingValue = attrs.loading;
+      //     if (loadingValue == null) {
+      //       throw 'The loadingData directive lacks a loading value';
+      //     }
+      // }
+    }
   });
