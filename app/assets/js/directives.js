@@ -354,9 +354,9 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
     return {
       restrict: 'E',
       // template: '<div class="loading" ng-show="attrs.loading">
-      //             <h4>Cargando</h4>
+      //             
       //           </div>'
-      template: '<h4>Loading</h4>'
+      template: ''
       // link: function(scope, element, attrs) {
       //     var loadingValue = attrs.loading;
       //     if (loadingValue == null) {
