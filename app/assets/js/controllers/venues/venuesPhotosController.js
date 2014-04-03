@@ -7,6 +7,7 @@ var module = angular.module('brandscopicApp.controllers')
     }
     snapRemote.close()
     $scope.hasPhotos = false
+    $scope.loading = true
 
     var
         ui = {}
@@ -20,6 +21,7 @@ var module = angular.module('brandscopicApp.controllers')
                                 var
                                     credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, venue_id: venue.id }
                                   , actions = { success: function(photos) {
+                                                            $scope.loading = false
                                                             if (photos.length)
                                                                   $scope.hasPhotos = true
 

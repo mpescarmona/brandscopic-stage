@@ -7,6 +7,7 @@ var module = angular.module('brandscopicApp.controllers')
     }
     snapRemote.close()
     $scope.showComments = false
+    $scope.loading = true
 
     var
         ui = {}
@@ -21,6 +22,7 @@ var module = angular.module('brandscopicApp.controllers')
                                   , actions = { success: function(comments) {
                                                             if (comments.length)
                                                                   $scope.showComments = true
+                                                            $scope.loading = false
 
                                                             $scope.comments = []
                                                             for(var i = 0, item; item = comments[i++];) {

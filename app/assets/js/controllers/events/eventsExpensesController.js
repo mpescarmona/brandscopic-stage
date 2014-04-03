@@ -13,10 +13,12 @@ var module = angular.module('brandscopicApp.controllers')
       }
 
       $scope.showExpenses = false
+      $scope.loading = true
       var
           ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasEditSurveyIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "expenses", AddIconState: "home.events.details.expenses.add"}
         , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = { success: function(event){
+                                      $scope.loading = false
                                       $scope.event = event
                                       $scope.expenses = {}
 
@@ -55,7 +57,10 @@ var module = angular.module('brandscopicApp.controllers')
                                                                         }
                                                                         return total
                                                                     }
-                                                               }
+                                                               },
+                                                      error: function(expenses_error) {
+                                                                    $scope.loading = false
+                                                      }
                                         }
                                       Expense.all(credentials, actions)
                                 }

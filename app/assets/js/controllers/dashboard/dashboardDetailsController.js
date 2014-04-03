@@ -25,10 +25,12 @@ function DashboardDetailsController($scope, $state, $stateParams, snapRemote, Us
 
     $scope.getCampaignName($stateParams.dashboardId)
     $scope.showDashboardDetails = false
+    $scope.loading = true
     var
         ui = {title: $scope.campaignName, hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, campaign_id: $stateParams.dashboardId }
       , actions = { success: function(statDetails) {
+                                $scope.loading = false
                                 $scope.dashboardDetailItems = statDetails
                                 if($scope.dashboardDetailItems.length) {
                                   $scope.showDashboardDetails = true

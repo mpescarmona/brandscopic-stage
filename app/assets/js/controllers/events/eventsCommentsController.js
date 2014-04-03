@@ -6,11 +6,14 @@ var module = angular.module('brandscopicApp.controllers')
     return
   }
   snapRemote.close()
+  $scope.showComments = false
+  $scope.loading = true
 
   var
       ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: true, hasSaveIcon: false, hasEditSurveyIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, eventSubNav: "comments", AddIconState: "home.events.details.comments.add", hasAddPhoto: false}
     , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
     , actions = { success: function(event) {
+                                  $scope.loading = false
                                   $scope.event = event
                                   $scope.eventId = $stateParams.eventId
 
@@ -23,6 +26,7 @@ var module = angular.module('brandscopicApp.controllers')
                                   var
                                       credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
                                     , action = { success: function(comments) {
+                                                                $scope.showComments = true
                                                                 $scope.comments = comments
                                                            }
                                               }

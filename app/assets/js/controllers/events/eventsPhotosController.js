@@ -7,6 +7,7 @@ var module = angular.module('brandscopicApp.controllers')
     }
     snapRemote.close()
 
+    $scope.loading = true
     $scope.photosList = {}
     $scope.photoForm = {
         key: "",
@@ -40,6 +41,7 @@ var module = angular.module('brandscopicApp.controllers')
 
     $scope.$on('createPhoto', function (e, data) {
       if ( data.render ){
+        $scope.loading = false
         $scope.hasPhotos = true
         $scope.photos.unshift({file_medium: data.src})
       }
@@ -51,6 +53,7 @@ var module = angular.module('brandscopicApp.controllers')
         $scope.photos = response.results
         $scope.photosCount = response.results.length
         $scope.hasPhotos =  (response.results.length && response.results.length > 0) ? true : false
+        $scope.loading = false
     })
     
     window['uploadNow'].bind({auth_token: UserService.currentUser.auth_token, company_id: CompanyService.getCompanyId(), event_id: $stateParams.eventId, url: 'http://stage.brandscopic.com/api/v1/events/'+ $stateParams.eventId +'/photos/form.json?'})

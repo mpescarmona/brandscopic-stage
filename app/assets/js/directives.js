@@ -75,13 +75,22 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
     };
   })
 
-  .directive('headerBackAction', ['$window', 'HistoryService', function ($window, HistoryService) {
+  .directive('headerBackAction', ['$window', '$state', function ($window, $state) {
     return {
       restrict: 'A',
       link: function (scope, $el, attr) {
         $el.on('click', function (e) {
-          HistoryService.goBack();
-          //scope.goBack ? scope.goBack() : $window.history.back()
+          if ($state.$current.data && $state.$current.data.specificParent) {
+            $state.go($state.$current.data.specificParent);
+            return;
+          }
+
+          var destinationState = $state.$current.parent;
+          while (destinationState.parent && ($state.$current.data && !$state.$current.data.parentShouldBeRemembered && !(destinationState.data && destinationState.data.shouldRememberInHistory))) {
+            destinationState = destinationState.parent;
+          }
+          $state.go(destinationState);
+          return;
         });
       }
     };
@@ -338,5 +347,21 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
         }
         reader.readAsDataURL(e.target.files[0]);
       })
+    }
+  })
+
+  .directive('loadingData', function(){
+    return {
+      restrict: 'E',
+      // template: '<div class="loading" ng-show="attrs.loading">
+      //             <h4>Cargando</h4>
+      //           </div>'
+      template: '<h4>Loading</h4>'
+      // link: function(scope, element, attrs) {
+      //     var loadingValue = attrs.loading;
+      //     if (loadingValue == null) {
+      //       throw 'The loadingData directive lacks a loading value';
+      //     }
+      // }
     }
   });

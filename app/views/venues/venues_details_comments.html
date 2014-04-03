@@ -22,10 +22,13 @@
 	</div>
 </div>
 
+<!-- Loading -->
+<div class="loading" ng-show="loading">
+<h4>Loading</h4>
+</div>
 
 <!-- No Comments - Venues -->
-
-<div class="empty" ng-hide="showComments">
+<div class="empty" ng-show="!showComments && !loading">
 	<span class="no-comments"></span>
 	<h4>No Comments</h4>
 	<h6>There aren't any comments for this venue</h6>

@@ -5,21 +5,26 @@ function DashboardController($scope, $state, snapRemote, UserService, CompanySer
     }
     snapRemote.close()
 
-
     $scope.showDashboard = false
+    $scope.loading = true
     var
         ui = {title: 'Dashboard', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, hasCustomHomeClass: false, searching: false}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
       , actions = { success: function(stats) {
+                                $scope.loading = false
                                 $scope.dashboardItems = stats
                                 if($scope.dashboardItems.length) {
                                   $scope.showDashboard = true
                                 }
                                 angular.extend(UserInterface, ui)
                                 $scope.UserInterface = UserInterface
-                              }
+                              },
+                    error: function(stats_error) {
+                                angular.extend(UserInterface, ui)
+                                $scope.UserInterface = UserInterface
+                                $scope.loading = false
+                    }
         }
-
     Campaign.stats(credentials, actions)
   }
 

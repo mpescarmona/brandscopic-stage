@@ -148,33 +148,6 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
     return $cookieStore.get('sessionData') != null;
   };
 }])
-.service('HistoryService', ['$state', function($state) {
-  this.states = [];
-
-  this.goBack = function () {
-    var state = this.states.pop();
-    //The popped state could be the same as the current one when hitting the back button twice in a row.
-    while (state != null && $state.current.name === state.name) {
-      state = this.states.pop();
-    }
-    if (state != null) {
-      $state.go(state);
-    }
-  };
-
-  this.addState = function (state) {
-    for(var i = this.states.length - 1; i >= 0; i--) {
-      if(this.states[i] === state) {
-         this.states.splice(i, 1);
-      }
-    }
-    this.states.push(state);
-  };
-
-  this.clearHistory = function () {
-    this.states = [];
-  };
-}])
 .service('PermissionsHandler', ['$state', 'UserService', function($state, UserService){
 
   //Permissions should be an array which contain the permissions a page needs to be accessible. 

@@ -10,6 +10,7 @@ var module = angular.module('brandscopicApp.controllers')
   // Options for User Interface in home partial
   $scope.UserInterface = UserInterface
   $scope.showEvents = false
+  $scope.loading = true
   var
       ui = {title: 'Events',hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: UserService.permissionIsValid('events_create'), hasSaveIcon: false, hasCancelIcon: false, hasCloseIcon: false, showEventSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.events.add",hasAddPhoto: false}
     , today = (new Date().getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear()
@@ -22,6 +23,8 @@ var module = angular.module('brandscopicApp.controllers')
                               var
                                   evt = []
                               isLoadingEvents = false;
+
+                              $scope.loading = false
                               for (var i = 0, len = events.length; i < len; i++) {
                                 if (events[i].status == 'Active')
                                   evt.push(events[i])

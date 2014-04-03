@@ -12,12 +12,17 @@
 		</div>
 	</div>
 
-<div ng-show="showEvents" class="showEvents" infinite-scroll="nextPage()" infinite-scroll-disabled="isLoadingEvents()" infinite-scroll-immediate-check="false">
-	<scopic-event-filter filter="filter" events-items="eventsItems"></scopic-event-filter>
-</div>
+	<div ng-show="showEvents" class="showEvents" infinite-scroll="nextPage()" infinite-scroll-disabled="isLoadingEvents()" infinite-scroll-immediate-check="false">
+		<scopic-event-filter filter="filter" events-items="eventsItems"></scopic-event-filter>
+	</div>
+
+	<!-- Loading -->
+	<div class="loading" ng-show="loading">
+		<h4>Loading</h4>
+	</div>
 
 	<!-- No events -->
-	<div class="empty" ng-hide="showEvents">
+	<div class="empty" ng-show="!showEvents && !loading">
 		<span class="no-events"></span>
 		<h4>No Events</h4>
 		<h6>You have no events scheduled</h6>

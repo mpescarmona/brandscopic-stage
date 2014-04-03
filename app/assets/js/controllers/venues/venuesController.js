@@ -8,11 +8,13 @@ var module = angular.module('brandscopicApp.controllers')
     snapRemote.close()
 
     $scope.showVenues = false
+    $scope.loading = true
     var
         ui = {title: 'Venues', hasMenuIcon: true, hasDeleteIcon: false, hasBackIcon: false, hasMagnifierIcon: true, hasAddIcon: true, hasSaveIcon: false, hasEditSurveyIcon: false, hasCancelIcon: false, hasCloseIcon: false, showVenueSubNav: true, hasCustomHomeClass: false, searching: false, AddIconState: "home.venues.add"}
       , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token }
       , options = { force: true }
       , actions = { success: function(venues) {
+                                $scope.loading = false
                                 $scope.venuesItems = venues
                                 if($scope.venuesItems.length) {
                                   $scope.showVenues = true

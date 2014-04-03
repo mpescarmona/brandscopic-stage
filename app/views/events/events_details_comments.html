@@ -14,14 +14,15 @@
 	</div>
 </div>
 
+<!-- Loading -->
+<div class="loading" ng-show="loading">
+	<h4>Loading</h4>
+</div>
 
-<!-- No Comments 
-
-<div class="empty">
+<!-- No Comments - Venues -->
+<div class="empty" ng-show="!showComments && !loading">
 	<span class="no-comments"></span>
 	<h4>No Comments</h4>
 	<h6>There aren't any comments for the event</h6>
 	<h6><b>Tip:</b> Tap the <span class="glyphicon glyphicon-plus"></span> button above to add a<br>comment.</h6>
 </div>
-
--->

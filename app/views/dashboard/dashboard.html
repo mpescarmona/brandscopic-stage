@@ -42,8 +42,13 @@
 	</div>
 </div>
 
+<!-- Loading -->
+<div class="loading" ng-show="loading">
+	<h4>Loading</h4>
+</div>
+
 <!-- No campaigns - DASHBOARD -->
-<div class="empty" ng-hide="showDashboard">
+<div class="empty" ng-show="!showDashboard && !loading">
 	<span class="no-campaigns"></span>
 	<h4>No Campaigns</h4>
 	<h6>You do not have any campaigns</h6>

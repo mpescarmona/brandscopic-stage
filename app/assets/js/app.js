@@ -111,7 +111,7 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: true
+        shouldRememberInHistory: false
       }
     })
     .state('home.events.details.edit', {
@@ -121,6 +121,7 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
+        specificParent: 'home.events.details.about',
         shouldRememberInHistory: false,
         parentShouldBeRemembered: true
       }
@@ -179,6 +180,7 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
+        specificParent: 'home.events.details.people',
         shouldRememberInHistory: false,
         parentShouldBeRemembered: true
       }
@@ -190,6 +192,7 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
+        specificParent: 'home.events.details.people',
         shouldRememberInHistory: false,
         parentShouldBeRemembered: true
       }
@@ -218,6 +221,7 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
+        specificParent: 'home.events.details.people',
         shouldRememberInHistory: false,
         parentShouldBeRemembered: true
       }
@@ -413,7 +417,7 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: true
+        shouldRememberInHistory: false
       }
     })
     .state('home.venues.details.about', {
