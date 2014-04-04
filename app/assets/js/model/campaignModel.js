@@ -47,7 +47,7 @@ angular.module('model.campaign', ['persistence.campaign'])
       }
       , statsResponse = function (actions) {
           return function(resp){
-            if (resp.length) {
+            if (resp) {
               stats = resp
               actions.success(angular.copy(stats))
             }
