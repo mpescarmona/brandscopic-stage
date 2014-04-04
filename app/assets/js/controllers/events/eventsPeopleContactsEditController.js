@@ -66,7 +66,7 @@ var module = angular.module('brandscopicApp.controllers')
                                                       // workaround to find the needed contact from contacts list
                                                       for(var i = 0, item; item = contacts[i++];) {
                                                         if (item.id == $stateParams.contactId) {
-                                                          $scope.contact = item
+                                                          $scope.contact = item;
                                                           break
                                                         }
                                                       }
