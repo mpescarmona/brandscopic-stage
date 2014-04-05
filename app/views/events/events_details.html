@@ -3,14 +3,15 @@
 <needs-permissions provider="eventsDetailsPermissionsService">
 <div class="subnav" ng-show="UserInterface.showEventSubNav">
 	<ul class="scrollplane">
-		<li ng-class="{active: UserInterface.eventSubNav=='about'}"><a href="#/home/events/{{eventId}}/about">ABOUT</a></li>
-		<li id="people-button" ng-class="{active: UserInterface.eventSubNav=='people'}"><a href="#/home/events/{{eventId}}/people">PEOPLE</a></li>
-		<li ng-class="{active: UserInterface.eventSubNav=='tasks'}"><a href="#/home/events/{{eventId}}/tasks">TASKS</a></li>
-		<li ng-class="{active: UserInterface.eventSubNav=='data'}" ng-show="UserInterface.can_enter_post_event_data"><a href="#/home/events/{{eventId}}/data">DATA</a></li>
-		<li id="photos-button" ng-class="{active: UserInterface.eventSubNav=='photos'}" ng-show="UserInterface.can_upload_photos"><a href="#/home/events/{{eventId}}/photos">PHOTOS</a></li>
-    	<li ng-class="{active: UserInterface.eventSubNav=='comments'}" ng-show="UserInterface.can_gather_comments"><a href="#/home/events/{{eventId}}/comments">COMMENTS</a></li>
-		<li id="expenses-button" ng-class="{active: UserInterface.eventSubNav=='expenses'}" ng-show="UserInterface.can_enter_expenses"><a href="#/home/events/{{eventId}}/expenses">EXPENSES</a></li>
-		<li id="surveys-button" ng-class="{active: UserInterface.eventSubNav=='surveys'}" ng-show="UserInterface.can_conduct_surveys"><a href="#/home/events/{{eventId}}/surveys">SURVEYS</a></li>
+		<!-- We put the empty <a>'s in order to not mess up the previous style -->
+		<li ng-class="{active: UserInterface.eventSubNav=='about'}" ng-click="handleBarClick('about')"><a>ABOUT</a></li>
+		<li id="people-button" ng-class="{active: UserInterface.eventSubNav=='people'}" ng-click="handleBarClick('people')"><a>PEOPLE</a></li>
+		<li ng-class="{active: UserInterface.eventSubNav=='tasks'}" ng-click="handleBarClick('tasks')"><a>TASKS</a></li>
+		<li ng-class="{active: UserInterface.eventSubNav=='data'}" ng-show="UserInterface.can_enter_post_event_data" ng-click="handleBarClick('data')"><a>DATA</a></li>
+		<li id="photos-button" ng-class="{active: UserInterface.eventSubNav=='photos'}" ng-show="UserInterface.can_upload_photos" ng-click="handleBarClick('photos')"><a>PHOTOS</a></li>
+  	<li ng-class="{active: UserInterface.eventSubNav=='comments'}" ng-show="UserInterface.can_gather_comments" ng-click="handleBarClick('comments')"><a>COMMENTS</a></li>
+		<li id="expenses-button" ng-class="{active: UserInterface.eventSubNav=='expenses'}" ng-show="UserInterface.can_enter_expenses" ng-click="handleBarClick('expenses')"><a>EXPENSES</a></li>
+		<li id="surveys-button" ng-class="{active: UserInterface.eventSubNav=='surveys'}" ng-show="UserInterface.can_conduct_surveys" ng-click="handleBarClick('surveys')"><a>SURVEYS</a></li>
 	</ul>
 </div>
 </needs-permissions>

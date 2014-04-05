@@ -22,6 +22,11 @@ var module = angular.module('brandscopicApp.controllers')
 
                   }
       };
+
+  $scope.handleBarClick = function(destinationState) {
+    var destination = 'home.events.details.' + destinationState;
+    $state.go(destination);
+  };
   Event.find(credentials, actions)
 }
 

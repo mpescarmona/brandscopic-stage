@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, PermissionsHandler) {
+  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, PermissionsHandler, $location) {
 
   if( !UserService.isLogged() ) {
     $state.go('login')
@@ -61,6 +61,7 @@ var module = angular.module('brandscopicApp.controllers')
 
   $scope.event_status = false
   $scope.filterStatus = function(status, shouldCleanList) {
+    $location.search('filter', status);
     $scope.event_status = status;
     if (shouldCleanList) {
       $scope.page = 1;
@@ -161,4 +162,5 @@ module.controller('eventsCtrl'
                                            , 'UserInterface'
                                            , 'Event'
                                            , 'PermissionsHandler'
+                                           , '$location'
                                           ]

@@ -4,7 +4,7 @@
 		<map zoom-control="false" center="{{[event.place.latitude,event.place.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
 	  <marker position="{{[event.place.latitude,event.place.longitude]}}" title="{{event.place.name||'venue'}}"></marker>
 	</div>
-	<a href="#/home/events/{{event.id}}/map" class="fullscreen"></a>
+	<a class="fullscreen" ng-click="openMap()"></a>
 	<div class="container">
 		<!-- DYNAMIC ALERT -->
 		<div class="{{alert.style}}">
@@ -21,7 +21,7 @@
 				<div class="address">{{event.place.formatted_address}}</div>
 				<div class="state">{{event.place.state_name}}, {{event.place.state}}, {{event.place.zipcode}}</div>
 			</div>
-			<button id="edit-button" type="button" class="btn-default btn-sm edit" redirect-to="{{editUrl}}"></button>
+			<button id="edit-button" type="button" class="btn-default btn-sm edit" ng-click="editEvent()"></button>
 			<button id="deactivate-button" type="button" class="btn-default btn-sm deactivate" ng-click="deleteEvent(event)"></button>
 		</div>
 	</div>

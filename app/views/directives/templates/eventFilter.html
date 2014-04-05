@@ -6,7 +6,7 @@
     <div class="box-container events-list np" ng-show="!UserInterface.searching">
       <div class="events list swipe-list" go-to>
         <div ng-show="!UserInterface.searching" class="list">
-          <div class="row action-buttons dual-button events-link" ng-class="[getEventBorderColor(event.event_status), getLastOfDateButtonClass(event)]" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="handleEventClick('events_show', '#/home/events/{{event.id}}/about')">
+          <div class="row action-buttons dual-button events-link" ng-class="[getEventBorderColor(event.event_status), getLastOfDateButtonClass(event)]" ng-swipe-left="showButtons = true" ng-swipe-right="showButtons = false" ng-show="showButtons" ng-animate="'animate'" ng-click="handleEventClick('events_show', 'home.events.details.about', {{event.id}})">
             <!--approved: event_status=='Approved'-->
             <div class="row-content">
               <div class="col-xs-3 eventHour">
