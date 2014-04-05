@@ -143,7 +143,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        specificParent: 'home.events.details.about'
       }
     })
     .state('home.events.details.people', {
@@ -437,7 +438,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        specificParent: 'home.venues.details.about'
       }
     })
     .state('home.venues.details.analysis', {
