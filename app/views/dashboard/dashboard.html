@@ -24,16 +24,16 @@
 		  			</div>
 
 		  			<div class="executed-label" style="margin-left: {{item.executed_percentage}}%">
-		  				<div><b>{{item.executed}}</b></div>
+		  				<div><b>{{item.executed | number}}</b></div>
 		  			</div>
 		  			<div class="scheduled-label" style="float: right; margin-right: {{item.remaining_percentage}}%">
-		  				<div><b>{{item.scheduled}}</b></div>
+		  				<div><b>{{item.scheduled | number}}</b></div>
 		  			</div>
 		  		</div>
 		  	</div>
 		  	<div class="col-xs-2">
 		  		<div class="remaining-label">
-		  			<b>{{item.remaining}}</b>
+		  			<b>{{item.remaining | number}}</b>
 						<span class="kpi-name">REMAINING<br/>{{item.kpi}}</span>
 					</div>
 	      </div>

@@ -50,6 +50,7 @@ angular.module('brandscopicApp.sharedDirectives', [])
               select: function(event, ui) {
                       if(ui.item != null && ui.item != undefined) {
                           scope.$broadcast("RESULT_SEARCH", { id: ui.item.id, type: ui.item.type });
+                          scope.searchEvent = ui.item.value;
                       }
                       return false;
                     }

@@ -363,5 +363,17 @@ angular.module('brandscopicApp.directives', ['brandscopicApp.services'])
       //       throw 'The loadingData directive lacks a loading value';
       //     }
       // }
-    }
+    };
+  })
+
+  .directive('onlyAcceptNumbers', function() {
+    return {
+      restrict: 'A',
+      link: function($scope, element, attr) {
+        element.on('keydown', function(e) {
+          var key = e.keyCode || e.charCode;
+           return key >= 48 && key <= 57; //If the value is a number, return true.
+        });
+      }
+    };
   });
