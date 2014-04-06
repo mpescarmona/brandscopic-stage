@@ -91,7 +91,8 @@ angular.module('brandscopicApp', [
             },
       data: {
         shouldRememberInHistory: true
-      }
+      },
+      reloadOnSearch: false
     })
     .state('home.events.add', {
       url: "/add",
