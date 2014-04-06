@@ -46,6 +46,9 @@ var module = angular.module('brandscopicApp.controllers')
                     isLoadingEvents = false;
                   }
       }
+
+  $scope.filter = "";
+  $scope.event_status = false;
   isLoadingEvents = true;
   $scope.$on('ALL_EVENT', function (event, param) {
     if(!param) {
@@ -59,10 +62,10 @@ var module = angular.module('brandscopicApp.controllers')
     }
   })
 
-  $scope.event_status = false
   $scope.filterStatus = function(status, shouldCleanList) {
-    $location.search('filter', status);
+    $stateParams.filter = status;
     $scope.event_status = status;
+    //$location.search('filter', status);
     if (shouldCleanList) {
       $scope.page = 1;
     }
@@ -129,8 +132,7 @@ var module = angular.module('brandscopicApp.controllers')
     deletedEvent.active = false
     Event.update(credentials, actions, deletedEvent)
   }
-  $scope.filter = "";
-  
+
   $scope.isLoadingEvents = function() {
     console.log('Loading events: ' + isLoadingEvents);
     return isLoadingEvents;
