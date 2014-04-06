@@ -53,7 +53,6 @@ angular.module('brandscopicApp.eventDirectives', [])
           scope.handleEventClick = function(permission, state, eventId) {
             if (UserService.permissionIsValid(permission)) {
               $state.go(state, {eventId: eventId});
-              //$window.location.href = path;
             }
           };
 
