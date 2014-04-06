@@ -58,6 +58,17 @@ body{
 				margin: 0;
 			}
 		}
+		.checkbox-selector{
+			input[type=checkbox] + label{
+				padding-left: 26px;
+				&:before{
+					left: -6px;
+				}
+			}
+			label{
+				color: @brand;
+			}
+		} 
 	}
 	&.appLayout{
 		background-color: @bg;
@@ -1012,6 +1023,9 @@ body{
 				color:white;
 				border-bottom: 3px solid @blue;
 			}
+			&:nth-child(3){
+				display: none;
+			}
 		}
 		&.venues{
 			margin-top: 0;
@@ -1632,7 +1646,7 @@ textarea{
 		color: #989898;
 	}
 	.forgot{
-		margin-top: 30px;
+		margin-top: 60px;
 		text-align: center;
 		button{
 			color: @brand;
