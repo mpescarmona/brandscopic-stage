@@ -40,13 +40,17 @@ var module = angular.module('brandscopicApp.controllers')
     Event.find(credentials, actions)
 
     $scope.$on('createPhoto', function (e, data) {
-      if ( data.render ){
+      if ( data.render ){ //In this case, we are uploading
         $scope.loading = false
         $scope.hasPhotos = true
         $scope.photos.unshift({file_medium: data.src})
+        $scope.uploading = true;
       }
-      else
+      else {  //Here we are done uploading and we have to send the img link to the server
         Photos.create(credentials, actions, data)
+        $scope.uploading = false;
+      }
+      $scope.$apply();
     })
 
     photosService.getPhotosList().then( function (response) {
@@ -56,6 +60,8 @@ var module = angular.module('brandscopicApp.controllers')
         $scope.loading = false
     })
     
+    $scope.uploading = false;
+    $scope.isUploading = function() { return uploading; };
     window['uploadNow'].bind({auth_token: UserService.currentUser.auth_token, company_id: CompanyService.getCompanyId(), event_id: $stateParams.eventId, url: 'http://stage.brandscopic.com/api/v1/events/'+ $stateParams.eventId +'/photos/form.json?'})
 }
 

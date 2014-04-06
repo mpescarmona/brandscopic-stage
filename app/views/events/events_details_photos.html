@@ -13,9 +13,14 @@
 	</div>
 
   <!-- Loading -->
-  <div class="loading" ng-show="loading">
-    <h4>Loading</h4>
-  </div>
+    <div class="loading" ng-show="loading">
+        <h4>Loading</h4>
+    </div>
+    
+    <!-- Uploading -->
+    <div ng-show="uploading">
+        Uploading your AWESOME pictures like a boss.
+    </div>
 
   <!-- No events -->
 	<div class="empty" ng-show="!hasPhotos && !loading">
