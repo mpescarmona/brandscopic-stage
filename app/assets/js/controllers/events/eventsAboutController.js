@@ -172,7 +172,17 @@ var module = angular.module('brandscopicApp.controllers')
         return
       }
       Event.update(credentials, actions, $scope.event)
-    }
+    };
+
+    $scope.openMap = function() {
+      $state.go('home.events.details.map');
+      return;
+    };
+
+    $scope.editEvent = function() {
+      $state.go('home.events.details.edit');
+      return;
+    };
   }
 
 module.controller('EventsAboutController'
