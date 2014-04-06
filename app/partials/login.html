@@ -26,8 +26,8 @@
       </div>
       <div class="checkbox-selector">
         <div class="checkbox clearfix">
-          <input type="checkbox" id="hola" name="logged" value="logged">
-          <label for="hola">Keep me logged in</label>
+          <input type="checkbox" id="loginCheckbox" name="logged" value="logged" ng-model="shouldKeepLoggedIn" ng-change="handleKeepMeLoggedInClicked(shouldKeepLoggedIn)">
+          <label for="loginCheckbox">Keep me logged in</label>
         </div>
       </div>
       <div class="col-xs-12 forgot">

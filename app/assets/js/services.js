@@ -2,14 +2,14 @@
 
 /* Services */
 
-angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.user', 'model.session'])
+angular.module('brandscopicApp.services', ['ngResource', 'model.user', 'model.session'])
 
 .service('ApiParams', function() {
     this.baseUrl = "http://stage.brandscopic.com/api/v1";
     this.basePort = "";
 })
 
-.service('UserService', ['$cookieStore', 'CompanyService', 'User', function($cookieStore, CompanyService, User) {
+.service('UserService', ['SessionService', 'CompanyService', 'User', function(SessionService, CompanyService, User) {
 	this.currentUser = {  isLogged: false
                     	, email: ''
                     	, auth_token: ''
@@ -18,7 +18,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                      }
 
   this.isLogged = function() {
-    var sessionData = $cookieStore.get('sessionData')
+    var sessionData = SessionService.get('sessionData')
 		return ( sessionData != null)
 	}
 
@@ -82,7 +82,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
   this.hasAddPhoto = false;
 })
 
-.service('LoginManager', ['$cookieStore','UserService', 'CompanyService','Session', 'User', function($cookieStore, UserService, CompanyService, Session, User) {
+.service('LoginManager', ['SessionService','UserService', 'CompanyService','Session', 'User', function(SessionService, UserService, CompanyService, Session, User) {
   this.login = function (authToken, email, currentCompanyId, currentCompanyName, permissions) {
     UserService.currentUser.auth_token = authToken;
     UserService.currentUser.email = email;
@@ -90,21 +90,21 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
     CompanyService.currentCompany.id = currentCompanyId;
     CompanyService.currentCompany.name = currentCompanyName;
     var sessionData = new SessionData(authToken, email, currentCompanyId, currentCompanyName, permissions);
-    $cookieStore.put('sessionData', sessionData);
+    SessionService.put('sessionData', sessionData);
   };
 
   this.saveSession = function(loginData) {
-    $cookieStore.put('sessionData', loginData);
+    SessionService.put('sessionData', loginData);
   };
 
   this.getCurrentSession = function() {
-    return $cookieStore.get('sessionData');
+    return SessionService.get('sessionData');
   }
 
   this.initializeSystem = function () {
     if (!this.isLogged()) return false;
 
-    var loginData = $cookieStore.get('sessionData');
+    var loginData = SessionService.get('sessionData');
     UserService.currentUser.auth_token = loginData.authToken;
     UserService.currentUser.email = loginData.email;
     UserService.currentUser.permissions = loginData.currentPermissions;
@@ -118,7 +118,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                                   UserService.currentUser.auth_token = "";
                                   UserService.currentUser.isLogged = false;
                                   UserService.currentUser.email = "";
-                                  $cookieStore.remove('sessionData');
+                                  SessionService.remove('sessionData');
                                   if (loggedOutCallback != null) {
                                     loggedOutCallback();
                                   }
@@ -127,7 +127,7 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
                                   UserService.currentUser.auth_token = "";
                                   UserService.currentUser.isLogged = false;
                                   UserService.currentUser.email = "";
-                                  $cookieStore.remove('sessionData');
+                                  SessionService.remove('sessionData');
                                   if (errorLoggingOut != null) {
                                     errorLoggingOutCallback(response);
                                   }
@@ -139,13 +139,13 @@ angular.module('brandscopicApp.services', ['ngResource', 'ngCookies', 'model.use
       UserService.currentUser.auth_token = "";
       UserService.currentUser.isLogged = false;
       UserService.currentUser.email = "";
-      $cookieStore.remove('sessionData');
+      SessionService.remove('sessionData');
       if (loggedOutCallback != null) {
         loggedOutCallback();
       }
   };
   this.isLogged = function () {
-    return $cookieStore.get('sessionData') != null;
+    return SessionService.get('sessionData') != null;
   };
 }])
 .service('PermissionsHandler', ['$state', 'UserService', function($state, UserService){
