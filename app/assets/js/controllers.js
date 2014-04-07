@@ -2,20 +2,21 @@
 
 /* Controllers */
 
-angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng', 'model.notification', 'model.company', 'model.session', 'ngCookies'])
-  .controller('MainController', ['$scope', 'UserService', function($scope, UserService) {
+angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', 'model.expense', 'model.comment', 'model.eventContact', 'model.eventTeam', 'model.contact', 'model.country', 'model.venue', 'highcharts-ng', 'model.notification', 'model.company', 'model.session'])
+  .controller('MainController', ['$scope', 'UserService', 'SessionService', function($scope, UserService, SessionService) {
     $scope.UserService = UserService;
     $scope.trigger = function (event, payload) {
       $scope.$broadcast(event, payload);
     }
   }])
 
-  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'Company', 'User', '$cookieStore','LoginManager', 'Session', function($scope, $state, UserService, CompanyService, Company, User, $cookieStore, LoginManager, Session) {
+  .controller('LoginController', ['$scope', '$state', 'UserService', 'CompanyService', 'Company', 'User', 'SessionService','LoginManager', 'Session', function($scope, $state, UserService, CompanyService, Company, User, SessionService, LoginManager, Session) {
     if (LoginManager.isLogged()) {
       $state.go('home.dashboard');
       return;
     }
 
+    $scope.shouldKeepLoggedIn = false;
     $scope.user = {'email': 'mpescarmona@gmail.com', 'password': 'Mario123'};
 
     $scope.wrongUser = null;
@@ -82,6 +83,11 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
       User.forgotPassword(credentials, actions)
     }
 
+    $scope.handleKeepMeLoggedInClicked = function(value) {
+      var storageType = value ? 'local' : 'session';
+      SessionService.setStorageType(storageType);
+    };
+
     $scope.keyUpClear = function (e) {
         this.nextSibiling.className = (this.value.length) ? 'type-reset hidden' : 'type-reset'
     }
@@ -96,4 +102,5 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
         this.previousSibiling.value = ''
     }
 
+    $scope.handleKeepMeLoggedInClicked($scope.shouldKeepLoggedIn);
   }])

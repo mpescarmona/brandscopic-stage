@@ -27,7 +27,8 @@ angular.module('brandscopicApp', [
   'persistence.photos',
   'model.surveys',
   'persistence.surveys',
-  'infinite-scroll'
+  'infinite-scroll',
+  'ngStorage'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
   //
@@ -144,7 +145,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        specificParent: 'home.events.details.about'
       }
     })
     .state('home.events.details.people', {
@@ -438,7 +440,8 @@ angular.module('brandscopicApp', [
                             }
             },
       data: {
-        shouldRememberInHistory: false
+        shouldRememberInHistory: false,
+        specificParent: 'home.venues.details.about'
       }
     })
     .state('home.venues.details.analysis', {
