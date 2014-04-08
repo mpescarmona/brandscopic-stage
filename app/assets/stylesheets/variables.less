@@ -412,8 +412,11 @@ h6{
 
 
 .loading{
-	background: url('../images/spinner.gif') no-repeat center center;
+	background: white url('../images/spinner.gif') no-repeat center center;
 	position: absolute;
 	height: 100%;
 	width: 100%;
+	&.uploading{
+		z-index: 999999;
+	}
 }

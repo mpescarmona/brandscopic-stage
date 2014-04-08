@@ -5,7 +5,8 @@
 			<div class="gallery">
 				<ul id="event-gallery" class="clearfix">
 					<li ng-repeat="photo in photos">
-                        <p ng-show="$first && uploading">Uploading</p>
+                        <p ng-show="$first && uploading" class="loading uploading">	
+                        </p>
 	                    <a href="#home/events/{{eventId}}/photos/slider/{{$index}}"><img ng-src="{{ photo.file_medium }}"></a>
 					</li>
 				</ul>
