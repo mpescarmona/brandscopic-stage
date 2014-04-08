@@ -17,7 +17,7 @@ var module = angular.module('brandscopicApp.controllers')
         , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = { success: function(event) {
                                       $scope.event = event
-                                      $scope.UserInterface.EditIconUrl = "#/home/events/" + $scope.event.id + "/data"
+                                      $scope.UserInterface.EditIconUrl = "#/home/events/" + $scope.event.id + "/data?edit"
 
                                       // Options for User Interface in home partial
                                       ui.title = event.campaign ? event.campaign.name : "Data"
