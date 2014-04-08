@@ -230,7 +230,7 @@ angular.module('brandscopicApp', [
       }
     })
     .state('home.events.details.data', {
-      url: "/data",
+      url: "/data?edit",
       views:{'eventsDetail@home.events.details':{ templateUrl: "views/events/events_details_data.html",
                               controller: 'EventsDataController'
                             }
