@@ -1,14 +1,14 @@
 <!-- Events - DATA VIEW--> 
 
 <div class="container">
-	<div class="dividersBar big">SUMMARY</div>
-	<div class="box-container events">
+	<div class="dividersBar big" ng-show="event.summary">SUMMARY</div>
+	<div class="box-container events" ng-show="event.summary">
 		<p class="medium">{{event.summary}}</p>
 		<span class="blue full-comment" ng-click="expand = !expand" data-content-expanded="Collapse comment" data-content-collapsed="Show full comment"></span>
  		<br> 
 		<ul class="stats">
 			<li ng-repeat="item in progressBarData">
-				<div class="row">
+				<div class="row" ng-show="item.value">
 					<div class="col-xs-6">
 						<p class="number">{{item.value}}</p>
 						<p class="category">{{item.name}}</p>
@@ -56,9 +56,9 @@
 			</li>
 		</ul>
 	</div>
-	<div class="dividersBar big">DEMOGRAPHICS</div>
-	<div class="box-container">
-		<div class="row sex">
+	<div class="dividersBar big" ng-show="(Male && Female) || showAge || showEthnicity">DEMOGRAPHICS</div>
+	<div class="box-container" ng-show="(Male && Female) || showAge || showEthnicity">
+		<div class="row sex" ng-show="Male && Female">
 			<div class="col-xs-7 male blue">
 				<p class="percent">{{Male}}%</p>
 				<h5 class="blue">MALE</h5>
@@ -68,10 +68,10 @@
 				<h5 class="blue">FEMALE</h5>
 			</div>
 		</div>
-		<div class="row highcharts-container">
+		<div class="row highcharts-container" ng-show="showAge">
             <highchart id="ageChart" config="ageChart" class="span10"></highchart>
 		</div>
-		<div class="row highcharts-container">
+		<div class="row highcharts-container" ng-show="showEthnicity">
             <highchart id="ethnicityChart" config="ethnicityChart" class="span10"></highchart>
 		</div>
 	</div>

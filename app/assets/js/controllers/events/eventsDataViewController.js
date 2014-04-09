@@ -16,6 +16,7 @@ var module = angular.module('brandscopicApp.controllers')
         , eventResultsData = []
         , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = { success: function(event) {
+                                      event.summary = (event.summary == 'null') ? null : event.summary
                                       $scope.event = event
                                       $scope.UserInterface.EditIconUrl = "#/home/events/" + $scope.event.id + "/data?edit"
 
@@ -57,19 +58,23 @@ var module = angular.module('brandscopicApp.controllers')
                                                                 }
                                                                 // Get Age values
                                                                 if (field.name == 'Age') {
+                                                                  var showAge = false
                                                                   for(var k = 0, segment; segment = field.segments[k++];) {
                                                                     dataAgeCategories.push(segment.text)
                                                                     dataAgeSource.push((segment.value) ? segment.value : 0)
                                                                     gapAgeValue.push(100 - ((segment.value) ? segment.value : 0))
+                                                                    showAge = (segment.value) ? true : showAge
                                                                   }
                                                                 }
                                                                 // Get Ethnicity values
                                                                 if (field.name == 'Ethnicity/Race') {
+                                                                  var showEthnicity = false
                                                                   for(var k = 0, segment, item; segment = field.segments[k++];) {
                                                                     item = []
                                                                     item.push(segment.text)
                                                                     item.push(((segment.value) ? segment.value : 0))
                                                                     ethnicData.push(item)
+                                                                    showEthnicity = (segment.value) ? true : showEthnicity
                                                                   }
                                                                 }
                                                               }
@@ -187,6 +192,9 @@ var module = angular.module('brandscopicApp.controllers')
                                                                       }
                                                                   }]
                                                           }
+
+                                                          $scope.showEthnicity = showEthnicity
+                                                          $scope.showAge = showAge
                                                     }
                                         }
                                       Event.results(credentials, actions)
