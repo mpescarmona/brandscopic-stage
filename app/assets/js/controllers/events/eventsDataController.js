@@ -96,10 +96,19 @@ var module = angular.module('brandscopicApp.controllers')
                    }
         Event.updateResults(credentials, actions, data)
       }
-        $scope.isActive = false;
+
+    $scope.isActive = false;
+    $scope.isMore = false;
+    $("#showMore").html("Show more text &#9660;");
     $scope.showMoreText = function () {
-      alert("coco")
-        $scope.isActive = true;
+        $scope.isActive = !$scope.isActive;
+        if($scope.isActive) {
+          $scope.isMore = true;
+          $("#showMore").html("Show less text &#9650;");
+        } else {
+          $("#showMore").html("Show more text &#9660;");
+          $scope.isMore = false;
+        }
     }
 }
 

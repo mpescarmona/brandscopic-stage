@@ -4,8 +4,8 @@
 	<form novalidate>
 	<div class="dividersBar big">SUMMARY</div>
 	<div class="box-container events data">
-		<textarea scopic-auto-expand="isActive" isActive="{{ isActive }}" style="resize: none; overflow:hidden; height: 55px;" rows="5" cols="30" class="placeholder-light clean" placeholder="Write a summary" ng-model="event.summary"></textarea>
-		<a id="showMore" class="blue" ng-click="showMoreText()" href=""></a>
+		<textarea id="dataSummary" scopic-auto-expand="isActive" style="resize: none; overflow:hidden;" rows="5" cols="30" class="placeholder-light clean" placeholder="Write a summary" ng-model="event.summary"></textarea>
+		<a id="showMore" ng-show="showMoreTextLink" class="blue" ng-click="showMoreText()" href=""></a>
 	</div>
  
 	<div class="dividersBar big">CONSUMER REACH</div>

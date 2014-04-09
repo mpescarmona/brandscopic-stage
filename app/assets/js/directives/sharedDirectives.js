@@ -73,35 +73,40 @@ angular.module('brandscopicApp.sharedDirectives', [])
         return {
             restrict: 'A',
             link: function( $scope, elem, attrs) {
-              console.log(attrs.isActive)
-                if ($scope.$eval(attrs.isActive)) {
-                  elem.bind('keyup', function($event) {
-                      var element = $event.target;
+                  var textSummary,
+                      wordsCount;
 
-                      $(element).height(0);
-                      var height = $(element)[0].scrollHeight;
+                  $scope.$watch("event.summary", function (value) {
+                    if(value != null) {
+                      textSummary = value.split(" ");
+                      wordsCount = textSummary.length;     
+                    }
+                    if(wordsCount > 100) {
+                      $scope.showMoreTextLink = true;
+                    } else {
+                      $scope.showMoreTextLink = false;
+                    }
+                });
 
-                      // 8 is for the padding
-                      if (height < 20) {
-                          height = 28;
-                      }
-                      $(element).height(height-8);
-                  });
+                $scope.$watch("isActive", function (value) {
+                    if (value && $scope.isMore) {
+                          var height = elem[0].scrollHeight;
 
-                  // Expand the textarea as soon as it is added to the DOM
-                  setTimeout( function() {
-                      var element = elem;
+                          elem.height(height);
 
-                      $(element).height(0);
-                      var height = $(element)[0].scrollHeight;
+                      elem.bind('keyup', function($event) {
+                          var element = $event.target;
 
-                      // 8 is for the padding
-                      if (height < 20) {
-                          height = 28;
-                      }
-                      $(element).height(height-8);
-                  }, 0)
-              }
+                          elem.height(0);
+                          var height = elem[0].scrollHeight;
+
+                          elem.height(height);
+                      });
+                  } else {
+                    elem.unbind('keyup');
+                    elem.height(50);
+                  }
+              });
             }
         };
 
