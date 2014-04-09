@@ -55,6 +55,16 @@
 				</div>
 			</li>
 		</ul>
+		<ul class="stats">
+			<li ng-repeat="item in customData | orderBy:['ordering']">
+				<div class="row">
+					<div class="col-xs-6">
+						<p class="number">{{item.value}}</p>
+						<p class="category">{{item.name}}</p>
+					</div>
+				</div>
+			</li>
+		</ul>
 	</div>
 	<div class="dividersBar big" ng-show="(Male && Female) || showAge || showEthnicity">DEMOGRAPHICS</div>
 	<div class="box-container" ng-show="(Male && Female) || showAge || showEthnicity">

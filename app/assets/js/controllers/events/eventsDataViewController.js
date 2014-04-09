@@ -35,6 +35,7 @@ var module = angular.module('brandscopicApp.controllers')
                                                             , ethnicData = []
                                                             , male = 0
                                                             , female = 0
+                                                            , customData = []
 
                                                           for(var i = 0, result; result = results[i++];) {
                                                             // Get consumer reach values
@@ -79,11 +80,33 @@ var module = angular.module('brandscopicApp.controllers')
                                                                 }
                                                               }
                                                             }
+                                                            if (result.module == 'custom') {
+                                                              for(var j = 0, field; field = result.fields[j++];) {
+                                                                if (field.field_type == 'percentage') {
+                                                                  customData.push( {value: field.options.predefined_value, name: field.name, ordering: field.ordering} )
+                                                                }
+                                                                if (field.field_type == 'number') {
+                                                                  customData.push( {value: field.value, name: field.name, ordering: field.ordering} )
+                                                                }
+                                                                if (field.field_type == 'text') {
+                                                                  customData.push( {value: field.value, name: field.name, ordering: field.ordering} )
+                                                                }
+                                                                if (field.field_type == 'count') {
+                                                                  for(var k = 0, segment; segment = field.segments[k++];) {
+                                                                    if (segment.id == field.value) {
+                                                                      customData.push( {value: segment.text, name: field.name, ordering: field.ordering} )
+                                                                      break
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
                                                           }
 
                                                           $scope.progressBarData = progressBarData
                                                           $scope.Male = male
                                                           $scope.Female = female
+                                                          $scope.customData = customData
 
                                                           $scope.ageChart = {
                                                                             plotOptions: {
