@@ -92,10 +92,24 @@ var module = angular.module('brandscopicApp.controllers')
                                                                   customData.push( {value: field.value, name: field.name, ordering: field.ordering} )
                                                                 }
                                                                 if (field.field_type == 'count') {
-                                                                  for(var k = 0, segment; segment = field.segments[k++];) {
-                                                                    if (segment.id == field.value) {
-                                                                      customData.push( {value: segment.text, name: field.name, ordering: field.ordering} )
-                                                                      break
+                                                                  if (field.options.capture_mechanism == "checkbox") {
+                                                                    var segmentValues = ''
+                                                                    for(var k = 0, value; value = field.value[k++];) {
+                                                                      for(var l = 0, segment; segment = field.segments[l++];) {
+                                                                        if (segment.id == value) {
+                                                                          segmentValues = segmentValues + segment.text + ', '
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                    if (segmentValues != '')
+                                                                      segmentValues = segmentValues.substring(0, segmentValues.lastIndexOf(', '))
+                                                                    customData.push( {value: segmentValues, name: field.name, ordering: field.ordering} )
+                                                                  } else {
+                                                                    for(var k = 0, segment; segment = field.segments[k++];) {
+                                                                      if (segment.id == field.value) {
+                                                                        customData.push( {value: segment.text, name: field.name, ordering: field.ordering} )
+                                                                        break
+                                                                      }
                                                                     }
                                                                   }
                                                                 }

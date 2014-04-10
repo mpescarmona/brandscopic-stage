@@ -47,7 +47,7 @@
 								<div class="clearfix">
 									<div class="radio-selector" ng-repeat="segment in field.segments">
 										<div class="radio clearfix">  
-									    	<input id="{{segment.id}}" type="radio" name="{{segment.id}}" value="{{segment.value}}">  
+									    	<input id="{{segment.id}}" type="radio" ng-model="field.value" name="{{field.id}}" value="{{segment.id}}">
 									    	<label for="{{segment.id}}">{{segment.text}}</label>
 										</div>  
 									</div>
@@ -64,7 +64,7 @@
 							<div ng-switch-when="checkbox">
 								<label class="medium">{{field.name}}</label>
 								<div class="clearfix m25 checkbox-selector" ng-repeat="segment in field.segments">
-							        <input type="checkbox" id="{{segment.id}}">
+							        <input type="checkbox" id="{{segment.id}}" name="{{field.id}}">
 							        <label for="{{segment.id}}">{{segment.text}}</label>
 								</div>
 							</div>
@@ -114,7 +114,7 @@
 								<div class="clearfix">
 									<div class="radio-selector" ng-repeat="segment in field.segments">
 										<div class="radio">  
-									    	<input id="{{segment.id}}" type="radio" name="{{segment.id}}" value="{{segment.value}}">  
+									    	<input id="{{segment.id}}" type="radio" ng-model="field.value" name="{{field.id}}" value="{{segment.id}}">
 									    	<label for="{{segment.id}}">{{segment.text}}</label>
 										</div>  
 									</div>
@@ -133,7 +133,7 @@
 								<label class="medium">{{field.name}}</label>
 								<p>{{field.description}}</p>
 								<div class="clearfix checkbox-selector" ng-repeat="segment in field.segments">
-							        <input type="checkbox" id="{{segment.id}}">
+							        <input type="checkbox" id="{{segment.id}}" name="{{field.id}}">
 							        <label for="{{segment.id}}">{{segment.text}}</label>
 								</div>
 							</div>
@@ -183,7 +183,7 @@
 								<div class="clearfix">
 									<div class="radio-selector" ng-repeat="segment in field.segments">
 										<div class="radio clearfix">  
-									    	<input id="{{segment.id}}" type="radio" name="{{segment.id}}" value="{{segment.value}}">  
+									    	<input id="{{segment.id}}" type="radio" ng-model="field.value" name="{{field.id}}" value="{{segment.id}}">
 									    	<label for="{{segment.id}}">{{segment.text}}</label>
 										</div>  
 									</div>
@@ -202,7 +202,7 @@
 								<label class="medium">{{field.name}}</label>
 								<p class="medium">{{field.description}}</p>
 								<div class="clearfix checkbox-selector" ng-repeat="segment in field.segments">
-							        <input type="checkbox" id="{{segment.id}}">
+							        <input type="checkbox" id="{{segment.id}}" name="{{field.id}}" ng-model="segment.value">
 							        <label for="{{segment.id}}">{{segment.text}}</label>
 								</div>
 							</div>

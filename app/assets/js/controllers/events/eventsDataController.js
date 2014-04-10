@@ -71,18 +71,13 @@ var module = angular.module('brandscopicApp.controllers')
               if (field.options.capture_mechanism == "checkbox") {
                 var segmentIds = []
                 for(var k = 0, segment; segment = field.segments[k++];) {
-                  if (segment.value !== null)
+                  if (segment.value)
                     segmentIds.push(segment.id)
                 }
                 if (segmentIds.length > 0)
                   results_attributes.push({'id': field.id, 'value': segmentIds})
               } else {
-                for(var k = 0, segment; segment = field.segments[k++];) {
-                  if (segment.value !== null) {
-                    results_attributes.push({'id': field.id, 'value': segment.id})
-                    break
-                  }
-                }
+                results_attributes.push({'id': field.id, 'value': field.value})
               }
             }
           }
