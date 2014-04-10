@@ -50,4 +50,23 @@ angular.module('brandscopicApp.photosService', []).
             getAddPhoto: _getAddPhoto
         }
 
-    }]);
+    }])
+
+  .service('UploadedPhotosTracker', function () {
+    this.uploadedPhotos = {};
+    
+    this.addUploadedPhotos = function (eventId, amount) {
+      if (!this.uploadedPhotos[eventId]) {
+        this.uploadedPhotos[eventId] = 0;
+      }
+      this.uploadedPhotos[eventId] += amount;
+    };
+
+    this.getExpectedPhotosAmount = function (eventId) {
+      return this.uploadedPhotos[eventId];
+    };
+
+    this.setUplodadedPhotos = function (eventId, amount) {
+      this.uploadedPhotos[eventId] = amount;
+    };
+  });
