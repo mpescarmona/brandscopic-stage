@@ -1,5 +1,5 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Photos, photosService) {
+  , controller = function($scope, $state, $stateParams, snapRemote, UserService, CompanyService, UserInterface, Event, Photos, photosService, UploadedPhotosTracker) {
 
     if( !UserService.isLogged() ) {
       $state.go('login')
@@ -7,7 +7,9 @@ var module = angular.module('brandscopicApp.controllers')
     }
     snapRemote.close()
 
+    var totalRetrievedPhotos;
     $scope.loading = true
+    $scope.photosBeingProcessedCount = 0;
     $scope.photosList = {}
     $scope.photoForm = {
         key: "",
@@ -49,6 +51,7 @@ var module = angular.module('brandscopicApp.controllers')
       else {  //Here we are done uploading and we have to send the img link to the server
         Photos.create(credentials, actions, data)
         $scope.uploading = false;
+        UploadedPhotosTracker.addUploadedPhotos($stateParams.eventId, 1);
       }
       $scope.$apply();
     })
@@ -56,6 +59,16 @@ var module = angular.module('brandscopicApp.controllers')
     photosService.getPhotosList().then( function (response) {
         $scope.photos = response.results
         $scope.photosCount = response.results.length
+        totalRetrievedPhotos = response.total;
+        try {
+          if (UploadedPhotosTracker.getExpectedPhotosAmount($stateParams.eventId) == null) {
+            UploadedPhotosTracker.addUploadedPhotos($stateParams.eventId, response.total);
+          }
+          $scope.photosBeingProcessedCount = UploadedPhotosTracker.getExpectedPhotosAmount($stateParams.eventId) - totalRetrievedPhotos;
+          console.log("Expected amount: " + exepectedAmount);
+        } catch (error) {
+
+        }
         $scope.hasPhotos =  (response.results.length && response.results.length > 0) ? true : false
         $scope.loading = false
     })
@@ -76,4 +89,5 @@ module.controller('eventsPhotosCtrl'
                                            , "Event"
                                            , "Photos"
                                            , "photosService"
+                                           , "UploadedPhotosTracker"
                                           ]
