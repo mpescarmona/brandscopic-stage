@@ -1,8 +1,8 @@
 <!-- Events - DATA VIEW--> 
 
 <div class="container">
-	<div class="dividersBar big" ng-show="event.summary">SUMMARY</div>
-	<div class="box-container events" ng-show="event.summary">
+	<div class="dividersBar big" ng-show="showSummary">SUMMARY</div>
+	<div class="box-container events" ng-show="showSummary">
 		<p class="medium">{{event.summary}}</p>
 		<span class="blue full-comment" ng-click="expand = !expand" data-content-expanded="Collapse comment" data-content-collapsed="Show full comment"></span>
  		<br> 
@@ -37,7 +37,6 @@
 			<li ng-show="event.data.spent_by_interaction">
 				<div class="row">
 					<div class="col-xs-6">
-						<!-- <p class="number">$1.78</p> -->
 						<p class="number">${{event.data.spent_by_interaction | number:2}}</p>
 					</div>
 					<div class="col-xs-6">
@@ -48,7 +47,6 @@
 			<li ng-show="event.data.spent_by_sample">
 				<div class="row">
 					<div class="col-xs-6">
-						<!-- <p class="number">$2.12</p> -->
 						<p class="number">${{event.data.spent_by_sample | number:2}}</p>
 					</div>
 					<div class="col-xs-6">

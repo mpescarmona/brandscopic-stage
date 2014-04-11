@@ -41,6 +41,7 @@ var module = angular.module('brandscopicApp.controllers')
                                                             , male = 0
                                                             , female = 0
                                                             , customData = []
+                                                            , hasProgressBarData = false
 
                                                           for(var i = 0, result; result = results[i++];) {
                                                             // Get consumer reach values
@@ -48,6 +49,7 @@ var module = angular.module('brandscopicApp.controllers')
                                                               for(var j = 0, field; field = result.fields[j++];) {
                                                                 if (field.goal && field.goal !== null) {
                                                                   progressBarData.push( {value: field.value, name: field.name, percentage: (field.value * 100 / parseInt(field.goal))} )
+                                                                  hasProgressBarData = (field.value) ? true : false
                                                                 }
                                                               }
                                                             }
@@ -236,6 +238,7 @@ var module = angular.module('brandscopicApp.controllers')
                                                                   }]
                                                           }
 
+                                                          $scope.showSummary = (event.summary.length > 0 || event.data.spent_by_impression || event.data.spent_by_interaction || event.data.spent_by_sample || customData.length > 0 || hasProgressBarData)
                                                           $scope.showEthnicity = showEthnicity
                                                           $scope.showAge = showAge
                                                     }
