@@ -17,6 +17,11 @@ var module = angular.module('brandscopicApp.controllers')
         , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = { success: function(event) {
                                       event.summary = (event.summary == 'null') ? null : event.summary
+                                      event.data = (event.data) ? event.data : {spent_by_impression: null, spent_by_interaction: null, spent_by_sample: null}
+                                      event.data.spent_by_impression = (event.data.spent_by_impression == 'NaN') ? null : event.data.spent_by_impression
+                                      event.data.spent_by_interaction = (event.data.spent_by_interaction == 'NaN') ? null : event.data.spent_by_interaction
+                                      event.data.spent_by_sample = (event.data.spent_by_sample == 'NaN') ? null : event.data.spent_by_sample
+
                                       $scope.event = event
                                       $scope.UserInterface.EditIconUrl = "#/home/events/" + $scope.event.id + "/data?edit"
 
@@ -94,13 +99,14 @@ var module = angular.module('brandscopicApp.controllers')
                                                                 if (field.field_type == 'count') {
                                                                   if (field.options.capture_mechanism == "checkbox") {
                                                                     var segmentValues = ''
-                                                                    for(var k = 0, value; value = field.value[k++];) {
-                                                                      for(var l = 0, segment; segment = field.segments[l++];) {
-                                                                        if (segment.id == value) {
-                                                                          segmentValues = segmentValues + segment.text + ', '
+                                                                    if (field.value)
+                                                                      for(var k = 0, value; value = field.value[k++];) {
+                                                                        for(var l = 0, segment; segment = field.segments[l++];) {
+                                                                          if (segment.id == value) {
+                                                                            segmentValues = segmentValues + segment.text + ', '
+                                                                          }
                                                                         }
                                                                       }
-                                                                    }
                                                                     if (segmentValues != '')
                                                                       segmentValues = segmentValues.substring(0, segmentValues.lastIndexOf(', '))
                                                                     customData.push( {value: segmentValues, name: field.name, ordering: field.ordering} )

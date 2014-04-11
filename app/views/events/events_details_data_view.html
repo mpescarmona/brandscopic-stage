@@ -23,31 +23,33 @@
 			</li>
 		</ul>
 
-		<ul class="stats simple mt20">
-			<li>
+		<ul class="stats simple mt20" ng-show="event.data.spent_by_impression || event.data.spent_by_interaction || event.data.spent_by_sample">
+			<li ng-show="event.data.spent_by_impression">
 				<div class="row">
 					<div class="col-xs-6">
-						<p class="number">$1.29</p>
+						<p class="number">${{event.data.spent_by_impression | number:2}}</p>
 					</div>
 					<div class="col-xs-6">
 						<p class="category">/IMPRESSION</p>
 					</div>
 				</div>
 			</li>
-			<li>
+			<li ng-show="event.data.spent_by_interaction">
 				<div class="row">
 					<div class="col-xs-6">
-						<p class="number">$1.78</p>
+						<!-- <p class="number">$1.78</p> -->
+						<p class="number">${{event.data.spent_by_interaction | number:2}}</p>
 					</div>
 					<div class="col-xs-6">
 						<p class="category">/INFLUENCE</p>
 					</div>
 				</div>
 			</li>
-			<li>
+			<li ng-show="event.data.spent_by_sample">
 				<div class="row">
 					<div class="col-xs-6">
-						<p class="number">$2.12</p>
+						<!-- <p class="number">$2.12</p> -->
+						<p class="number">${{event.data.spent_by_sample | number:2}}</p>
 					</div>
 					<div class="col-xs-6">
 						<p class="category">/SAMPLE</p>
