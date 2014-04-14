@@ -17,7 +17,7 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
 
     $scope.shouldKeepLoggedIn = false;
-    $scope.user = {'email': 'mpescarmona@gmail.com', 'password': 'Mario123'};
+    $scope.user = {'email': '', 'password': ''};
 
     $scope.wrongUser = null;
     $scope.validateApiUser = function() {

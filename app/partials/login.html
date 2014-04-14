@@ -1,3 +1,4 @@
+<form name="loginForm">
 <flip horizontal>
   <flip-front>
     <!-- START LOGIN -->
@@ -10,7 +11,9 @@
           <span class="error">Whoops!</span> Email/Password are not found.</p>
         <div class="col-xs-12">
           <div class="field-block" input-reset>
-            <input class="email not-rounded type-input" ng-class="{error: wrongUser}" type="email" placeholder="Email" ng-model="user.email" tabindex="1">
+            <input class="email not-rounded type-input" ng-class="{error: wrongUser}" type="email" placeholder="Email" ng-model="user.email" name="email" required tabindex="1">
+            <span class="error" ng-show="loginForm.email.$error.email && !loginForm.email.$pristine" ng-class="error">Please enter a valid email address.</span>
+            <span class="error" ng-show="loginForm.email.$error.required && !loginForm.email.$pristine" ng-class="error">The email is required.</span>
             <a href="#" class="type-reset hidden"></a>
           </div>
 
@@ -21,7 +24,7 @@
 
         </div>
         <div class="col-xs-12">
-          <button class="btn btn-danger" ng-click="validateApiUser()">Login</button>
+          <button class="btn btn-danger" ng-disabled="loginForm.email.$invalid" ng-click="validateApiUser()">Login</button>
         </div>
       </div>
       <div class="checkbox-selector">
@@ -52,15 +55,18 @@
           <p>Enter your email and we'll send you<br>instructions to help you reset your password.</p>
         </div>
         <div class="col-xs-12 field-block" input-reset>
-          <input type="email" placeholder="Email" ng-model="user.email" class="email type-input">
+          <input type="email" placeholder="Email" ng-model="user.email" class="email type-input" name="sendEmail" required>
+          <span class="error" ng-show="loginForm.sendEmail.$error.email && !loginForm.sendEmail.$pristine" ng-class="error">Please enter a valid email address.</span>
+          <span class="error" ng-show="loginForm.sendEmail.$error.required && !loginForm.sendEmail.$pristine" ng-class="error">The email is required.</span>
           <a class="type-reset" href="#"></a>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-danger"  ng-click="forgotPassword(user.email)">Send</button>
+          <button class="btn btn-danger" ng-disabled="loginForm.sendEmail.$invalid" ng-click="forgotPassword(user.email)">Send</button>
         </div>
       </div>
     </div>
   </flip-back>
 </flip>
+</form>
