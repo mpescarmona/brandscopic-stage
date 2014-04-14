@@ -32,16 +32,20 @@ var module = angular.module('brandscopicApp.controllers')
                                                               , female = 0
 
                                                             // Get Age values
+                                                            var ageValue = 0
                                                             for (var key in analysis.age) {
                                                               dataAgeCategories.push(key)
-                                                              dataAgeSource.push((analysis.age[key]) ? analysis.age[key] : 0)
-                                                              gapAgeValue.push(100 - ((analysis.age[key]) ? analysis.age[key] : 0))
+                                                              ageValue = parseInt(parseFloat(analysis.age[key]).toFixed(0))
+                                                              dataAgeSource.push((analysis.age[key]) ? ageValue : 0)
+                                                              gapAgeValue.push(100 - ((analysis.age[key]) ? ageValue : 0))
                                                             }
                                                             // Get Ethnicity values
+                                                            var ethnicValue = 0
                                                             for (var key in analysis.ethnicity) {
                                                               item = []
                                                               item.push(key)
-                                                              item.push(((analysis.ethnicity[key]) ? analysis.ethnicity[key] : 0))
+                                                              ethnicValue = parseInt(parseFloat(analysis.ethnicity[key]).toFixed(0))
+                                                              item.push(((analysis.ethnicity[key]) ? ethnicValue : 0))
                                                               ethnicData.push(item)
                                                             }
                                                             // Get Impressions Promo values
