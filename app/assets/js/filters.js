@@ -191,6 +191,23 @@ angular.module('brandscopicApp.filters', [])
     }
   })
 
+.filter('limitWords', function() {
+    return function(input, length) {
+      if (!input) {
+        return;
+      }
+      
+      if (length === null) {
+        return input;
+      } 
+
+      var words = input.split(' ');
+      var sliceLength = words.length < length ? words.length : length;
+      var slicedWords = words.slice(0, sliceLength);
+      return slicedWords.join(' ');
+    };
+})
+
 .filter('allowedNotifications', ['UserService', function(UserService) {
   var neededPermissionsMap = {
       event_recaps_due: ['events'],

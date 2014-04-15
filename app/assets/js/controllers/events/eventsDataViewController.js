@@ -1,12 +1,11 @@
 var module = angular.module('brandscopicApp.controllers')
-  , controller = function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event) {
+  , controller = function($scope, $state, $stateParams, $location, snapRemote, UserService, CompanyService, UserInterface, Event, $sce) {
 
       if( !UserService.isLogged() ) {
         $state.go('login')
         return
       }
       snapRemote.close()
-
       var
           ui = {hasMenuIcon: false, hasDeleteIcon: false, hasBackIcon: true, hasMagnifierIcon: false, hasAddIcon: false, hasSaveIcon: false, hasEditSurveyIcon: false, hasEditIcon: true, hasCancelIcon: false, hasCustomHomeClass: false, searching: false, hasCloseIcon: false, showEventSubNav: true, eventSubNav: "data"}
 
@@ -14,6 +13,9 @@ var module = angular.module('brandscopicApp.controllers')
         , companyId = CompanyService.getCompanyId()
         , eventId = $stateParams.eventId
         , eventResultsData = []
+        , showLessText = "Show less text &#9650;"
+        , showMoreText = "Show more text &#9660;"
+        , summaryIsCollapsed = true
         , credentials = { company_id: CompanyService.getCompanyId(), auth_token: UserService.currentUser.auth_token, event_id: $stateParams.eventId }
         , actions = { success: function(event) {
                                       event.summary = (event.summary == 'null') ? null : event.summary
@@ -246,6 +248,18 @@ var module = angular.module('brandscopicApp.controllers')
                                       Event.results(credentials, actions)
                       }
           }
+    $scope.wordsLimit = 100;
+    $('#showMore').html(showMoreText);  //We use jQuery because AngularJS has trouble parsing characters such as &#9650;
+    $scope.showMoreText = function() {
+      if (summaryIsCollapsed) {
+        $('#showMore').html(showLessText);
+        $scope.wordsLimit = null;
+      } else {
+        $('#showMore').html(showMoreText);
+        $scope.wordsLimit = 100;
+      }
+      summaryIsCollapsed = !summaryIsCollapsed;
+    };
     Event.find(credentials, actions)
 }
 
@@ -259,4 +273,5 @@ module.controller('EventsDataViewController'
                                            , 'CompanyService'
                                            , 'UserInterface'
                                            , 'Event'
+                                           , '$sce'
                                           ]
