@@ -11,9 +11,9 @@
           <span class="error">Whoops!</span> Email/Password are not found.</p>
         <div class="col-xs-12">
           <div class="field-block" input-reset>
-            <input class="email not-rounded type-input" ng-class="{error: wrongUser}" type="email" placeholder="Email" ng-model="user.email" name="email" required tabindex="1">
             <span class="error" ng-show="loginForm.email.$error.email && !loginForm.email.$pristine" ng-class="error">Please enter a valid email address.</span>
             <span class="error" ng-show="loginForm.email.$error.required && !loginForm.email.$pristine" ng-class="error">The email is required.</span>
+            <input class="email not-rounded type-input" ng-class="{error: wrongUser}" type="email" placeholder="Email" ng-model="user.email" name="email" required tabindex="1">
             <a href="#" class="type-reset hidden"></a>
           </div>
 
@@ -55,9 +55,9 @@
           <p>Enter your email and we'll send you<br>instructions to help you reset your password.</p>
         </div>
         <div class="col-xs-12 field-block" input-reset>
-          <input type="email" placeholder="Email" ng-model="user.email" class="email type-input" name="sendEmail" required>
           <span class="error" ng-show="loginForm.sendEmail.$error.email && !loginForm.sendEmail.$pristine" ng-class="error">Please enter a valid email address.</span>
           <span class="error" ng-show="loginForm.sendEmail.$error.required && !loginForm.sendEmail.$pristine" ng-class="error">The email is required.</span>
+          <input type="email" placeholder="Email" ng-model="user.email" class="email type-input" name="sendEmail" required>
           <a class="type-reset" href="#"></a>
         </div>
       </div>
