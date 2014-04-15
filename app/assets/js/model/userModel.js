@@ -37,7 +37,7 @@ angular.module('model.user', ['persistence.user'])
 
       , forgotPassword = function (credentials, actions) {
           if ('email' in credentials && 'success' in actions)
-            userClient.forgotPassword(credentials, forgotPasswordResponse(actions))
+            userClient.forgotPassword(credentials, forgotPasswordResponse(actions), forgotPasswordErrorResponse(actions))
           else
             throw 'Wrong set of credentials'
 
@@ -46,6 +46,15 @@ angular.module('model.user', ['persistence.user'])
           return function(resp){
             if (resp)
               actions.success(angular.copy(resp))
+            else
+              throw 'results missing on response'
+
+          }
+      }
+      , forgotPasswordErrorResponse = function (actions) {
+          return function(resp){
+            if (resp)
+              actions.error(angular.copy(resp))
             else
               throw 'results missing on response'
 

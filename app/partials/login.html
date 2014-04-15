@@ -54,6 +54,8 @@
         <div class="col-xs-12">
           <p>Enter your email and we'll send you<br>instructions to help you reset your password.</p>
         </div>
+        <p class="centerTxt m10" ng-show="wrongUser">
+          <span class="error">Whoops!</span> Email for reset password could not be send.</p>
         <div class="col-xs-12 field-block" input-reset>
           <span class="error" ng-show="loginForm.sendEmail.$error.email && !loginForm.sendEmail.$pristine" ng-class="error">Please enter a valid email address.</span>
           <span class="error" ng-show="loginForm.sendEmail.$error.required && !loginForm.sendEmail.$pristine" ng-class="error">The email is required.</span>
