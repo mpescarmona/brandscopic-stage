@@ -103,4 +103,10 @@ angular.module('brandscopicApp.controllers', ['model.event', 'model.campaign', '
     }
 
     $scope.handleKeepMeLoggedInClicked($scope.shouldKeepLoggedIn);
+    
+    //Used in order to delete the login error message once the user starts inputting the email again
+    $scope.$watch("user.email", function(value) {
+      $scope.wrongUser = false;
+    });
+
   }])
