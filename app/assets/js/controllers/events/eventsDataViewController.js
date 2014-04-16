@@ -250,6 +250,10 @@ var module = angular.module('brandscopicApp.controllers')
           }
   
     $scope.shouldShowMoreTextButton = function(text) {
+      if (!text) {
+        return false;
+      }
+      
       return text.split(' ').length > 100;
     };
 
