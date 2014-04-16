@@ -248,8 +248,11 @@ var module = angular.module('brandscopicApp.controllers')
                                       Event.results(credentials, actions)
                       }
           }
-    $scope.wordsLimit = 100;
-    $('#showMore').html(showMoreText);  //We use jQuery because AngularJS has trouble parsing characters such as &#9650;
+  
+    $scope.shouldShowMoreTextButton = function(text) {
+      return text.split(' ').length > 100;
+    };
+
     $scope.showMoreText = function() {
       if (summaryIsCollapsed) {
         $('#showMore').html(showLessText);
@@ -260,6 +263,10 @@ var module = angular.module('brandscopicApp.controllers')
       }
       summaryIsCollapsed = !summaryIsCollapsed;
     };
+
+    $scope.wordsLimit = 100;
+    $('#showMore').html(showMoreText);  //We use jQuery because AngularJS has trouble parsing characters such as &#9650;
+
     Event.find(credentials, actions)
 }
 

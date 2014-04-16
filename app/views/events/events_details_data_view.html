@@ -4,7 +4,7 @@
 	<div class="dividersBar big" ng-show="showSummary">SUMMARY</div>
 	<div class="box-container events" ng-show="showSummary">
 		<p class="medium">{{event.summary | limitWords: wordsLimit}}</p>
-		<a id="showMore" ng-show="true" class="blue" ng-click="showMoreText()" href=""></a>
+		<a id="showMore" ng-show="shouldShowMoreTextButton(event.summary)" class="blue" ng-click="showMoreText()" href=""></a>
  		<br> 
 		<ul class="stats">
 			<li ng-repeat="item in progressBarData">
