@@ -14,7 +14,7 @@
           <p class="centerTxt m10" ng-show="loginForm.email.$error.email && loginForm.email.$dirty" ng-class="error">
             <span class="error">Whoops!</span> Please enter a valid email address.
           </p>
-          <p ng-show="loginForm.email.$error.required && loginForm.email.$dirty" ng-class="error"><span class="error">Whoops!</span> The email is required.
+          <p class="centerTxt m10" ng-show="loginForm.email.$error.required && loginForm.email.$dirty" ng-class="error"><span class="error">Whoops!</span> The email is required.
           </p>
           <div class="field-block" input-reset>
             <input class="email not-rounded type-input" ng-class="error" type="email" placeholder="Email" ng-model="user.email" name="email" required tabindex="1">

@@ -21,7 +21,7 @@
 					</div>
 				</div>
 			</li>
-		</ul>
+		</ul> 
 
 		<ul class="stats simple mt20" ng-show="event.data.spent_by_impression || event.data.spent_by_interaction || event.data.spent_by_sample">
 			<li ng-show="event.data.spent_by_impression">
@@ -55,10 +55,10 @@
 				</div>
 			</li>
 		</ul>
-		<ul class="stats">
+		<ul class="stats general">
 			<li ng-repeat="item in customData | orderBy:['ordering']">
 				<div class="row">
-					<div class="col-xs-6">
+					<div class="col-xs-12">
 						<p class="number">{{item.value}}</p>
 						<p class="category">{{item.name}}</p>
 					</div>
