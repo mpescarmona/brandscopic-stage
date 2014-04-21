@@ -7,6 +7,7 @@
 				<div class="margin-data">
 					<p class="comment-date small">{{comment.created_at | timeago}}</p>
 					<p class="clearfix medium">{{comment.content}}</p>
+					<button ng-click="editComment(comment)">EDIT!</button>
 					<span class="blue full-comment" ng-click="expand = !expand" data-content-expanded="Collapse comment" data-content-collapsed="Show full comment"></span>
 				</div>
 			</li>
