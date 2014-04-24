@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-2 filter" ng-repeat="filter in filters" ng-class="{active: event_status==filter.id}">
-					<a ng-click="filterStatus('{{filter.id}}', true)">
+					<a ng-click="handleFilterClicked('{{filter.id}}')">
 						<div class="number">{{filter.count | totalCount}}</div>
 						<p>{{filter.label}}</p>
 					</a>
