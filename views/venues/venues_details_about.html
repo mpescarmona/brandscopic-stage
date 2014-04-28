@@ -3,10 +3,9 @@
 <div class="google-map">
 	<map zoom-control="false" center="{{[venue.latitude,venue.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
   <marker position="{{[venue.latitude,venue.longitude]}}" title="{{venue.name||'venue'}}"></marker>
+  <a href="#/home/venues/{{venue.id}}/map" class="fullscreen"></a>
 </div>
 <!--<a href="#/home/events/{{event.id}}/map" class="fullscreen"></a>-->
-
-<a href="#/home/venues/{{venue.id}}/map" class="fullscreen"></a>
 
 <!-- END OF THE MAP FOR VENUES -->
 

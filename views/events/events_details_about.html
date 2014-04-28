@@ -1,15 +1,15 @@
 <!-- Event Details Container - ABOUT VIEW-->
 <needs-permissions provider="eventAboutPermissionsService">
+	<!-- DYNAMIC ALERT -->
+	<div class="{{alert.style}}" alert-box content="{{alert.message}}">
+		<!--<p ng-bind-html="alert.message"></p> -->
+	</div>
 	<div class="google-map">
 		<map zoom-control="false" center="{{[event.place.latitude,event.place.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
-	  <marker position="{{[event.place.latitude,event.place.longitude]}}" title="{{event.place.name||'venue'}}"></marker>
+	  	<marker position="{{[event.place.latitude,event.place.longitude]}}" title="{{event.place.name||'venue'}}"></marker>
+	  	<a class="fullscreen" ng-click="openMap()"></a>
 	</div>
-	<a class="fullscreen" ng-click="openMap()"></a>
 	<div class="container">
-		<!-- DYNAMIC ALERT -->
-		<div class="{{alert.style}}" alert-box content="{{alert.message}}">
-			<!--<p ng-bind-html="alert.message"></p> -->
-		</div>
 		<div class="box-container events eventDetails">
 			<h5>{{event.campaign.name}}</h5>
 			<div class="date-data">
@@ -21,8 +21,9 @@
 				<div class="address">{{event.place.formatted_address}}</div>
 				<div class="state">{{event.place.state_name}}, {{event.place.state}}, {{event.place.zipcode}}</div>
 			</div>
-			<button id="edit-button" type="button" class="btn-default btn-sm edit" ng-click="editEvent()"></button>
-			<button id="deactivate-button" type="button" class="btn-default btn-sm deactivate" ng-click="deleteEvent(event)"></button>
+			<hr>
+			<button id="edit-button" type="button" class="btn-default btn-sm edit special" ng-click="editEvent()"></button>
+			<button id="deactivate-button" type="button" class="btn-default btn-sm deactivate special" ng-click="deleteEvent(event)"></button>
 		</div>
 	</div>
 </needs-permissions>
