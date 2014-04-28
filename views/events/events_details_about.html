@@ -7,8 +7,8 @@
 	<a class="fullscreen" ng-click="openMap()"></a>
 	<div class="container">
 		<!-- DYNAMIC ALERT -->
-		<div class="{{alert.style}}">
-			<p ng-bind-html="alert.message"></p>
+		<div class="{{alert.style}}" alert-box content="{{alert.message}}">
+			<!--<p ng-bind-html="alert.message"></p> -->
 		</div>
 		<div class="box-container events eventDetails">
 			<h5>{{event.campaign.name}}</h5>
