@@ -4,7 +4,7 @@
 	<div class="box-container venues">
 		<div class="score big pull-left">
 			<p class="blue">
-				<span class="score-number">{{venue.score}}</span><br>
+				<span class="score-number">{{venue.score | number:0}}</span><br>
 				SCORE
 			</p>
 		</div>
@@ -14,7 +14,7 @@
 			<li>
 				<div class="row">
 					<div class="col-xs-5">
-						<p class="number">{{analysis.events}}</p>
+						<p class="number">{{analysis.events | number:0}}</p>
 					</div>
 					<div class="col-xs-7">
 						<p class="category">EVENTS</p>
@@ -24,7 +24,7 @@
 			<li>
 				<div class="row">
 					<div class="col-xs-5">
-						<p class="number">{{analysis.promo_hours}}</p>
+						<p class="number">{{analysis.promo_hours | number:0}}</p>
 					</div>
 					<div class="col-xs-7">
 						<p class="category">PROMO HOURS</p>
@@ -34,7 +34,7 @@
 			<li>
 				<div class="row">
 					<div class="col-xs-5">
-						<p class="number">{{analysis.impressions}}</p>
+						<p class="number">{{analysis.impressions | number:0}}</p>
 					</div>
 					<div class="col-xs-7">
 						<p class="category">IMPRESSIONS</p>
@@ -44,7 +44,7 @@
 			<li>
 				<div class="row">
 					<div class="col-xs-5">
-						<p class="number">{{analysis.interactions}}</p>
+						<p class="number">{{analysis.interactions | number:0}}</p>
 					</div>
 					<div class="col-xs-7">
 						<p class="category">INFLUENCED</p>
@@ -54,7 +54,7 @@
 			<li>
 				<div class="row">
 					<div class="col-xs-5">
-						<p class="number">{{analysis.sampled}}</p>
+						<p class="number">{{analysis.sampled | number:0}}</p>
 					</div>
 					<div class="col-xs-7">
 						<p class="category">SAMPLED</p>
@@ -67,11 +67,11 @@
 	<div class="box-container">
 		<div class="row sex">
 			<div class="col-xs-7 male blue">
-				<p class="percent">{{analysis.gender.Male}}%</p>
+				<p class="percent">{{analysis.gender.Male | number:0}}%</p>
 				<h5 class="blue">MALE</h5>
 			</div>
 			<div class="col-xs-5 female blue">
-				<p class="percent">{{analysis.gender.Female}}%</p>
+				<p class="percent">{{analysis.gender.Female | number:0}}%</p>
 				<h5 class="blue">FEMALE</h5>
 			</div>
 		</div>

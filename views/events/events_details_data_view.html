@@ -27,7 +27,7 @@
 			<li ng-show="event.data.spent_by_impression">
 				<div class="row">
 					<div class="col-xs-6">
-						<p class="number">${{event.data.spent_by_impression | number:2}}</p>
+						<p class="number">${{event.data.spent_by_impression | number:0}}</p>
 					</div>
 					<div class="col-xs-6">
 						<p class="category">/IMPRESSION</p>
@@ -37,7 +37,7 @@
 			<li ng-show="event.data.spent_by_interaction">
 				<div class="row">
 					<div class="col-xs-6">
-						<p class="number">${{event.data.spent_by_interaction | number:2}}</p>
+						<p class="number">${{event.data.spent_by_interaction | number:0}}</p>
 					</div>
 					<div class="col-xs-6">
 						<p class="category">/INFLUENCE</p>
@@ -47,7 +47,7 @@
 			<li ng-show="event.data.spent_by_sample">
 				<div class="row">
 					<div class="col-xs-6">
-						<p class="number">${{event.data.spent_by_sample | number:2}}</p>
+						<p class="number">${{event.data.spent_by_sample | number:0}}</p>
 					</div>
 					<div class="col-xs-6">
 						<p class="category">/SAMPLE</p>
@@ -70,11 +70,11 @@
 	<div class="box-container" ng-show="(Male && Female) || showAge || showEthnicity">
 		<div class="row sex" ng-show="Male && Female">
 			<div class="col-xs-7 male blue">
-				<p class="percent">{{Male}}%</p>
+				<p class="percent">{{Male | number:0}}%</p>
 				<h5 class="blue">MALE</h5>
 			</div>
 			<div class="col-xs-5 female blue">
-				<p class="percent">{{Female}}%</p>
+				<p class="percent">{{Female | number:0}}%</p>
 				<h5 class="blue">FEMALE</h5>
 			</div>
 		</div>
