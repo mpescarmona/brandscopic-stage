@@ -1,44 +1,45 @@
 
 <!-- Dashboard Container --> 
-
-<div class="reference" ng-show="showDashboard && !loading">
-	<div class="container">
-		<div class="today">TODAY</div>
-		<div class="scheduled">SCHEDULED</div>
-		<div class="executed">EXECUTED</div>
+<div ng-show="showDashboard && !loading">
+	<div class="reference">
+		<div class="container">
+			<div class="today">TODAY</div>
+			<div class="scheduled">SCHEDULED</div>
+			<div class="executed">EXECUTED</div>
+		</div>
 	</div>
-</div>
-<div class="container" ng-repeat="item in dashboardItems">
-	<div class="box-container dashboard">
-		<div class="row">
-			<a href="#/home/dashboard/{{item.id}}">
-				<div class="col-xs-10">
-			    <p class="txtAdjust">{{item.name}}</p>
-			    <div class="chart-bar">
-			    	<div class="bar-indicator executed-indicator" style="left: {{item.executed_percentage}}%"></div>
-			    	<div class="bar-indicator scheduled-indicator" style="left: {{item.executed_percentage + item.scheduled_percentage}}%"></div>
+	<div class="container" ng-repeat="item in dashboardItems">
+		<div class="box-container dashboard">
+			<div class="row">
+				<a href="#/home/dashboard/{{item.id}}">
+					<div class="col-xs-10">
+				    <p class="txtAdjust">{{item.name}}</p>
+				    <div class="chart-bar">
+				    	<div class="bar-indicator executed-indicator" style="left: {{item.executed_percentage}}%"></div>
+				    	<div class="bar-indicator scheduled-indicator" style="left: {{item.executed_percentage + item.scheduled_percentage}}%"></div>
 
-				    <div class="progress">
-		  				<div class="bar bar-executed" style="width: {{item.executed_percentage}}%;"></div>
-		  				<div class="bar bar-scheduled" style="width: {{item.scheduled_percentage}}%;"></div>
-		  				<div class="bar bar-remaining" style="width: {{item.remaining_percentage}}%;"></div>
-		  			</div>
+					    <div class="progress">
+			  				<div class="bar bar-executed" style="width: {{item.executed_percentage}}%;"></div>
+			  				<div class="bar bar-scheduled" style="width: {{item.scheduled_percentage}}%;"></div>
+			  				<div class="bar bar-remaining" style="width: {{item.remaining_percentage}}%;"></div>
+			  			</div>
 
-		  			<div class="executed-label" style="margin-left: {{item.executed_percentage}}%">
-		  				<div><b>{{item.executed | number}}</b></div>
-		  			</div>
-		  			<div class="scheduled-label" style="float: right; margin-right: {{item.remaining_percentage}}%">
-		  				<div><b>{{item.scheduled | number}}</b></div>
-		  			</div>
-		  		</div>
-		  	</div>
-		  	<div class="col-xs-2">
-		  		<div class="remaining-label">
-		  			<b>{{item.remaining | number}}</b>
-						<span class="kpi-name">REMAINING<br/>{{item.kpi}}</span>
-					</div>
-	      </div>
-	    </a>
+			  			<div class="executed-label" style="margin-left: {{item.executed_percentage}}%">
+			  				<div><b>{{item.executed | number}}</b></div>
+			  			</div>
+			  			<div class="scheduled-label" style="float: right; margin-right: {{item.remaining_percentage}}%">
+			  				<div><b>{{item.scheduled | number}}</b></div>
+			  			</div>
+			  		</div>
+			  	</div>
+			  	<div class="col-xs-2">
+			  		<div class="remaining-label">
+			  			<b>{{item.remaining | number}}</b>
+							<span class="kpi-name">REMAINING<br/>{{item.kpi}}</span>
+						</div>
+		      </div>
+		    </a>
+			</div>
 		</div>
 	</div>
 </div>
