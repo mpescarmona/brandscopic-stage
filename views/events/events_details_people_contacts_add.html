@@ -2,14 +2,14 @@
 
 <div class="contacts_search">
 	<div class="container">
-		<input type="text" class="search placeholder-light" placeholder="Search" ng-model="search">
+		<input type="text" class="search placeholder-light" placeholder="Search" ng-model="search" typeahead="suggestion for suggestion in searchContacts($viewValue)">
 	</div>
 </div>
 
 <div class="container">
 	<div class="box-container np">
 		<ul class="eventsPeople add" go-to>
-			<li ng-repeat="contact in contacts | filter:search">
+			<li ng-repeat="contact in contacts">
 				<div class="row" ng-click="goTo('#/home/events/{{eventId}}/people/contacts/{{contact.id}}/view')">
 					<div class="col-xs-7">
 						<h5 class="txtAdjust">{{contact.full_name}}</h5>
