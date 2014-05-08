@@ -9,7 +9,7 @@
 		</div>
 	</div>
 	<div class="container" ng-repeat="item in dashboardItems">
-		<div class="box-container dashboard">
+		<div class="box-container dashboard individual">
 			<div class="row">
 				<a href="#/home/dashboard/{{item.id}}">
 					<div class="col-xs-10">
@@ -33,10 +33,11 @@
 			  		</div>
 			  	</div>
 			  	<div class="col-xs-2">
-			  		<div class="remaining-label">
+			  		<div class="remaining-label smaller">
 			  			<b>{{item.remaining | number}}</b>
-							<span class="kpi-name">REMAINING<br/>{{item.kpi}}</span>
-						</div>
+						<span class="kpi-name">REMAINING<br/>{{item.kpi}}</span>
+					</div>
+					<div class="noButton nextIcon pull-right"></div>
 		      </div>
 		    </a>
 			</div>
