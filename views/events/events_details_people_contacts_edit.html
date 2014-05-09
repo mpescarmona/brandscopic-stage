@@ -88,7 +88,7 @@
 						COUNTRY
 					</div>
 					<div class="col-xs-8 np">
-              	<select ng-model="selectedCountry" ng-options="country as country.name for country in countries" ng-change="countryHasChanged()" class="form-control clean arrow"></select>
+              	<select ng-model="selectedCountry" ng-options="country as country.name for country in countries | unitedStatesFirst" ng-change="countryHasChanged()" class="form-control clean arrow"></select>
 					  	<span ng-show="contact_error.country" ng-class="{error: contact_error.country}" ng-model="contact_error.country">{{contact_error.country.join()}}</span>
 					</div>				
 				</li>
