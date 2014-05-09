@@ -2,17 +2,17 @@
 
 <div class="container">
 	<div class="box-container venues">
-		<div class="score big pull-left">
+		<div class="score big pull-left" ng-show="venue.score">
 			<p class="blue">
 				<span class="score-number">{{venue.score | number:0}}</span><br>
 				SCORE
 			</p>
 		</div>
 		<h5 class="analysis">Fox and Hound Pub & Grill</h5>
-		<p class="medium clearfix mt25">{{analysis.narrative}}</p>
+		<p class="medium clearfix mt25" ng-show="analysis.narrative">{{analysis.narrative}}</p>
 		<ul class="stats simple">
 			<li>
-				<div class="row">
+				<div class="row" ng-show="analysis.events">
 					<div class="col-xs-5">
 						<p class="number">{{analysis.events | number:0}}</p>
 					</div>
@@ -22,7 +22,7 @@
 				</div>
 			</li>
 			<li>
-				<div class="row">
+				<div class="row" ng-show="analysis.promo_hours">
 					<div class="col-xs-5">
 						<p class="number">{{analysis.promo_hours | number:0}}</p>
 					</div>
@@ -32,7 +32,7 @@
 				</div>
 			</li>
 			<li>
-				<div class="row">
+				<div class="row" ng-show="analysis.impressions">
 					<div class="col-xs-5">
 						<p class="number">{{analysis.impressions | number:0}}</p>
 					</div>
@@ -42,7 +42,7 @@
 				</div>
 			</li>
 			<li>
-				<div class="row">
+				<div class="row" ng-show="analysis.interactions">
 					<div class="col-xs-5">
 						<p class="number">{{analysis.interactions | number:0}}</p>
 					</div>
@@ -52,7 +52,7 @@
 				</div>
 			</li>
 			<li>
-				<div class="row">
+				<div class="row" ng-show="analysis.sampled">
 					<div class="col-xs-5">
 						<p class="number">{{analysis.sampled | number:0}}</p>
 					</div>
@@ -65,7 +65,7 @@
 	</div>
 	<div class="dividersBar big">DEMOGRAPHICS</div>
 	<div class="box-container">
-		<div class="row sex">
+		<div class="row sex" ng-show="(analysis.gender.Male || analysis.gender.Female)">
 			<div class="col-xs-7 male blue">
 				<p class="percent">{{analysis.gender.Male | number:0}}%</p>
 				<h5 class="blue">MALE</h5>
@@ -75,18 +75,18 @@
 				<h5 class="blue">FEMALE</h5>
 			</div>
 		</div>
-		<div class="row highcharts-container">
+		<div class="row highcharts-container" ng-show="showAge">
             <highchart id="ageChart" config="ageChart" class="span10"></highchart>
 		</div>
-		<div class="row highcharts-container">
+		<div class="row highcharts-container" ng-show="showEthnicity">
             <highchart id="ethnicityChart" config="ethnicityChart" class="span10"></highchart>
 		</div>
 	</div>
-	<div class="dividersBar big">TRENDS BY DAY OF WEEK</div>
-	<div class="box-container">
+	<div class="dividersBar big" ng-show="analysis.trends_by_week.narrative || showTrends">TRENDS BY DAY OF WEEK</div>
+	<div class="box-container" ng-show="analysis.trends_by_week.narrative || showTrends">
 		<p class="medium">{{analysis.trends_by_week.narrative}}</p>
-		<div id="trends-day-week-graph"></div>
-            <highchart id="trendsChart" config="trendsChart" class="span10"></highchart>
+		<div id="trends-day-week-graph" ng-show="showTrends"></div>
+            <highchart id="trendsChart" config="trendsChart" class="span10" ng-show="showTrends"></highchart>
 	</div>
 </div>
 
