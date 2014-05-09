@@ -4,22 +4,22 @@
 	<div class="{{alert.style}}" alert-box content="{{alert.message}}">
 		<!--<p ng-bind-html="alert.message"></p> -->
 	</div>
-	<div class="google-map">
+	<div class="google-map" ng-show="event.place.latitude && event.place.longitude">
  		<map zoom-control="false" center="{{[event.place.latitude,event.place.longitude]}}" map-type-control='false' street-view-control="false" pan-control="false" styles={{map_styles}}>
 	  	<marker position="{{[event.place.latitude,event.place.longitude]}}" title="{{event.place.name||'venue'}}"></marker>
 	  	<a class="fullscreen" ng-click="openMap()"></a>
 	</div>
-	<div class="container">
+	<div class="container" ng-show="event.campaign.name && (event.start_date || event.start_time || event.end_time) && (event.place.name || event.place.formatted_address || event.place.state_name || event.place.state || event.place.zipcode)">
 		<div class="box-container events eventDetails">
-			<h5>{{event.campaign.name}}</h5>
-			<div class="date-data">
+			<h5 ng-show="event.campaign.name">{{event.campaign.name}}</h5>
+			<div class="date-data" ng-show="(event.start_date || event.start_time || event.end_time)">
 				{{event.start_date}}<br>
 				{{event.start_time}} - {{event.end_time}}
 			</div>
-			<div class="place-data">
+			<div class="place-data" ng-show="(event.place.name || event.place.formatted_address || event.place.state_name || event.place.state || event.place.zipcode)">
 				<a href="#" class="blue">{{event.place.name}}</a>
-				<div class="address">{{event.place.formatted_address}}</div>
-				<div class="state">{{event.place.state_name}}, {{event.place.state}}, {{event.place.zipcode}}</div>
+				<div class="address" ng-show="event.place.formatted_address">{{event.place.formatted_address}}</div>
+				<div class="state" ng-show="(event.place.state_name || event.place.state || event.place.zipcode)">{{event.place.state_name}}, {{event.place.state}}, {{event.place.zipcode}}</div>
 			</div>
 			<hr>
 			<button id="edit-button" type="button" class="btn-default btn-sm edit special" ng-click="editEvent()"></button>
