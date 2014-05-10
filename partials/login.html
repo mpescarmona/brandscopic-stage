@@ -82,6 +82,11 @@
           <button class="btn btn-danger" ng-disabled="loginForm.sendEmail.$invalid" ng-click="forgotPassword(user.email)">Send</button>
         </div>
       </div>
+      <div class="row" ng-show="sentEmail">
+        <div class="col-xs-12">
+          <p>We sent to you an email with instructions for restore your password.</p>
+        </div>
+      </div>
     </div>
   </flip-back>
 </flip>
