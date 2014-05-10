@@ -1,7 +1,8 @@
  
 <!-- Events Container -->
-<div when-scrolled="nextPage()" class="pages">
+<div when-scrolled="nextPage()" class="pages" ng-if="loadedEvents" keep-dates-on-top="eventsItems" events-items="eventsItems">
   <div class="container events-list" ng-repeat="event in eventsItems | orderBy:['start_date','start_time'] | groupBy:'start_date' | filter:event_status | filter:{status:'Active'}" ng-show="!UserInterface.searching">
+    <div id="sticky-anchor"></div>
     <div class="dividersBar" ng-show="event.start_date_CHANGED">{{event.start_date | eventDate}}</div>
     <div class="box-container events-list np" ng-show="!UserInterface.searching">
       <div class="events list swipe-list" go-to>
