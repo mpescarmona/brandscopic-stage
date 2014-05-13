@@ -7,9 +7,9 @@
   		</textarea>
       <span ng-show="comment_error.content" ng-class="{error: comment_error.content}" ng-model="comment_error.content">{{comment_error.content.join()}}</span>        
     </div>
-    <div class="row">
+    <div class="row footer">
       <div class="col-xs-12">
-        <input type="submit" value="save" data-trigger-on-header='save' class="btn btn-danger" ng-click="handleSaveButtonClick(comment)">
+        <input type="submit" value="Save" data-trigger-on-header='save' class="btn btn-danger" ng-click="handleSaveButtonClick(comment)">
       </div>
     </div>
   </form>

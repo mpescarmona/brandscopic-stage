@@ -31,11 +31,11 @@
       <div class="loading" ng-show="loading">
       </div>
       <!-- No Event team -->
-      <div class="empty" ng-show="showPeople=='team' && !showEventTeam && !loading"> 
+      <div class="empty people" ng-show="showPeople=='team' && !showEventTeam && !loading"> 
         <span class="no-event-team"></span>
         <h4>No Event team</h4>
         <h6>There isn't anyone on the event team</h6>
-        <h6><b>Tip:</b> Tap the <span class="glyphicon glyphicon-plus"></span> button above to add<br>users or teams to the event.</h6>
+        <h6 class="tip"><b>Tip:</b> Tap the <span class="glyphicon glyphicon-plus"></span> button above to add<br>users or teams to the event.</h6>
       </div>
       <!-- End No Event team -->
     </div>
@@ -66,11 +66,11 @@
       <div class="loading" ng-show="loading">
       </div>
       <!-- No Contacts -->
-      <div class="empty" ng-show="(showPeople=='contacts') && (!showEventContact) && (!loading)"> 
+      <div class="empty people" ng-show="(showPeople=='contacts') && (!showEventContact) && (!loading)"> 
         <span class="no-contacts"></span>
         <h4>No Contacts</h4>
         <h6>There aren't any contacts for the event</h6>
-        <h6><b>Tip:</b> Tap the <span class="glyphicon glyphicon-plus"></span> button above to add a<br>contact to the event.</h6>
+        <h6 class="tip"><b>Tip:</b> Tap the <span class="glyphicon glyphicon-plus"></span> button above to add a<br>contact to the event.</h6>
       </div>
       <!-- End No Contacts -->
   	</div>
