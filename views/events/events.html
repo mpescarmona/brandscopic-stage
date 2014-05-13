@@ -13,7 +13,7 @@
 	</div>
 
 	<div ng-show="showEvents" class="showEvents" infinite-scroll="nextPage()" infinite-scroll-disabled="isLoadingEvents()" infinite-scroll-immediate-check="false">
-		<scopic-event-filter filter="filter" events-items="eventsItems"></scopic-event-filter>
+		<scopic-event-filter loaded-events="loadedEvents" filter="filter" events-items="eventsItems"></scopic-event-filter>
 	</div>
 
 	<!-- Loading -->

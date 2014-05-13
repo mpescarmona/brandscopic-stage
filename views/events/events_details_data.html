@@ -8,8 +8,8 @@
 		<a id="showMore" ng-show="showMoreTextLink" class="blue" ng-click="showMoreText()" href=""></a>
 	</div>
  
-	<div class="dividersBar big">CONSUMER REACH</div>
-	<div class="box-container events data">
+	<div class="dividersBar big" ng-show="showConsumer">CONSUMER REACH</div>
+	<div class="box-container events data" ng-show="showConsumer">
 		<div class="category" ng-repeat="results in eventResultsItems | filter:{module: 'consumer_reach'}| orderBy:['ordering']">
 				<!-- <label class="medium">{{results.label}}</label> -->
 			<div ng-repeat="field in results.fields">
@@ -75,8 +75,8 @@
 		</div>
 	</div>
  
-	<div class="dividersBar big">DEMOGRAPHICS</div>
-	<div class="box-container events data">
+	<div class="dividersBar big" ng-show="showDemographics">DEMOGRAPHICS</div>
+	<div class="box-container events data" ng-show="showDemographics">
 		<div class="category" ng-repeat="results in eventResultsItems | filter:{module: 'demographics'}| orderBy:['ordering']">
 				<!-- <label class="medium">{{results.label}}</label> -->
 			<div ng-repeat="field in results.fields">
@@ -144,8 +144,8 @@
 		</div>
 	</div>
 
-	<div class="dividersBar big"></div>
-	<div class="box-container events data">
+	<div class="dividersBar big" ng-show="showCustom"></div>
+	<div class="box-container events data" ng-show="showCustom">
 		<div class="category" ng-repeat="results in eventResultsItems | filter:{module: 'custom'}| orderBy:['ordering']">
 				<!-- <label class="medium">{{results.label}}</label> -->
 			<div ng-repeat="field in results.fields">
@@ -215,7 +215,7 @@
 
 	<div class="row">
 	  <div class="col-xs-12">
-          <input type="submit" value="save" class="btn btn-danger hide" data-trigger-on-header='save' ng-click="updateEventData(eventResultsItems)">
+          <input type="submit" value="save" class="btn btn-danger" data-trigger-on-header='save' ng-click="updateEventData(eventResultsItems)">
 	  </div>
 	</div>
 	</form>
