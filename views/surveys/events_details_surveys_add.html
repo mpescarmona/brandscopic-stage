@@ -113,8 +113,8 @@
 		    	</select>
 			</div>
 
-			<button id="buttonSave" data-trigger-on-header='save' class=" hide btn btn-danger" ng-click="createSurvey()">Save</button>
-			<button id="buttonSave" data-trigger-on-header='edit' class=" hide btn btn-danger" ng-click="editSurvey()">Save</button>
+			<button id="buttonSave" ng-show="UserInterface.hasSaveIcon" data-trigger-on-header='save' class="btn btn-danger" ng-click="createSurvey()">Save</button>
+			<button id="buttonSave" ng-show="UserInterface.hasEditSurveyIcon" data-trigger-on-header='edit' class="btn btn-danger" ng-click="editSurvey()">Save</button>
 		</form>
 	</div>
 </div>
