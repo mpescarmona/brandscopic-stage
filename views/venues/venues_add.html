@@ -83,12 +83,12 @@
 				<span ng-show="!angular.isUndefined(venue_error) && venue_error.zipcode" ng-class="{error: venue_error.zipcode}" ng-model="venue_error.zipcode">{{venue_error.zipcode.join()}}</span>
 		  </div>
 		</div>
-	    <div class="row">
-	      <div class="col-xs-12">
-            <input type="submit" value="save" data-trigger-on-header='save' class="btn btn-danger" ng-click="createVenue(venue)">
-	      </div>
-	    </div>
-		</form>
 	</div>
+    <div class="row footer">
+      <div class="col-xs-12">
+        <input type="submit" value="Save" data-trigger-on-header='save' class="btn btn-danger" ng-click="createVenue(venue)">
+      </div>
+    </div>
+	</form>
 </div>
 </needs-permissions>
