@@ -1,7 +1,8 @@
 <needs-permissions provider="{{permissionsProvider}}">
 <div class="container">
-	<div class="box-container events surveys">
-		<form name="surveyForm" novalidate>
+	<form name="surveyForm" novalidate>
+		<div class="box-container events surveys">
+		
 			<h5>Demographics</h5>
 
 			<p class="mt20">Gender</p>
@@ -113,9 +114,11 @@
 		    	</select>
 			</div>
 
-			<button id="buttonSave" ng-show="UserInterface.hasSaveIcon" data-trigger-on-header='save' class="btn btn-danger" ng-click="createSurvey()">Save</button>
 			<button id="buttonSave" ng-show="UserInterface.hasEditSurveyIcon" data-trigger-on-header='edit' class="btn btn-danger" ng-click="editSurvey()">Save</button>
-		</form>
-	</div>
+		</div>
+		<div class="row footer">
+			<button id="buttonSave" ng-show="UserInterface.hasSaveIcon" data-trigger-on-header='save' class="btn btn-danger" ng-click="createSurvey()">Save</button>
+		</div>
+	</form>
 </div>
 </needs-permissions>
