@@ -1,13 +1,15 @@
 
 <!-- Dashboard Container --> 
-<div ng-show="showDashboard && !loading">
-	<div class="reference">
-		<div class="container">
-			<div class="today hidden">TODAY</div>
-			<div class="scheduled">SCHEDULED</div>
-			<div class="executed">EXECUTED</div>
-		</div>
+
+<div class="reference">
+	<div class="container">
+		<div class="today hidden">TODAY</div>
+		<div class="scheduled">SCHEDULED</div>
+		<div class="executed">EXECUTED</div>
 	</div>
+</div><!-- end legend -->
+
+<div ng-show="showDashboard && !loading">
 	<div class="container" ng-repeat="item in dashboardItems">
 		<div class="box-container dashboard individual">
 			<div class="row">
