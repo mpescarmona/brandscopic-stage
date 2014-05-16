@@ -76,10 +76,10 @@
 </flip>
 </form>
 
-<div class="instructable-container" ng-show="!keyboardIsShown">
+<div class="instructable-container" ng-show="!keyboardIsShown && !userClosedTheTooltip">
   <div class="instructable">
     <p>Add Brandscopic.com to your Home screen</p>
-    <div class="close-tooltip">
+    <div class="close-tooltip" ng-click="closeTooltip()">
       <img src="assets/images/close.svg"></img>
     </div>
   </div>
