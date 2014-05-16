@@ -58,7 +58,6 @@
         </div>
         <p class="centerTxt" ng-show="wrongUser">
           <span class="error">Whoops!</span> Email for reset password could not be send.</p>
-        <p ng-show="sentEmail">We sent to you an email with instructions for restore your password.</p>
         <div class="col-xs-12 field-block" input-reset>
           <div class="field-block">
             <input type="email" placeholder="Email" ng-model="user.email" class="email type-input" name="sendEmail" fires-focus-callbacks in-callback="keyboardIsOn" out-callback="keyboardIsOff" required>
@@ -71,6 +70,7 @@
           <button class="btn btn-danger" ng-click="forgotPassword(user.email)">Send</button>
         </div>
       </div>
+      <p ng-show="sentEmail" class="mt25">We sent to you an email with instructions for restore your password.</p>
     </div>
   </flip-back>
 </flip>
