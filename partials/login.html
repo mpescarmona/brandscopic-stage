@@ -12,12 +12,12 @@
         </p>
         <div class="col-xs-12">
           <div class="field-block" input-reset>
-            <input class="email not-rounded type-input" ng-class="error" type="email" placeholder="Email" ng-model="user.email" name="email" required tabindex="1">
+            <input class="email not-rounded type-input" ng-class="error" type="email" placeholder="Email" ng-model="user.email" name="email" required tabindex="1" fires-focus-callbacks in-callback="keyboardIsOn" out-callback="keyboardIsOff">
             <a href="#" class="type-reset hidden"></a>
           </div>
 
           <div class="field-block" input-reset>
-            <input class="password type-input" ng-class="error" type="password" placeholder="Password" ng-model="user.password" tabindex="2">
+            <input class="password type-input" ng-class="error" type="password" placeholder="Password" ng-model="user.password" tabindex="2" fires-focus-callbacks in-callback="keyboardIsOn" out-callback="keyboardIsOff">
             <a href="#" class="type-reset hidden"></a>
           </div>
         </div>
@@ -61,7 +61,7 @@
         <p ng-show="sentEmail">We sent to you an email with instructions for restore your password.</p>
         <div class="col-xs-12 field-block" input-reset>
           <div class="field-block">
-            <input type="email" placeholder="Email" ng-model="user.email" class="email type-input" name="sendEmail" required>
+            <input type="email" placeholder="Email" ng-model="user.email" class="email type-input" name="sendEmail" fires-focus-callbacks in-callback="keyboardIsOn" out-callback="keyboardIsOff" required>
             <a class="type-reset" href="#"></a>
           </div>
         </div>
@@ -76,7 +76,7 @@
 </flip>
 </form>
 
-<div class="instructable-container">
+<div class="instructable-container" ng-show="!keyboardIsShown">
   <div class="instructable">
     <p>Add Brandscopic.com to your Home screen</p>
     <div class="close-tooltip">
@@ -85,7 +85,7 @@
   </div>
 </div>
 <!--
-<div show-once="instructableScreen" class="instructable-container" ng-show="isInIOS()">
+<div show-once="instructableScreen" class="instructable-container" ng-show="isInIOS() && !keyboardIsShown">
   <div class="instructable">
     <p>Add Brandscopic.com to your Home screen</p>
   </div>
