@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="brandscopicApp">
+<html lang="en" ng-app="brandscopicApp" ng-controller="IndexController">
   <head>
     <link rel="stylesheet" href="assets/stylesheets/lato.css"/>
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
     <script src="js/google.maps.js"></script>
 
     <!-- Meta Vieport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, {{getMinimalUi()}}"/>
 
     <!-- Favicons -->
       <!-- third-generation iPad with high-resolution Retina display: -->
