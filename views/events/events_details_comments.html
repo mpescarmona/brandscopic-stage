@@ -3,13 +3,13 @@
 <div class="container">
 	<div class="box-container np">
 		<ul class="comments">
-			<li ng-repeat="comment in comments | orderBy:'created_at':true" class="expandible-comment" ng-class="{'expanded': expand, 'collapsed': !expand, lastItem: $last}">
+			<li ng-repeat="comment in comments | orderBy:'created_at':true" class="expandible-comment" ng-class="{'expanded': expand, 'collapsed': !expand, lastItem: $last}" ng-click="handleCommentTap(comment)">
 				<div class="margin-data">
 					<p class="comment-date small">{{comment.created_at | timeago}}</p>
 					<p class="clearfix medium">{{comment.content}}</p>
 					<span class="blue full-comment" ng-click="expand = !expand" data-content-expanded="Collapse comment" data-content-collapsed="Show full comment"></span>
 				</div>
-				<div class="editpanel">
+				<div class="editpanel actions-panel" ng-show="comment.tapped">
 					<button class="noButton edit" ng-click="editComment(comment)"></button>
 					<button class="noButton deactivate" ng-click="deleteComment(comment)"></button>
 				</div>

@@ -1,6 +1,9 @@
 <form name="loginForm" novalidate>
-<flip horizontal>
+<flip horizontal style="z-index: 999">
   <flip-front>
+    <div style="height: 100vh; width:100%; background-color: 'blue';" ng-show="showLoadingScreen">
+      Loading
+    </div>
     <!-- START LOGIN -->
     <div class="container login">
       <div class="row">
