@@ -38,7 +38,7 @@
        
       </script>
   </head>
-  <body ng-controller="MainController" ng-class="{loginLayout: !UserService.isLogged(), appLayout: UserService.isLogged()}">
+  <body ng-controller="MainController" ng-class="{appLayout: UserService.isLogged()}">
 
       <div ui-view></div>
 

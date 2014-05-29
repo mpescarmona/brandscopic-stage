@@ -1,93 +1,91 @@
-<form name="loginForm" novalidate>
-<flip horizontal style="z-index: 999">
-  <flip-front>
-    <div style="height: 100vh; width:100%; background-color: 'blue';" ng-show="showLoadingScreen">
-      Loading
-    </div>
-    <!-- START LOGIN -->
-    <div class="container login">
-      <div class="row">
-        <div class="brand">
-            <img src="assets/images/brand.svg" alt="Brandscopic" class="img-responsive">
-        </div>
-        <p class="centerTxt m10" ng-show="wrongUser">
-          <span class="error">Whoops!</span> Email/Password are not found.
-        </p>
-        <div class="col-xs-12">
-          <div class="field-block" input-reset>
-            <input class="email not-rounded type-input" ng-class="error" type="email" placeholder="Email" ng-model="user.email" name="email" required tabindex="1" fires-focus-callbacks in-callback="keyboardIsOn" out-callback="keyboardIsOff">
-            <a href="#" class="type-reset hidden"></a>
+<div class="loginLayout">
+  <form name="loginForm" novalidate>
+  <flip horizontal style="z-index: 999">
+    <flip-front>
+      <!-- START LOGIN -->
+      <div class="container login">
+        <div class="row">
+          <div class="brand">
+              <img src="assets/images/brand.svg" alt="Brandscopic" class="img-responsive">
           </div>
+          <p class="centerTxt m10" ng-show="wrongUser">
+            <span class="error">Whoops!</span> Email/Password are not found.
+          </p>
+          <div class="col-xs-12">
+            <div class="field-block" input-reset>
+              <input class="email not-rounded type-input" ng-class="error" type="email" placeholder="Email" ng-model="user.email" name="email" required tabindex="1" fires-focus-callbacks in-callback="keyboardIsOn" out-callback="keyboardIsOff">
+              <a href="#" class="type-reset hidden"></a>
+            </div>
 
-          <div class="field-block" input-reset>
-            <input class="password type-input" ng-class="error" type="password" placeholder="Password" ng-model="user.password" tabindex="2" fires-focus-callbacks in-callback="keyboardIsOn" out-callback="keyboardIsOff">
-            <a href="#" class="type-reset hidden"></a>
+            <div class="field-block" input-reset>
+              <input class="password type-input" ng-class="error" type="password" placeholder="Password" ng-model="user.password" tabindex="2" fires-focus-callbacks in-callback="keyboardIsOn" out-callback="keyboardIsOff">
+              <a href="#" class="type-reset hidden"></a>
+            </div>
+          </div>
+          <div class="col-xs-12">
+            <button class="btn btn-danger" ng-click="validateApiUser()">Login</button>
           </div>
         </div>
-        <div class="col-xs-12">
-          <button class="btn btn-danger" ng-click="validateApiUser()">Login</button>
+        <div class="col-xs-12 forgot">
+          <div class="col-xs-6">
+            <div class="checkbox-selector">
+              <div class="checkbox clearfix">
+                <input type="checkbox" id="loginCheckbox" name="logged" value="logged" ng-model="shouldKeepLoggedIn" ng-change="handleKeepMeLoggedInClicked(shouldKeepLoggedIn)">
+                <label for="loginCheckbox">Keep me logged in</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <button flip-toggle class="noButton">Forgot password?</button>
+          </div>
         </div>
       </div>
-      <div class="col-xs-12 forgot">
-        <div class="col-xs-6">
-          <div class="checkbox-selector">
-            <div class="checkbox clearfix">
-              <input type="checkbox" id="loginCheckbox" name="logged" value="logged" ng-model="shouldKeepLoggedIn" ng-change="handleKeepMeLoggedInClicked(shouldKeepLoggedIn)">
-              <label for="loginCheckbox">Keep me logged in</label>
+    </flip-front>
+
+    <flip-back>
+      <!-- START RESET PASSWORD -->
+      <div class="navHeader">
+        <div class="left">
+          <button flip-toggle class="noButton backIcon"></button>
+        </div>
+        <div class="center">
+          <h1>Reset Password</h1>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <p>Enter your email and we'll send you<br>instructions to help you reset your password.</p>
+          </div>
+          <p class="centerTxt" ng-show="wrongUser">
+            <span class="error">Whoops!</span> Email for reset password could not be send.</p>
+          <div class="col-xs-12 field-block" input-reset>
+            <div class="field-block">
+              <input type="email" placeholder="Email" ng-model="user.email" class="email type-input" name="sendEmail" fires-focus-callbacks in-callback="keyboardIsOn" out-callback="keyboardIsOff" required>
+              <a class="type-reset" href="#"></a>
             </div>
           </div>
         </div>
-        <div class="col-xs-6">
-          <button flip-toggle class="noButton">Forgot password?</button>
-        </div>
-      </div>
-    </div>
-  </flip-front>
-
-  <flip-back>
-    <!-- START RESET PASSWORD -->
-    <div class="navHeader">
-      <div class="left">
-        <button flip-toggle class="noButton backIcon"></button>
-      </div>
-      <div class="center">
-        <h1>Reset Password</h1>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <p>Enter your email and we'll send you<br>instructions to help you reset your password.</p>
-        </div>
-        <p class="centerTxt" ng-show="wrongUser">
-          <span class="error">Whoops!</span> Email for reset password could not be send.</p>
-        <div class="col-xs-12 field-block" input-reset>
-          <div class="field-block">
-            <input type="email" placeholder="Email" ng-model="user.email" class="email type-input" name="sendEmail" fires-focus-callbacks in-callback="keyboardIsOn" out-callback="keyboardIsOff" required>
-            <a class="type-reset" href="#"></a>
+        <div class="row">
+          <div class="col-xs-12">
+            <button class="btn btn-danger" ng-click="forgotPassword(user.email)">Send</button>
           </div>
         </div>
+        <p ng-show="sentEmail" class="mt25">We sent to you an email with instructions for restore your password. Please check your inbox.</p>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <button class="btn btn-danger" ng-click="forgotPassword(user.email)">Send</button>
-        </div>
+    </flip-back>
+  </flip>
+  </form>
+
+  <!-- TOOLTIP FOR ADD TO HOMESCREEN -->
+
+  <div show-once="instructableScreen" class="instructable-container" ng-show="isInIOS() && !keyboardIsShown && !userClosedTheTooltip">
+    <div class="instructable">
+      <p>Add Brandscopic.com to your Home screen</p>
+      <div class="close-tooltip" ng-click="closeTooltip()">
+        <img src="assets/images/close.svg"></img>
       </div>
-      <p ng-show="sentEmail" class="mt25">We sent to you an email with instructions for restore your password. Please check your inbox.</p>
-    </div>
-  </flip-back>
-</flip>
-</form>
-
-<!-- TOOLTIP FOR ADD TO HOMESCREEN -->
-
-<div show-once="instructableScreen" class="instructable-container" ng-show="isInIOS() && !keyboardIsShown && !userClosedTheTooltip">
-  <div class="instructable">
-    <p>Add Brandscopic.com to your Home screen</p>
-    <div class="close-tooltip" ng-click="closeTooltip()">
-      <img src="assets/images/close.svg"></img>
     </div>
   </div>
 </div>
-
 
