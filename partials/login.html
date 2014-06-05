@@ -79,7 +79,7 @@
 
   <!-- TOOLTIP FOR ADD TO HOMESCREEN -->
 
-  <div show-once="instructableScreen" class="instructable-container" ng-show="isInIOS() && !keyboardIsShown && !userClosedTheTooltip">
+  <div show-once="instructableScreen" class="instructable-container" ng-show="isInIOS() && !keyboardIsShown && !userClosedTheTooltip && !userLoggedIn">
     <div class="instructable">
       <p>Add Brandscopic.com to your Home screen</p>
       <div class="close-tooltip" ng-click="closeTooltip()">
