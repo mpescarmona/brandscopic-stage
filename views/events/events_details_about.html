@@ -17,7 +17,7 @@
 				{{event.start_time}} - {{event.end_time}}
 			</div>
 			<div class="place-data" ng-show="(event.place.name || event.place.formatted_address || event.place.state_name || event.place.state || event.place.zipcode)">
-				<a href="#" class="blue">{{event.place.name}}</a>
+				<a href="" class="blue" ng-click="goToVenue(event.place.id)">{{event.place.name}}</a>
 				<div class="address" ng-show="event.place.formatted_address">{{event.place.formatted_address}}</div>
 				<div class="state" ng-show="(event.place.state_name || event.place.state || event.place.zipcode)">{{event.place.state_name}}, {{event.place.state}}, {{event.place.zipcode}}</div>
 			</div>
