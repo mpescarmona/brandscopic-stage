@@ -1,7 +1,7 @@
 
 <!-- EXPENSES PAGE -->   
  <needs-permissions provider="eventsExpensesPermissionsService">
-<div class="container">
+<div class="container" ng-show="showExpenses">
 	<div class="box-container np events expenses">
 		<ul class="events list swipe-list">
 			<li ng-repeat="expense in expenses">
