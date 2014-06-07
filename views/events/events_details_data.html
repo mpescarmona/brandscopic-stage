@@ -1,7 +1,7 @@
 <!-- Events - DATA VIEW (BEFORE) -->
  
 <div class="container">
-	<form novalidate>
+	<form novalidate ng-show="showEventDataForm">
 	<div class="dividersBar big">SUMMARY</div>
 	<div class="box-container events data">
 		<textarea id="dataSummary" scopic-auto-expand="isActive" style="resize: none; overflow:hidden;" rows="5" cols="30" class="placeholder-light clean" placeholder="Write a summary" ng-model="event.summary"></textarea>
