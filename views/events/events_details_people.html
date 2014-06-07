@@ -28,7 +28,7 @@
         </li>
       </ul>
       <!-- Loading -->
-      <div class="loading" ng-show="loading">
+      <div class="loading bg-grey people" ng-show="loading">
       </div>
       <!-- No Event team -->
       <div class="empty people" ng-show="showPeople=='team' && !showEventTeam && !loading"> 
@@ -62,9 +62,6 @@
           </div>
   			</li>
   		</ul>
-      <!-- Loading -->
-      <div class="loading" ng-show="loading">
-      </div>
       <!-- No Contacts -->
       <div class="empty people" ng-show="(showPeople=='contacts') && (!showEventContact) && (!loading)"> 
         <span class="no-contacts"></span>
@@ -75,5 +72,8 @@
       <!-- End No Contacts -->
   	</div>
   </div>
+  <!-- Loading -->
+    <div class="loading bg-grey people" ng-show="loading">
+    </div>
 </needs-permissions>
 
